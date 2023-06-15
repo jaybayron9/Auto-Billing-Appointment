@@ -84,7 +84,30 @@
 									Book Yor Car Now
 								</div>
 							</button>
-							<div id="add" class="modal fade" role="dialog">
+						</h3>
+						<span class="wc-des"></span>
+						<span class="wc-stats"></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-6">
+				<div class="widget-card widget-bg4 btn green" style=" padding: 43px 65px;">
+					<div class="icon">
+						<i class="ti-list"></i>
+					</div>
+					<div class="wc-item">
+						<h3 class="wc-title">
+							<a href="?vs=car-list">List of Cars</a>
+						</h3>
+						<span class="wc-des"></span>
+						<span class="wc-stats"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="add" class="modal fade" role="dialog">
 			<form class="edit-profile m-b30" method="POST" enctype="multipart/form-data">
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
@@ -150,13 +173,6 @@
 									<label class="col-form-label">Repair</label>
 									<select class="form-control" name="repair" required style="color: black!important;">
 										<option value="">-- Please select --</option>
-										<?php
-										$query = mysqli_query($conn, "select * from repair");
-										while ($row = mysqli_fetch_array($query)) {
-										?>
-											<option value="<?php echo $row['ps']; ?>"><?php echo $row['ps']; ?></option>
-
-										<?php } ?>
 									</select>
 
 									<label class="col-form-label">Time</label>
@@ -177,28 +193,6 @@
 				</div>
 			</form>
 		</div>
-						</h3>
-						<span class="wc-des"></span>
-						<span class="wc-stats"></span>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-6">
-				<div class="widget-card widget-bg4 btn green" style=" padding: 43px 65px;">
-					<div class="icon">
-						<i class="ti-list"></i>
-					</div>
-					<div class="wc-item">
-						<h3 class="wc-title">
-							<a href="list.php">List of Cars</a>
-						</h3>
-						<span class="wc-des"></span>
-						<span class="wc-stats"></span>
-					</div>
-				</div>
-			</div>
-		</div>
 
 		<div id="email" class="modal fade" role="dialog">
 			<form class="edit-profile m-b30" action="" method="POST" enctype="multipart/form-data">
@@ -211,22 +205,10 @@
 						<div class="modal-body">
 							<div class="row">
 								<div class="form-group col-12">
-
-									<?php
-									$query = mysqli_query($conn, "select * from client_info WHERE email='" . $_SESSION['clogin'] . "'");
-									$cnt = 1;
-									while ($row = mysqli_fetch_array($query)) {
-									?>
-
-										<label class="col-form-label">Your Email</label>
-										<input class="form-control" type="text" value="" name="email" style="background-color: white;">
-
-									<?php $cnt = $cnt + 1;
-									} ?>
-
+									<label class="col-form-label">Your Email</label>
+									<input class="form-control" type="text" value="" name="email" style="background-color: white;">
 									<label class="col-form-label">Message</label>
 									<input class="form-control" type="text" name="message" style="background-color: white;">
-
 								</div>
 							</div>
 						</div>

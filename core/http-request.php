@@ -7,6 +7,7 @@ $response = [
     'register' => ['obj' => new Auth(), 'method' => 'register'],
     'forgot_password' => ['obj' => new Auth(), 'method' => 'forgot_password'],
     'logout' => ['obj' => new Auth(), 'method' => 'logout'],
+    'add_employee' => ['obj' => new Employee(), 'method' => 'add_employee'],
 ];
 
 http($request, $response); 
