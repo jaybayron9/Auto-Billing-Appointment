@@ -47,7 +47,7 @@ function core($file) {
     return "core/{$file}.php";
 }
 
-function http($action, $exfunc) {
+function HTTPR($action, $exfunc) {
     if (array_key_exists($action, $exfunc)) {
         echo call_user_func_array([
                 $exfunc[$action]['obj'], 

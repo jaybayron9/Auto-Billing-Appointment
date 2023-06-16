@@ -91,7 +91,7 @@
 
                 <div class="row">
                     <div class="picture col-xl-4 col-lg-4 video-box d-flex justify-content-center align-items-stretch position-relative">
-                        <img src="./client/assets/img/about.png" alt="service img">
+                        <img src="assets/images/about.png" alt="service img">
                     </div>
 
                     <div class="about-img col-xl-5 col-lg-5 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5">

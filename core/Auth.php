@@ -4,22 +4,21 @@ class Auth extends DBConn {
     public function login() {
         extract($_POST);
 
-        $admin = parent::$conn->query("SELECT * FROM admin_info WHERE email = '{$email}' AND password = '{$password}' LIMIT 1");
-        $employee = parent::$conn->query("SELECT * FROM employee_info WHERE email = '{$email}' AND password = '{$password}' LIMIT 1");
-        $client = parent::$conn->query("SELECT * FROM client_info WHERE email = '{$email}' AND password = '{$password}' LIMIT 1");
+        $admin = parent::select('admin_info', '*', ['email' => $email, 'password' => $password], null, 1);
+        $employee = parent::select('employee_info', '*', ['email' => $email, 'password' => $password], null, 1);
+        $client = parent::select('client_info', '*', ['email' => $email, 'password' => $password], null, 1);
 
-        if ($admin->num_rows > 0) {
-            $_SESSION['admin_auth'] = mysqli_fetch_array($admin)['id'];
+        if (count($admin) > 0) {
+            $_SESSION['admin_auth'] = $admin[0]['id'];
             echo 'go_to_admin';
             
-        } else if ($employee->num_rows > 0) {
-            $_SESSION['employee_auth'] = mysqli_fetch_array($employee)['id'];
+        } else if (count($employee) > 0) {
+            $_SESSION['employee_auth'] = $employee[0]['id'];
             echo 'go_to_employee';
 
-        } else if ($client->num_rows > 0) {
-            $_SESSION['client_auth'] = mysqli_fetch_array($client)['id'];
+        } else if (count($client) > 0) {
+            $_SESSION['client_auth'] = $client[0]['id'];
             echo 'go_to_client';
-            
         } 
 
         $_SESSION['email_auth'] = $email;
@@ -27,7 +26,42 @@ class Auth extends DBConn {
     }
 
     public function register() {
-        
+        extract($_POST);
+
+        $checkEmail = parent::select('client_info', '*', ['email' => $email], null, 1);
+
+        if (count($checkEmail) > 0) {
+            return parent::alert('error', 'Email is already registered.');
+        } else if (strlen($phone) == 11 && preg_match("/^[A-Za-z]{3}[-\s]?\d{4}$/", $plateNumber) && preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).*$/", $password) && $password == $repassword) {
+            $client = parent::insert('client_info', [
+                'name' => $name,
+                'email' => $email,
+                'address' => $address,
+                'phone' => $phone,
+                'password' => $password
+            ]);
+
+            if (!$client) {
+                $id = parent::select('client_info', 'id', ['email' => $email, 'password' => $password], null, 1);
+                parent::insert('cars', [
+                    'user_id' => $id[0]['id'],
+                    'plate_no' => $plateNumber,
+                    'car_brand' => $brand,
+                    'car_model' => $carModel,
+                    'car_type' => $carType,
+                    'fuel_type' => $fuelType,
+                    'color' => $carColor,
+                    'trans_type' => $transType,
+                ]);
+
+                $_SESSION['client_auth'] = $id[0]['id'];
+                $_SESSION['email_auth'] = $email;
+                return parent::alert('success', 'Employee Added!');
+            }
+
+            return parent::alert('error', 'Error, Please try again.');
+        } 
+        return parent::alert('error', 'Please enter a valid format foreach field.');
     }
 
     public function logout() {

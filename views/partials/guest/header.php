@@ -17,22 +17,19 @@
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-
 	<!-- Vendor CSS Files -->
-	<link href="client/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-	<link href="client/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
-	<link href="client/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="client/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-	<link href="client/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-	<link href="client/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-	<link href="client/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-	<link href="client/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+	<link href="assets/client/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+	<link href="assets/client/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+	<link href="assets/client/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/client/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+	<link href="assets/client/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+	<link href="assets/client/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+	<link href="assets/client/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+	<link href="assets/client/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
 	<!-- Template Main CSS File -->
 	<script src="https://kit.fontawesome.com/e02ccf2d8a.js" crossorigin="anonymous"></script>
-	<link href="client/assets/css/style.css" rel="stylesheet">
-	<!-- <script src="https://cdn.tailwindcss.com"></script> -->
-
+	<link href="assets/client/assets/css/style.css" rel="stylesheet">
 </head>
 <body>
     

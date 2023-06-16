@@ -31,7 +31,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <!-- Login Form -->
-            <form action="index.php" method="POST" enctype="multipart/form-data">
+            <form id="register-form">
                 <div class="modal-header">
                     <h5 class="modal-title">Create an Account</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -44,73 +44,78 @@
 
                     <div class="mb-3">
                         <label for="Email"><span class="text-danger"></span></label>
-                        <input type="email" name="email" class="form-control" id="Email" placeholder="Enter Email" required>
+                        <input type="email" name="email" id="Email" class="form-control" placeholder="Enter Email" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="Name"><span class="text-danger"></span></label>
-                        <input type="text" name="address" class="form-control" id="address" placeholder="Enter Address" required>
+                        <label for="address"><span class="text-danger"></span></label>
+                        <input type="text" name="address" id="address" class="form-control" placeholder="Enter Address" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="Phone"><span class="text-danger"></span></label>
-                        <input type="Number" name="phone" class="form-control" id="Phone" placeholder="Enter Phone Number" required>
+                        <label for="phone"><span class="text-danger"></span></label>
+                        <input type="text" name="phone" id="phone" maxlength="11" class="form-control number" placeholder="Enter Phone Number" required>
+                        <span class="msgphone" style="color: red;"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label for="Email"><span class="text-danger"></span></label>
-                        <input type="text" name="car" class="form-control" id="car" placeholder="Plate Number" required>
-
+                        <label for="plateNumber"><span class="text-danger"></span></label>
+                        <input type="text" name="plateNumber" id="plateNumber" maxlength="8" class="form-control plateNumber" placeholder="Plate Number" required>
+                        <span class="msgPlateNumber" style="color: red;"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label for="Email"><span class="text-danger"></span></label>
-                        <input type="text" name="car" class="form-control" id="car" placeholder="Enter Car Brand" required>
-
+                        <label for="brand"><span class="text-danger"></span></label>
+                        <input type="text" name="brand" id="brand" class="form-control" placeholder="Enter Car Brand" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="Email"><span class="text-danger"></span></label>
-                        <input type="text" name="car" class="form-control" id="car" placeholder="Enter Car Model" required>
+                        <label for="carmodel"><span class="text-danger"></span></label>
+                        <input type="text" name="carModel" id="carmodel" class="form-control" placeholder="Enter Car Model" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="Email"><span class="text-danger"></span></label>
-                        <input type="text" name="car" class="form-control" id="car" placeholder="Type of car" required>
+                        <label for="cartype"><span class="text-danger"></span></label>
+                        <select type="text" name="carType" id="cartype" class="form-control" placeholder="Type of car" required>
+                            <option value="" selected hidden>-- Select car type --</option>
+                            <option value="Automatic">Automatic</option>
+                            <option value="Manual">Manual</option>
+                        </select>
                     </div>
 
                     <div class="mb-3">
-                        <label for="Email"><span class="text-danger"></span></label>
-
-                        <input type="text" name="car" class="form-control" id="car" placeholder="Fuel type" required>
-
-
+                        <label for="fueltype"><span class="text-danger"></span></label>
+                        <select type="text" name="fuelType" id="fueltype" class="form-control" placeholder="Fuel type" required>
+                            <option value="" selected hidden>-- Select fuel type --</option>
+                            <option value="Gas">Gas</option>
+                            <option value="Diesel">Diesel</option>
+                        </select>
                     </div>
 
                     <div class="mb-3">
-                        <label for="Email"><span class="text-danger"></span></label>
-                        <input type="text" name="car" class="form-control" id="car" placeholder="Color of vehicle" required>
+                        <label for="carcolor"><span class="text-danger"></span></label>
+                        <input type="text" name="carColor" id="carcolor" class="form-control" placeholder="Color of vehicle" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="Email"><span class="text-danger"></span></label>
-                        <input type="text" name="car" class="form-control" id="car" placeholder="Transmission Type" required>
+                        <label for="transtype"><span class="text-danger"></span></label>
+                        <input type="text" name="transType" id="transtype" class="form-control" placeholder="Transmission Type" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="Password"><span class="text-danger"></span></label>
-                        <input type="password" name="password" class="form-control" id="Password" placeholder="Enter Password" autocomplete required>
+                        <label for="password"><span class="text-danger"></span></label>
+                        <input type="password" name="password" id="password" class="form-control repassword" placeholder="Enter Password" autocomplete required>
+                        <span class="msgPassword" style="color: red;"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label for="re-password"><span class="text-danger"></span></label>
-                        <input type="password" name="repassword" class="form-control" id="rePassword" placeholder="Re-Enter Password" autocomplete required>
+                        <label for="repassword"><span class="text-danger"></span></label>
+                        <input type="password" name="repassword" id="repassword" class="form-control repassword" placeholder="Re-Enter Password" autocomplete required>
+                        <span class="msgrePassword" style="color: red;"></span>
                     </div>
-
                 </div>
                 <div class="modal-footer pt-4">
-                    <input type="submit" name="create" class="btn btn-primary mx-auto w-100" value="Create Account">
-                    <!-- <button type="button" class="btn btn-primary mx-auto w-100">Create Account</button> -->
+                    <button type="submit" id="register" class="btn btn-primary mx-auto w-100" >REGISTER</button>
                 </div>
             </form>
         </div>
@@ -150,7 +155,7 @@
 </div>
 
 <script type="text/javascript">
-    $(function(){ 
+    $(function() {
         $('#login-form').submit(function(e) {
             e.preventDefault();
             $.ajax({
@@ -169,6 +174,83 @@
                     }
                 }
             });
+        });
+
+        $('#register-form').submit(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '?rq=register',
+                type: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(resp) {
+                    if (resp.status == 'success') {
+                        alert(resp.msg);
+                        window.location.href = '?vs=?client';
+                    } else {
+                        alert(resp.msg);
+                    }
+                }
+            });
+        });
+
+        $('.number').on('keydown keyup', function(event) {
+            var input = $(this);
+            var value = input.val();
+            var msgphone = $('.msgphone');
+
+            value = value.replace(/[^0-9\.]/g, '');
+
+            var decimalCount = (value.match(/\./g) || []).length;
+            if (decimalCount > 1) {
+                value = value.replace(/\.+$/, '');
+            }
+
+            input.val(value);
+
+            if (value.length !== 11) {
+                msgphone.text('Phone number must be at least 11 characters long')
+            } else {
+                msgphone.text('');
+            }
+
+        });
+
+        $('#plateNumber').on('input', function() {
+            var inputValue = $(this).val();
+            var pattern = /^[A-Za-z]{3}[-\s]?\d{4}$/;
+            var msg = $('.msgPlateNumber');
+
+            if (!pattern.test(inputValue)) {
+                msg.text('Invalid format');
+            } else {
+                msg.text('');
+            }
+        });
+
+        $('#password').on('input', function() {
+            var passwordValue = $(this).val();
+            var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).*$/;
+            var msg = $('.msgPassword');
+
+            if (!pattern.test(passwordValue)) {
+                msg.text('Password must contain upper and lower case letters, numbers, and special characters.');
+            } else {
+                msg.text('');
+            }
+        });
+
+        $('#repassword').on('input', function() {
+            var repasswordValue = $(this).val();
+            var password = $('#password').val();
+            var msg = $('.msgrePassword')
+
+            if (repasswordValue != password) {
+                msg.text('Password does not match.');
+            } else {
+                msg.text('');
+            }
         });
     });
 </script>

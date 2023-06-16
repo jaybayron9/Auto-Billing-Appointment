@@ -17,17 +17,17 @@
                     <table id="table" class="table hover" style="width:100%; margin-top: 50px;">
                         <thead>
                             <tr>
-                                <th>EMPLOYEE ID</th>
-                                <th>FULLNAME</th>
-                                <th>EMAIL</th>
-                                <th>MOBILE NO.</th>
-                                <th>NATIONALITY</th>
-                                <th>GENDER</th>
-                                <th>DOB</th>
-                                <th>POB</th>
-                                <th>DATE STARTED</th>
-                                <th>POSITION</th>
-                                <th>ACTIONS</th>
+                                <th class="whitespace-nowrap text-sm">EMPLOYEE ID</th>
+                                <th class="whitespace-nowrap text-sm">FULLNAME</th>
+                                <th class="whitespace-nowrap text-sm">EMAIL</th>
+                                <th class="whitespace-nowrap text-sm">MOBILE NO.</th>
+                                <th class="whitespace-nowrap text-sm">NATIONALITY</th>
+                                <th class="whitespace-nowrap text-sm">GENDER</th>
+                                <th class="whitespace-nowrap text-sm">DOB</th>
+                                <th class="whitespace-nowrap text-sm">POB</th>
+                                <th class="whitespace-nowrap text-sm">DATE STARTED</th>
+                                <th class="whitespace-nowrap text-sm">POSITION</th>
+                                <th class="whitespace-nowrap text-sm">ACTIONS</th>
                             </tr>
                         </thead>
                         <tbody>
