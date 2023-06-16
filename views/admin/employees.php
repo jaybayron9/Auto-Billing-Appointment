@@ -17,17 +17,17 @@
                     <table id="table" class="table hover" style="width:100%; margin-top: 50px;">
                         <thead>
                             <tr>
-                                <th class="whitespace-nowrap text-sm">EMPLOYEE ID</th>
-                                <th class="whitespace-nowrap text-sm">FULLNAME</th>
-                                <th class="whitespace-nowrap text-sm">EMAIL</th>
-                                <th class="whitespace-nowrap text-sm">MOBILE NO.</th>
-                                <th class="whitespace-nowrap text-sm">GENDER</th>
-                                <th class="whitespace-nowrap text-sm">DOB</th>
-                                <th class="whitespace-nowrap text-sm">AGE</th>
-                                <th class="whitespace-nowrap text-sm">POB</th>
-                                <th class="whitespace-nowrap text-sm">DATE STARTED</th>
-                                <th class="whitespace-nowrap text-sm">POSITION</th>
-                                <th class="whitespace-nowrap text-sm">ACTIONS</th>
+                                <th class="whitespace-nowrap text-sm text-center">EMPLOYEE ID</th>
+                                <th class="whitespace-nowrap text-sm text-center">FULLNAME</th>
+                                <th class="whitespace-nowrap text-sm text-center">EMAIL</th>
+                                <th class="whitespace-nowrap text-sm text-center">MOBILE NO.</th>
+                                <th class="whitespace-nowrap text-sm text-center">GENDER</th>
+                                <th class="whitespace-nowrap text-sm text-center">DOB</th>
+                                <th class="whitespace-nowrap text-sm text-center">AGE</th>
+                                <th class="whitespace-nowrap text-sm text-center">POB</th>
+                                <th class="whitespace-nowrap text-sm text-center">DATE STARTED</th>
+                                <th class="whitespace-nowrap text-sm text-center">POSITION</th>
+                                <th class="whitespace-nowrap text-sm text-center">ACTIONS</th>
                             </tr>
                         </thead>
                         <tbody>

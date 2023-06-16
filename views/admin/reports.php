@@ -6,90 +6,42 @@
                 <li><i class="fa fa-home"></i> Reports</li>
             </ul>
         </div>
-        <table class="table table-bordered" id="resultTable" data-responsive="table" style="text-align: left;">
+        <form action="reports.php" method="post">
+            <center>
+                <strong>
+                    From : <input type="date" style="width: 223px; padding:14px;" name="d1" class="tcal" />
+                    To: <input type="date" style="width: 223px; padding:14px;" name="d2" class="tcal" />
+                    <button class="btn bg-yellow-500" style="width: 123px; height:35px; margin-top:-8px;margin-left:8px;" name="sub" type="submit">
+                        <i class="icon icon-search icon-large"></i> Search</button>
+                </strong>
+            </center>
+        </form>
+
+        <table id="table" class="table table-bordered" data-responsive="table" style="text-align: left;">
             <thead>
                 <tr>
-                    <th width="13%"> Client ID </th>
-                    <th width="13%"> Transaction Date </th>
-                    <th width="20%"> Customer Name </th>
-                    <th width="18%"> Amount </th>
+                    <th class="whitespace-nowrap text-xs">CLIENT ID</th>
+                    <th class="whitespace-nowrap text-xs">TRANSACTION DATE</th>
+                    <th class="whitespace-nowrap text-xs">NAME</th>
+                    <th class="whitespace-nowrap text-xs">AMOUNT</th>
                 </tr>
             </thead>
             <tbody>
-                <form action="reports.php" method="post">
-                    <center><strong>
-                            From : <input type="date" style="width: 223px; padding:14px;" name="d1" class="tcal" />
-                            To: <input type="date" style="width: 223px; padding:14px;" name="d2" class="tcal" />
-
-
-                            <button class="btn btn-info" style="width: 123px; height:35px; margin-top:-8px;margin-left:8px;" name="sub" type="submit">
-                                <i class="icon icon-search icon-large"></i> Search</button>
-
-                        </strong></center>
-                </form>
-                <div class="content" id="content">
-                    <div style="font-weight:bold; text-align:center;font-size:14px;margin-bottom: 15px;">
-
-
-
-                        <tr class="record">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-
-                        </tr>
-
+                <?php foreach( DBConn::select('payment') as $payment) { ?>
+                <tr>
+                    <td><?= $payment['id'] ?></td>
+                    <td><?= $payment['date'] ?></td>
+                    <td><?= $payment['name'] ?></td>
+                    <td><?= $payment['payment'] ?></td>
+                </tr>
+                <?php } ?>
             </tbody>
-            <div class="content" id="content">
-                <div style="font-weight:bold; text-align:center;font-size:14px;margin-bottom: 15px;">
-
-
-
-                    <tr class="record">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-
-                    </tbody>
-                    <thead>
-                        <tr>
-
-
-                        </tr>
-                    </thead>
         </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div class="row">
-            <div class="col-lg-5 m-b30">
-                <!-- <div class="heading-bx left">
-							<h2 class="m-b10 title-head">Dashboard <span></span></h2>
-						</div> -->
-
-            </div>
-        </div>
-        <div class="col-lg-12 m-b30">
-
-
-
-        </div>
-    </div>
     </div>
 </main>
+
+<script type="text/javascript">
+    $(function() {
+        let table = new DataTable('#table');
+    });
+</script>
