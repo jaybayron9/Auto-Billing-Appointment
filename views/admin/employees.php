@@ -23,6 +23,7 @@
                                 <th class="whitespace-nowrap text-sm">MOBILE NO.</th>
                                 <th class="whitespace-nowrap text-sm">GENDER</th>
                                 <th class="whitespace-nowrap text-sm">DOB</th>
+                                <th class="whitespace-nowrap text-sm">AGE</th>
                                 <th class="whitespace-nowrap text-sm">POB</th>
                                 <th class="whitespace-nowrap text-sm">DATE STARTED</th>
                                 <th class="whitespace-nowrap text-sm">POSITION</th>
@@ -38,6 +39,7 @@
                                 <td><?= $row['mobile_no'] ?></td>
                                 <td><?= $row['gender'] ?></td>
                                 <td><?= $row['dateofbirth'] ?></td>
+                                <td><?= $row['age'] ?></td>
                                 <td><?= $row['placeofbirth'] ?></td>
                                 <td><?= $row['datestarted'] ?></td>
                                 <td><?= $row['position'] ?></td>
@@ -75,7 +77,7 @@
                                             <input class="form-control" type="text" name="new_name" id="new-name" value="" readonly style="background-color: white;">
 
                                             <label class="col-form-label">Email Address</label>
-                                            <input class="form-control" type="text" name="new_email" id="new-email" value="" readonly style="background-color: white;">
+                                            <input class="form-control" type="email" name="new_email" id="new-email" value="" readonly style="background-color: white;">
 
                                             <label class="col-form-label">Permanent Address</label>
                                             <input class="form-control" type="text" name="new_address" id="new-address" value="" style="background-color: white;">
@@ -84,22 +86,30 @@
                                             <input class="form-control" type="password" name="new_password" id="new-password" value="">
 
                                             <label class="col-form-label">Mobile Number</label>
-                                            <input class="form-control" type="number" name="new_number" id="new-number" value="" min="1" max="999" style="background-color: white;">
+                                            <input class="form-control number" type="text" name="new_number" id="new-number" value="" maxlength="11" style="background-color: white;">
 
                                             <label class="col-form-label">Gender</label>
-                                            <input class="form-control" type="text" name="new_gender" id="new-gender" value="">
+                                            <select class="form-control" type="text" name="new_gender" id="new-gender">
+                                                <option value="" selected hidden>-- Please select --</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
 
                                             <label class="col-form-label">Position</label>
-                                            <input class="form-control" type="text" name="new_position" id="new-position" value="">
+                                            <select class="form-control" type="text" name="new_position" id="new-position" value="">
+                                                <option value="" selected hidden>-- Please select --</option>
+                                                <option value="Mechanic">Mechanic</option>
+                                                <option value="Electrician">Electrician</option>
+                                            </select>
 
                                             <label class="col-form-label">Age</label>
-                                            <input class="form-control" type="text" name="new_age" id="new-age" value="">
+                                            <input class="form-control number" type="text" maxlength="3" name="new_age" id="new-age" value="">
 
                                             <label class="col-form-label">Place of Birth</label>
-                                            <input class="form-control" type="text" name="new_birth" id="new-birth" value="">
+                                            <input class="form-control" type="date" name="new_birth" id="new-birth" value="">
 
                                             <label class="col-form-label">Date Started</label>
-                                            <input class="form-control" type="text" name="new_started" id="new-started" value="">
+                                            <input class="form-control" type="date" name="new_started" id="new-started" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -134,20 +144,24 @@
                                             <input class="form-control" type="text" name="address" required>
 
                                             <label class="col-form-label">Password</label>
-                                            <input class="form-control" type="text" name="password" required>
+                                            <input class="form-control" type="password" name="password" required>
 
                                             <label class="col-form-label">Email Address</label>
                                             <input class="form-control" type="email" name="email" required>
 
                                             <label class="col-form-label">Gender</label>
-                                            <input class="form-control" type="text" name="gender" required>
+                                            <select class="form-control" name="gender" required>
+                                                <option value="" selected hidden>-- Please select --</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
 
                                             <label class="col-form-label">Date of Birth</label>
                                             <input class="form-control" type="date" name="datebirth" required>
 
                                             <label class="col-form-label">Position</label>
                                             <select class="form-control" name="position" id="position" required style="color: black!important;">
-                                                <option value="">-- Please select --</option>
+                                                <option value="" selected hidden>-- Please select --</option>
                                                 <option value="Mechanic">Mechanic</option>
                                                 <option value="Electrician">Electrician</option>
                                             </select>
@@ -162,7 +176,7 @@
                                             <input class="form-control" type="date" name="datestarted" required>
 
                                             <label class="col-form-label">Mobile Number</label>
-                                            <input class="form-control" type="text" name="number" required>
+                                            <input class="form-control number" type="text" name="number" maxlength="11" required>
                                         </div>
                                     </div>
                                 </div>
@@ -259,6 +273,21 @@
                     }
                 });
             }
+        });
+
+        $('.number').on('keydown keyup', function(event) {
+            var input = $(this);
+            var value = input.val();
+            var msgphone = $('.msgphone');
+
+            value = value.replace(/[^0-9\.]/g, '');
+
+            var decimalCount = (value.match(/\./g) || []).length;
+            if (decimalCount > 1) {
+                value = value.replace(/\.+$/, '');
+            }
+
+            input.val(value);
         });
     });
 </script>
