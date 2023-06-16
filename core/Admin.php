@@ -21,4 +21,35 @@ class Admin extends DBConn {
 
         echo !$insert ? 'Employee Added!' : 'error';
     }
+
+    public function get_employee() { return json_encode(parent::findOrFail('employee_info', $_POST['id'])); }
+
+    public function update_employee() {
+        extract($_POST);
+        
+        $update = parent::update('employee_info', [
+            'employee_no' => $new_emp_no,
+            'name' => $new_name,
+            'address' => $new_address,
+            'password' => $new_password,
+            'email' => $new_email,
+            'gender' => $new_age,
+            'position' => $new_position,
+            'placeofbirth' => $new_birth,
+            'datestarted' => $new_started,
+            'mobile_no' => $new_number,
+        ], "id = $emp_id");
+
+        return $update ? parent::alert('success', 'Employee Updated!') : parent::alert('error', 'There\'s a problem updating the employee.');
+    }
+
+    public function resign_employee() {
+        extract($_POST);
+
+        parent::update('employee_info', [
+            'status' => 'resign',
+        ], "id = $id");
+
+        echo 'Employee Resigned!';
+    }
 }

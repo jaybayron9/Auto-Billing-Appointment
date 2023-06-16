@@ -21,7 +21,6 @@
                                 <th class="whitespace-nowrap text-sm">FULLNAME</th>
                                 <th class="whitespace-nowrap text-sm">EMAIL</th>
                                 <th class="whitespace-nowrap text-sm">MOBILE NO.</th>
-                                <th class="whitespace-nowrap text-sm">NATIONALITY</th>
                                 <th class="whitespace-nowrap text-sm">GENDER</th>
                                 <th class="whitespace-nowrap text-sm">DOB</th>
                                 <th class="whitespace-nowrap text-sm">POB</th>
@@ -31,25 +30,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach(Employee::fetchEmployee() as $row) { ?>
+                            <?php foreach(DBConn::select('employee_info', '*', ['status' => 'employed']) as $row) { ?>
                             <tr>
                                 <td><?= $row['employee_no'] ?></td>
                                 <td><?= $row['name'] ?></td>
                                 <td><?= $row['email'] ?></td>
                                 <td><?= $row['mobile_no'] ?></td>
-                                <td><?= $row['nationality'] ?></td>
                                 <td><?= $row['gender'] ?></td>
                                 <td><?= $row['dateofbirth'] ?></td>
                                 <td><?= $row['placeofbirth'] ?></td>
                                 <td><?= $row['datestarted'] ?></td>
                                 <td><?= $row['position'] ?></td>
                                 <td class="flex gap-x-2">
-                                    <button class="btn red">
+                                    <button class="btn red resign" data-row-data="<?= $row['id'] ?>">
                                         RESIGN
                                     </button>
-                                    <button data-toggle="modal" data-target="#edit" class="btn blue">
+                                    <button data-toggle="modal" data-target="#edit" data-row-data="<?= $row['id'] ?>" class="edit-btn btn blue">
                                         EDIT
-                                    </button>&nbsp;
+                                    </button>
                                 </td>
                             </tr>
                             <?php } ?>
@@ -58,60 +56,60 @@
                 </div>
 
                 <div id="edit" class="modal fade" role="dialog">
-                    <form class="edit-profile m-b30" method="POST" enctype="multipart/form-data">
+                    <div class="edit-profile m-b30" method="POST" enctype="multipart/form-data">
                         <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
+                            <form id="edit-form" class="modal-content">
                                 <div class="modal-header">
                                     <h4 class="modal-title"><img src="../assets/images/1.png" style="width: 30px; height: 30px;">&nbsp;Update Employee</h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="hidden" name="edit-id" value="">
                                     <div class="row">
                                         <div class="form-group col-12">
+                                            <input type="hidden" name="emp_id" id="emp-id">
 
                                             <label class="col-form-label">Employee No.</label>
-                                            <input class="form-control" type="text" name="new_emp1" value="" style="background-color: white;">
+                                            <input class="form-control" type="text" name="new_emp_no" id="new-emp-no" value="" style="background-color: white;">
 
                                             <label class="col-form-label">Full Name</label>
-                                            <input class="form-control" type="text" name="new_name" value="" readonly style="background-color: white;">
+                                            <input class="form-control" type="text" name="new_name" id="new-name" value="" readonly style="background-color: white;">
 
                                             <label class="col-form-label">Email Address</label>
-                                            <input class="form-control" type="text" name="new_email" value="" readonly style="background-color: white;">
+                                            <input class="form-control" type="text" name="new_email" id="new-email" value="" readonly style="background-color: white;">
 
                                             <label class="col-form-label">Permanent Address</label>
-                                            <input class="form-control" type="text" name="new_address" value="" style="background-color: white;">
+                                            <input class="form-control" type="text" name="new_address" id="new-address" value="" style="background-color: white;">
 
                                             <label class="col-form-label">Passsword</label>
-                                            <input class="form-control" type="text" name="new_password" value="">
+                                            <input class="form-control" type="password" name="new_password" id="new-password" value="">
 
                                             <label class="col-form-label">Mobile Number</label>
-                                            <input class="form-control" type="number" name="new_number" value="" min="1" max="999" style="background-color: white;">
+                                            <input class="form-control" type="number" name="new_number" id="new-number" value="" min="1" max="999" style="background-color: white;">
 
                                             <label class="col-form-label">Gender</label>
-                                            <input class="form-control" type="text" name="new_gender" value="">
+                                            <input class="form-control" type="text" name="new_gender" id="new-gender" value="">
 
                                             <label class="col-form-label">Position</label>
-                                            <input class="form-control" type="text" name="new_position" value="">
+                                            <input class="form-control" type="text" name="new_position" id="new-position" value="">
 
                                             <label class="col-form-label">Age</label>
-                                            <input class="form-control" type="text" name="new_age" value="">
+                                            <input class="form-control" type="text" name="new_age" id="new-age" value="">
 
                                             <label class="col-form-label">Place of Birth</label>
-                                            <input class="form-control" type="text" name="new_birth" value="">
+                                            <input class="form-control" type="text" name="new_birth" id="new-birth" value="">
 
                                             <label class="col-form-label">Date Started</label>
-                                            <input class="form-control" type="text" name="new_started" value="">
+                                            <input class="form-control" type="text" name="new_started" id="new-started" value="">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <input type="submit" class="btn green radius-xl outline" name="edit" value="Save Changes">
+                                    <button type="submit" class="btn green radius-xl outline">Save Changes</button>
                                     <button type="button" class="btn red outline radius-xl" data-dismiss="modal">Close</button>
                                 </div>
-                            </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
 
                 <div id="add-employee" class="modal fade" role="dialog">
@@ -197,6 +195,70 @@
                     window.location.reload(true);
                 }
             });
+        });
+
+        $('.edit-btn').click(function() {
+            var id = $(this).data('row-data');
+            
+            $.ajax({
+                url: '?rq=get_employee',
+                type: 'POST',
+                data: {
+                    id: id,
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#emp-id').val(id);
+                    $('#new-emp-no').val(data.employee_no);
+                    $('#new-name').val(data.name);
+                    $('#new-email').val(data.email);
+                    $('#new-address').val(data.address);
+                    $('#new-password').val(data.password);
+                    $('#new-number').val(data.mobile_no);
+                    $('#new-gender').val(data.gender);
+                    $('#new-position').val(data.position);
+                    $('#new-age').val(data.age);
+                    $('#new-birth').val(data.dateofbirth);
+                    $('#new-started').val(data.datestarted);
+                }
+            });
+        });
+
+        $('#edit-form').submit(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '?rq=update_employee',
+                type: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(resp) {
+                    if(resp.status == 'success') {
+                        alert(resp.msg);
+                        window.location.reload(true);
+                    } else {
+                        alert(resp.msg);
+                    }
+                }
+            });
+        });
+
+        $('.resign').click(function() {
+            var id = $(this).data('row-data');
+
+            if (confirm('Are you sure this employee really wants to resign?')) {
+                $.ajax({
+                    url: '?rq=resign_employee',
+                    type: 'POST',
+                    data: {
+                        id: id,
+                    }, 
+                    success: function(resp) {
+                        alert(resp);
+                        window.location.reload(true);
+                    }
+                });
+            }
         });
     });
 </script>

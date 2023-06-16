@@ -34,15 +34,28 @@ class DBConn {
         $stmt->execute(array_values($data));
     }
 
-    public static function update($table, $data, $where) {
-        $set = implode('=?, ', array_keys($data)) . '=?';
-
-        $query = "UPDATE $table SET $set WHERE $where";
-
-        $stmt = self::$conn->prepare($query);
-        $stmt->execute(array_values($data));
-
-        return self::find($table, $where);
+    public function update($tableName, $data, $whereClause) {
+        $query = "UPDATE $tableName SET ";
+        $updateValues = [];
+    
+        foreach ($data as $column => $value) {
+            $updateValues[] = "$column = :$column";
+        }
+    
+        $query .= implode(", ", $updateValues) . " WHERE $whereClause";
+        try {
+            $statement = self::$conn->prepare($query);
+    
+            foreach ($data as $column => $value) {
+                $statement->bindValue(":$column", $value);
+            }
+    
+            $statement->execute();
+    
+            return $statement->rowCount();
+        } catch (PDOException $e) {
+            echo 'Update failed: ' . $e->getMessage();
+        }
     }
 
     public static function select($table, $columns = '*', $where = null, $orderBy = null, $limit = null) {
@@ -71,16 +84,16 @@ class DBConn {
     }
     
 
-    public static function find($table, $id, $column = '', $data = '*') {
-        $query = "SELECT $data FROM $table WHERE $column = ?";
+    public static function find($table, $id, $columns = '*') {
+        $query = "SELECT $columns FROM $table WHERE id = ?";
         $stmt = self::$conn->prepare($query);
         $stmt->execute([$id]);
 
         return $stmt->fetch();
     }
 
-    public static function findOrFail($table, $id, $column, $data = '*') {
-        $record = self::find($table, $id, $column, $data);
+    public function findOrFail($table, $id, $columns = '*') {
+        $record = $this->find($table, $id, $columns);
 
         if ($record === false) {
             throw new Exception("Record not found for ID: $id");

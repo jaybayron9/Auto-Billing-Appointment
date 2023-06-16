@@ -22,7 +22,6 @@ create table employee_info (
     email varchar(255) DEFAULT NULL,
     address varchar(250) DEFAULT NULL,
     password varchar(255) DEFAULT NULL,
-    access varchar(255) DEFAULT NULL,
     mobile_no varchar(250) DEFAULT NULL,
     nationality varchar(250) DEFAULT NULL,
     gender varchar(250) DEFAULT NULL,
@@ -31,11 +30,12 @@ create table employee_info (
     dateofbirth varchar(250) DEFAULT NULL,
     placeofbirth varchar(250) DEFAULT NULL,
     datestarted varchar(250) DEFAULT NULL,
-    status tinyint(4) DEFAULT 0,
+    status varchar(250) DEFAULT 'employed',
     lastday varchar(250) DEFAULT NULL,
+    access varchar(255) DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
-);
+); 
 
 create table cars (
     id int(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
