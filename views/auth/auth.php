@@ -37,44 +37,44 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <label for="Name"><span class="text-danger"></span></label>
                         <input type="text" name="name" class="form-control" id="Name" placeholder="Enter Name" required>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <label for="Email"><span class="text-danger"></span></label>
                         <input type="email" name="email" id="Email" class="form-control" placeholder="Enter Email" required>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <label for="address"><span class="text-danger"></span></label>
                         <input type="text" name="address" id="address" class="form-control" placeholder="Enter Address" required>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <label for="phone"><span class="text-danger"></span></label>
                         <input type="text" name="phone" id="phone" maxlength="11" class="form-control number" placeholder="Enter Phone Number" required>
                         <span class="msgphone" style="color: red;"></span>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <label for="plateNumber"><span class="text-danger"></span></label>
                         <input type="text" name="plateNumber" id="plateNumber" maxlength="8" class="form-control plateNumber" placeholder="Plate Number" required>
                         <span class="msgPlateNumber" style="color: red;"></span>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <label for="brand"><span class="text-danger"></span></label>
                         <input type="text" name="brand" id="brand" class="form-control" placeholder="Enter Car Brand" required>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <label for="carmodel"><span class="text-danger"></span></label>
                         <input type="text" name="carModel" id="carmodel" class="form-control" placeholder="Enter Car Model" required>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <label for="cartype"><span class="text-danger"></span></label>
                         <select type="text" name="carType" id="cartype" class="form-control" placeholder="Type of car" required>
                             <option value="" selected hidden>-- Select car type --</option>
@@ -83,7 +83,7 @@
                         </select>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <label for="fueltype"><span class="text-danger"></span></label>
                         <select type="text" name="fuelType" id="fueltype" class="form-control" placeholder="Fuel type" required>
                             <option value="" selected hidden>-- Select fuel type --</option>
@@ -92,22 +92,49 @@
                         </select>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <label for="carcolor"><span class="text-danger"></span></label>
                         <input type="text" name="carColor" id="carcolor" class="form-control" placeholder="Color of vehicle" required>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-4">
                         <label for="transtype"><span class="text-danger"></span></label>
                         <input type="text" name="transType" id="transtype" class="form-control" placeholder="Transmission Type" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="password"><span class="text-danger"></span></label>
-                        <input type="password" name="password" id="password" class="form-control repassword" placeholder="Enter Password" autocomplete required>
-                        <span class="msgPassword" style="color: red;"></span>
+                        <div class="pass-field form-control">
+                            <span class="text-danger"></span>
+                            <input type="password" style="width: 400px; border: none; outline: none;" name="password" id="password" class="" placeholder="Create password" required>
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
                     </div>
-
+                    <div class="content">
+                        <p>Password must contains</p>
+                        <ul class="requirement-list">
+                            <li>
+                                <i class="fa-solid fa-circle"></i>
+                                <span>At least 8 characters length</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-circle"></i>
+                                <span>At least 1 number (0...9)</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-circle"></i>
+                                <span>At least 1 lowercase letter (a...z)</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-circle"></i>
+                                <span>At least 1 special symbol (!...$)</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-circle"></i>
+                                <span>At least 1 uppercase letter (A...Z)</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
                     <div class="mb-3">
                         <label for="repassword"><span class="text-danger"></span></label>
                         <input type="password" name="repassword" id="repassword" class="form-control repassword" placeholder="Re-Enter Password" autocomplete required>
@@ -115,7 +142,7 @@
                     </div>
                 </div>
                 <div class="modal-footer pt-4">
-                    <button type="submit" id="register" class="btn btn-primary mx-auto w-100" >REGISTER</button>
+                    <button type="submit" id="register" class="btn btn-primary mx-auto w-100">REGISTER</button>
                 </div>
             </form>
         </div>
@@ -229,16 +256,51 @@
             }
         });
 
-        $('#password').on('input', function() {
-            var passwordValue = $(this).val();
-            var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).*$/;
-            var msg = $('.msgPassword');
+        // $('#password').on('input', function() {
+        //     var passwordValue = $(this).val();
+        //     var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).*$/;
+        //     var msg = $('.msgPassword');
 
-            if (!pattern.test(passwordValue)) {
-                msg.text('Password must contain upper and lower case letters, numbers, and special characters.');
-            } else {
-                msg.text('');
-            }
+        //     if (!pattern.test(passwordValue)) {
+        //         msg.text('Password must contain upper and lower case letters, numbers, and special characters.');
+        //     } else {
+        //         msg.text('');
+        //     }
+        // });
+
+        const passwordInput = $(".pass-field input");
+        const eyeIcon = $(".pass-field i");
+        const requirementList = $(".requirement-list li");
+
+        const requirements = [
+                { regex: /.{8,}/, index: 0 },
+                { regex: /[0-9]/, index: 1 },
+                { regex: /[a-z]/, index: 2 },
+                { regex: /[^A-Za-z0-9]/, index: 3 },
+                { regex: /[A-Z]/, index: 4 }
+            ];
+
+        passwordInput.on("keyup", function(e) {
+            requirements.forEach(function(item) {
+                const isValid = item.regex.test(e.target.value);
+                const requirementItem = requirementList.eq(item.index);
+
+                if (isValid) {
+                    requirementItem.addClass("valid");
+                    requirementItem.find("i").removeClass().addClass("fa-solid fa-check");
+                } else {
+                    requirementItem.removeClass("valid");
+                    requirementItem.find("i").removeClass().addClass("fa-solid fa-circle");
+                }
+            });
+        });
+
+        eyeIcon.on("click", function() {
+            passwordInput.attr("type", function(index, attr) {
+                return attr === "password" ? "text" : "password";
+            });
+
+            eyeIcon.removeClass().addClass("fa-solid fa-eye" + (passwordInput.attr("type") === "password" ? "" : "-slash"));
         });
 
         $('#repassword').on('input', function() {
