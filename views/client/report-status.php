@@ -6,54 +6,31 @@
                 <li><i class="fa fa-home"></i>Repair Status</li>
             </ul>
         </div>
-
         <div class="row">
             <div class="col-lg-12 m-b30">
                 <div class="table-responsive">
                     <table id="table" class="table hover" style="width:100%">
                         <thead>
                             <tr>
-
-
-                                <th>Services</th>
-                                <th>Status</th>
-
-
+                                <th class="whitespace-nowrap text-xs text-center uppercase">Services</th>
+                                <th class="whitespace-nowrap text-xs text-center uppercase">Status</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php
+                             $query = "SELECT * FROM appointments ap JOIN cars cs ON ap.client_id = cs.user_id WHERE client_id = '{$_SESSION['client_auth']}' AND (status = 'in progress' OR status = 'done')";
 
+                            foreach (DBConn::DBQuery($query) as $progress) {
+                            ?>
                             <tr>
-                                <td>Wheel Alignment</td>
-                                <td>Done</td>
+                                <td class="capitalize"><?= $progress['repair'] ?></td>
+                                <td class="capitalize"><?= $progress['status'] ?></td>
                             </tr>
-
+                            <?php } ?>
                         </tbody>
-                        <tbody>
-
-                            <tr>
-                                <td>15 KM</td>
-                                <td>In Progress</td>
-                            </tr>
-
-
-
-
-
-                        </tbody>
-
                     </table>
                 </div>
-                <hr>
-
-
             </div>
-
-
-
-
-
-
         </div>
     </div>
 </main>

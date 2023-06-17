@@ -31,7 +31,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach(DBConn::select('employee_info', '*', ['status' => 'employed']) as $row) { ?>
+                            <?php foreach(DBConn::select('employees', '*', ['status' => 'employed']) as $row) { ?>
                             <tr>
                                 <td><?= $row['employee_no'] ?></td>
                                 <td><?= $row['name'] ?></td>

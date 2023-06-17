@@ -21,7 +21,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach( DBConn::select('client_info') as $client ) { ?>
+                                <?php foreach( DBConn::select('clients') as $client ) { ?>
                                 <tr>
                                     <td><?= $client['name'] ?></td>
                                     <td><?= $client['email'] ?></td>

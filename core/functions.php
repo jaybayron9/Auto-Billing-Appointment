@@ -35,12 +35,12 @@ function getURL($get) {
     } else {
         return $r['404'];
     }
-}
+} 
+
 $GET = isset($_GET['vs']) ? $_GET['vs'] : '';
 
 function view($folder = '', $file = 'index') {
-    $path = empty($folder) ? "views/{$file}.php" : "views/{$folder}/{$file}.php";
-    return $path;
+    return empty($folder) ? "views/{$file}.php" : "views/{$folder}/{$file}.php";
 }
 
 function core($file) {

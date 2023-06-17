@@ -28,7 +28,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ( DBConn::select('employee_info') as $emp ) { ?>
+                            <?php foreach ( DBConn::select('employees') as $emp ) { ?>
                             <tr>
                                 <td><?= $emp['employee_no'] ?></td>
                                 <td><?= $emp['name'] ?></td>

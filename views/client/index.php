@@ -106,119 +106,101 @@
 				</div>
 			</div>
 		</div>
-
-		<div id="add" class="modal fade" role="dialog">
-			<form class="edit-profile m-b30" method="POST" enctype="multipart/form-data">
-				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title"><img src="../assets/images/1.png" style="width: 30px; height: 30px;">&nbsp;Add Appointment</h4>
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-						</div>
-						<div class="modal-body">
-							<div class="row">
-								<div class="form-group col-12">
-									<label class="col-form-label">Car ID</label>
-									<input class="form-control" type="text" name="type">
-
-									<label class="col-form-label">Brand</label>
-									<input class="form-control" type="text" name="brand" style="background-color: white;">
-
-									<label class="col-form-label">Type of Vehicle</label>
-									<select class="form-control" name="pms" id="pms" required style="color: black!important;">
-										<option value="">-- Please select --</option>
-
-										<option value="5KM">SEDAN</option>
-										<option value="10KM">SUV</option>
-										<option value="30KM">AUV</option>
-										<option value="40KM">PICK UP</option>
-
-
-									</select>
-
-									<label class="col-form-label">Vehicle Color</label>
-									<input class="form-control" type="text" name="brand" style="background-color: white;">
-
-
-									<label class="col-form-label">Type of Fuel</label>
-									<select class="form-control" name="pms" id="pms" required style="color: black!important;">
-										<option value="">-- Please select --</option>
-
-										<option value="5KM">Gas</option>
-										<option value="10KM">Diesel</option>
-
-
-									</select>
-
-
-									<label class="col-form-label">PMS</label>
-									<select class="form-control" name="pms" id="pms" required style="color: black!important;">
-										<option value="">-- Please select --</option>
-
-										<option value="5KM">5KM</option>
-										<option value="10KM">10KM</option>
-										<option value="30KM">30KM</option>
-										<option value="40KM">40KM</option>
-
-										<option value="80KM">80KM</option>
-										<option value="90KM">90KM</option>
-										<option value="100KM">100KM</option>
-										<option value="120KM">120KM</option>
-
-									</select>
-
-									<label class="col-form-label">Schedule</label>
-									<input class="form-control" type="date" name="schedule" style="background-color: white;">
-
-									<label class="col-form-label">Repair</label>
-									<select class="form-control" name="repair" required style="color: black!important;">
-										<option value="">-- Please select --</option>
-									</select>
-
-									<label class="col-form-label">Time</label>
-									<input class="form-control" type="time" name="time" style="background-color: white;">
-
-									<label class="col-form-label">Plate Number</label>
-									<input class="form-control" type="text" name="color">
-
-
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<input type="submit" class="btn green radius-xl outline" name="add_app" value="Save Changes">
-							<button type="button" class="btn red outline radius-xl" data-dismiss="modal">Close</button>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-
-		<div id="email" class="modal fade" role="dialog">
-			<form class="edit-profile m-b30" action="" method="POST" enctype="multipart/form-data">
-				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title"><img src="../assets/images/1.png" style="width: 30px; height: 30px;">&nbsp;Email Admin</h4>
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-						</div>
-						<div class="modal-body">
-							<div class="row">
-								<div class="form-group col-12">
-									<label class="col-form-label">Your Email</label>
-									<input class="form-control" type="text" value="" name="email" style="background-color: white;">
-									<label class="col-form-label">Message</label>
-									<input class="form-control" type="text" name="message" style="background-color: white;">
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<input type="submit" class="btn green radius-xl outline" value="Save Changes">
-							<button type="button" class="btn red outline radius-xl" data-dismiss="modal">Close</button>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
 	</div>
 </main>
+
+<div id="add" class="modal fade" role="dialog">
+    <form id="appointment-form" class="edit-profile m-b30">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><img src="../assets/images/1.png" style="width: 30px; height: 30px;">&nbsp;Add Appointment</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-12">
+							<input type="hidden" name="user_id" id="user-id" value="<?= $_SESSION['client_auth'] ?>">
+                            
+							<label class="col-form-label">Car</label>
+                            <select class="form-control" name="car_id" required>
+								<option value="" selected hidden>-- Select Car --</option>
+								<?php foreach( DBConn::select('cars', '*', ['user_id' => $_SESSION['client_auth']]) as $item) { ?>
+                                    <option value="<?= $item['id'] ?>"><?= $item['plate_no'] ?></option>
+                                <?php } ?>
+							</select>
+
+							<label class="col-form-label">PMS</label>
+                            <select class="form-control" name="pms" required>
+								<option value="" selected hidden>-- Select PMS --</option>
+								<?php foreach( DBConn::select('pms', '*') as $item) { ?>
+                                    <option value="<?= $item['ps'] ?>"><?= $item['ps'] ?></option>
+                                <?php } ?>
+							</select>
+
+                            <label class="col-form-label">Repair</label>
+                            <select class="form-control" name="repair" required>
+                                <option value="" selected hidden>-- Select Repair --</option>
+                                <?php foreach( DBConn::select('repair') as $item) { ?>
+                                    <option value="<?= $item['ps'] ?>"><?= $item['ps'] ?></option>
+                                <?php } ?>
+                            </select>
+
+                            <label class="col-form-label">Schedule</label>
+                            <input class="form-control" type="datetime-local" name="schedule" style="background-color: white;" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn green radius-xl outline" name="add_user" value="Save Changes">
+                    <button type="button" class="btn red outline radius-xl" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="email" class="modal fade" role="dialog">
+	<form class="edit-profile m-b30" action="" method="POST" enctype="multipart/form-data">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title"><img src="../assets/images/1.png" style="width: 30px; height: 30px;">&nbsp;Email Admin</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="form-group col-12">
+							<label class="col-form-label">Your Email</label>
+							<input class="form-control" type="text" value="" name="email" style="background-color: white;">
+							<label class="col-form-label">Message</label>
+							<input class="form-control" type="text" name="message" style="background-color: white;">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" class="btn green radius-xl outline" value="Save Changes">
+					<button type="button" class="btn red outline radius-xl" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		$('#appointment-form').submit(function(e){
+			e.preventDefault();
+
+			$.ajax({
+				url: '?rq=client_add_appointment',
+				type: "POST",
+				data: $(this).serialize(),
+				success: function(resp) {
+					alert(resp);
+					window.location.reload(true);
+				}
+			});
+		});
+	})
+</script>

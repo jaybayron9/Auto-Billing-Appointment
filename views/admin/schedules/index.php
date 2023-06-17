@@ -21,7 +21,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach(DBConn::select('appointment', '*', ['status' => 'pending']) as $apt) { ?>
+                            <?php foreach(DBConn::select('appointments', '*', ['status' => 'pending']) as $apt) { ?>
                             <tr>
                                 <td><?= $apt['client_id'] ?></td>
                                 <td><?= $apt['brand'] ?></td>

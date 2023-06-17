@@ -14,6 +14,10 @@ $response = [
     'get_employee' => ['obj' => new Admin(), 'method' => 'get_employee'],
     'update_employee' => ['obj' => new Admin(), 'method' => 'update_employee'],
     'resign_employee' => ['obj' => new Admin(), 'method' => 'resign_employee'],
+
+    // CLIENT
+    'client_add_appointment' => ['obj' => new Client(), 'method' => 'client_add_appointment'],
+    'add_car' => ['obj' => new Client, 'method' => 'add_car'],
 ];
 
 HTTPR($request, $response); 

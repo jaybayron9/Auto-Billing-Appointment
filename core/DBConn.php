@@ -58,9 +58,15 @@ class DBConn {
         }
     }
 
-    public static function select($table, $columns = '*', $where = null, $orderBy = null, $limit = null) {
+    public static function select($table, $columns = '*', $where = null, $orderBy = null, $limit = null, $joins = []) {
         $query = "SELECT $columns FROM $table";
-    
+        
+        foreach ($joins as $join) {
+            $joinTable = $join['table'];
+            $joinCondition = $join['condition'];
+            $query .= " JOIN $joinTable ON $joinCondition";
+        }
+        
         if ($where) {
             $conditions = [];
             foreach ($where as $column => $value) {
@@ -68,22 +74,30 @@ class DBConn {
             }
             $query .= " WHERE " . implode(' AND ', $conditions);
         }
-    
+        
         if ($orderBy) {
             $query .= " ORDER BY $orderBy";
         }
-    
+        
         if ($limit) {
             $query .= " LIMIT $limit";
         }
-    
+        
         $stmt = self::$conn->prepare($query);
         $stmt->execute($where);
-    
+        
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }    
+
+    public static function DBQuery($query) {
+        try {
+            $stmt = self::$conn->query($query);
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            echo 'Query failed: ' . $e->getMessage();
+        }
     }
     
-
     public static function find($table, $id, $columns = '*') {
         $query = "SELECT $columns FROM $table WHERE id = ?";
         $stmt = self::$conn->prepare($query);

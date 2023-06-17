@@ -15,12 +15,12 @@
     <script src="assets/dashboard/assets/js/admin.js"></script>
     <script src='assets/dashboard/assets/vendors/calendar/moment.min.js'></script>
     <script src='assets/dashboard/assets/vendors/calendar/fullcalendar.js'></script>
+    <script src='assets/js/validation.js'></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
 
             $('#calendar').fullCalendar({
-
                 defaultView: 'month',
                 defaultDate: '<?php echo date('Y-m-d') ?>',
                 navLinks: true, // can click day/week names to navigate views
@@ -37,7 +37,6 @@
                     ?>
                 ],
             });
-
         });
     </script>
 </body>
