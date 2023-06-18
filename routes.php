@@ -6,7 +6,6 @@ return [
     '?admin' => view('admin'),
     '?emp' => view('employee'),
     '?client' => view('client'),
-    'developers' => view('', 'developers'),
 
     // Admin
     'employees' => view('admin', 'employees'),
