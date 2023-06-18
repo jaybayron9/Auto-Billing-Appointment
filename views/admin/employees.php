@@ -17,17 +17,17 @@
                     <table id="table" class="table hover" style="width:100%; margin-top: 50px;">
                         <thead>
                             <tr>
-                                <th class="whitespace-nowrap text-sm text-center">EMPLOYEE ID</th>
-                                <th class="whitespace-nowrap text-sm text-center">FULLNAME</th>
-                                <th class="whitespace-nowrap text-sm text-center">EMAIL</th>
-                                <th class="whitespace-nowrap text-sm text-center">MOBILE NO.</th>
-                                <th class="whitespace-nowrap text-sm text-center">GENDER</th>
-                                <th class="whitespace-nowrap text-sm text-center">DOB</th>
-                                <th class="whitespace-nowrap text-sm text-center">AGE</th>
-                                <th class="whitespace-nowrap text-sm text-center">POB</th>
-                                <th class="whitespace-nowrap text-sm text-center">DATE STARTED</th>
-                                <th class="whitespace-nowrap text-sm text-center">POSITION</th>
-                                <th class="whitespace-nowrap text-sm text-center">ACTIONS</th>
+                                <th class="whitespace-nowrap uppercase text-xs text-center">EMPLOYEE ID</th>
+                                <th class="whitespace-nowrap uppercase text-xs text-center">FULLNAME</th>
+                                <th class="whitespace-nowrap uppercase text-xs text-center">EMAIL</th>
+                                <th class="whitespace-nowrap uppercase text-xs text-center">MOBILE NO.</th>
+                                <th class="whitespace-nowrap uppercase text-xs text-center">GENDER</th>
+                                <th class="whitespace-nowrap uppercase text-xs text-center">DOB</th>
+                                <th class="whitespace-nowrap uppercase text-xs text-center">AGE</th>
+                                <th class="whitespace-nowrap uppercase text-xs text-center">POB</th>
+                                <th class="whitespace-nowrap uppercase text-xs text-center">DATE STARTED</th>
+                                <th class="whitespace-nowrap uppercase text-xs text-center">POSITION</th>
+                                <th class="whitespace-nowrap uppercase text-xs text-center">ACTIONS</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -133,7 +133,6 @@
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="form-group col-12">
-
                                             <label class="col-form-label">Employee No.</label>
                                             <input class="form-control" type="text" name="emp_no" required>
 

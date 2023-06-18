@@ -52,4 +52,24 @@ class Admin extends DBConn {
 
         echo 'Employee Resigned!';
     }
+
+    public function accept_appointment() {
+        extract($_POST);
+
+        parent::update('appointments', [
+            'status' => 'accepted',
+        ], "id = $id");
+
+        echo 'Appointment marked Accepted.';
+    }
+
+    public function cancel_appointment() {
+        extract($_POST);
+
+        parent::update('appointments', [
+            'status' => 'cancelled',
+        ], "id = $id");
+
+        echo 'Appointment marked cancelled.';
+    }
 }

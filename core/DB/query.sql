@@ -11,6 +11,7 @@ CREATE TABLE appointments (
     id int(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
     client_id varchar(250) DEFAULT NULL,
     car_id varchar(250) DEFAULT NULL,
+    emp_id varchar(250) DEFAULT NULL,
     pms varchar(250) DEFAULT NULL,
     repair varchar(250) DEFAULT NULL,
     description longtext NOT NULL,

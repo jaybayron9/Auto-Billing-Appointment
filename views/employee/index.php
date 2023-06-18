@@ -12,7 +12,7 @@
                     <div class="icon"></div>
                     <div class="wc-item">
                         <h3 class="wc-title">
-                            <a href="?vs=mechanic">Job Order</a>
+                            <a href="?vs=job-order">Job Order</a>
                         </h3>
                         <span class="wc-stats">
                         </span>

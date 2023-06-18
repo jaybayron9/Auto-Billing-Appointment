@@ -14,6 +14,8 @@ $response = [
     'get_employee' => ['obj' => new Admin(), 'method' => 'get_employee'],
     'update_employee' => ['obj' => new Admin(), 'method' => 'update_employee'],
     'resign_employee' => ['obj' => new Admin(), 'method' => 'resign_employee'],
+    'accept_appointment' => ['obj' => new Admin(), 'method' => 'accept_appointment'],
+    'cancel_appointment' => ['obj' => new Admin(), 'method' => 'cancel_appointment'],
 
     // CLIENT
     'client_add_appointment' => ['obj' => new Client(), 'method' => 'client_add_appointment'],

@@ -152,8 +152,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn green radius-xl outline" name="add_user" value="Save Changes">
-                    <button type="button" class="btn red outline radius-xl" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn green radius-xl outline">SUBMIT</button>
+                    <button type="button" class="btn red outline radius-xl" data-dismiss="modal">CLOSE</button>
                 </div>
             </div>
         </div>

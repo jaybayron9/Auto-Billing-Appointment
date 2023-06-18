@@ -30,4 +30,5 @@ return [
 
     // Employee
     '?emp' => view('employee'),
+    'job-order' => view('employee', 'job-order'),
 ];
