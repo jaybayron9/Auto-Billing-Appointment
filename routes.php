@@ -3,11 +3,9 @@
 return [
     '' => view(),
     '404' => view('auth', '404'),
-    '?admin' => view('admin'),
-    '?emp' => view('employee'),
-    '?client' => view('client'),
-
+    
     // Admin
+    '?admin' => view('admin'),
     'employees' => view('admin', 'employees'),
     'schedules' => view('admin/schedules'),
     'approved' => view('admin/schedules', 'approved'),
@@ -22,11 +20,15 @@ return [
     'history' => view('admin', 'history'),
     'payments' => view('admin', 'payments'),
 
-    // client
+    // Client
+    '?client' => view('client'),
     'client' => view('client'),
     'appointments' => view('client', 'appointments'),
     'inbox' => view('client', 'inbox'),
     'report-status' => view('client', 'report-status'),
     'service-history' => view('client', 'service-history'),
     'car-list' => view('client', 'car-list'),
+
+    // Employee
+    '?emp' => view('employee'),
 ];
