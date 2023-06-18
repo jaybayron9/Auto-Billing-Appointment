@@ -14,16 +14,16 @@
                     <table id="table" class="table hover" style="width:100%; margin-top: 20px;">
                         <thead>
                             <tr>
-                                <th class="whitespace-nowrap text-sm text-center">EMPLOYEE ID</th>
-                                <th class="whitespace-nowrap text-sm text-center">FULLNAME</th>
-                                <th class="whitespace-nowrap text-sm text-center">EMAIL</th>
-                                <th class="whitespace-nowrap text-sm text-center">MOBILE NO.</th>
-                                <th class="whitespace-nowrap text-sm text-center">GENDER</th>
-                                <th class="whitespace-nowrap text-sm text-center">DOB</th>
-                                <th class="whitespace-nowrap text-sm text-center">AGE</th>
-                                <th class="whitespace-nowrap text-sm text-center">POB</th>
-                                <th class="whitespace-nowrap text-sm text-center">DATE STARTED</th>
-                                <th class="whitespace-nowrap text-sm text-center">POSITION</th>
+                                <th class="whitespace-nowrap text-xs text-center">EMPLOYEE ID</th>
+                                <th class="whitespace-nowrap text-xs text-center">FULLNAME</th>
+                                <th class="whitespace-nowrap text-xs text-center">EMAIL</th>
+                                <th class="whitespace-nowrap text-xs text-center">MOBILE NO.</th>
+                                <th class="whitespace-nowrap text-xs text-center">GENDER</th>
+                                <th class="whitespace-nowrap text-xs text-center">DOB</th>
+                                <th class="whitespace-nowrap text-xs text-center">AGE</th>
+                                <th class="whitespace-nowrap text-xs text-center">POB</th>
+                                <th class="whitespace-nowrap text-xs text-center">DATE STARTED</th>
+                                <th class="whitespace-nowrap text-xs text-center">POSITION</th>
                                 <th class="whitespace-nowrap text-xs text-center">ACTION</th>
                             </tr>
                         </thead>
@@ -42,11 +42,9 @@
                                 <td><?= $emp['position'] ?></td>
                                 <td>
                                     <center>
-                                        <button data-toggle="modal" data-target="#edit-" class="btn blue" style="width: 50px; height: 37px;">
-                                            <div data-toggle="tooltip" title="Edit">
-                                                <i class="ti-eye" style="font-size: 12px;"></i>
-                                            </div>
-                                        </button>&nbsp;
+                                        <button class="btn blue">
+                                            PRINT
+                                        </button>
                                     </center>
                                 </td>
                             </tr>
@@ -96,6 +94,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn blue outline radius-xl">Print</button>
                     <button type="button" class="btn red outline radius-xl" data-dismiss="modal">Close</button>
                 </div>
             </div>

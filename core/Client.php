@@ -37,4 +37,14 @@ class Client extends DBConn {
         return parent::alert('error', 'Please fill out all the field with correct format.');
         // return parent::alert('error', 'Car already exist.');
     }
+
+    public function client_cancel_appointment() {
+        extract($_POST);
+
+        parent::update('appointments', [
+            'status' => 'cancelled',
+        ], "id = $id");
+
+        echo 'Appointment marked as cancelled.';
+    }
 }

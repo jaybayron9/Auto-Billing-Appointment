@@ -83,7 +83,6 @@
 				</div>
 			</div>
 
-
 			<div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-6">
 				<div class="widget-card widget-bg2" style="padding: 30px 30px; background-image: linear-gradient(to right, #ffb822, #fac34d, #fcd174, #fad88e);">
 					<div class="icon">
@@ -128,7 +127,6 @@
 				</div>
 			</div>
 		</div>
-
 		
 		<div class="row">
 			<div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-6">

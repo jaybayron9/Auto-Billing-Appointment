@@ -24,7 +24,7 @@
                         </thead>
                         <tbody>
                             <?php 
-                             $query = "SELECT * FROM appointments ap JOIN cars cs ON ap.client_id = cs.user_id WHERE client_id = '{$_SESSION['client_auth']}' AND (status = 'pending' OR status = 'cancelled')";
+                            $query = "SELECT ap.id as app_id, ap.*, cs.* FROM appointments ap JOIN cars cs ON ap.client_id = cs.user_id WHERE client_id = '{$_SESSION['client_auth']}' AND (status = 'pending' OR status = 'cancelled')";
                             
                             foreach(DBConn::DBQuery($query) as $appointment) { 
                             ?>
@@ -37,13 +37,9 @@
                                 <td><?= $appointment['status'] ?></td>
                                 <td><?= $appointment['created_at'] ?></td>
                                 <td class="flex gap-x-2 text-center">
-                                    <center>
-                                        <button data-toggle="modal" data-target="#archive-" class="btn red" style="width: 50px; height: 37px;">
-                                            <div data-toggle="tooltip" title="Deactivate">
-                                                <i class="ti-archive" style="font-size: 12px;"></i>
-                                            </div>
-                                        </button>
-                                    </center>
+                                    <button class="cancel-btn btn red" data-row-data="<?= $appointment['app_id'] ?>" style="width: 50px; height: 37px;">
+                                        <i class="ti-archive" style="font-size: 12px;"></i>
+                                    </button>
                                 </td>
                             </tr>
                             <?php } ?>
@@ -54,29 +50,24 @@
         </div>
     </div>
 </main>
-
-<div id="archive-" class="modal fade" role="dialog">
-    <form class="edit-profile m-b30" method="POST" enctype="multipart/form-data">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title"><img src="../assets/images/1.png" style="width: 30px; height: 30px;">&nbsp;Cancel Appointment</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="archive-id" value="">
-                    <p style="text-align: center;">Cancel the appointment?</p>
-                </div>
-                <div class="modal-footer">
-                    <a class="btn red outline radius-xl" href="appointments.php?id=&del=delete" onClick="return confirm('Are you sure you want to cancel?')">Cancel</a>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-
 <script type="text/javascript">
     $(function() {
         let table = new DataTable('#myTable');
+
+        $('.cancel-btn').click(function() {
+            var id = $(this).data('row-data');
+
+            if (confirm('Are you sure you want to cancel?')) {
+                $.ajax({
+                    url: '?rq=client_cancel_appointment',
+                    type: 'POST',
+                    data: {id: id},
+                    success: function(resp) {
+                        alert(resp);
+                        window.location.reload(true);
+                    }
+                });
+            }
+        });
     });
 </script>

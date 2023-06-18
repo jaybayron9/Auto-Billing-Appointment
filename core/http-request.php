@@ -18,6 +18,7 @@ $response = [
     // CLIENT
     'client_add_appointment' => ['obj' => new Client(), 'method' => 'client_add_appointment'],
     'add_car' => ['obj' => new Client, 'method' => 'add_car'],
+    'client_cancel_appointment' => ['obj' => new Client(), 'method' => 'client_cancel_appointment']
 ];
 
 HTTPR($request, $response); 

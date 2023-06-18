@@ -4,7 +4,7 @@ class Admin extends DBConn {
     public function add_employee() {
         extract($_POST);
 
-        $insert = parent::insert('employee_info', [
+        $insert = parent::insert('employees', [
             'employee_no' => $emp_no,
             'name' => $fullname,
             'address' => $address,
@@ -22,12 +22,12 @@ class Admin extends DBConn {
         echo !$insert ? 'Employee Added!' : 'error';
     }
 
-    public function get_employee() { return json_encode(parent::findOrFail('employee_info', $_POST['id'])); }
+    public function get_employee() { return json_encode(parent::findOrFail('employees', $_POST['id'])); }
 
     public function update_employee() {
         extract($_POST);
         
-        $update = parent::update('employee_info', [
+        $update = parent::update('employees', [
             'employee_no' => $new_emp_no,
             'name' => $new_name,
             'address' => $new_address,
@@ -46,7 +46,7 @@ class Admin extends DBConn {
     public function resign_employee() {
         extract($_POST);
 
-        parent::update('employee_info', [
+        parent::update('employees', [
             'status' => 'resign',
         ], "id = $id");
 

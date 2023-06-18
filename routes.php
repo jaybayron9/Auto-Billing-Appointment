@@ -22,7 +22,6 @@ return [
 
     // Client
     '?client' => view('client'),
-    'client' => view('client'),
     'appointments' => view('client', 'appointments'),
     'inbox' => view('client', 'inbox'),
     'report-status' => view('client', 'report-status'),
