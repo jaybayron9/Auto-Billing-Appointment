@@ -1,10 +1,6 @@
 <?php 
 
 class Convo extends DBConn {
-    public function admin_send() {
-
-    }
-
     public function client_send() {
         extract($_POST);
 
@@ -15,7 +11,7 @@ class Convo extends DBConn {
         ]);
     }
 
-    public function show_convo() {
+    public function client_show_convo() {
         extract($_POST);
 
         $query = "
@@ -30,7 +26,40 @@ class Convo extends DBConn {
 
         foreach ($datas as $conversation) {
             $user = $_SESSION['client_auth'] == $conversation['from_user'] ? 'text-right': 'text-left';
-            echo '<div class="block '. $user .'"><span class="bg-blue-600 px-2 text-white font-ligh rounded-full text-lg">'. $conversation['message'] .'</span></div>';
+            $bg = $_SESSION['client_auth'] == $conversation['from_user'] ? 'bg-blue-500': 'bg-gray-500';
+            echo '<div class="block '. $user .'"><span class="'. $bg .' px-2 py-1 text-white text-md rounded-full">'. $conversation['message'] .'</span></div>';
+            echo '<span class="text-xs font-light">'. date('Y/m/d h:i a', strtotime($conversation['created_at'])) .'</span>';
+        }
+    }
+
+    public function admin_send() {
+        extract($_POST);
+
+        parent::insert('convo', [
+            'from_user' => $from,
+            'send_to' => $to,
+            'message' => $message
+        ]);
+    }
+
+    public function admin_show_convo() {
+        extract($_POST);
+
+        $query = "
+            SELECT *
+            FROM convo 
+            WHERE 
+                (from_user = '{$from}' AND send_to = '{$to}') OR
+                (from_user = '{$to}' AND send_to = '$from')
+        ";
+
+        $datas = parent::DBQuery($query);
+
+        foreach ($datas as $conversation) {
+            $user = $from == $conversation['from_user'] ? 'text-right': 'text-left';
+            $bg = $from == $conversation['from_user'] ? 'bg-blue-500': 'bg-gray-500';
+            echo '<div class="block '. $user .'"><span class="'. $bg .' px-2 py-1 text-white text-md rounded-full">'. $conversation['message'] .'</span></div>';
+            echo '<span class="text-xs font-light">'. date('Y/m/d h:i a', strtotime($conversation['created_at'])) .'</span>';
         }
     }
 }

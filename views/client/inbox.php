@@ -1,6 +1,6 @@
 <main class="ttr-wrapper" style="background-color: #F3F3F3;">
     <div class="container-fluid">
-        <div id="chatDisplay" class="w-full border border-gray-300 rounded-md p-5 shadow-xl mb-4 h-96"></div>
+        <div id="chatDisplay" class="w-full border border-gray-300 rounded-md p-5 shadow-xl mb-4 h-96 overflow-y-auto" style="max-height: 400px;"></div>
 
         <form id="sm-form" class="flex">
             <input type="hidden" name="client_id" id="client-id" value="<?= $_SESSION['client_auth'] ?>">

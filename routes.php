@@ -19,6 +19,7 @@ return [
     'backup' => view('admin', 'backup'),
     'history' => view('admin', 'history'),
     'payments' => view('admin', 'payments'),
+    'admin-messages' => view('admin', 'messages'),
 
     // Client
     '?client' => view('client'),

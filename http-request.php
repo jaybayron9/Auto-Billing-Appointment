@@ -31,8 +31,11 @@ $response = [
     'send_email' => ['obj' => new Client(), 'method' => 'send_email'],
 
     // CONVERSATIONS
-    'show_messages' => ['obj' => new Convo(), 'method' => 'show_convo'],
+    'show_messages' => ['obj' => new Convo(), 'method' => 'client_show_convo'],
     'client_send' => ['obj' => new Convo(), 'method' => 'client_send'],
+    'admin_show_convo' => ['obj' => new Convo(), 'method' => 'admin_show_convo'],
+    'admin_send' => ['obj' => new Convo(), 'method' => 'admin_send'],
+    'show_to_admin' => ['obj' => new Convo(), 'method' => 'admin_show_convo'],
 
     // BACKUP DATABASE
     'backup' => ['obj' => new DBConn(), 'method' => 'backupDatabase'],
