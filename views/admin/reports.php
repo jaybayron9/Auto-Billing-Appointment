@@ -6,33 +6,30 @@
                 <li><i class="fa fa-home"></i> Reports</li>
             </ul>
         </div>
-        <form action="reports.php" method="post">
-            <center>
-                <strong>
-                    From : <input type="date" style="width: 223px; padding:14px;" name="d1" class="tcal" />
-                    To: <input type="date" style="width: 223px; padding:14px;" name="d2" class="tcal" />
-                    <button class="btn bg-yellow-500" style="width: 123px; height:35px; margin-top:-8px;margin-left:8px;" name="sub" type="submit">
-                        <i class="icon icon-search icon-large"></i> Search</button>
-                </strong>
-            </center>
-        </form>
-
+        <center>
+            <strong>
+                From : <input type="date" style="width: 223px; padding:14px;" id="start-date" class="tcal" />
+                To: <input type="date" style="width: 223px; padding:14px;" id="end-date" class="tcal" />
+                <button class="btn bg-yellow-500" id="search-button" style="width: 123px; height:35px; margin-top:-8px;margin-left:8px;">
+                    <i class="icon icon-search icon-large"></i> Search</button>
+            </strong>
+        </center>
         <table id="table" class="table table-bordered" data-responsive="table" style="text-align: left;">
             <thead>
                 <tr>
-                    <th class="whitespace-nowrap text-xs">CLIENT ID</th>
-                    <th class="whitespace-nowrap text-xs">TRANSACTION DATE</th>
-                    <th class="whitespace-nowrap text-xs">NAME</th>
-                    <th class="whitespace-nowrap text-xs">AMOUNT</th>
+                    <th data-priority="1" class="whitespace-nowrap text-xs text-center uppercase">CLIENT ID</th>
+                    <th data-priority="2" class="whitespace-nowrap text-xs text-center uppercase">TRANSACTION DATE</th>
+                    <th data-priority="3" class="whitespace-nowrap text-xs text-center uppercase">Description</th>
+                    <th data-priority="4" class="whitespace-nowrap text-xs text-center uppercase">AMOUNT</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach( DBConn::select('payment') as $payment) { ?>
+                <?php foreach( DBConn::select('payments') as $payment) { ?>
                 <tr>
-                    <td><?= $payment['id'] ?></td>
-                    <td><?= $payment['date'] ?></td>
-                    <td><?= $payment['name'] ?></td>
-                    <td><?= $payment['payment'] ?></td>
+                    <td class="text-sm"><?= $payment['id'] ?></td>
+                    <td class="text-sm"><?= date('Y-m-d', strtotime($payment['created_at'])) ?></td>
+                    <td class="text-sm"><?= $payment['description'] ?></td>
+                    <td class="text-sm"><?= $payment['total_due'] ?></td>
                 </tr>
                 <?php } ?>
             </tbody>
@@ -42,6 +39,32 @@
 
 <script type="text/javascript">
     $(function() {
-        let table = new DataTable('#table');
+        var table = $('#table').DataTable({
+                columns: [
+                    { title: 'CLIENT ID' },
+                    { title: 'TRANSACTION DATE' },
+                    { title: 'Description' },
+                    { title: 'AMOUNT' },
+                ],
+            })
+
+        $.fn.dataTable.ext.search.push(
+            function(settings, data, dataIndex) {
+                var minDate = $('#start-date').val();
+                var maxDate = $('#end-date').val();
+                var date = data[1];
+                if (minDate === '' || maxDate === '') {
+                    return true;
+                }
+                if (date >= minDate && date <= maxDate) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+        $('#search-button').click(function() {
+            table.draw();
+        });
     });
 </script>

@@ -17,27 +17,33 @@
                     <table id="table" class="table hover" style="width:100%; margin-top: 20px;">
                         <thead>
                             <tr>
-                                <th class="whitespace-nowrap text-xs">CLIENT NAME</th>
-                                <th class="whitespace-nowrap text-xs">EMAIL</th>
-                                <th class="whitespace-nowrap text-xs">PAYMENT</th>
-                                <th class="whitespace-nowrap text-xs">DATE CREATED</th>
-                                <th class="whitespace-nowrap text-xs">ACTION</th>
+                                <th class="whitespace-nowrap text-xs uppercase text-center">CLIENT NAME</th>
+                                <th class="whitespace-nowrap text-xs uppercase text-center">EMAIL</th>
+                                <th class="whitespace-nowrap text-xs uppercase text-center">PHONE</th>
+                                <th class="whitespace-nowrap text-xs uppercase text-center">Description</th>
+                                <th class="whitespace-nowrap text-xs uppercase text-center">TOTAL DUE</th>
+                                <th class="whitespace-nowrap text-xs uppercase text-center">DATE CREATED</th>
+                                <th class="whitespace-nowrap text-xs uppercase text-center">ACTION</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php 
+                            foreach (DBConn::select('payments') as $data) {
+                            ?>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <button data-toggle="modal" data-target="#archive-" class="btn red" style="width: 50px; height: 37px;">
-                                        <div data-toggle="tooltip" title="Deactivate">
-                                            <i class="ti-archive" style="font-size: 12px;"></i>
-                                        </div>
+                                <td class="text-sm"><?= $data['name'] ?></td>
+                                <td class="text-sm"><?= $data['email'] ?></td>
+                                <td class="text-sm"><?= $data['phone'] ?></td>
+                                <td class="text-sm"><?= $data['description'] ?></td>
+                                <td class="text-sm"><?= $data['total_due'] ?></td>
+                                <td class="text-sm"><?= $data['created_at'] ?></td>
+                                <td class="flex gap-x-2 text-center text-sm">
+                                    <button data-row-data="<?= $data['id'] ?>" class="delete-btn px-2 py-1 bg-red-500 hover:bg-red-700 text-white uppercase">
+                                        DELETE
                                     </button>
                                 </td>
                             </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
@@ -46,32 +52,10 @@
     </div>
 </main>
 
-<div id="archive-" class="modal fade" role="dialog">
-    <form class="edit-profile m-b30" method="POST" enctype="multipart/form-data">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title"><img src="../assets/images/1.png" style="width: 30px; height: 30px;">&nbsp;Delete Payment</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="archive-id" value="">
-
-                </div>
-                <div class="modal-footer">
-                    <a class="btn red outline radius-xl" href="payment.php?id=&del=delete" onClick="return confirm('Are you sure you want to delete?')">Delete</a>
-
-                    <button type="button" class="btn red outline radius-xl" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-
 <div id="add" class="modal fade" role="dialog">
-    <form class="edit-profile m-b30" method="POST" enctype="multipart/form-data">
+    <div  class="edit-profile m-b30">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+            <form id="payment-form" class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title"><img src="../assets/images/1.png" style="width: 30px; height: 30px;">&nbsp;Add Payment</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -83,24 +67,57 @@
                             <input class="form-control" type="text" name="name" style="background-color: white;">
 
                             <label class="col-form-label">Email</label>
-                            <input class="form-control" type="text" name="email" style="background-color: white;">
+                            <input class="form-control" type="email" name="email" style="background-color: white;">
 
-                            <label class="col-form-label">Payment</label>
-                            <input class="form-control" type="text" name="payment" style="background-color: white;">
+                            <label class="col-form-label">Phone</label>
+                            <input class="form-control number" type="text" name="phone" style="background-color: white;">
+                            
+                            <label class="col-form-label">Amount</label>
+                            <input class="form-control number" type="text" name="amount" style="background-color: white;">
+
+                            <label class="col-form-label">Description</label>
+                            <textarea class="form-control" type="text" name="description" style="background-color: white;"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn green radius-xl outline" name="add_user" value="Save Changes">
+                    <button type="submit" class="btn green radius-xl outline">SAVE</button>
                     <button type="button" class="btn red outline radius-xl" data-dismiss="modal">Close</button>
                 </div>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 
 <script type="text/javascript">
     $(function() {
         let table = new DataTable('#table');
+
+        $('#payment-form').submit(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '?rq=add_payment',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(resp) {
+                    alert(resp);
+                    window.location.reload(true);
+                }
+            });
+        })
+
+        $('.delete-btn').click(function() {
+            var id = $(this).data('row-data');
+
+            if (confirm('Are you sure you want to delete this payment?')) {
+                $.ajax({
+                    url: '?rq=delete_payment',
+                    type: 'POST',
+                    data: {id: id},
+                    success: function(resp) { window.location.reload(true); }
+                });
+            }
+        })
     });
 </script>

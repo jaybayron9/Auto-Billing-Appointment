@@ -6,7 +6,6 @@
                 <li><i class="fa fa-home"></i>Back Up</li>
             </ul>
         </div>
-        
         <div class="row">
             <div class="col-lg-12 m-b30">
                 <div class="table-responsive">
@@ -14,55 +13,25 @@
                         <h4>Back Up Database</h4>
                         <thead>
                             <tr>
-                                <th width="150">
-                                    <center> Action</center>
-                                </th>
-                                <th>
-                                    <center> Location</center>
-                                </th>
-                                <th>
-                                    <center> Date</center>
-                                </th>
-                                <th>
-                                    <center> #</center>
-                                </th>
+                                <th class="whitespace-nowrap text-xs uppercase text-center">Action</th>
+                                <th class="whitespace-nowrap text-xs uppercase text-center">Location</th>
+                                <th class="whitespace-nowrap text-xs uppercase text-center">Date</th>
+                                <th class="whitespace-nowrap text-xs uppercase text-center">#</th>
                             </tr>
                         </thead>
                         <tbody>
-
                             <tr>
-
-
-
-                                <td>
-                                    <center> <a href="#" class="btn btn-success">Backup Database</a></center>
+                                <td class="text-sm text-center">
+                                    <a href="?rq=backup" class="bg-yellow-500 hover:bg-yellow-600 hover:text-white text-white px-3 py-2 rounded-md shadow-md">Backup Database</a>
                                 </td>
-                                <td>
-                                    <center> Local</center>
-                                </td>
-                                <td>
-                                    <center> July 12, 2021</center>
-                                </td>
-                                <td>
-                                    <center> 1 </center>
-                                </td>
-
-
+                                <td class="text-sm text-center">cjce</td>
+                                <td class="text-sm text-center">July 12, 2021</td>
+                                <td class="text-sm text-center">1</td>
                             </tr>
-
                         </tbody>
                     </table>
                 </div>
-                <hr>
-
-
             </div>
-
-
-
-
-
-
         </div>
     </div>
 </main>

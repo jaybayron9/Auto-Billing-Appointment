@@ -72,4 +72,43 @@ class Admin extends DBConn {
 
         echo 'Appointment marked cancelled.';
     }
+
+    public function assign_appointment() {
+        extract($_POST);
+
+        parent::update('appointments', [
+            'emp_id' => $mechanic . ', ' . $electrician,
+            'description' => $description,
+        ], "id = $app_id");
+    }
+
+    public function add_payment() {
+        extract($_POST);
+
+        parent::insert('payments', [
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'description' => $description,
+            'total_due' => $amount
+        ]);
+
+        echo 'Payment added.';
+    }
+
+    public function delete_payment() {
+        extract($_POST);
+
+        parent::DBQuery("DELETE FROM payments WHERE id = '{$id}'");
+
+        echo 'Payment deleted.';
+    }
+
+    public function delete_user() { 
+        extract($_POST);
+
+        parent::DBQuery("DELETE FROM payments WHERE id = '{$id}'");
+
+        echo 'User successfully deleted.';
+    }
 }

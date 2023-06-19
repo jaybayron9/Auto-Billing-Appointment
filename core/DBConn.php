@@ -24,6 +24,37 @@ class DBConn {
         self::$conn = null;
     }
 
+    public function backupDatabase() {
+        $backupFilename = 'backup.sql';
+    
+        $backupFile = fopen($backupFilename, 'w');
+    
+        $tables = array();
+        $result = self::$conn->query("SHOW TABLES");
+        while ($row = $result->fetch(PDO::FETCH_NUM)) {
+            $tables[] = $row[0];
+        }
+    
+        foreach ($tables as $table) {
+            $result = self::$conn->query("SHOW CREATE TABLE $table");
+            $row = $result->fetch(PDO::FETCH_NUM);
+            fwrite($backupFile, $row[1] . ";\n");
+    
+            $result = self::$conn->query("SELECT * FROM $table");
+            while ($row = $result->fetch(PDO::FETCH_NUM)) {
+                $rowData = implode("','", $row);
+                fwrite($backupFile, "INSERT INTO $table VALUES ('$rowData');\n");
+            }
+        }
+    
+        fclose($backupFile);
+
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . basename($backupFilename) . '"');
+        header('Content-Length: ' . filesize($backupFilename));
+        readfile($backupFilename);
+    }
+    
     public static function insert($table, $data) {
         $columns = implode(', ', array_keys($data));
         $values = implode(', ', array_fill(0, count($data), '?'));

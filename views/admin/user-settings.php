@@ -13,28 +13,24 @@
                         <table id="table" class="table hover" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th class="whitespace-nowrap text-xs">NAME</th>
-                                    <th class="whitespace-nowrap text-xs">EMAIL</th>
-                                    <th class="whitespace-nowrap text-xs">PHONE</th>
-                                    <th class="whitespace-nowrap text-xs">ADDRESS</th>
-                                    <th class="whitespace-nowrap text-xs">ACTION</th>
+                                    <th class="whitespace-nowrap text-xs text-center uppercase">NAME</th>
+                                    <th class="whitespace-nowrap text-xs text-center uppercase">EMAIL</th>
+                                    <th class="whitespace-nowrap text-xs text-center uppercase">PHONE</th>
+                                    <th class="whitespace-nowrap text-xs text-center uppercase">ADDRESS</th>
+                                    <th class="whitespace-nowrap text-xs text-center uppercase">ACTION</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach( DBConn::select('clients') as $client ) { ?>
                                 <tr>
-                                    <td><?= $client['name'] ?></td>
-                                    <td><?= $client['email'] ?></td>
-                                    <td><?= $client['phone'] ?></td>
-                                    <td><?= $client['address'] ?></td>
-                                    <td>
-                                        <center>
-                                            <button data-toggle="modal" data-target="#archive-" class="btn red" style="width: 50px; height: 37px;">
-                                                <div data-toggle="tooltip" title="Deactivate">
-                                                    <i class="ti-archive" style="font-size: 12px;"></i>
-                                                </div>
-                                            </button>
-                                        </center>
+                                    <td class="text-sm"><?= $client['name'] ?></td>
+                                    <td class="text-sm"><?= $client['email'] ?></td>
+                                    <td class="text-sm"><?= $client['phone'] ?></td>
+                                    <td class="text-sm"><?= $client['address'] ?></td>
+                                    <td class="flex text-sm">
+                                        <button data-row-data="<?= $client['id'] ?>" class="delete-btn px-2 bg-red-500 hover:bg-red-700 text-white">
+                                            DELETE
+                                        </button>
                                     </td>
                                 </tr>
                                 <?php } ?>
@@ -47,30 +43,21 @@
         </div>
 </main>
 
-<div id="archive-" class="modal fade" role="dialog">
-    <form class="edit-profile m-b30" method="POST" enctype="multipart/form-data">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title"><img src="../assets/images/1.png" style="width: 30px; height: 30px;">&nbsp;Deletion of Account</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="archive-id" value="">
-
-                </div>
-                <div class="modal-footer">
-                    <a class="btn red outline radius-xl" href="appointments.php?id=&del=delete" onClick="return confirm('Are you sure you want to delete this account?')">Delete</a>
-
-                    <button type="button" class="btn red outline radius-xl" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-
 <script type="text/javascript">
     $(function() {
         let table = new DataTable('#table');
+
+        $('.delete-btn').click(function() {
+            var id = $(this).data('row-data');
+
+            if (confirm('Are you sure you want to delete this user?')) {
+                $.ajax({
+                    url: '?rq=delete_user',
+                    type: 'POST',
+                    data: {id: id},
+                    success: function(resp) { window.location.reload(true); }
+                });
+            }
+        })
     });
 </script>

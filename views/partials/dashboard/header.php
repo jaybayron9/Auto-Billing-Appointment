@@ -20,6 +20,8 @@
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="https://kit.fontawesome.com/e02ccf2d8a.js" crossorigin="anonymous"></script>
 	<script src="assets/dashboard/assets/js/jquery.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 	<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <style type="text/css">
 		.btn.dropdown-toggle.btn-default:hover {
