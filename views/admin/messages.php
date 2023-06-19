@@ -23,7 +23,6 @@
 <script type="text/javascript">
     $(function() {
         $('#to').change(function() {
-            alert($('#to').val());
             $.ajax({
                 url: '?rq=show_to_admin',
                 type: 'POST',
