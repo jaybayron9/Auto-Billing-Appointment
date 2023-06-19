@@ -47,4 +47,12 @@ class Client extends DBConn {
 
         echo 'Appointment marked as cancelled.';
     }
-}
+
+    public function send_email() {
+        $email = new Emailer();
+
+        extract($_POST);
+
+        $send = Emailer::send('tatcojeth1018@gmail.com', $email, $message);
+    }
+}   

@@ -5,11 +5,13 @@ session_start();
 
 require_once('core/functions.php');
 require_once(core('DBConn'));
+require_once(core('Emailer'));
 require_once(core('Admin'));
 require_once(core('Employee'));
 require_once(core('Client'));
+require_once(core('Convo'));
 require_once(core('Auth'));
-require_once(core('http-request'));
+require_once('http-request.php');
 
 if (parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY)) {
     require(view('partials/dashboard', 'header'));

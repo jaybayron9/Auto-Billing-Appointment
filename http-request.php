@@ -21,15 +21,20 @@ $response = [
     'delete_payment' => ['obj' => new Admin(), 'method' => 'delete_payment'],
     'delete_user' => ['obj' => new Admin(), 'method' => 'delete_user'],
 
+    // EMPLOYEE
+    'employee_update_status' => ['obj' => new Employee(), 'method' => 'update_status'],
+    
     // CLIENT
     'client_add_appointment' => ['obj' => new Client(), 'method' => 'client_add_appointment'],
     'add_car' => ['obj' => new Client, 'method' => 'add_car'],
     'client_cancel_appointment' => ['obj' => new Client(), 'method' => 'client_cancel_appointment'],
+    'send_email' => ['obj' => new Client(), 'method' => 'send_email'],
 
-    // EMPLOYEE
-    'employee_update_status' => ['obj' => new Employee(), 'method' => 'update_status'],
+    // CONVERSATIONS
+    'show_messages' => ['obj' => new Convo(), 'method' => 'show_convo'],
+    'client_send' => ['obj' => new Convo(), 'method' => 'client_send'],
 
-    // Backup database
+    // BACKUP DATABASE
     'backup' => ['obj' => new DBConn(), 'method' => 'backupDatabase'],
 ];
 

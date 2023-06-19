@@ -1,3 +1,4 @@
+-- Active: 1666468590274@@127.0.0.1@3306@cjce
 CREATE TABLE administrators (
     id int(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
     email varchar(255) DEFAULT NULL,
@@ -81,4 +82,13 @@ CREATE TABLE payments (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
 );
 
-drop table payments;
+CREATE TABLE convo (
+    id int(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    from_user varchar(255) DEFAULT NULL,
+    send_to varchar(255) DEFAULT NULL,
+    message longtext DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
+);
+
+drop table convo;
