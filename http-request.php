@@ -20,6 +20,8 @@ $response = [
     'add_payment' => ['obj' => new Admin(), 'method' => 'add_payment'],
     'delete_payment' => ['obj' => new Admin(), 'method' => 'delete_payment'],
     'delete_user' => ['obj' => new Admin(), 'method' => 'delete_user'],
+    'add_walkin' => ['obj' => new Admin(), 'method' => 'add_walkin'],
+    'delete_walkin' => ['obj' => new Admin(), 'method' => 'delete_walkin'],
 
     // EMPLOYEE
     'employee_update_status' => ['obj' => new Employee(), 'method' => 'update_status'],

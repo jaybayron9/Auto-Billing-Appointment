@@ -91,4 +91,19 @@ CREATE TABLE convo (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
 );
 
-drop table convo;
+CREATE TABLE walkin (
+    id int(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name varchar(250) DEFAULT NULL,
+    email varchar(250) DEFAULT NULL,
+    address varchar(250) DEFAULT NULL,
+    repair varchar(250) DEFAULT NULL,
+    brand varchar(250) DEFAULT NULL,
+    model varchar(250) DEFAULT NULL,
+    schedule varchar(250) DEFAULT NULL,
+    time varchar(250) DEFAULT NULL,
+    phone varchar(250) DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
+) ;
+
+drop table walkin;

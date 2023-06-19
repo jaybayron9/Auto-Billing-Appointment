@@ -11,36 +11,32 @@
                     <table id="table" class="table hover" style="width:100%; margin-top: 20px;">
                         <thead>
                             <tr>
-                                <th class="whitespace-nowrap text-sm">NAME</th>
-                                <th class="whitespace-nowrap text-sm">EMAIL</th>
-                                <th class="whitespace-nowrap text-sm">PHONE</th>
-                                <th class="whitespace-nowrap text-sm">ADDRESS</th>
-                                <th class="whitespace-nowrap text-sm">REPAIR</th>
-                                <th class="whitespace-nowrap text-sm">BRAND</th>
-                                <th class="whitespace-nowrap text-sm">MODEL</th>
-                                <th class="whitespace-nowrap text-sm">SCHEDULE</th>
-                                <th class="whitespace-nowrap text-sm">TIME</th>
+                                <th class="whitespace-nowrap text-xs text-center uppercase">NAME</th>
+                                <th class="whitespace-nowrap text-xs text-center uppercase">EMAIL</th>
+                                <th class="whitespace-nowrap text-xs text-center uppercase">PHONE</th>
+                                <th class="whitespace-nowrap text-xs text-center uppercase">ADDRESS</th>
+                                <th class="whitespace-nowrap text-xs text-center uppercase">REPAIR</th>
+                                <th class="whitespace-nowrap text-xs text-center uppercase">BRAND</th>
+                                <th class="whitespace-nowrap text-xs text-center uppercase">MODEL</th>
+                                <th class="whitespace-nowrap text-xs text-center uppercase">SCHEDULE</th>
+                                <th class="whitespace-nowrap text-xs text-center uppercase">TIME</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach( DBConn::select('walkin') as $client ) { ?>
                             <tr>
-                                <td><?= $client['name'] ?></td>
-                                <td><?= $client['email'] ?></td>
-                                <td><?= $client['phone'] ?></td>
-                                <td><?= $client['address'] ?></td>
-                                <td><?= $client['repair'] ?></td>
-                                <td><?= $client['brand'] ?></td>
-                                <td><?= $client['model'] ?></td>
-                                <td><?= $client['schedule'] ?></td>
-                                <td>
-                                    <center>
-                                        <button data-toggle="modal" data-target="#archive-" class="btn red" style="width: 50px; height: 37px;">
-                                            <div data-toggle="tooltip" title="Deactivate">
-                                                <i class="ti-archive" style="font-size: 12px;"></i>
-                                            </div>
-                                        </button>
-                                    </center>
+                                <td class="text-sm "><?= $client['name'] ?></td>
+                                <td class="text-sm "><?= $client['email'] ?></td>
+                                <td class="text-sm "><?= $client['phone'] ?></td>
+                                <td class="text-sm "><?= $client['address'] ?></td>
+                                <td class="text-sm "><?= $client['repair'] ?></td>
+                                <td class="text-sm "><?= $client['brand'] ?></td>
+                                <td class="text-sm "><?= $client['model'] ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= date('F d, Y h:i a', strtotime($client['schedule'])) ?></td>
+                                <td class="flex text-sm">
+                                    <button data-row-data="<?= $client['id'] ?>" class="delete-btn px-2 bg-red-500 hover:bg-red-700 text-white">
+                                        DELETE
+                                    </button>
                                 </td>
                             </tr>
                             <?php } ?>
@@ -83,9 +79,9 @@
 </div>
 
 <div id="add" class="modal fade" role="dialog">
-    <form class="edit-profile m-b30" method="POST" enctype="multipart/form-data">
+    <div class="edit-profile m-b30" method="POST" enctype="multipart/form-data">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+            <form id="walkin-form" class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title"><img src="../assets/images/1.png" style="width: 30px; height: 30px;">&nbsp;Add Walk-In Appointment</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -120,36 +116,47 @@
                             <input class="form-control" type="datetime-local" name="schedule" style="background-color: white;" required>
 
                             <label class="col-form-label">Phone</label>
-                            <input class="form-control number" type="text" name="num" maxlength="11" style="background-color: white;">
+                            <input class="form-control number" type="text" name="phone" maxlength="11" style="background-color: white;">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn green radius-xl outline" name="add_user" value="Save Changes">
+                    <button type="submit" class="btn green radius-xl outline">SUBMIT</button>
                     <button type="button" class="btn red outline radius-xl" data-dismiss="modal">Close</button>
                 </div>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 
 <script type="text/javascript">
     $(function() {
         var table = new DataTable('#table');
 
-        $('.number').on('keydown keyup', function(event) {
-            var input = $(this);
-            var value = input.val();
-            var msgphone = $('.msgphone');
-
-            value = value.replace(/[^0-9\.]/g, '');
-
-            var decimalCount = (value.match(/\./g) || []).length;
-            if (decimalCount > 1) {
-                value = value.replace(/\.+$/, '');
-            }
-
-            input.val(value);
+        $('#walkin-form').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: '?rq=add_walkin',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(resp) {
+                    alert(resp);
+                    window.location.reload(true);
+                }
+            });
         });
+
+        $('.delete-btn').click(function() {
+            var id = $(this).data('row-data');
+
+            if (confirm('Are you sure you want to delete this user?')) {
+                $.ajax({
+                    url: '?rq=delete_walkin',
+                    type: 'POST',
+                    data: {id: id},
+                    success: function(resp) { window.location.reload(true); }
+                });
+            }
+        })
     });
 </script>

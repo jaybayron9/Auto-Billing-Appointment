@@ -111,4 +111,29 @@ class Admin extends DBConn {
 
         echo 'User successfully deleted.';
     }
+
+    public function add_walkin() {
+        extract($_POST);
+
+        parent::insert('walkin', [
+            'name' => $name,
+            'email' => $email,
+            'address' => $address,
+            'repair' => $repair,
+            'brand' => $brand,
+            'model' => $model,
+            'schedule' => $schedule,
+            'phone' => $phone,
+        ]);
+
+        echo 'Walkin added.';
+    }
+
+    public function delete_walkin() {
+        extract($_POST);
+
+        parent::DBQuery("DELETE FROM walkin WHERE id = '{$id}'");
+
+        echo 'Walkin successfully deleted.';
+    }
 }

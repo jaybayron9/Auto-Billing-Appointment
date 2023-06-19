@@ -43,20 +43,24 @@ class Auth extends DBConn {
 
             if (!$client) {
                 $id = parent::select('clients', 'id', ['email' => $email, 'password' => $password], null, 1);
-                parent::insert('cars', [
-                    'user_id' => $id[0]['id'],
-                    'plate_no' => $plateNumber,
-                    'car_brand' => $brand,
-                    'car_model' => $carModel,
-                    'car_type' => $carType,
-                    'fuel_type' => $fuelType,
-                    'color' => $carColor,
-                    'trans_type' => $transType,
-                ]);
+                $cars = parent::select('cars', '*', ['plate_no' => $plateNumber]);
 
-                $_SESSION['client_auth'] = $id[0]['id'];
-                $_SESSION['email_auth'] = $email;
-                return parent::alert('success', 'Successfully Registered!');
+                if (count($cars) < 1) {
+                    parent::insert('cars', [
+                        'user_id' => $id[0]['id'],
+                        'plate_no' => $plateNumber,
+                        'car_brand' => $brand,
+                        'car_model' => $carModel,
+                        'car_type' => $carType,
+                        'fuel_type' => $fuelType,
+                        'color' => $carColor,
+                        'trans_type' => $transType,
+                    ]);
+    
+                    $_SESSION['client_auth'] = $id[0]['id'];
+                    $_SESSION['email_auth'] = $email;
+                    return parent::alert('success', 'Successfully Registered!');
+                }
             }
 
             return parent::alert('error', 'Error, Please try again.');

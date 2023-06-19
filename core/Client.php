@@ -20,22 +20,27 @@ class Client extends DBConn {
         extract($_POST);
 
         if (preg_match("/^[A-Za-z]{3}[-\s]?\d{4}$/", $plateNumber)) {
-            parent::insert('cars', [
-                'user_id' => $user_id,
-                'plate_no' => $plateNumber,
-                'car_brand' => $brand,
-                'car_model' => $carModel,
-                'car_type' => $carType,
-                'fuel_type' => $fuelType,
-                'color' => $carColor,
-                'trans_type' => $transType,
-            ]);
 
-            return parent::alert('success', 'Car added.');
+            $cars = parent::select('cars', '*', ['plate_no' => $plateNumber]);
+
+            if (count($cars) < 1) {
+                parent::insert('cars', [
+                    'user_id' => $user_id,
+                    'plate_no' => $plateNumber,
+                    'car_brand' => $brand,
+                    'car_model' => $carModel,
+                    'car_type' => $carType,
+                    'fuel_type' => $fuelType,
+                    'color' => $carColor,
+                    'trans_type' => $transType,
+                ]);
+
+                return parent::alert('success', 'Car added.');
+            }
+            return parent::alert('error', 'Car plate number already exist.');
         }
 
         return parent::alert('error', 'Please fill out all the field with correct format.');
-        // return parent::alert('error', 'Car already exist.');
     }
 
     public function client_cancel_appointment() {

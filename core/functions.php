@@ -10,7 +10,7 @@ function dd($value) {
 
 function HOME($value = '') {
     switch (true) {
-        case urlIs('vs=?admin') || urlIs('vs=employees') || urlIs('vs=schedules')  || urlIs('vs=approved') || urlIs('vs=walk-in') || urlIs('vs=reports') || urlIs('vs=pms') || urlIs('vs=pms-i') || urlIs('vs=repairs') || urlIs('vs=repair-service') || urlIs('vs=user-settings') || urlIs('vs=backup')|| urlIs('vs=history')|| urlIs('vs=payments') :
+        case urlIs('vs=?admin') || urlIs('vs=employees') || urlIs('vs=schedules')  || urlIs('vs=approved') || urlIs('vs=walk-in') || urlIs('vs=reports') || urlIs('vs=pms') || urlIs('vs=pms-i') || urlIs('vs=repairs') || urlIs('vs=repair-service') || urlIs('vs=user-settings') || urlIs('vs=backup')|| urlIs('vs=history') || urlIs('vs=payments') || urlIs('vs=admin-messages') :
             return $value = '?vs=?admin';
             break;
         case urlIs('vs=?emp') || urlIs('vs=job-order') || urlIs('vs=schedules') || urlIs('vs=schedules'):
