@@ -33,7 +33,7 @@
                         <tbody>
                             <?php foreach(DBConn::select('employees', '*', ['status' => 'employed']) as $row) { ?>
                             <tr>
-                                <td><?= $row['employee_no'] ?></td>
+                                <td>EMP0<?= $row['id'] ?></td>
                                 <td><?= $row['name'] ?></td>
                                 <td><?= $row['email'] ?></td>
                                 <td><?= $row['mobile_no'] ?></td>
@@ -133,9 +133,6 @@
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="form-group col-12">
-                                            <label class="col-form-label">Employee No.</label>
-                                            <input class="form-control" type="text" name="emp_no" required>
-
                                             <label class="col-form-label">Full Name</label>
                                             <input class="form-control" type="text" name="fullname" required>
 

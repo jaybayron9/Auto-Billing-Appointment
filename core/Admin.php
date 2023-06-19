@@ -5,7 +5,6 @@ class Admin extends DBConn {
         extract($_POST);
 
         $insert = parent::insert('employees', [
-            'employee_no' => $emp_no,
             'name' => $fullname,
             'address' => $address,
             'password' => $password,
