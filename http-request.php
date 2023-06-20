@@ -39,6 +39,7 @@ $response = [
     'admin_show_convo' => ['obj' => new Convo(), 'method' => 'admin_show_convo'],
     'admin_send' => ['obj' => new Convo(), 'method' => 'admin_send'],
     'show_to_admin' => ['obj' => new Convo(), 'method' => 'admin_show_convo'],
+    'send' => ['obj' => new Convo(), 'method' => 'send'],
 
     // BACKUP DATABASE
     'backup' => ['obj' => new DBConn(), 'method' => 'backupDatabase'],

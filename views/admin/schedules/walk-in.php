@@ -84,7 +84,7 @@
         <div class="modal-dialog modal-lg">
             <form id="walkin-form" class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title"><img src="../assets/images/1.png" style="width: 30px; height: 30px;">&nbsp;Add Walk-In Appointment</h4>
+                    <h4 class="modal-title font-bold text-white uppercase">&nbsp;Add Walk-In Appointment</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">

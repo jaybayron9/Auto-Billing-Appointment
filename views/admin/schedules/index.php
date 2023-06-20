@@ -37,7 +37,7 @@
                                 <td class="text-sm"><?= date('m/d/Y', strtotime($appointment['created_at'])) ?></td>
                                 <td class="flex text-sm">
                                     <center>
-                                        <button data-row-data="<?= $appointment['app_id'] ?>" data-toggle="modal" data-target="#message-" class="text-xs uppercase bg-sky-700 hover:bg-sky-500 text-white px-2 py-1">
+                                        <button data-row-data="<?= $appointment['client_id'] ?>" data-toggle="modal" data-target="#message-" class="msg text-xs uppercase bg-sky-700 hover:bg-sky-500 text-white px-2 py-1">
                                             MSG
                                         </button>
                                         <button data-row-data="<?= $appointment['app_id'] ?>" data-toggle="modal" data-target="#archive-" class="accept-btn text-xs uppercase bg-green-700 hover:bg-green-500 text-white px-2 py-1">
@@ -60,15 +60,15 @@
 </main>
 
 <div id="message-" class="modal fade" role="dialog">
-    <form class="edit-profile m-b30" method="POST" enctype="multipart/form-data">
+    <div class="edit-profile m-b30" method="POST" enctype="multipart/form-data">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+            <form id="message-form" class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title"><img src="../assets/images/1.png" style="width: 30px; height: 30px;">&nbsp;Message</h4>
+                    <h4 class="modal-title font-bold text-white uppercase">&nbsp;Message</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="archive-id" value="">
+                    <input type="hidden" name="user_id" id="user-id" value="">
                     <div class="row">
                         <div class="form-group col-12">
                             <textarea id="w3review" name="message" rows="4" cols="82" placeholder="Message to Customer..."></textarea>
@@ -80,14 +80,32 @@
 
                     <button type="button" class="btn red outline radius-xl" data-dismiss="modal">Close</button>
                 </div>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 
 <script type="text/javascript">
     $(function() {
         var table = new DataTable('#table');
+
+        $('.msg').click(function() {
+            $('#user-id').val($(this).data('row-data'))
+        });
+
+        $('#message-form').submit(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '?rq=send',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(resp) {
+                    alert(resp);
+                    window.location.reload(true);
+                }
+            });
+        })
 
         $('.accept-btn').click(function() {
             var id = $(this).data('row-data');

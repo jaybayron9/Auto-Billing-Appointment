@@ -9,8 +9,6 @@ CREATE TABLE administrators (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
 );
 
-drop table `administrators`;
-
 CREATE TABLE appointments (
     id int(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
     client_id varchar(250) DEFAULT NULL,
@@ -108,5 +106,3 @@ CREATE TABLE walkin (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
 ) ;
-
-drop table walkin;

@@ -27,18 +27,18 @@ class Admin extends DBConn {
         extract($_POST);
         
         $update = parent::update('employees', [
-            'employee_no' => $new_emp_no,
             'name' => $new_name,
             'address' => $new_address,
             'password' => $new_password,
             'email' => $new_email,
             'gender' => $new_age,
             'position' => $new_position,
+            'dateofbirth' => $new_birth,
             'placeofbirth' => $new_birth,
             'datestarted' => $new_started,
             'mobile_no' => $new_number,
         ], "id = $emp_id");
-
+        
         return $update ? parent::alert('success', 'Employee Updated!') : parent::alert('error', 'There\'s a problem updating the employee.');
     }
 
