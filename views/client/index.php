@@ -173,7 +173,7 @@
 					<div class="row">
 						<div class="form-group col-12">
 							<label class="col-form-label">Your Email</label>
-							<input class="form-control" type="text" value="<?= $_SESSION['email_auth'] ?>" name="email" style="background-color: white;" disabled>
+							<input class="form-control" type="text" value="<?= $_SESSION['client_email_auth'] ?>" name="email" style="background-color: white;" disabled>
 							<label class="col-form-label">Message</label>
 							<textarea class="form-control" name="message" style="background-color: white;"></textarea>
 						</div>

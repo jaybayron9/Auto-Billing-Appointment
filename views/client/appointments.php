@@ -36,7 +36,7 @@
                                 <td class="text-sm"><?= date('F d, Y', strtotime($appointment['schedule'])) ?></td>
                                 <td class="text-sm"><?= date('h:i a', strtotime($appointment['schedule'])) ?></td>
                                 <td class="text-sm"><?= $appointment['status'] ?></td>
-                                <td class="text-sm"><?= $appointment['created_at'] ?></td>
+                                <td class="text-sm"><?= date('F d, Y', strtotime($appointment['created_at'])) ?></td>
                                 <td class="flex gap-x-2 text-center text-sm">
                                     <?php if ($appointment['status'] == 'pending' || $appointment['status'] == 'accepted' ) { ?>
                                     <button class="cancel-btn bg-red-500 hover:bg-red-700 text-white px-2 rounded shadow-md" data-row-data="<?= $appointment['app_id'] ?>">
