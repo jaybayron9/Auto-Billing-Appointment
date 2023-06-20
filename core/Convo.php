@@ -27,7 +27,7 @@ class Convo extends DBConn {
         foreach ($datas as $conversation) {
             $user = $_SESSION['client_auth'] == $conversation['from_user'] ? 'text-right': 'text-left';
             $bg = $_SESSION['client_auth'] == $conversation['from_user'] ? 'bg-blue-500': 'bg-gray-500';
-            echo '<div class="block '. $user .'"><span class="'. $bg .' px-2 py-1 text-white text-md rounded-full">'. $conversation['message'] .'</span></div>';
+            echo '<div class="block '. $user .'"><span class="'. $bg .' px-2 py-1 text-white text-md rounded-full">'. htmlspecialchars($conversation['message']) .'</span></div>';
             echo '<div class="text-xs font-light">'. date('Y/m/d h:i a', strtotime($conversation['created_at'])) .'</div>';   
         }
     }
@@ -58,7 +58,7 @@ class Convo extends DBConn {
         foreach ($datas as $conversation) {
             $user = $from == $conversation['from_user'] ? 'text-right': 'text-left';
             $bg = $from == $conversation['from_user'] ? 'bg-blue-500': 'bg-gray-500';
-            echo '<div class="block '. $user .'"><span class="'. $bg .' px-2 py-1 text-white text-md rounded-full">'. $conversation['message'] .'</span></div>';
+            echo '<div class="block '. $user .'"><span class="'. $bg .' px-2 py-1 text-white text-md rounded-full">'. htmlspecialchars($conversation['message']) .'</span></div>';
             echo '<span class="text-xs font-light text-center w-full">'. date('Y/m/d h:i a', strtotime($conversation['created_at'])) .'</span>';
         }
     }

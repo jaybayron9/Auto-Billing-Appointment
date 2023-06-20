@@ -1,3 +1,4 @@
+<?php include view('admin', 'navbars') ?>
 <main class="ttr-wrapper" style="background-color: #F3F3F3;">
     <div class="container-fluid">
         <div class="mb-3 flex">

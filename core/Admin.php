@@ -59,6 +59,16 @@ class Admin extends DBConn {
             'status' => 'accepted',
         ], "id = $id");
 
+        $info = parent::select('appointments', '*', ['id' => $id]);
+
+        $schedule = date('F d, Y h:i a', strtotime($info[0]['schedule']));
+
+        parent::insert('convo', [
+            'from_user' => 'admin1',
+            'send_to' => $info[0]['client_id'],
+            'message' => "Your appointment for {$schedule} has been approved."
+        ]);
+
         echo 'Appointment marked Accepted.';
     }
 

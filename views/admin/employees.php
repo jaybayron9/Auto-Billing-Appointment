@@ -1,3 +1,4 @@
+<?php include view('admin', 'navbars') ?>
 <main class="ttr-wrapper" style="background-color: #F3F3F3;">
     <div class="container-fluid">
         <div class="db-breadcrumb">
@@ -33,21 +34,21 @@
                         <tbody>
                             <?php foreach(DBConn::select('employees', '*', ['status' => 'employed']) as $row) { ?>
                             <tr>
-                                <td>EMP0<?= $row['id'] ?></td>
-                                <td><?= $row['name'] ?></td>
-                                <td><?= $row['email'] ?></td>
-                                <td><?= $row['mobile_no'] ?></td>
-                                <td><?= $row['gender'] ?></td>
-                                <td><?= $row['dateofbirth'] ?></td>
-                                <td><?= $row['age'] ?></td>
-                                <td><?= $row['placeofbirth'] ?></td>
-                                <td><?= $row['datestarted'] ?></td>
-                                <td><?= $row['position'] ?></td>
+                                <td class="text-sm">EMP0<?= $row['id'] ?></td>
+                                <td class="text-sm"><?= $row['name'] ?></td>
+                                <td class="text-sm"><?= $row['email'] ?></td>
+                                <td class="text-sm"><?= $row['mobile_no'] ?></td>
+                                <td class="text-sm"><?= $row['gender'] ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= date('M d Y', strtotime($row['dateofbirth'])) ?></td>
+                                <td class="text-sm"><?= $row['age'] ?></td>
+                                <td class="text-sm"><?= $row['placeofbirth'] ?></td>
+                                <td class="text-sm"><?= $row['datestarted'] ?></td>
+                                <td class="text-sm"><?= $row['position'] ?></td>
                                 <td class="flex gap-x-2">
-                                    <button class="btn red resign" data-row-data="<?= $row['id'] ?>">
+                                    <button data-row-data="<?= $row['id'] ?>" class="resign bg-red-500 hover:bg-red-700 text-white px-2 text-sm">
                                         RESIGN
                                     </button>
-                                    <button data-toggle="modal" data-target="#edit" data-row-data="<?= $row['id'] ?>" class="edit-btn btn blue">
+                                    <button data-toggle="modal" data-target="#edit" data-row-data="<?= $row['id'] ?>" class="edit-btn bg-green-500 hover:bg-green-700 text-white px-2 text-sm">
                                         EDIT
                                     </button>
                                 </td>
@@ -269,21 +270,6 @@
                     }
                 });
             }
-        });
-
-        $('.number').on('keydown keyup', function(event) {
-            var input = $(this);
-            var value = input.val();
-            var msgphone = $('.msgphone');
-
-            value = value.replace(/[^0-9\.]/g, '');
-
-            var decimalCount = (value.match(/\./g) || []).length;
-            if (decimalCount > 1) {
-                value = value.replace(/\.+$/, '');
-            }
-
-            input.val(value);
         });
     });
 </script>

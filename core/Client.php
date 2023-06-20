@@ -21,7 +21,7 @@ class Client extends DBConn {
 
         if (preg_match("/^[A-Za-z]{3}[-\s]?\d{4}$/", $plateNumber)) {
 
-            $cars = parent::select('cars', '*', ['plate_no' => $plateNumber]);
+            $cars = parent::select('cars', '*', ['user_id' => $_SESSION['client_auth'], 'plate_no' => $plateNumber]);
 
             if (count($cars) < 1) {
                 parent::insert('cars', [
@@ -37,7 +37,7 @@ class Client extends DBConn {
 
                 return parent::alert('success', 'Car added.');
             }
-            return parent::alert('error', 'Car plate number already exist.');
+            return parent::alert('error', 'You already registered this car.');
         }
 
         return parent::alert('error', 'Please fill out all the field with correct format.');

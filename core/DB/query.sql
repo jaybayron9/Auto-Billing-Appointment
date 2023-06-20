@@ -3,10 +3,13 @@ CREATE TABLE administrators (
     id int(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
     email varchar(255) DEFAULT NULL,
     password varchar(255) DEFAULT NULL,
+    position varchar(255) DEFAULT NULL,
     access varchar(255) DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
 );
+
+drop table `administrators`;
 
 CREATE TABLE appointments (
     id int(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,

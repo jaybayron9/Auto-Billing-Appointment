@@ -1,3 +1,4 @@
+<?php include view('admin', 'navbars') ?>
 <main class="ttr-wrapper" style="background-color: #F3F3F3;">
     <div class="container-fluid">
         <div class="db-breadcrumb">
@@ -94,13 +95,12 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="edit-id" value="">
                     <div class="row">
                         <div class="form-group col-12">
                             <input type="hidden" name="app_id" id="app-id">
 
                             <label class="col-form-label">Mechanic</label>
-                            <select class="form-control" name="mechanic" id="mechanic" required style="color: black!important;">
+                            <select class="form-control" name="mechanic" id="mechanic" style="color: black!important;">
                                 <option value="" selected hidden>-- Please select --</option>
                                 <?php foreach(DBConn::select('employees', '*', ['position' => 'Mechanic']) as $mechanic) { ?>
                                 <option value="<?= $mechanic['id'] ?>"><?= $mechanic['name'] ?></option>
@@ -108,7 +108,7 @@
                             </select>
 
                             <label class="col-form-label">Electrician</label>
-                            <select class="form-control" name="electrician" id="electrician" required style="color: black!important;">
+                            <select class="form-control" name="electrician" id="electrician" style="color: black!important;">
                                 <option value="" selected hidden>-- Please select --</option>
                                 <?php foreach(DBConn::select('employees', '*', ['position' => 'Electrician']) as $electrician) { ?>
                                 <option value="<?= $electrician['id'] ?>"><?= $electrician['name'] ?></option>

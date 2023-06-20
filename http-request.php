@@ -6,8 +6,9 @@ $response = [
     // AUTH
     'login' => ['obj' => new Auth(), 'method' => 'login'],
     'register' => ['obj' => new Auth(), 'method' => 'register'],
-    'forgot_password' => ['obj' => new Auth(), 'method' => 'forgot_password'],
+    'forgot_password' => ['obj' => new Auth(), 'method' => 'forgotPassword'],
     'logout' => ['obj' => new Auth(), 'method' => 'logout'],
+    'check_credentials' => ['obj' => new Auth(), 'method' => 'checkCredentials'],
 
     // ADMIN
     'add_employee' => ['obj' => new Admin(), 'method' => 'add_employee'],

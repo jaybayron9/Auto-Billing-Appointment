@@ -1,3 +1,4 @@
+<?php include view('admin', 'navbars') ?>
 <main class="ttr-wrapper" style="background-color: #F3F3F3;">
     <div class="container-fluid">
         <div class="db-breadcrumb">
@@ -23,18 +24,18 @@
                         </thead>
                         <tbody>
                             <?php 
-                            $query = "SELECT ap.id as app_id, ap.*, cs.* FROM appointments ap JOIN cars cs ON ap.client_id = cs.user_id WHERE status = 'pending'";
+                            $query = "SELECT ap.id as app_id, ap.*, cs.* FROM appointments ap JOIN cars cs ON ap.car_id = cs.id WHERE status = 'pending'";
                             
                             foreach(DBConn::DBQuery($query) as $appointment) { 
                             ?>
                             <tr>
-                                <td><?= $appointment['plate_no'] ?></td>
-                                <td><?= $appointment['pms'] ?></td>
-                                <td><?= $appointment['repair'] ?></td>
-                                <td><?= date('F d, Y', strtotime($appointment['schedule'])) ?></td>
-                                <td><?= date('h:i a', strtotime($appointment['schedule'])) ?></td>
-                                <td><?= date('m/d/Y', strtotime($appointment['created_at'])) ?></td>
-                                <td class="flex">
+                                <td class="text-sm"><?= $appointment['plate_no'] ?></td>
+                                <td class="text-sm"><?= $appointment['pms'] ?></td>
+                                <td class="text-sm"><?= $appointment['repair'] ?></td>
+                                <td class="text-sm"><?= date('F d, Y', strtotime($appointment['schedule'])) ?></td>
+                                <td class="text-sm"><?= date('h:i a', strtotime($appointment['schedule'])) ?></td>
+                                <td class="text-sm"><?= date('m/d/Y', strtotime($appointment['created_at'])) ?></td>
+                                <td class="flex text-sm">
                                     <center>
                                         <button data-row-data="<?= $appointment['app_id'] ?>" data-toggle="modal" data-target="#message-" class="text-xs uppercase bg-sky-700 hover:bg-sky-500 text-white px-2 py-1">
                                             MSG

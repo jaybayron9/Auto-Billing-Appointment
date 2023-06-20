@@ -4,24 +4,26 @@ class Auth extends DBConn {
     public function login() {
         extract($_POST);
 
-        $admin = parent::select('administrators', '*', ['email' => $email, 'password' => $password], null, 1);
+        $admin = parent::select('administrators', '*', ['email' => $email, 'password' => $password, 'position' => 'Admin'], null, 1);
         $employee = parent::select('employees', '*', ['email' => $email, 'password' => $password], null, 1);
         $client = parent::select('clients', '*', ['email' => $email, 'password' => $password], null, 1);
 
         if (count($admin) > 0) {
             $_SESSION['admin_auth'] = $admin[0]['id'];
+            $_SESSION['admin_email_auth'] = $email;
             echo 'go_to_admin';
             
         } else if (count($employee) > 0) {
             $_SESSION['employee_auth'] = $employee[0]['id'];
+            $_SESSION['emp_email_auth'] = $email;
             echo 'go_to_employee';
 
         } else if (count($client) > 0) {
             $_SESSION['client_auth'] = $client[0]['id'];
+            $_SESSION['client_email_auth'] = $email;
             echo 'go_to_client';
         } 
 
-        $_SESSION['email_auth'] = $email;
         return false;
     }
 
@@ -43,24 +45,21 @@ class Auth extends DBConn {
 
             if (!$client) {
                 $id = parent::select('clients', 'id', ['email' => $email, 'password' => $password], null, 1);
-                $cars = parent::select('cars', '*', ['plate_no' => $plateNumber]);
 
-                if (count($cars) < 1) {
-                    parent::insert('cars', [
-                        'user_id' => $id[0]['id'],
-                        'plate_no' => $plateNumber,
-                        'car_brand' => $brand,
-                        'car_model' => $carModel,
-                        'car_type' => $carType,
-                        'fuel_type' => $fuelType,
-                        'color' => $carColor,
-                        'trans_type' => $transType,
-                    ]);
-    
-                    $_SESSION['client_auth'] = $id[0]['id'];
-                    $_SESSION['email_auth'] = $email;
-                    return parent::alert('success', 'Successfully Registered!');
-                }
+                parent::insert('cars', [
+                    'user_id' => $id[0]['id'],
+                    'plate_no' => $plateNumber,
+                    'car_brand' => $brand,
+                    'car_model' => $carModel,
+                    'car_type' => $carType,
+                    'fuel_type' => $fuelType,
+                    'color' => $carColor,
+                    'trans_type' => $transType,
+                ]);
+
+                $_SESSION['client_auth'] = $id[0]['id'];
+                $_SESSION['client_email_auth'] = $email;
+                return parent::alert('success', 'Successfully Registered!');
             }
 
             return parent::alert('error', 'Error, Please try again.');
@@ -68,7 +67,48 @@ class Auth extends DBConn {
         return parent::alert('error', 'Please enter a valid format foreach field.');
     }
 
+    public static function checkAuth($id, $email) {
+        if (!isset($id) && !isset($email)) {
+            header("location: ./");
+        }
+    }
+
+    public function checkCredentials() {
+        extract($_POST);
+
+        $client = parent::select('clients', '*', ['email' => $email, 'phone' => $phone], null, 1);
+
+        if (count($client) > 0) {
+            echo 'success';
+        } else {
+            echo 'error';
+        }
+    }
+
+    public function forgotPassword() {
+        extract($_POST);
+
+        if ($password == $repassword) {
+            $client = parent::select('clients', '*', ['email' => $email, 'phone' => $phone], null, 1);
+
+            parent::update('clients', [
+                'password' => $password,
+            ], "email = '$email' AND phone = '$phone'");
+
+            $_SESSION['client_auth'] = $client[0]['id'];
+            $_SESSION['client_email_auth'] = $email;
+            echo 'go_to_client';
+        } else {
+            echo 'Password does not match.';
+        }
+    }
+
     public function logout() {
+        unset($_SESSION['admin_auth']);
+        unset($_SESSION['admin_email_auth']);
+        unset($_SESSION['employee_auth']);
+        unset($_SESSION['emp_email_auth']);
         unset($_SESSION['client_auth']);
+        unset($_SESSION['client_email_auth']);
     }
 }

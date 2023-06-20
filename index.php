@@ -15,7 +15,7 @@ require_once('http-request.php');
 
 if (parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY)) {
     require(view('partials/dashboard', 'header'));
-    require(view('partials/dashboard', 'navbars'));
+    require(view('auth', 'logout'));
     require(getURL($GET));
     require(view('partials/dashboard', 'footer'));
 } else {

@@ -1,3 +1,4 @@
+<?php include view('client', 'navbars') ?>
 <main class="ttr-wrapper" style="background-color: #F3F3F3;">
     <div class="container-fluid">
         <div class="flex">
@@ -22,14 +23,14 @@
                         <tbody>
                             <?php foreach (DBConn::select('cars', '*', ['user_id' =>                 $_SESSION['client_auth']]) as $car) { ?>
                                 <tr>
-                                    <td><?= $car['plate_no'] ?></td>
-                                    <td><?= $car['car_brand'] ?></td>
-                                    <td><?= $car['car_model'] ?></td>
-                                    <td><?= $car['car_type'] ?></td>
-                                    <td><?= $car['fuel_type'] ?></td>
-                                    <td><?= $car['color'] ?></td>
-                                    <td><?= $car['trans_type'] ?></td>
-                                    <td><?= date('M d, Y', strtotime($car['created_at'])) ?></td>
+                                    <td class="text-sm"><?= $car['plate_no'] ?></td>
+                                    <td class="text-sm capitalize"><?= $car['car_brand'] ?></td>
+                                    <td class="text-sm capitalize"><?= $car['car_model'] ?></td>
+                                    <td class="text-sm capitalize"><?= $car['car_type'] ?></td>
+                                    <td class="text-sm capitalize"><?= $car['fuel_type'] ?></td>
+                                    <td class="text-sm capitalize"><?= $car['color'] ?></td>
+                                    <td class="text-sm capitalize"><?= $car['trans_type'] ?></td>
+                                    <td class="text-sm capitalize"><?= date('M d, Y', strtotime($car['created_at'])) ?></td>
                                 </tr>
                             <?php } ?>
                         </tbody>

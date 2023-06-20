@@ -159,21 +159,34 @@
                 </button>
             </div>
             <div class="modal-body">
-
-                <form action="index.php" method="POST" enctype="multipart/form-data">
-
+                <form id="forgot-password-form" method="POST" enctype="multipart/form-data">
                     <div class="form-outline mb-4">
-                        <label for="form2Example1"> Email</label>
-                        <input type="email" id="form2Example1" name="email" class="form-control" placeholder="Enter Email Address" required>
+                        <label for="femail"> Email</label>
+                        <input type="email" id="femail" name="email" class="form-control" placeholder="Enter Email Address" required>
+                        <span id="femail-msg" style="color:red;"></span>
+                    </div>
+                    <div class="form-outline mb-4">
+                        <label for="fphone"> Phone</label>
+                        <input type="text" id="fphone" name="phone" class="form-control number" placeholder="Enter Phone Number" required>
+                        <span id="fphone-msg" style="color:red;"></span>
                     </div>
                     <!-- Password input -->
-                    <div class="form-outline mb-4">
-                        <label for="form2Example2"> New Password</label>
-                        <input type="password" id="form2Example2" name="password" class="form-control" placeholder="Enter Password" required>
+                    <div id="pass-div" class="hidden">
+                        <div class="form-outline mb-4">
+                            <label for="new-password"> New Password</label>
+                            <input type="password" id="new-password" name="password" class="form-control" placeholder="Enter Password" required>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label for="new-password"> Re-enter Password</label>
+                            <input type="password" id="re-password" name="repassword" class="form-control" placeholder="Enter Password" required>
+                        </div>
                     </div>
                     <br>
-                    <div class="text-center">
-                        <input type="submit" name="change" class="sign_button btn btn-primary btn-block mb-4" value="Submit">
+                    <div id="sub-btn" class="text-center">
+                        <button id="checkcred" class="sign_button btn btn-primary btn-block mb-4">SUBMIT</button>
+                    </div>
+                    <div id="change-btn" class="text-center hidden">
+                        <button type="submit" class="sign_button btn btn-primary btn-block mb-4">CHANGE</button>
                     </div>
                 </form>
             </div>
@@ -217,6 +230,43 @@
                         window.location.href = '?vs=?client';
                     } else {
                         alert(resp.msg);
+                    }
+                }
+            });
+        });
+
+        $('#checkcred').click(function() {
+            $.ajax({
+                url: '?rq=check_credentials',
+                type: 'POST',
+                data: {
+                    email: $('#femail').val(),
+                    phone: $('#fphone').val(),
+                },
+                success: function(resp) {
+                    if (resp == 'success') {
+                        $('#sub-btn').addClass('hidden');
+                        $('#change-btn').removeClass('hidden');
+                        $('#pass-div').removeClass('hidden');
+                    } else {
+                        alert('Email or phone number is not registered.');
+                    }
+                }
+            })
+        });
+
+        $('#forgot-password-form').submit(function(e) {
+            e.preventDefault();
+            
+            $.ajax({
+                url: '?rq=forgot_password',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(resp) {
+                    if (resp == 'go_to_client') {
+                        window.location.href = '?vs=?client';
+                    } else {
+                        alert(resp);
                     }
                 }
             });

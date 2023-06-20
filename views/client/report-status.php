@@ -1,3 +1,4 @@
+<?php include view('client', 'navbars') ?>
 <main class="ttr-wrapper" style="background-color: #F3F3F3;">
     <div class="container-fluid">
         <div class="db-breadcrumb">
@@ -18,7 +19,7 @@
                         </thead>
                         <tbody>
                             <?php
-                             $query = "SELECT * FROM appointments ap JOIN cars cs ON ap.client_id = cs.user_id WHERE client_id = '{$_SESSION['client_auth']}' AND (status = 'in progress' OR status = 'done')";
+                             $query = "SELECT * FROM appointments ap JOIN cars cs ON ap.car_id = cs.id WHERE client_id = '{$_SESSION['client_auth']}' AND (status = 'in progress' OR status = 'done')";
 
                             foreach (DBConn::DBQuery($query) as $progress) {
                             ?>
