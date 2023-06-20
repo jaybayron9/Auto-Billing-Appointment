@@ -39,7 +39,7 @@
 			$.ajax({
 				url: '?rq=logout',
 				success: function(data) {
-					window.location.href = 'index.php'
+					window.location.href = './'
 				}
 			});
 		});
