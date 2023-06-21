@@ -30,6 +30,9 @@
 	<!-- Template Main CSS File -->
 	<script src="https://kit.fontawesome.com/e02ccf2d8a.js" crossorigin="anonymous"></script>
 	<link href="assets/client/assets/css/style.css" rel="stylesheet">
+
+	<!-- Phone -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.css">
 </head>
 <body>
     

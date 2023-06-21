@@ -47,14 +47,14 @@
                         <input type="email" name="email" id="Email" class="form-control" placeholder="Enter Email" required>
                     </div>
 
-                    <div class="mb-1">
+                    <div class="mb-3">
                         <label for="address"><span class="text-danger"></span></label>
                         <input type="text" name="address" id="address" class="form-control" placeholder="Enter Address" required>
                     </div>
 
                     <div class="mb-1">
-                        <label for="phone"><span class="text-danger"></span></label>
-                        <input type="text" name="phone" id="phone" maxlength="11" class="form-control number" placeholder="Enter Phone Number" required>
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" name="phone" id="phone" maxlength="12" pattern="[0-9]{3} [0-9]{3}-[0-9]{4}" placeholder="966 164-5400" class="form-control number" required>
                         <span class="msgphone" style="color: red;"></span>
                     </div>
 
@@ -167,7 +167,7 @@
                     </div>
                     <div class="form-outline mb-4">
                         <label for="fphone"> Phone</label>
-                        <input type="text" id="fphone" name="phone" maxlength="11" class="form-control number" placeholder="Enter Phone Number" required>
+                        <input type="text" id="fphone" name="phone" maxlength="11" class="form-control number phone-number-input" placeholder="Enter Phone Number" required>
                         <span id="fphone-msg" style="color:red;"></span>
                     </div>
                     <!-- Password input -->
@@ -194,7 +194,16 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
 <script type="text/javascript">
+    var input = document.querySelector("#phone");
+    var iti = window.intlTelInput(input, {
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
+        initialCountry: "ph",
+        separateDialCode: true,
+    });
+    iti.setNumber("+63");
+
     $(function() {
         $('#login-form').submit(function(e) {
             e.preventDefault();
@@ -277,7 +286,7 @@
             var value = input.val();
             var msgphone = $('.msgphone');
 
-            value = value.replace(/[^0-9\.]/g, '');
+            value = value.replace(/[^0-9\.-\s]/g, '');
 
             var decimalCount = (value.match(/\./g) || []).length;
             if (decimalCount > 1) {
@@ -286,7 +295,7 @@
 
             input.val(value);
 
-            if (value.length !== 11) {
+            if (value.length !== 12) {
                 msgphone.text('Phone number must be at least 11 characters long')
             } else {
                 msgphone.text('');
@@ -364,5 +373,19 @@
                 msg.text('');
             }
         });
+
+        // $('.phone-number-input').on('input', function() {
+        //     formatPhoneNumber();
+        // });
+
+        // function formatPhoneNumber() {
+        //     var phoneNumber = $('#phone-number-input').val();
+    
+        //     phoneNumber = phoneNumber.replace(/\D/g, '');
+    
+        //     phoneNumber = '+63' + phoneNumber;
+    
+        //     $('.phone-number-input').val(phoneNumber);
+        // }
     });
 </script>

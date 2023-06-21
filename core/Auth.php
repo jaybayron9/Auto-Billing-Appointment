@@ -34,7 +34,7 @@ class Auth extends DBConn {
 
         if (count($checkEmail) > 0) {
             return parent::alert('error', 'Email is already registered.');
-        } else if (strlen($phone) == 11 && preg_match("/^[A-Za-z]{3}[-\s]?\d{4}$/", $plateNumber) && preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).*$/", $password) && $password == $repassword && strlen($password) > 7) {
+        } else if (strlen($phone) == 12 && preg_match("/^[A-Za-z]{3}[-\s]?\d{4}$/", $plateNumber) && preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).*$/", $password) && $password == $repassword && strlen($password) > 7) {
             $client = parent::insert('clients', [
                 'name' => $name,
                 'email' => $email,
