@@ -18,7 +18,7 @@
         <table id="table" class="table table-bordered" data-responsive="table" style="text-align: left;">
             <thead>
                 <tr>
-                    <th data-priority="1" class="whitespace-nowrap text-xs text-center uppercase">CLIENT ID</th>
+                    <th data-priority="1" class="whitespace-nowrap text-xs text-center uppercase">TRANSACTION ID</th>
                     <th data-priority="2" class="whitespace-nowrap text-xs text-center uppercase">TRANSACTION DATE</th>
                     <th data-priority="3" class="whitespace-nowrap text-xs text-center uppercase">Description</th>
                     <th data-priority="4" class="whitespace-nowrap text-xs text-center uppercase">AMOUNT</th>
@@ -27,7 +27,7 @@
             <tbody>
                 <?php foreach( DBConn::select('payments') as $payment) { ?>
                 <tr>
-                    <td class="text-sm"><?= $payment['id'] ?></td>
+                    <td class="text-sm">TRA0<?= $payment['id'] ?></td>
                     <td class="text-sm"><?= date('Y-m-d', strtotime($payment['created_at'])) ?></td>
                     <td class="text-sm"><?= $payment['description'] ?></td>
                     <td class="text-sm"><?= $payment['total_due'] ?></td>
@@ -42,7 +42,7 @@
     $(function() {
         var table = $('#table').DataTable({
                 columns: [
-                    { title: 'CLIENT ID' },
+                    { title: 'TRANSACTION ID' },
                     { title: 'TRANSACTION DATE' },
                     { title: 'Description' },
                     { title: 'AMOUNT' },

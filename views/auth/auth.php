@@ -167,7 +167,7 @@
                     </div>
                     <div class="form-outline mb-4">
                         <label for="fphone"> Phone</label>
-                        <input type="text" id="fphone" name="phone" class="form-control number" placeholder="Enter Phone Number" required>
+                        <input type="text" id="fphone" name="phone" maxlength="11" class="form-control number" placeholder="Enter Phone Number" required>
                         <span id="fphone-msg" style="color:red;"></span>
                     </div>
                     <!-- Password input -->

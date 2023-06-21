@@ -11,7 +11,8 @@
             <div class="col-lg-6">
             </div>
             <div class="col-lg-6" align="right" style="margin-bottom: 20px;">
-                <a href="" class="btn green radius-xl" style="background-color: #016064;" data-toggle="modal" data-target="#add"><span>ADD PAYMENT</span></a>&nbsp;
+                <a href="" class="btn green radius-xl" style="background-color: #016064;" data-toggle="modal" data-target="#users"><span>ADD PAYMENT USER</span></a>&nbsp;
+                <a href="" class="btn green radius-xl" style="background-color: #016064;" data-toggle="modal" data-target="#add"><span>ADD PAYMENT WALK-IN</span></a>&nbsp;
             </div>
             <div class="col-lg-12 m-b30">
                 <div class="table-responsive">
@@ -53,12 +54,48 @@
     </div>
 </main>
 
+<div id="users" class="modal fade" role="dialog">
+    <div  class="edit-profile m-b30">
+        <div class="modal-dialog modal-lg">
+            <form id="payment-users-form" class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title font-bold text-white uppercase">&nbsp;Add Payment</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <label class="col-form-label">Client Name</label>
+                            <input class="form-control" type="text" name="name" style="background-color: white;" list="userslist" required>
+                            <datalist id="userslist">
+                                <?php foreach(DBConn::select('clients') as $client) { ?>
+                                <option value="<?= "{$client['id']}  |  {$client['name']}" ?>">
+                                <?php } ?>
+                            </datalist>
+                            
+                            <label class="col-form-label">Amount</label>
+                            <input class="form-control number" type="text" name="amount" style="background-color: white;" required>
+
+                            <label class="col-form-label">Description</label>
+                            <textarea class="form-control" type="text" name="description" style="background-color: white;"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn green radius-xl outline">SUBMIT</button>
+                    <button type="button" class="btn red outline radius-xl" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div id="add" class="modal fade" role="dialog">
     <div  class="edit-profile m-b30">
         <div class="modal-dialog modal-lg">
             <form id="payment-form" class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title font-bold text-white uppercase">&nbsp;Add Payment</h4>
+                    <h4 class="modal-title font-bold text-white uppercase">&nbsp;Add Payment (Walk-in)</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -93,6 +130,20 @@
 <script type="text/javascript">
     $(function() {
         let table = new DataTable('#table');
+
+        $('#payment-users-form').submit(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '?rq=users_payment',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(resp) {
+                    alert(resp);
+                    window.location.reload(true);
+                }
+            });
+        });
 
         $('#payment-form').submit(function(e) {
             e.preventDefault();

@@ -105,6 +105,30 @@ class Admin extends DBConn {
         echo 'Payment added.';
     }
 
+    public function users_payment() {
+        extract($_POST);
+
+        $data = explode('  |  ', $name);
+
+        $user = parent::select('clients', '*', ['id' => $data[0]]);
+
+        foreach ($user as $users) {
+            parent::insert('payments', [
+                'name' => $data[1],
+                'description' => $description,
+                'email' => $users['email'],
+                'phone' => $users['phone'],
+                'total_due' => $amount
+            ]);
+        }
+
+        parent::update('appointments', [
+            'price' => $amount,
+        ], "id = {$data[0]}");
+
+        echo 'Payment added.';
+    }
+
     public function delete_payment() {
         extract($_POST);
 

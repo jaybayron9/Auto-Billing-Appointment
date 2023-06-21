@@ -23,6 +23,7 @@ $response = [
     'delete_user' => ['obj' => new Admin(), 'method' => 'delete_user'],
     'add_walkin' => ['obj' => new Admin(), 'method' => 'add_walkin'],
     'delete_walkin' => ['obj' => new Admin(), 'method' => 'delete_walkin'],
+    'users_payment' => ['obj' => new Admin(), 'method' => 'users_payment'],
 
     // EMPLOYEE
     'employee_update_status' => ['obj' => new Employee(), 'method' => 'update_status'],

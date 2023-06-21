@@ -7,7 +7,7 @@
                 <input type="search" id="search" placeholder="Search Client" class="mb-2 px-2 py-2 mr-4 rounded-r-md outline-none sticky left-0 absolute placeholder:text-sm">
                 <?php foreach (DBConn::select('clients') as $client) { ?>
                     <li class="client mr-2">
-                        <button data-row-data="<?= $client['id'] ?>" class="to capitalize inline-block p-2 text-white bg-yellow-600 rounded-t-full rounded-br-full font-light text-sm" aria-current="page">
+                        <button data-row-data="<?= $client['id'] ?>" class="to capitalize inline-block p-2 text-white bg-yellow-600 rounded-t-full rounded-br-full font-light text-sm whitespace-nowrap" aria-current="page">
                             <?= $client['name'] ?>
                         </button>
                     </li>
