@@ -54,7 +54,7 @@
 
                     <div class="mb-1">
                         <label for="phone">Phone Number</label>
-                        <input type="tel" name="phone" id="phone" maxlength="12" pattern="[0-9]{3} [0-9]{3}-[0-9]{4}" placeholder="966 164-5400" class="form-control number" required>
+                        <input type="tel" name="phone" id="phone" maxlength="10" placeholder="9661645400" class="form-control number" required>
                         <span class="msgphone" style="color: red;"></span>
                     </div>
 
@@ -296,7 +296,7 @@
 
             input.val(value);
 
-            if (value.length !== 12) {
+            if (value.length !== 10) {
                 msgphone.text('Phone number must be at least 11 characters long')
             } else {
                 msgphone.text('');
