@@ -1,4 +1,4 @@
-<?php  Auth::checkAuth($_SESSION['emp_auth'], $_SESSION['emp_email_auth']); ?>
+<?php  Auth::checkAuth($_SESSION['employee_auth'], $_SESSION['emp_email_auth']); ?>
 <div class="ttr-sidebar" style="background-color: #1C4E80;">
 	<div class="ttr-sidebar-wrapper content-scroll">
 		<div class="ttr-sidebar-logo" style=" border-top: 1px solid white; background-color: #1C4E80; border-bottom: solid 0px #cfd8dc; background-position: center;background-repeat: no-repeat;background-size: cover;height: 135px;">

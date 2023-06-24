@@ -32,4 +32,5 @@ return [
     // Employee
     '?emp' => view('employee'),
     'job-order' => view('employee', 'job-order'),
+    'multi-inspection' => view('employee', 'multi-inspection'),
 ];
