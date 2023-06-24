@@ -38,11 +38,6 @@
                                                 <i class="ti-marker-alt" style="font-size: 12px;"></i>
                                             </div>
                                         </button>&nbsp;
-
-
-
-
-
                                     </center>
                                 </td>
                                 <td>Engine Oil</td>
@@ -57,11 +52,6 @@
                                                 <i class="ti-marker-alt" style="font-size: 12px;"></i>
                                             </div>
                                         </button>&nbsp;
-
-
-
-
-
                                     </center>
                                 </td>
                                 <td>Oil Filter</td>
@@ -76,11 +66,6 @@
                                                 <i class="ti-marker-alt" style="font-size: 12px;"></i>
                                             </div>
                                         </button>&nbsp;
-
-
-
-
-
                                     </center>
                                 </td>
                                 <td>Brake Pad</td>
@@ -95,11 +80,6 @@
                                                 <i class="ti-marker-alt" style="font-size: 12px;"></i>
                                             </div>
                                         </button>&nbsp;
-
-
-
-
-
                                     </center>
                                 </td>
                                 <td>Air Filter</td>
@@ -208,9 +188,6 @@
 
                                             <label class="col-form-label">Quantity</label>
                                             <input class="form-control" type="text" name="qty" required>
-
-
-
                                         </div>
                                     </div>
                                 </div>

@@ -26,13 +26,13 @@
                         <tbody>
                             <?php foreach( DBConn::select('walkin') as $client ) { ?>
                             <tr>
-                                <td class="text-sm "><?= $client['name'] ?></td>
-                                <td class="text-sm "><?= $client['email'] ?></td>
-                                <td class="text-sm "><?= $client['phone'] ?></td>
-                                <td class="text-sm "><?= $client['address'] ?></td>
-                                <td class="text-sm "><?= $client['repair'] ?></td>
-                                <td class="text-sm "><?= $client['brand'] ?></td>
-                                <td class="text-sm "><?= $client['model'] ?></td>
+                                <td class="text-sm"><?= $client['name'] ?></td>
+                                <td class="text-sm"><?= $client['email'] ?></td>
+                                <td class="text-sm"><?= $client['phone'] ?></td>
+                                <td class="text-sm"><?= $client['address'] ?></td>
+                                <td class="text-sm"><?= $client['repair'] ?></td>
+                                <td class="text-sm"><?= $client['brand'] ?></td>
+                                <td class="text-sm"><?= $client['model'] ?></td>
                                 <td class="text-sm whitespace-nowrap"><?= date('F d, Y h:i a', strtotime($client['schedule'])) ?></td>
                                 <td class="flex text-sm">
                                     <button data-row-data="<?= $client['id'] ?>" class="delete-btn px-2 bg-red-500 hover:bg-red-700 text-white">

@@ -32,18 +32,18 @@
                             <?php foreach ( DBConn::select('employees') as $emp ) { ?>
                             <tr>
                                 <td class="text-sm">EMP0<?= $emp['id'] ?></td>
-                                <td class="text-sm"><?= $emp['name'] ?></td>
-                                <td class="text-sm"><?= $emp['email'] ?></td>
-                                <td class="text-sm"><?= $emp['mobile_no'] ?></td>
-                                <td class="text-sm"><?= $emp['gender'] ?></td>
+                                <td class="text-sm whitespace-nowrap capitalize"><?= $emp['name'] ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= $emp['email'] ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= $emp['mobile_no'] ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= $emp['gender'] ?></td>
                                 <td class="text-sm whitespace-nowrap"><?= date('M d Y', strtotime($emp['dateofbirth'])) ?></td>
                                 <td class="text-sm"><?= $emp['age'] ?></td>
-                                <td class="text-sm"><?= $emp['placeofbirth'] ?></td>
-                                <td class="text-sm"><?= $emp['datestarted'] ?></td>
-                                <td class="text-sm"><?= $emp['position'] ?></td>
+                                <td class="text-sm whitespace-nowrap capitalize"><?= $emp['placeofbirth'] ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= $emp['datestarted'] ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= $emp['position'] ?></td>
                                 <td class="text-sm">
                                     <center>
-                                        <a href="print/coe.php?emp=<?= $emp['name'] ?>" target="_blank" class="coe-btn bg-sky-500 hover:bg-sky-700 text-white px-2">
+                                        <a href="views/coe.php?emp=<?= $emp['name'] ?>" target="_blank" class="coe-btn bg-sky-500 hover:bg-sky-700 text-white px-2">
                                             PRINT
                                         </a>
                                     </center>

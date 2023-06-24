@@ -5,7 +5,7 @@
 
         <form id="sm-form" class="flex">
             <input type="hidden" name="client_id" id="client-id" value="<?= $_SESSION['client_auth'] ?>">
-            <textarea id="message" name="message" cols="30" rows="2" placeholder="Enter message here..." class="w-full border border-gray-400 shadow rounded-l-full px-3 focus:outline-none pt-3"></textarea>
+            <textarea id="message" name="message" cols="30" rows="1" maxlength="200" placeholder="Enter message here..." class="w-full border border-gray-400 shadow rounded-l-full px-3 focus:outline-none py-2"></textarea>
             <button type="submit" class="ml-auto bg-blue-500 hover:bg-blue-600 rounded-r-full pl-3 px-2 font-medium text-white pr-5">Send</button>
         </form>
     </div>
@@ -37,5 +37,14 @@
                 }
             });
         });
+
+        function adjustTextareaHeight() {
+            var textarea = $('#message');
+            textarea.height(0);
+            var newHeight = textarea.prop('scrollHeight');
+            textarea.height(newHeight);
+        }
+
+        $('#message').on('input change', adjustTextareaHeight);
     })
 </script>

@@ -24,10 +24,10 @@
                             <tbody>
                                 <?php foreach( DBConn::select('clients') as $client ) { ?>
                                 <tr>
-                                    <td class="text-sm"><?= $client['name'] ?></td>
+                                    <td class="text-sm capitalize"><?= $client['name'] ?></td>
                                     <td class="text-sm"><?= $client['email'] ?></td>
                                     <td class="text-sm"><?= $client['phone'] ?></td>
-                                    <td class="text-sm"><?= $client['address'] ?></td>
+                                    <td class="text-sm capitalize"><?= $client['address'] ?></td>
                                     <td class="flex text-sm">
                                         <button data-row-data="<?= $client['id'] ?>" class="delete-btn px-2 bg-red-500 hover:bg-red-700 text-white">
                                             DELETE

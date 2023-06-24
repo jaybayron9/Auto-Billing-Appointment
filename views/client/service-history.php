@@ -27,11 +27,11 @@
                             foreach(DBConn::DBQuery($query) as $appointment) { 
                             ?>
                             <tr>
-                                <td><?= $appointment['plate_no'] ?></td>
-                                <td><?= $appointment['repair'] ?></td>
-                                <td><?= $appointment['description'] ?></td>
-                                <td><?= date('F d, Y h:i a', strtotime($appointment['schedule'])) ?></td>
-                                <td><?= $appointment['price'] ?></td>
+                                <td class="text-sm"><?= $appointment['plate_no'] ?></td>
+                                <td class="text-sm"><?= $appointment['repair'] ?></td>
+                                <td class="text-sm"><?= $appointment['description'] ?></td>
+                                <td class="text-sm"><?= date('F d, Y h:i a', strtotime($appointment['schedule'])) ?></td>
+                                <td class="text-sm"><?= $appointment['price'] ?></td>
                             </tr>
                             <?php } ?>
                         </tbody>

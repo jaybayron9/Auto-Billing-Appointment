@@ -40,11 +40,11 @@
                                     if ($emp[$i] == $_SESSION['employee_auth']) {
                                 ?>
                                 <tr>
-                                    <td class="text-sm"><?= $app['name'] ?></td>
+                                    <td class="text-sm capitalize"><?= $app['name'] ?></td>
                                     <td class="text-sm"><?= $app['plate_no'] ?></td>
-                                    <td class="text-sm"><?= $app['repair'] ?></td>
-                                    <td class="text-sm"><?= $app['description'] ?></td>
-                                    <td class="text-sm"><?= $app['schedule'] ?></td>
+                                    <td class="text-sm capitalize"><?= $app['repair'] ?></td>
+                                    <td class="text-sm capitalize"><?= $app['description'] ?></td>
+                                    <td class="text-sm"><?= date('F d, Y h:i a', strtotime($app['schedule'])) ?></td>
                                     <td class="whitespace-nowrap flex gap-x-3">
                                         <select name="status" data-row-data="<?= $app['app_id'] ?>" class="status">
                                             <option value="" selected hidden><?= $app['status'] ?></option>

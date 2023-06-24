@@ -11,7 +11,7 @@
             <div class="col-lg-6">
             </div>
             <div class="col-lg-6" align="right" style="margin-bottom: 20px;">
-                <a href="" class="btn green radius-xl" style="background-color: #016064;" data-toggle="modal" data-target="#add-employee"><span>ADD EMPLOYEE</span></a>&nbsp;
+                <a href="" class="btn rounded-full shadow-md" style="background-color: #016064;" data-toggle="modal" data-target="#add-employee"><span>ADD NEW EMPLOYEE</span></a>&nbsp;
             </div>
             <div class="col-lg-12">
                 <div class="table-responsive">
@@ -139,16 +139,16 @@
                     <div class="row">
                         <div class="form-group col-12">
                             <label class="col-form-label">Full Name</label>
-                            <input class="form-control" type="text" name="fullname" required>
+                            <input class="form-control" type="text" name="fullname" maxlength="50" required>
 
-                            <label class="col-form-label">Home Address</label>
-                            <input class="form-control" type="text" name="address" required>
+                            <label class="col-form-label">Age</label>
+                            <input class="form-control number" type="number" name="age" maxlength="50" required>
+                            
+                            <label class="col-form-label">Date of Birth</label>
+                            <input class="form-control" type="date" name="datebirth" required>
 
-                            <label class="col-form-label">Password</label>
-                            <input class="form-control" type="password" name="password" required>
-
-                            <label class="col-form-label">Email Address</label>
-                            <input class="form-control" type="email" name="email" required>
+                            <label class="col-form-label">Place of Birth</label>
+                            <input class="form-control" type="text" name="placebirth" maxlength="50" required>
 
                             <label class="col-form-label">Gender</label>
                             <select class="form-control" name="gender" required>
@@ -157,27 +157,27 @@
                                 <option value="Female">Female</option>
                             </select>
 
-                            <label class="col-form-label">Date of Birth</label>
-                            <input class="form-control" type="date" name="datebirth" required>
-
+                            <label class="col-form-label">Home Address</label>
+                            <input class="form-control" type="text" name="address" maxlength="50" required>
+                            
                             <label class="col-form-label">Position</label>
                             <select class="form-control" name="position" id="position" required style="color: black!important;">
                                 <option value="" selected hidden>-- Please select --</option>
                                 <option value="Mechanic">Mechanic</option>
                                 <option value="Electrician">Electrician</option>
                             </select>
-
-                            <label class="col-form-label">Age</label>
-                            <input class="form-control" type="number" name="age" required>
-
-                            <label class="col-form-label">Place of Birth</label>
-                            <input class="form-control" type="text" name="placebirth" required>
-
-                            <label class="col-form-label">Date Started</label>
-                            <input class="form-control" type="date" name="datestarted" required>
-
+                            
                             <label class="col-form-label">Mobile Number</label>
                             <input class="form-control number" type="text" name="number" maxlength="11" required>
+                            
+                            <label class="col-form-label">Email Address</label>
+                            <input class="form-control" type="email" name="email" maxlength="50" required>
+
+                            <label class="col-form-label">Password</label>
+                            <input class="form-control" type="password" name="password" maxlength="50" required>
+                            
+                            <label class="col-form-label">Date Started</label>
+                            <input class="form-control" type="date" name="datestarted" required>
                         </div>
                     </div>
                 </div>

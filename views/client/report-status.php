@@ -24,8 +24,8 @@
                             foreach (DBConn::DBQuery($query) as $progress) {
                             ?>
                             <tr>
-                                <td class="capitalize text-center"><?= $progress['repair'] ?></td>
-                                <td class="capitalize text-center">
+                                <td class="capitalize text-center text-sm"><?= $progress['repair'] ?></td>
+                                <td class="capitalize text-center text-sm">
                                     <span class="text-white rounded-md px-2 <?= $progress['status'] == 'in progress' ? 'bg-sky-500' : 'bg-green-500';  ?>">
                                         <?= $progress['status'] ?>
                                     </span>
