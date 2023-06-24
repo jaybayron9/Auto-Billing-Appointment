@@ -24,7 +24,7 @@
 				</div>
 			</div>
 
-			<div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-6">
+			<!-- <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-6">
 				<div class="widget-card widget-bg2 btn yellow" style=" padding: 30px 70px;">
 					<div class="icon">
 						<i class="ti-google"></i>
@@ -41,7 +41,7 @@
 						<span class="wc-stats"></span>
 					</div>
 				</div>
-			</div>
+			</div> -->
 
 			<div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-6">
 				<div class="widget-card widget-bg2 btn red" style=" padding: 40px 60px;">

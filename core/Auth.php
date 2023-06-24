@@ -31,15 +31,21 @@ class Auth extends DBConn {
         extract($_POST);
 
         $checkEmail = parent::select('clients', '*', ['email' => $email], null, 1);
+        $checkPhone = parent::select('clients', '*', ['phone' => $phone], null, 1);
+        $checkPlateNo = parent::select('cars', '*', ['plate_no' => $plateNumber], null, 1);
 
         if (count($checkEmail) > 0) {
             return parent::alert('error', 'Email is already registered.');
+        } else if (count($checkPhone) > 0) {
+            return parent::alert('error', 'Phone is already registered.');
+        } else if (count($checkPlateNo) > 0) {
+            return parent::alert('error', 'Plate number is already registered.');
         } else if (strlen($phone) == 10 && preg_match("/^[A-Za-z]{3}[-\s]?\d{4}$/", $plateNumber) && preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).*$/", $password) && $password == $repassword && strlen($password) > 7) {
             $client = parent::insert('clients', [
                 'name' => $name,
                 'email' => $email,
                 'address' => $address,
-                'phone' => $phone,
+                'phone' => '0' . $phone,
                 'password' => $password
             ]);
 

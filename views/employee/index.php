@@ -20,17 +20,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-6">
-                <div class="widget-card widget-bg2 btn yellow" style=" padding: 40px 50px;">
-                    <div class="icon"></div>
-                    <div class="wc-item">
-                        <h3 class="wc-title">
-                            Service Order
-                        </h3>
-                        <span class="wc-stats"></span>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </main>
