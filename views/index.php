@@ -103,12 +103,12 @@
         <h1 class="logo me-auto" style="padding-left: 10px;"><a href="index.php">CJCE AUTOPARTS</a></h1>
         <nav id="navbar" class="navbar order-last order-lg-0">
             <ul>
-                <li><a class="nav-link scrollto hero" href="#hero">Home</a></li>
-                <li><a class="nav-link scrollto about" href="#about">About Us</a></li>
-                <li><a class="nav-link scrollto services" href="#services">PMS</a></li>
-                <li><a class="nav-link scrollto repairs" href="#repairs">Repair</a></li>
-                <li><a class="nav-link scrollto developers" href="#sec-developers" id="developers">Developers</a></li>
-                <li><a class="nav-link scrollto contact" href="#contact">Contact</a></li>
+                <li><a class="hero" href="#hero">Home</a></li>
+                <li><a class="about" href="#about">About Us</a></li>
+                <li><a class="services" href="#services">PMS</a></li>
+                <li><a class="repairs" href="#repairs">Repair</a></li>
+                <li><a class="developers" href="#sec-developers" id="developers">Developers</a></li>
+                <li><a class="contact" href="#contact">Contact</a></li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>
