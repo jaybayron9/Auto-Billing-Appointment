@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "tailwind": "npx tailwindcss -i ./assets/tailwind/input.css -o ./assets/tailwind/output.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
+  },
+  "dependencies": {
+    "animate.css": "^4.1.1",
+    "flowbite": "^1.7.0",
+    "jquery": "^3.7.0",
+    "smooth-scroll": "^16.1.3"
+  }
+}
