@@ -1,39 +1,39 @@
-<nav class="sticky top-0 px-8 py-10">
-    <ul class="flex mx-auto gap-x-5 text-center">
-        <li>
-            <a href="#one" class="flex gap-x-2">
-                <img src="assets/storage/defaults/logo.ico" alt="logo" class="h-16 w-16">
-                <p class="font-bold text-lg mt-4">PJMT</p>
-            </a>
-        </li>
-        <li class="ml-10 mt-3">
-            <a href="#one" class="font-light text-[23px] text-violet-800">One</a>
-        </li>
-        <li class="mt-3">
-            <a href="#two" class="font-light text-[23px] text-violet-800">Two</a>
-        </li>
-        <li class="mt-3">
-            <a href="#three" class="font-light text-[23px] text-violet-800">Three</a>
-        </li>
-        <li class="mt-3">
-            <a href="#four" class="font-light text-[23px] text-violet-800">Four</a>
-        </li>
-        <li class="ml-auto mt-4">
-            <a href="?vs=_admin" class="border border-violet-800 font-semibold text-[23px] px-3 py-3 rounded-lg text-violet-800 hover:text-white hover:bg-violet-800 transition duration-300">Admin</a>
-        </li>
-        <li class="mt-4">
-            <a href="?vs=_sup" class="border border-violet-800 font-semibold text-[23px] px-3 py-3 rounded-lg text-violet-800 hover:text-white hover:bg-violet-800 transition duration-300">Support</a>
-        </li>
-        <li class="mt-4">
-            <a href="?vs=login" class="border border-violet-800 font-semibold text-[23px] px-3 py-3 rounded-lg text-violet-800 hover:text-white hover:bg-violet-800 transition duration-300">User</a>
-        </li>
-        <li class="mt-1">
-            <a href="?vs=register" class="flex gap-x-1 font-semibold text-[23px] px-11 py-3 rounded-lg text-white bg-violet-700 hover:bg-gray-900 transition duration-300">
-                Register
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 m-[5px]">
-                    <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" clip-rule="evenodd" />
-                </svg>
-            </a>
-        </li>
-    </ul>
-</nav> 
+<nav class="bg-white border-gray-200 shadow">
+    <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
+        <a href="./" class="flex items-center">
+            <img src="assets/storage/system/home.png" class="h-8 mr-3" alt="Flowbite Logo" />
+            <span class="self-center text-2xl font-semibold whitespace-nowrap">CJCE Autoparts</span>
+        </a>
+        <div class="flex items-center">
+            <a href="tel:5541251234" class="mr-6 text-sm  text-gray-500 hover:underline">(63) 932-747-1796</a>
+            <a href="?vs=login" class="text-sm  text-blue-600 hover:underline mr-2">Sign in</a>
+            <a href="?vs=register" class="text-sm shadow-md btn inline-flex items-center px-2 bg-blue-600 border border-transparent rounded-md font-semibold text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Register</a>
+        </div>
+    </div>  
+</nav>
+<nav class="sticky top-0 bg-gray-50 shadow-md">
+    <div class="max-w-screen-xl px-4 py-3 mx-auto">
+        <div class="flex items-center">
+            <ul class="flex flex-row overflow-x-auto font-medium mt-0 gap-x-8 text-sm">
+                <li>
+                    <a href="#home" class="text-gray-900 hover:underline" aria-current="page">Home</a>
+                </li>
+                <li>
+                    <a href="#aboutus" class="text-gray-900 hover:underline whitespace-nowrap">About Us</a>
+                </li>
+                <li>
+                    <a href="#pms" class="text-gray-900 hover:underline">PMS</a>
+                </li>
+                <li>
+                    <a href="#repair" class="text-gray-900 hover:underline">Repair</a>
+                </li>
+                <li>
+                    <a href="#contact" class="text-gray-900 hover:underline">Contact</a>
+                </li>
+                <li>
+                    <a href="#developers" class="text-gray-900 hover:underline">Developer</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

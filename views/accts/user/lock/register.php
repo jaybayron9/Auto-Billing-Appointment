@@ -4,8 +4,8 @@
 <div class="flex justify-center items-center mt-[40px]">
     <div class="md:w-2/6 w-96">
         <div class="flex justify-center items-center mb-5 gap-x-3">
-            <img src="assets/storage/defaults/logo.ico" alt="logo" class="h-14 w-14">
-            <a href="./" class="font-bold text-1xl mt-1 capitalize">USER</a>
+            <img src="assets/storage/system/home.png" alt="logo" class="h-14 w-14">
+            <a href="./" class="font-bold text-1xl mt-1 capitalize">Register</a>
         </div>
         <form id="register-form" class="rounded border border-gray-300 bg-white p-10 ">
             <input type="hidden" name="csrf_token" id="csrf-token" value="<?= $_SESSION['csrf_token'] ?>">
@@ -39,7 +39,7 @@
                 <label for="agree" class="ml-2 text-sm text-gray-900 select-none">I've read and agree to the <a href="" class="text-violet-700">terms and service.</a></label>
             </div>
             <div class="text-center my-2">
-                <button type="submit" class="flex items-center justify-center w-full bg-violet-700 text-base text-white hover:bg-blue-500 py-1 px-3 rounded transition duration-200">
+                <button type="submit" class="flex items-center justify-center w-full bg-blue-700 text-base text-white hover:bg-blue-500 py-1 px-3 rounded transition duration-200">
                     <span id="submit-txt">Sign up</span>
                     <svg id="spinner" hidden class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -50,7 +50,7 @@
         </form>
         <div class="flex mt-3 gap-x-2 justify-center items-center text-sm">
             <p class="text-[14.5px] text-gray-600">Already have account?</p>
-            <a href="?vs=login" class="text-violet-700 hover:underline hover:text-blue-600">Sign in</a>
+            <a href="?vs=login" class="text-blue-700 hover:underline hover:text-blue-600">Sign in</a>
         </div>
     </div>
 </div>

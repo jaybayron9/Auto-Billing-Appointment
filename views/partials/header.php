@@ -8,7 +8,7 @@
     <title>PJMT</title>
 
     <!-- System Logo -->
-    <link rel="shortcut icon" href="assets/storage/defaults/logo.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/storage/system/home.png" type="image/x-icon">
     <!-- Tailwind Stlying -->
     <link rel="stylesheet" href="assets/tailwind/output.css">
     <!-- Animate CSS -->

@@ -1,4 +1,11 @@
 <?php
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);  
+// function customErrorHandler($errno,$errstr, $errfile, $errline) {
+//     $message = "[$errno], $errstr - $errfile:[$errline]";
+//     error_log($message . PHP_EOL, 3, "error_log.md"); 
+// } 
+// set_error_handler("customErrorHandler");    
 
 function dd($value) {
     echo '<pre>';
