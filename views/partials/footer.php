@@ -4,6 +4,8 @@
     <script src="node_modules/flowbite/dist/datepicker.js"></script>
     <!-- Button Animation -->
     <script src="assets/js/btn-animation.js"></script>
+    <!-- validation -->
+    <script src="assets/js/validation.js"></script>
     <!-- Auto Slide Animaton -->
     <script src="node_modules/smooth-scroll/dist/smooth-scroll.js"></script> 
     <script type="text/javascript">

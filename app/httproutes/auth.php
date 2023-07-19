@@ -48,6 +48,7 @@ $auth_response = [
     'user_sign_out'              => ['obj' => new User(), 'method' => 'sign_out'],
     'user_similar_email'         => ['obj' => new User(), 'method' => 'similar_email'],
     'resend_verification_email'  => ['obj' => new User(), 'method' => 'send_verification_email'],
+    'password_validation'        => ['obj' => new User(), 'method' => 'password_validation'],
     // User Settings
     'user_update_profile'        => ['obj' => new User(), 'method' => 'update_profile'],
     'user_update_password'       => ['obj' => new User(), 'method' => 'update_password'],

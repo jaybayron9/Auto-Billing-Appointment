@@ -4,6 +4,7 @@ namespace Client;
 use Emailer;
 use Auth\Auth;
 use DBConn\DBConn;
+use Validation\Valid;
 use FHandler\FHandler;
 
 class User extends DBConn {
@@ -47,7 +48,7 @@ class User extends DBConn {
         Auth::sign_out();
     }
 
-    public function sign_up() {
+    public function sign_up() { 
         $config = require('config.php');
         extract($config['recaptchav3']);
 
@@ -57,7 +58,14 @@ class User extends DBConn {
         $error[] = Auth::check_email($_POST) ? 'Invalid email address.' : '';
         $error[] = Auth::check_similar_email('users', $_POST['email']) ? 'The email has already been taken.' : '';
         $error[] = Auth::confirm_password($_POST['password'], $_POST['password_confirmation']) ? 'Password do not match.' : '';
-        $error[] = Auth::pass_length($_POST['password'], 7) ? 'The password must be at least 8 characters.' : '';
+        $error[] = Valid::has_min_lenght($_POST['password']) ? '8 Characters' : '';
+        $error[] = Valid::has_small_letters($_POST['password']) ? 'Small Letter' : '';
+        $error[] = Valid::has_big_letters($_POST['password']) ? 'Big Letter' : '';
+        $error[] = Valid::has_numbers($_POST['password']) ? 'Number' : '';
+        $error[] = Valid::has_special_characters($_POST['password']) ? 'Special Character' : '';
+        $error[] = Valid::is_plate_num($_POST['platenumber']) ? 'Invalid format' : '';
+        $error[] = Auth::is_plate_exist($_POST['platenumber']) ? 'Plate number already exist' : '';
+        $error[] = Valid::has_exact_no($_POST['phone']) ? 'Phone number is atleast 11 characters' : '';
 
         if (!empty(array_filter($error))) {
             return json_encode([
@@ -65,31 +73,38 @@ class User extends DBConn {
                 'msg' => $error[2],
                 'email_format' => $error[3], 
                 'similar_email' => $error[4],
-                'pass_confirm' => $error[5],
-                'password_length' => $error[6],
+                'pass_confirm' => $error[5], 
+                'lenght' => $error[6],
+                'small' => $error[7],
+                'big' =>  $error[8],
+                'number' => $error[9], 
+                'symbol' => $error[10], 
+                'plateno' => $error[11], 
+                'plate_exist' => $error[12],
+                'phone' => $error[13]
             ]);
         }
 
         parent::insert('users', [
+            'name' => $_POST['name'],
             'email' => $_POST['email'],
-            'password' => password_hash($_POST['password'], PASSWORD_BCRYPT),
+            'phone' => $_POST['phone'],
+            'password' => password_hash($_POST['password'], PASSWORD_BCRYPT), 
         ]);
 
-        $id = parent::select('users', 'id', ['email' => $_POST['email']], null, 1);
-        $_SESSION['user_id'] = $id[0]['id'];
+        $id = parent::select('users', 'id', ['email' => $_POST['email']], null, 1); 
+        parent::insert('cars', [
+            'user_id' => $id[0]['id'], 
+            'plate_no'=> $_POST['platenumber'],
+            'car_brand' => $_POST['brand'],
+            'car_model' => $_POST['model'],
+            'car_type' => $_POST['cartype'],
+            'fuel_type' => $_POST['fueltype'],
+            'color' => $_POST['color'],
+            'trans_type' => $_POST['transmission']
+        ]); 
 
-        $config = require('config.php'); 
-        extract($config['links']);
-        
-        $token = bin2hex(random_bytes(32));
-        $url = $base_url . '/?vs=_/&token=' . $token;
-
-        $mailer = new EMailer();
-        $mailer->send($_POST['email'], 'Account Verification', $mailer->email_ver_temp($url));
-
-        parent::update('users', [
-            'email_verify_token' => $token
-        ], "id = '{$id[0]['id']}'");
+        $_SESSION['user_id'] = $id[0]['id']; 
 
         return parent::resp();
     }
@@ -252,4 +267,30 @@ class User extends DBConn {
 
         return parent::resp();
     }
+
+    public function password_validation() {
+        $error[] = Valid::has_min_lenght($_POST['password']) ? '8 Characters' : '';
+        $error[] = Valid::has_small_letters($_POST['password']) ? 'Small Letter' : '';
+        $error[] = Valid::has_big_letters($_POST['password']) ? 'Big Letter' : '';
+        $error[] = Valid::has_numbers($_POST['password']) ? 'Number' : '';
+        $error[] = Valid::has_special_characters($_POST['password']) ? 'Special Character' : ''; 
+
+        if (!empty(array_filter($error))) {
+            return json_encode([
+                'lenght' => $error[0],
+                'small' => $error[1],
+                'big' =>  $error[2],
+                'number' => $error[3],
+                'symbol' => $error[4]
+            ]);
+        }
+
+        return json_encode([
+            'lenght' => '',
+            'small' => '',
+            'big' => '',
+            'number' => '',
+            'symbol' => ''
+        ]); 
+    } 
 }

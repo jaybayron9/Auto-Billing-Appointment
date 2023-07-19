@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="node_modules/animate.css/animate.min.css">
     <!-- JQuery -->
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- Phone Country -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.css">
     <!-- Alert -->
     <script src="assets/js/alert.js"></script>
     <!-- Pace.js | Page Pre-loader -->

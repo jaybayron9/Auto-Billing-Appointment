@@ -35,4 +35,6 @@ return [
     'reset_password'           => view('accts/user/lock', 'reset-pass'),
     '_/'                       => view('accts/user/unlock'),
     '_/profile'                => view('accts/user/unlock/settings', 'profile'),
+    // 
+    'appointments'             => view('accts/user/unlock/', 'appointments'),
 ];

@@ -13,7 +13,7 @@ Auth::check_login_auth('user_id', '_/');
 <div class="flex justify-center items-center mt-20">
     <div class="md:w-2/6 w-96">
         <div class="flex justify-center items-center mb-5 gap-x-3">
-            <img src="assets/storage/defaults/logo.ico" alt="logo" class="h-14 w-14">
+            <img src="assets/storage/system/home.png" alt="logo" class="h-14 w-14">
             <a href="./" class="font-bold text-1xl mt-1 capitalize">Sign in</a>
         </div>
         <form id="login-form" class="rounded border border-gray-300 bg-white p-10 ">
@@ -33,7 +33,7 @@ Auth::check_login_auth('user_id', '_/');
                     <div class="mb-2">
                         <label for="password" class="text-[14.5px]">Password</label>
                     </div>
-                    <a href="?vs=forgot_password" class="hover:underline ml-auto text-[14.5px] text-violet-800">I forgot my password</a>
+                    <a href="?vs=forgot_password" class="hover:underline ml-auto text-[14.5px] text-blue-600">I forgot my password</a>
                 </div>
                 <input type="password" name="password" id="password" maxlength="50" placeholder="Password" autocomplete="off" required class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
             </div>
@@ -42,7 +42,7 @@ Auth::check_login_auth('user_id', '_/');
                 <label for="remember" class="ml-2 text-sm text-gray-900">Keep me logged in</label>
             </div>
             <div class="text-center my-2">
-                <button type="submit" class="flex items-center justify-center w-full bg-violet-700 text-base text-white hover:bg-blue-500 py-1 px-3 rounded transition duration-200">
+                <button type="submit" class="flex items-center justify-center w-full bg-blue-700 text-base text-white hover:bg-blue-500 py-1 px-3 rounded transition duration-200">
                     <span id="submit-txt">Sign in</span>
                     <svg id="spinner" hidden class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -53,7 +53,7 @@ Auth::check_login_auth('user_id', '_/');
         </form>
         <div class="flex mt-3 gap-x-2 justify-center items-center text-sm">
             <p class="text-[14.5px] text-gray-600">Don't have account yet?</p>
-            <a href="?vs=register" class="text-violet-700 hover:underline hover:text-blue-600">Sign up</a>
+            <a href="?vs=register" class="text-blue-700 hover:underline hover:text-blue-600">Sign up</a>
         </div>
     </div>
 </div>

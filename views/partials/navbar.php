@@ -7,7 +7,7 @@
         <div class="flex items-center">
             <a href="tel:5541251234" class="mr-6 text-sm  text-gray-500 hover:underline">(63) 932-747-1796</a>
             <a href="?vs=login" class="text-sm  text-blue-600 hover:underline mr-2">Sign in</a>
-            <a href="?vs=register" class="text-sm shadow-md btn inline-flex items-center px-2 bg-blue-600 border border-transparent rounded-md font-semibold text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Register</a>
+            <a href="?vs=register" class="text-sm shadow-md btn inline-flex items-center px-2 bg-blue-600 border border-transparent rounded font-semibold text-white tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Register</a>
         </div>
     </div>  
 </nav>

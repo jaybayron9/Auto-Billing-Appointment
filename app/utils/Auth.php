@@ -185,5 +185,10 @@ class Auth {
             return false;
         }  
         return true;
+    } 
+
+    public static function is_plate_exist($value):bool {
+        $plate = DBConn::select('cars', '*', ['plate_no' => $value]);
+        return $plate ? true : false;
     }
 }

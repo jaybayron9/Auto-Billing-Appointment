@@ -9,4 +9,4 @@ function dialog(bg, msg, dur = 3000) {
     $.ajax({
         url: '?rq=unset_alert_session'
     }); 
-}
+} 
