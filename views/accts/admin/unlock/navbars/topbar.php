@@ -11,8 +11,8 @@
                     </svg>
                 </button>
                 <a href="?vs=_admin" class="flex ml-2 md:mr-24">
-                    <img src="assets/Storage/Defaults/logo.ico" class="h-8 mr-3" alt="FlowBite Logo" />
-                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">PJMT</span>
+                    <img src="assets/Storage/system/home.png" class="h-8 mr-3" alt="FlowBite Logo" />
+                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">CJCE</span>
                 </a>
             </div>
             <div class="flex items-center"> 
@@ -95,5 +95,5 @@
 </nav>
 
 <script type="text/javascript">
-    $('title').text('PJMT | Admin');
+    $('title').text('CJCE | <?= $admin_info[0]['name'] ?>');
 </script>

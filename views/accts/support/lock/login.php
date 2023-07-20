@@ -13,12 +13,12 @@ Auth::check_login_auth('support_id', '_sup/');
 <div class="flex justify-center items-center my-20">
     <div class="md:w-2/6 w-96">
         <div class="flex justify-center items-center mb-5 gap-x-3">
-            <img src="assets/storage/defaults/logo.ico" alt="logo" class="h-14 w-14">
-            <a href="./" class="font-bold text-1xl mt-1 capitalize">SUPPORT</a>
+            <img src="assets/storage/system/home.png" alt="logo" class="h-14 w-14">
+            <a href="./" class="font-bold text-1xl mt-1 capitalize">CJCE</a>
         </div>
         <form id="login-form" class="rounded border border-gray-300 bg-white p-10 ">
             <input type="hidden" name="csrf_token" id="csrf-token" value="<?= $_SESSION['csrf_token'] ?>">
-            <h1 class="text-center text-medium mb-4 font-normal text-gray-900">Welcome Support!</h1>
+            <h1 class="text-center text-medium mb-4 font-normal text-gray-900">Welcome!</h1>
             <div id="alert" hidden class="py-3">
                 <p id="msg" class="border-y border-r border-l-red-600 border-l-4 rounded py-3 px-5 shadow text-red-700 text-[14.5px]">Tsdf</p>
             </div>
@@ -26,7 +26,7 @@ Auth::check_login_auth('support_id', '_sup/');
                 <div class="mb-2">
                     <label for="email" class="text-[14.5px]">Email Address</label>
                 </div>
-                <input type="email" name="email" id="email" required maxlength="50" placeholder="support123@example.com" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
+                <input type="email" name="email" id="email" required maxlength="50" placeholder="employee123@example.com" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
             </div>
             <div class="mb-6">
                 <div class="flex">

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PJMT</title>
+    <title>CJCE</title>
 
     <!-- System Logo -->
     <link rel="shortcut icon" href="assets/storage/system/home.png" type="image/x-icon">

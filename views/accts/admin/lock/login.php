@@ -9,8 +9,8 @@ Auth::check_login_auth('admin_id', '_admin/');
 <div class="flex justify-center items-center mt-20">
     <div class="md:w-2/6 w-96">
         <div class="flex justify-center items-center mb-5 gap-x-3">
-            <img src="assets/storage/defaults/logo.ico" alt="logo" class="h-14 w-14">
-            <a href="./" class="font-bold text-1xl mt-1 capitalize">ADMIN</a>
+            <img src="assets/storage/system/home.png" alt="logo" class="h-14 w-14">
+            <a href="./" class="font-bold text-1xl mt-1 capitalize">CJCE</a>
         </div>
         <form id="login-form" class="rounded border border-gray-300 bg-white p-10 ">
             <input type="hidden" name="csrf_token" id="csrf-token" value="<?= $_SESSION['csrf_token'] ?>">

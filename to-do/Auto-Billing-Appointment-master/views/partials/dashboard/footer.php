@@ -28,12 +28,6 @@
                 eventLimit: true, // allow "more" link when too many events
                 events: [
                     <?php
-                        $status = 1;
-                        $rows = $model->asdf($status);
-                        if (!empty($rows)) {
-                            foreach ($rows as $row) {
-                            }
-                        }
                     ?>
                 ],
             });
