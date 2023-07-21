@@ -15,6 +15,24 @@ function dd($value) {
     die();
 }
 
+function time_ago($timestamp) {
+    $time = strtotime($timestamp);
+    $current_time = time();
+    $time_diff = $current_time - $time;
+    
+    if ($time_diff < 60) {
+        return $time_diff . 's';
+    } elseif ($time_diff < 3600) {
+        $minutes = floor($time_diff / 60);
+        return $minutes . 'm';
+    } elseif ($time_diff < 86400) {
+        $hours = floor($time_diff / 3600);
+        return $hours . 'h';
+    } else {
+        return date('M j, Y g:i A', $time);
+    }
+} 
+
 function urlIs($value) {
     return parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY) === $value;
 }

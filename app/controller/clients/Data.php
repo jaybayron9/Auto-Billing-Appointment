@@ -8,29 +8,44 @@ class Data extends DBConn {
         $data = parent::select('supports', '*', ['id' => $_POST['id']], null, 1);
 
         return json_encode([
-            'status' => 200,
+            'status' => 200, 
             'id' => $data[0]['id'],
             'name' => $data[0]['name'],
-            'phone' => $data[0]['phone'],
+            'gender' => $data[0]['gender'],
+            'dateofbirth' => $data[0]['dateofbirth'],
+            'placeofbirth' => $data[0]['placeofbirth'],
+            'nationality' => $data[0]['nationality'],
+            'position' => $data[0]['position'],
+            'datestarted' => $data[0]['datestarted'],
+            'address' => $data[0]['address'],
+            'mobile_no' => $data[0]['mobile_no'],
             'email' => $data[0]['email'],
-            'created' => $data[0]['created_at'],
-            'access' => $data[0]['access_enabled'],
         ]); 
     }
 
     public function update_support() {
+        extract($_POST); 
         parent::update('supports', [
-            'name' => $_POST['name'],
-            'email' => $_POST['email'],
-            'phone' => $_POST['phone'],
-            'access_enabled' => $_POST['access'],
-        ], "id = '{$_POST['id']}'"); 
-
-        return self::show_support();
+            'name' => $name,
+            'gender' => $gender,
+            'dateofbirth' => $dateofbirth,
+            'placeofbirth' => $placebirth,
+            'nationality' => $nationality,
+            'position' => $position,
+            'datestarted' => $datestarted,
+            'address' => $address,
+            'mobile_no' => $mobile_no,
+            'email' => $email, 
+        ], "id = '{$emp_id}'"); 
+        return parent::resp();
+        // return self::show_support();
     }
 
     public function delete_support() {
-        parent::delete('supports', ['id' => $_POST['id']]);
+        parent::update('supports', [
+            'status' => 'Resigned'
+        ], "id = '{$_POST['id']}'");
+
         return json_encode([
             'status' => 200,
             'id' => $_POST['id']
@@ -38,14 +53,23 @@ class Data extends DBConn {
     }
 
     public function add_support() { 
+        extract($_POST); 
+
         parent::insert('supports', [
-            'name' => $_POST['name'],
-            'phone' => $_POST['phone'],
-            'email' => $_POST['email'],
-            'password' => password_hash($_POST['password'], PASSWORD_BCRYPT), 
+            'name' => $name,
+            'gender' => $gender,
+            'dateofbirth' => $dateofbirth,
+            'placeofbirth' => $placebirth,
+            'nationality' => $nationality,
+            'position' => $position,
+            'datestarted' => $datestarted,
+            'address' => $address,
+            'mobile_no' => $mobile_no,
+            'email' => $email, 
+            'password' => password_hash($password, PASSWORD_BCRYPT), 
         ]);
 
-        $_SESSION['alert'] = 'Suppport added successfully';
+        $_SESSION['alert'] = 'Employee successfully added.';
         return parent::resp();
     }
 

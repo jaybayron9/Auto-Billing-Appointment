@@ -34,7 +34,7 @@ class Support extends DBConn {
             }
         }
 
-        return parent::resp(200, $msg);
+        return parent::resp(400, 'Incorrect email or password');
     }
 
     public function pass_request() { 

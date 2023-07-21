@@ -9,45 +9,48 @@
             <div class="col-span-2">
                 <input type="search" id="search" placeholder="Search User" class="w-full mb-2 px-2 py-2 mr-4 rounded-full outline-none sticky left-0 placeholder:text-sm">
                 <ul class="overflow-y-auto py-2" style="max-height: 500px;">
-                    <li class="bg-blue-100 p-2 rounded-lg mb-0 hover:cursor-pointer min-w-[100px] relative">
-                        <div class="flex flex-row gap-x-2">
-                            <div class="flex flex-row">
-                                <img src="assets/storage/<?= $admin_info[0]['profile_photo_path'] ?>" alt="Profile picture" class="h-14 w-14 rounded-full">
-                                <div class="absolute h-[15px] w-[15px] mt-10 ml-8 bg-green-400 rounded-full border-2 border-gray-600"></div>
+                    <?php
+                    function convo($msg, $order = "ORDER BY `created_at` DESC LIMIT 1") {
+                        return "SELECT * FROM `convo` WHERE `from_user` = '{$msg}' $order";
+                    }
+                    $uid = isset($_GET['uid']) ? $_GET['uid'] : '';
+                    $users = "SELECT * FROM users ";  
+                    foreach ($conn::DBQuery($users) as $user) {
+                    ?>
+                        <li class="<?= $uid == $user['id'] ? 'bg-blue-100' : 'hover:bg-gray-200' ?> p-2 rounded-lg mb-0 hover:cursor-pointer min-w-[100px] relative">
+                            <div class="grid grid-cols-1 md:grid-cols-5 gap-x-2">
+                                <div class="col-span-1 flex flex-row">
+                                    <img src="assets/storage/<?= $user['profile_photo_path'] ?>" alt="Profile picture" class="h-14 w-14 rounded-full">
+                                    <div class="absolute h-[15px] w-[15px] mt-10 ml-8 bg-green-400 rounded-full border-2 border-gray-600"></div>
+                                </div>
+                                <a href="?vs=_admin/inbox&uid=<?= $user['id'] ?>" class="col-span-4 sm:flex hidden flex-col">
+                                    <h1 class="font-semibold text-[15px]"><?= $user['name'] ?></h1>
+                                    <div class="flex flex-row">
+                                        <?php 
+                                        foreach ($conn::DBQuery(convo($user['id'])) as $last) { ?>
+                                        <p class="text-sm truncate overflow-hidden"><?= $last['message'] ?></p>
+                                        <?php } ?>
+                                        <span class="text-sm mt-1">.<?= time_ago($user['created_at']) ?></span>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="sm:flex hidden flex-col">
-                                <h1 class="font-semibold text-[15px]">Jay Bayron</h1>
-                                <p class="flex flex-row">
-                                    <span class="text-sm">Message here</span><span class="text-sm mt-1">.5m</span>
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="hover:bg-gray-200 p-2 rounded-lg mb-0 hover:cursor-pointer min-w-[100px] relative">
-                        <div class="flex flex-row gap-x-2">
-                            <div class="flex flex-row">
-                                <img src="assets/storage/uploads/64aaf41438099.png" alt="Profile picture" class="h-14 w-14 rounded-full">
-                                <div class="absolute h-[15px] w-[15px] mt-10 ml-8 bg-green-400 rounded-full border-2 border-gray-600"></div>
-                            </div>
-                            <div class="sm:flex hidden flex-col">
-                                <h1 class="font-semibold text-[15px]">Sheilah Bayron</h1>
-                                <p class="flex flex-row">
-                                    <span class="text-sm">Message here</span><span class="text-sm mt-1">.1h</span>
-                                </p>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    <?php  } ?>
                 </ul>
             </div>
+            <?php   
+            $convoUser = $users . "WHERE id = '{$uid}'";
+            foreach($conn::DBQuery($convoUser) as $user) {  
+            ?>
             <div class="col-span-4">
                 <div class="ml-3 flex flex-row gap-2 mb-3">
                     <div class="flex flex-row ">
-                        <img src="assets/storage/<?= $admin_info[0]['profile_photo_path'] ?>" alt="Profile picture" class="overflow-x-auto h-12 w-12 min-w-[49px] rounded-full">
+                        <img src="assets/storage/<?= $user['profile_photo_path'] ?>" alt="Profile picture" class="overflow-x-auto h-12 w-12 min-w-[49px] rounded-full">
                         <div class="absolute h-[15px] w-[15px] mt-8 ml-7 bg-green-400 rounded-full border-2 border-gray-600"></div>
                     </div>
                     <div class="flex flex-col">
-                        <h1 class="font-semibold text-[18px] whitespace-nowrap">Jay Bayron</h1>
-                        <span class="text-sm">Active now</span> 
+                        <h1 class="font-semibold text-[18px] whitespace-nowrap"><?= $user['name'] ?></h1>
+                        <span class="text-sm">Active now</span>
                     </div>
                     <div class="ml-auto mt-[7px] lg:fixed sticky right-6">
                         <button class="text-blue-600 hover:text-sky-500">
@@ -57,7 +60,13 @@
                         </button>
                     </div>
                 </div>
-                <div id="chatDisplay" class="border border-gray-300 shadow-inner bg-gray-50 rounded-md p-5 mb-4 h-screen overflow-y-auto max-h-[445px]"></div> 
+                <div id="chatDisplay" class="border border-gray-300 shadow-inner bg-gray-50 rounded-md p-5 mb-4 h-screen overflow-y-auto max-h-[445px]">
+                <?php  
+                foreach($conn::DBQuery(convo($user['id'], '')) as $msg) {  
+                    echo $msg['message'] . '<br />';    
+                }
+                ?>
+                </div>
                 <form id="sm-form" class="flex gap-x-1">
                     <div class="mt-1">
                         <button class="text-blue-600 hover:text-sky-500">
@@ -92,10 +101,11 @@
                     </div>
                 </form>
             </div>
+            <?php } ?>
         </div>
     </div>
 </main>
 
 <script type="text/javascript">
-    $('body').addClass('overflow-y-hidden'); 
+    $('body').addClass('overflow-y-hidden');
 </script>

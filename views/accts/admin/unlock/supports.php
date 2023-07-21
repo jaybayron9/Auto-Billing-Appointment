@@ -14,31 +14,8 @@
 <main id="main-content" class="relative h-full overflow-y-auto lg:ml-64 dark:bg-gray-900">
     <div class="px-4 h-full my-[80px]">
         <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
-            <div class="grid grid-cols-2 mb-5 sm:grid-cols-6">
-                <div class="col-span-4 gap-x-3 block md:flex">
-                    <div  class="flex items-center -ml-2 sm:ml-0">
-                        <div class="relative">
-                            <input name="start" type="date" id="start" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" placeholder="Select date start">
-                        </div>
-                        <span class="mx-1 text-gray-500">to</span>
-                        <div class="relative">
-                            <input name="end" type="date" id="end" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" placeholder="Select date end">
-                        </div>
-                    </div>
-                    <div class="flex gap-x-3 justify-left mt-3 sm:mt-0">
-                        <div>
-                            <button type="button" id="today" class="btn -mr-1 inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
-                                Today
-                            </button>
-                        </div>
-                        <div>
-                            <button type="button" id="clear" class="btn inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
-                                Clear
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-span-2 mx-0 md:ml-auto flex mt-3 sm:mt-0">
+            <div class="flex flex-row mb-2"> 
+                <div class="ml-auto mx-0 md:ml-auto flex mt-3 sm:mt-0">
                     <div class=" ">
                         <button type="button" id="open-add-modal" class="btn inline-flex items-center px-3 py-[6px] mr-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
@@ -46,23 +23,15 @@
                             </svg>
                             <span class="ml-2">Add</span>
                         </button>
-                    </div>
-                    <div>
-                        <button type="button" id="open-dels-modal" class="btn inline-flex items-center px-3 py-[6px] bg-red-600 border border-red-300 rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm  focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
-                                <path d="M10.375 2.25a4.125 4.125 0 100 8.25 4.125 4.125 0 000-8.25zM10.375 12a7.125 7.125 0 00-7.124 7.247.75.75 0 00.363.63 13.067 13.067 0 006.761 1.873c2.472 0 4.786-.684 6.76-1.873a.75.75 0 00.364-.63l.001-.12v-.002A7.125 7.125 0 0010.375 12zM16 9.75a.75.75 0 000 1.5h6a.75.75 0 000-1.5h-6z" />
-                            </svg>
-                            <span class="ml-2">Remove</span>
-                        </button>
-                    </div>
+                    </div> 
                 </div>
-            </div> 
-            <div class="overflow-x-auto overflow-y-auto" style=" max-height: 700px;"> 
+            </div>
+            <div class="overflow-x-auto overflow-y-auto" style=" max-height: 700px;">
                 <table id="table" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                     <thead>
                         <tr>
                             <th data-priority="1" class="text-xs uppercase whitespace-nowrap text-white">Name</th>
-                            <th data-priority="3" class="text-xs uppercase whitespace-nowrap text-white">Phone</th>
+                            <th data-priority="3" class="text-xs uppercase whitespace-nowrap text-white">Mobile no.</th>
                             <th data-priority="4" class="text-xs uppercase whitespace-nowrap text-white">Email</th>
                             <th data-priority="5" class="text-xs uppercase whitespace-nowrap text-white">Created At</th>
                             <th data-priority="1" data-orderable="false" class="text-xs uppercase whitespace-nowrap text-white"></th>
@@ -70,10 +39,10 @@
                         </tr>
                     </thead>
                     <tbody id="tbody">
-                        <?php foreach ($conn::select('supports') as $support) { ?>
+                        <?php foreach ($conn::DBQuery("SELECT * FROM supports WHERE status != 'Resigned'") as $support) { ?>
                             <tr data-row-id="<?= $support['id'] ?>">
                                 <td class="text-sm capitalize name"><?= $support['name'] ?></td>
-                                <td class="text-sm phone"><?= $support['phone'] ?></td>
+                                <td class="text-sm phone"><?= $support['mobile_no'] ?></td>
                                 <td class="text-sm email"><?= $support['email'] ?></td>
                                 <td class="text-sm date"><?= date('Y-m-d', strtotime($support['created_at'])) ?></td>
                                 <td class="text-sm capitalize text-center">
@@ -102,33 +71,73 @@
 </main>
 
 <div id="add-acct-modal" hidden class="mt-10 md:mt-0">
-    <div class="fixed inset-0 overflow-y-hidden px-4 py-6 sm:px-0 z-50 sm:max-w-2xl mx-auto">
+    <div class="fixed inset-0 overflow-y-auto px-4 py-6 sm:px-0 z-50 sm:max-w-5xl mx-auto">
         <div class="background fixed inset-0 transform transition-all">
             <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
         <form id="add-form" class="mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto">
-            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"> 
+            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
             <div class="px-6 py-4">
                 <div class="text-lg font-medium text-gray-900 mb-2">
-                    Add Account
+                    Add Employee
                 </div>
                 <div class="grid gap-4 mb-4 sm:grid-cols-2">
-                    <div>
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                        <input type="text" name="name" id="new-name" placeholder="Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                    <div class="flex flex-col space-y-3">
+                        <div>
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                            <input type="text" name="name" id="new-name" placeholder="Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        </div>
+                        <div>
+                            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
+                            <select name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                                <option value="" selected hidden>-- Please select --</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date of Birth</label>
+                            <input type="date" name="dateofbirth" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                        </div>
+                        <div>
+                            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Place of Birth</label>
+                            <input type="text" name="placebirth" maxlength="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                        </div> 
+                        <div>
+                            <label for="nationality" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Place of Birth</label>
+                            <input type="text" name="nationality" maxlength="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                        </div> 
                     </div>
-                    <div>
-                        <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
-                        <input type="text" name="phone" id="new-phone" placeholder="Phone number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                    </div>
-                    <div>
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                        <input type="email" name="email" id="new-email" placeholder="Email address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                    </div>
-                    <div>
-                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                        <input type="password" name="password" id="new-password" placeholder="Enter password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                    </div>
+                    <div class="flex flex-col space-y-3">
+                        <div>
+                            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Home Address</label>
+                            <input type="text" name="address" maxlength="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                        </div>
+                        <div>
+                            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Position</label>
+                            <select name="position" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required style="color: black!important;">
+                                <option value="" selected hidden>-- Please select --</option>
+                                <option value="Mechanic">Mechanic</option>
+                                <option value="Electrician">Electrician</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Started</label>
+                            <input type="date" name="datestarted" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                        </div>
+                        <div>
+                            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+                            <input type="text" name="mobile_no" id="new-phone" placeholder="Phone number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        </div>
+                        <div>
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                            <input type="email" name="email" id="new-email" placeholder="Email address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        </div>
+                        <div>
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                            <input type="password" name="password" id="new-password" placeholder="Enter password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        </div>
+                    </div> 
                 </div>
             </div>
             <div class="md:mt-0 md:col-span-2">
@@ -146,41 +155,70 @@
 </div>
 
 <div id="edit-acct-modal" hidden class="mt-10 md:mt-0">
-    <div class="fixed inset-0 overflow-y-hidden px-4 py-6 sm:px-0 z-50 sm:max-w-2xl mx-auto">
+    <div class="fixed inset-0 overflow-y-auto px-4 py-6 sm:px-0 z-50 sm:max-w-5xl mx-auto">
         <div class="background fixed inset-0 transform transition-all">
             <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
         <form id="edit-form" class="mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto">
             <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
-            <input type="hidden" name="id" id="support-id">
+            <input type="hidden" name="emp_id" id="emp_id">
             <div class="px-6 py-4">
                 <div class="text-lg font-medium text-gray-900 mb-2">
-                    Edit Account
+                    Add Employee
                 </div>
                 <div class="grid gap-4 mb-4 sm:grid-cols-2">
-                    <div>
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                        <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                    <div class="flex flex-col space-y-3">
+                        <div>
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                            <input type="text" name="name" id="name" placeholder="Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        </div>
+                        <div>
+                            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
+                            <select name="gender" id="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                                <option value="" selected hidden>-- Please select --</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date of Birth</label>
+                            <input type="date" name="dateofbirth" id="dateofbirth" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                        </div>
+                        <div>
+                            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Place of Birth</label>
+                            <input type="text" name="placebirth" id="placebirth" maxlength="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                        </div> 
+                        <div>
+                            <label for="nationality" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Place of Birth</label>
+                            <input type="text" name="nationality" id="nationality" maxlength="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                        </div> 
                     </div>
-                    <div>
-                        <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
-                        <input type="text" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                    </div>
-                    <div>
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                        <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                    </div>
-                    <div>
-                        <label for="created" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Created</label>
-                        <input type="datetime-local" name="created" id="created" disabled class="bg-gray-50 border border-gray-100 text-gray-900 text-sm rounded-lg  block w-full p-2.5">
-                    </div>
-                    <div>
-                        <label for="access" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Access</label>
-                        <select name="access" id="access" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                            <option value="1">Granted</option>
-                            <option value="0">Denied</option>
-                        </select>
-                    </div>
+                    <div class="flex flex-col space-y-3">
+                        <div>
+                            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Home Address</label>
+                            <input type="text" name="address" id="address" maxlength="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                        </div>
+                        <div>
+                            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Position</label>
+                            <select name="position" id="position" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required style="color: black!important;">
+                                <option value="" selected hidden>-- Please select --</option>
+                                <option value="Mechanic">Mechanic</option>
+                                <option value="Electrician">Electrician</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Started</label>
+                            <input type="date" name="datestarted" id="datestarted" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                        </div>
+                        <div>
+                            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+                            <input type="text" name="mobile_no" id="mobile_no" placeholder="Phone number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        </div>
+                        <div>
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                            <input type="email" name="email" id="email" placeholder="Email address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        </div>
+                    </div> 
                 </div>
             </div>
             <div class="md:mt-0 md:col-span-2">
@@ -189,7 +227,7 @@
                         Cancel
                     </button>
                     <button type="submit" class="btn ml-3 rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-semibold uppercase text-white transition duration-150 ease-in-out hover:bg-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                        Update
+                        Save
                     </button>
                 </div>
             </div>
@@ -260,14 +298,6 @@
     var table = $('#table').DataTable({
         responsive: true,
         "lengthMenu": [10, 25, 50, 100, 1000], 
-        columns: [
-            { title: 'name' },
-            { title: 'phone' },
-            { title: 'email' },
-            { title: 'created' },
-            { title: '<input type="checkbox" id="selectAll" class="btn focus:outline-none focus:ring-2 focus:ring-indigo-500 duration-150 rounded-md">' },
-            { title: 'actions' },
-        ],
         "drawCallback": () => {
             $('.edit-btn').click(function() {
                 $('#edit-acct-modal').show();
@@ -281,11 +311,17 @@
                     },
                     dataType: 'json',
                     success: function(data) {
+                        $('#emp_id').val(data.id);
                         $('#name').val(data.name);
-                        $('#phone').val(data.phone);
-                        $('#email').val(data.email);
-                        $('#created').val(data.created);
-                        $('#access').val(data.access);
+                        $('#gender').val(data.gender);
+                        $('#dateofbirth').val(data.dateofbirth);
+                        $('#placebirth').val(data.placeofbirth);
+                        $('#nationality').val(data.nationality);
+                        $('#position').val(data.position);
+                        $('#datestarted').val(data.datestarted);
+                        $('#address').val(data.address);
+                        $('#mobile_no').val(data.mobile_no);
+                        $('#email').val(data.email); 
                     }
                 })
             });
@@ -299,16 +335,17 @@
                     data: $(this).serialize(),
                     dataType: 'json',
                     success: function(resp) {
-                        var tableRow = $('tr[data-row-id="' + resp.id + '"]');
+                        window.location.reload(true)
+                        // var tableRow = $('tr[data-row-id="' + resp.id + '"]');
 
-                        tableRow.find('.name').text(resp.name);
-                        tableRow.find('.phone').text(resp.phone);
-                        tableRow.find('.email').text(resp.email);
+                        // tableRow.find('.name').text(resp.name);
+                        // tableRow.find('.phone').text(resp.phone);
+                        // tableRow.find('.email').text(resp.email);
 
-                        setTimeout(() => {
-                            $('#edit-acct-modal').hide();
-                            dialog('border-green-600 text-green-700', 'Updated Successfully');
-                        }, 200);
+                        // setTimeout(() => {
+                        //     $('#edit-acct-modal').hide();
+                        //     dialog('border-green-600 text-green-700', 'Updated Successfully');
+                        // }, 200);
                     }
                 });
             });
@@ -335,7 +372,7 @@
 
                         setTimeout(() => {
                             $('#del-acct-modal').hide();
-                            dialog('border-green-600 text-green-700', 'Deleted Successfully');
+                            dialog('border-green-600 text-green-700', 'Employee Resigned');
                         }, 200);
                     }
                 });
@@ -349,46 +386,18 @@
 
     $('#add-form').submit(function(e) {
         e.preventDefault();
-        
+
         $.ajax({
-            url: '?rq=add_support', type: 'POST',
-            data: $(this).serialize(), dataType: 'json',
-            success: function(data) {  
-                setTimeout(() => {  window.location.reload(true); }, 200)
+            url: '?rq=add_support',
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(data) {
+                setTimeout(() => {
+                    window.location.reload(true);
+                }, 200)
             }
         });
-    }); 
-
-    $.fn.dataTable.ext.search.push(
-        function(settings, data, dataIndex) {
-            var minDate = $('#start').val();
-            var maxDate = $('#end').val();
-            var date = data[3]; 
-            if (minDate === '' || maxDate === '') {
-                return true;
-            }
-            if (date >= minDate && date <= maxDate) {
-                return true;
-            }
-            return false;
-        }
-    );
-
-    $('#start, #end').on('change', () => {
-        table.draw(); 
-    });
-
-    var today = new Date().toISOString().substr(0, 10);
-    $('#today').click(() => {
-        $('#start').val(today);
-        $('#end').val(today);
-        table.draw(); 
-    });
-
-    $('#clear').click(() => {
-        $('#start').val('');
-        $('#end').val('');
-        table.draw(); 
     });
 
     $('.del-hide-modal').click(() => {
@@ -413,44 +422,11 @@
 
     $('#open-dels-modal').click(() => {
         $('#del-accts-modal').show();
-    });
-
-    $('#deletes-form').submit(function(e) {
-        e.preventDefault();
-
-        var checkboxes = $('.select');
-        var rowData = [];
-        checkboxes.each(function() {
-            if ($(this).is(':checked')) {
-                var data = $(this).data('row-data');
-                rowData.push(data);
-            }
-        }); 
-
-        $.ajax({
-            url: '?rq=delete_supports',
-            type: 'POST',
-            data: { data: rowData },
-            dataType: 'json',
-            success: function(resp) {
-                if (resp.status == 200) { 
-                    rowData.forEach(function(id) {
-                        var tableRow = $('tr[data-row-id="' + id + '"]');
-                        table.row(tableRow).remove();
-                    });
-                    table.draw(); 
-                    
-                    setTimeout(() => { $('#del-accts-modal').hide(); }, 200)
-                } else if (resp.status == 400) {
-                    alert('Select a row to delete.');
-                }
-            }
-        });
     }); 
 
-    <?php  
-        if (isset($_SESSION['alert'])) {
-            echo "dialog('border-green-600 text-green-700', '". $_SESSION['alert'] ."')";
-        } 
+    <?php
+    if (isset($_SESSION['alert'])) {
+        echo "dialog('border-green-600 text-green-700', '" . $_SESSION['alert'] . "')";
+    }
     ?>
-</script> 
+</script>

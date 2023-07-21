@@ -30,12 +30,12 @@
                                 <a href="?vs=_admin/confirmed" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Confirmed</a>
                             </li>
                             <li>
-                                <a href="?vs_admin/walkin" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Walk-in</a>
+                                <a href="?vs=_admin/walkin" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Walk-in</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="?vs=_admin/reports" class="<?= urlIs('vs=_admin/inbox') ? 'bg-sky-300' : '' ?> flex items-center p-2 text-base text-gray-900 hover:bg-gray-100 rounded-lg group font-semibold">
+                        <a href="?vs=_admin/reports" class="<?= urlIs('vs=_admin/reports') ? 'bg-sky-300' : '' ?> flex items-center p-2 text-base text-gray-900 hover:bg-gray-100 rounded-lg group font-semibold">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
@@ -43,7 +43,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="?vs=_admin/pms" class="<?= urlIs('vs=_admin/inbox') ? 'bg-sky-300' : '' ?> flex items-center p-2 text-base text-gray-900 hover:bg-gray-100 rounded-lg group font-semibold">
+                        <a href="?vs=_admin/pms" class="<?= urlIs('vs=_admin/pms') ? 'bg-sky-300' : '' ?> flex items-center p-2 text-base text-gray-900 hover:bg-gray-100 rounded-lg group font-semibold">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                             </svg>
@@ -51,7 +51,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="?vs=_admin/services" class="<?= urlIs('vs=_admin/inbox') ? 'bg-sky-300' : '' ?> flex items-center p-2 text-base text-gray-900 hover:bg-gray-100 rounded-lg group font-semibold">
+                        <a href="?vs=_admin/services" class="<?= urlIs('vs=_admin/services') ? 'bg-sky-300' : '' ?> flex items-center p-2 text-base text-gray-900 hover:bg-gray-100 rounded-lg group font-semibold">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
                             </svg>
@@ -59,7 +59,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="?vs=_admin/resigned" class="<?= urlIs('vs=_admin/inbox') ? 'bg-sky-300' : '' ?> flex items-center p-2 text-base text-gray-900 hover:bg-gray-100 rounded-lg group font-semibold">
+                        <a href="?vs=_admin/resigned" class="<?= urlIs('vs=_admin/resigned') ? 'bg-sky-300' : '' ?> flex items-center p-2 text-base text-gray-900 hover:bg-gray-100 rounded-lg group font-semibold">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6" />
                             </svg>
@@ -67,7 +67,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="?vs=_admin/serv_his" class="<?= urlIs('vs=_admin/inbox') ? 'bg-sky-300' : '' ?> flex items-center p-2 text-base text-gray-900 hover:bg-gray-100 rounded-lg group font-semibold">
+                        <a href="?vs=_admin/serv_his" class="<?= urlIs('vs=_admin/serv_his') ? 'bg-sky-300' : '' ?> flex items-center p-2 text-base text-gray-900 hover:bg-gray-100 rounded-lg group font-semibold">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>

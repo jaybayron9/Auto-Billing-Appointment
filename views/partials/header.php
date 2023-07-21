@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.css">
     <!-- Alert -->
     <script src="assets/js/alert.js"></script>
+    <!-- Editor -->
+    <!-- <script src="https://cdn.tiny.cloud/1/m81pk5zyvl7jtxmjvin9um31g7sribuxibinnp4l1jfk6o0j/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> -->
     <!-- Pace.js | Page Pre-loader -->
     <link rel="stylesheet" href="assets/css/preloader.css"> 
     <script src="assets/js/preloader.js"></script>

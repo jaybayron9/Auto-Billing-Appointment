@@ -18,14 +18,14 @@
                 <table id="table" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                     <thead>
                         <tr>
-                            <th class="whitespace-nowrap uppercase text-xs text-center text-white">Plate no.</th>
-                            <th class="whitespace-nowrap uppercase text-xs text-center text-white">pms</th>
-                            <th class="whitespace-nowrap uppercase text-xs text-center text-white">repair</th>
-                            <th class="whitespace-nowrap uppercase text-xs text-center text-white">date</th>
-                            <th class="whitespace-nowrap uppercase text-xs text-center text-white">Time</th>
-                            <th class="whitespace-nowrap uppercase text-xs text-center text-white">status</th>
-                            <th class="whitespace-nowrap uppercase text-xs text-center text-white">date created</th>
-                            <th data-orderable="false" class="whitespace-nowrap uppercase text-xs text-white text-center">Actions</th>
+                            <th data-priority="1" class="whitespace-nowrap uppercase text-xs text-center text-white">Plate no.</th>
+                            <th data-priority="2" class="whitespace-nowrap uppercase text-xs text-center text-white">pms</th>
+                            <th data-priority="3" class="whitespace-nowrap uppercase text-xs text-center text-white">repair</th>
+                            <th data-priority="4" class="whitespace-nowrap uppercase text-xs text-center text-white">date</th>
+                            <th data-priority="5" class="whitespace-nowrap uppercase text-xs text-center text-white">Time</th>
+                            <th data-priority="6" class="whitespace-nowrap uppercase text-xs text-center text-white">status</th>
+                            <th data-priority="7" data-priority="1" class="whitespace-nowrap uppercase text-xs text-center text-white">date created</th>
+                            <th data-priority="2" data-orderable="false" class="whitespace-nowrap uppercase text-xs text-white text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="tbody">
@@ -42,12 +42,10 @@
                                 <td class="text-sm"><?= date('h:i a', strtotime($appointment['schedule'])) ?></td>
                                 <td class="text-sm status"><?= $appointment['status'] ?></td>
                                 <td class="text-sm"><?= date('F d, Y', strtotime($appointment['created_at'])) ?></td>
-                                <td class="flex gap-x-2 text-center text-sm">
-                                    <?php if ($appointment['status'] == 'pending' || $appointment['status'] == 'accepted') { ?>
-                                        <button class="cancel-btn bg-red-500 hover:bg-red-700 text-white px-2 rounded shadow-md" data-row-data="<?= $appointment['app_id'] ?>">
-                                            CANCEL
-                                        </button>
-                                    <?php } ?>
+                                <td class="flex gap-x-2 text-center text-sm"> 
+                                    <button class="cancel-btn bg-red-500 hover:bg-red-700 text-white px-2 rounded shadow-md" data-row-data="<?= $appointment['app_id'] ?>">
+                                        CANCEL
+                                    </button> 
                                 </td>
                             </tr>
                         <?php } ?>
@@ -91,17 +89,7 @@
 <script type="text/javascript">
     var table = $('#table').DataTable({
         responsive: true,
-        "lengthMenu": [10, 25, 50, 100, 1000],
-        columns: [
-            { title: 'Plate No.' },
-            { title: 'pms' },
-            { title: 'service' },
-            { title: 'date' },
-            { title: 'time' },
-            { title: 'status' },
-            { title: 'created' },
-            {  title: 'actions' },
-        ],
+        "lengthMenu": [10, 25, 50, 100, 1000], 
         "drawCallback": () => {
             $('.cancel-btn').click(function() {
                 var id = $(this).data('row-data');
