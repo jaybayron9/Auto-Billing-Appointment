@@ -13,7 +13,7 @@ class User extends DBConn {
             'car_id' => $car_id,
             'pms' => $pms,
             'repair' => $repair,
-            'status' => 'pending',
+            'status' => 'Pending',
             'schedule' => $schedule
         ]);
 
@@ -25,7 +25,7 @@ class User extends DBConn {
         extract($_POST);
 
         parent::update('appointments', [
-            'status' => 'cancelled',
+            'status' => 'Cancelled',
         ], "id = $id"); 
         
         return parent::resp();

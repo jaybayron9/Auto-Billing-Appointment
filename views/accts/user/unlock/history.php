@@ -28,7 +28,7 @@
                     </thead>
                     <tbody id="tbody">
                         <?php
-                        $query = "SELECT * FROM appointments ap JOIN cars cs ON ap.car_id = cs.id WHERE client_id = '{$_SESSION['user_id']}' AND status != 'pending' AND status != 'cancelled'";
+                        $query = "SELECT * FROM appointments ap JOIN cars cs ON ap.car_id = cs.id WHERE client_id = '{$_SESSION['user_id']}' AND status != 'Pending' AND status != 'Cancelled'";
 
                         foreach ($conn::DBQuery($query) as $appointment) {
                         ?>

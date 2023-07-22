@@ -1,6 +1,7 @@
-<?php include view('accts/admin/unlock', 'head.auth'); ?> 
-<?php include view('accts/admin/unlock/navbars', 'topbar') ?>
-<?php include view('accts/admin/unlock/navbars', 'sidebar') ?>
+<?php include view('accts/support/unlock', 'head.auth'); ?>
+
+<?php include view('accts/support/unlock/navbars', 'topbar') ?>
+<?php include view('accts/support/unlock/navbars', 'sidebar') ?>
 
 <link href="assets/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="assets/css/responsive.dataTables.min.css" rel="stylesheet">
@@ -23,7 +24,7 @@
                             <th data-priority="5" class="whitespace-nowrap text-xs text-center uppercase text-white">Description</th>
                             <th data-priority="6" class="whitespace-nowrap text-xs text-center uppercase text-white">Date</th>
                             <th data-priority="7" class="whitespace-nowrap text-xs text-center uppercase text-white">Time</th>
-                            <th data-priority="2" data-orderable="false" class="whitespace-nowrap text-xs text-center uppercase text-white"></th>
+                            <th data-priority="2" class="whitespace-nowrap text-xs text-center uppercase text-white">Status (Action)</th>
                         </tr>
                     </thead>
                     <tbody id="tbody">
@@ -32,7 +33,7 @@
                         FROM appointments ap
                         JOIN users cl ON cl.id = ap.client_id
                         JOIN cars cs ON cs.id = ap.car_id
-                        WHERE ap.status = 'Done'";
+                        WHERE ap.status <> 'Done' AND ap.status <> 'Pending' AND ap.status <> 'Cancelled'";
 
                         foreach ($conn::DBQuery($query) as $app) {
                             $emp = explode(', ', $app['emp_id']);
@@ -43,17 +44,24 @@
                                     <tr>
                                         <td class="text-sm capitalize"><?= $app['name'] ?></td>
                                         <td class="text-sm"><?= $app['plate_no'] ?></td>
-                                        <td class="text-sm capitalize"><?= $app['repair'] ?></td>
+                                        <td class="whitespace-nowrap flex justify-center gap-x-3">
+                                            <select class="service-col" style="height: 33px; padding-top: 3px; padding-right: 35px;">
+                                                <option value="" selected hidden><?= $app['repair'] ?></option>
+                                                <option value="Repair">Repair</option>
+                                                <option value="PMS">PMS</option>
+                                                <option value="Multi-inspection">Multi-inspection</option>
+                                            </select>
+                                        </td>
                                         <td class="text-sm capitalize"><?= $app['description'] ?></td>
                                         <td class="text-sm"><?= date('F d, Y', strtotime($app['schedule'])) ?></td>
                                         <td class="text-sm"><?= date('h:i a', strtotime($app['schedule'])) ?></td>
                                         <td class="whitespace-nowrap flex justify-center gap-x-3">
-                                            <button type="button" class="shadow-inner shadow-zinc-400 hover:shadow-none transition duration-500 rounded-full p-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                </svg>
-                                            </button>
+                                            <select data-row-data="<?= $app['app_id'] ?>" class="status-select" style="height: 33px; padding-top: 3px; padding-right: 35px;">
+                                                <option value="" selected hidden><?= $app['status'] ?></option>
+                                                <option value="Underway">Underway</option>
+                                                <option value="Done">Done</option>
+                                                <option value="Cancelled">Cancel</option>
+                                            </select>
                                         </td>
                                     </tr>
                         <?php }
@@ -73,7 +81,34 @@
         responsive: true,
         "lengthMenu": [10, 25, 50, 100, 1000],
         "drawCallback": () => {
+            $('.status-select').change(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "?admin_rq=appointment_status",
+                    data: {
+                        id: $(this).data('row-data'),
+                        status: $(this).val()
+                    },
+                    success: function(response) {
+                        window.location.reload();
+                    }
+                });
+            });
 
+            $('.service-col').change(function() {
+                let serv = $(this).val();
+                switch (serv) {
+                    case 'Repair':
+                        window.location.replace('?vs=_sup/service&serv=repair');
+                        break;
+                    case 'PMS':
+                        window.location.replace('?vs=_sup/service&serv=pms');
+                        break;
+                    case 'Multi-inspection':
+                        window.location.replace('?vs=_sup/service&serv=multi_inspect');
+                        break; 
+                } 
+            });
         }
     }).columns.adjust().responsive.recalc();
 </script>

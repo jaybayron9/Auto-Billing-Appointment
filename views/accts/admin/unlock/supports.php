@@ -14,19 +14,20 @@
 <main id="main-content" class="relative h-full overflow-y-auto lg:ml-64 dark:bg-gray-900">
     <div class="px-4 h-full my-[80px]">
         <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
-            <div class="flex flex-row mb-2"> 
-                <div class="ml-auto mx-0 md:ml-auto flex mt-3 sm:mt-0">
-                    <div class=" ">
-                        <button type="button" id="open-add-modal" class="btn inline-flex items-center px-3 py-[6px] mr-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
-                                <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z" />
-                            </svg>
-                            <span class="ml-2">Add</span>
-                        </button>
-                    </div> 
+            <div class="flex flex-row mb-2">
+                <div>
+                    <a href="?vs=_admin/resigned" class="text-red-500 hover:underline text-sm">Resigned Employee</a>
+                </div>
+                <div class="ml-auto">
+                    <button type="button" id="open-add-modal" class="btn inline-flex items-center px-3 py-[6px] bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                            <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z" />
+                        </svg>
+                        <span class="ml-2">Add</span>
+                    </button>
                 </div>
             </div>
-            <div class="overflow-x-auto overflow-y-auto" style=" max-height: 700px;">
+            <div class="overflow-x-auto overflow-y-auto p-1" style=" max-height: 700px;">
                 <table id="table" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                     <thead>
                         <tr>
@@ -102,11 +103,11 @@
                         <div>
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Place of Birth</label>
                             <input type="text" name="placebirth" maxlength="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
-                        </div> 
+                        </div>
                         <div>
                             <label for="nationality" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Place of Birth</label>
                             <input type="text" name="nationality" maxlength="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
-                        </div> 
+                        </div>
                     </div>
                     <div class="flex flex-col space-y-3">
                         <div>
@@ -137,7 +138,7 @@
                             <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                             <input type="password" name="password" id="new-password" placeholder="Enter password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
             <div class="md:mt-0 md:col-span-2">
@@ -187,11 +188,11 @@
                         <div>
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Place of Birth</label>
                             <input type="text" name="placebirth" id="placebirth" maxlength="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
-                        </div> 
+                        </div>
                         <div>
                             <label for="nationality" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Place of Birth</label>
                             <input type="text" name="nationality" id="nationality" maxlength="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
-                        </div> 
+                        </div>
                     </div>
                     <div class="flex flex-col space-y-3">
                         <div>
@@ -218,7 +219,7 @@
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                             <input type="email" name="email" id="email" placeholder="Email address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
             <div class="md:mt-0 md:col-span-2">
@@ -297,7 +298,7 @@
 <script type="text/javascript">
     var table = $('#table').DataTable({
         responsive: true,
-        "lengthMenu": [10, 25, 50, 100, 1000], 
+        "lengthMenu": [10, 25, 50, 100, 1000],
         "drawCallback": () => {
             $('.edit-btn').click(function() {
                 $('#edit-acct-modal').show();
@@ -321,7 +322,7 @@
                         $('#datestarted').val(data.datestarted);
                         $('#address').val(data.address);
                         $('#mobile_no').val(data.mobile_no);
-                        $('#email').val(data.email); 
+                        $('#email').val(data.email);
                     }
                 })
             });
@@ -422,7 +423,7 @@
 
     $('#open-dels-modal').click(() => {
         $('#del-accts-modal').show();
-    }); 
+    });
 
     <?php
     if (isset($_SESSION['alert'])) {

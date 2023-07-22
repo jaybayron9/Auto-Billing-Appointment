@@ -1,6 +1,7 @@
-<?php include view('accts/admin/unlock', 'head.auth'); ?> 
-<?php include view('accts/admin/unlock/navbars', 'topbar') ?>
-<?php include view('accts/admin/unlock/navbars', 'sidebar') ?>
+<?php include view('accts/support/unlock', 'head.auth'); ?>
+
+<?php include view('accts/support/unlock/navbars', 'topbar') ?>
+<?php include view('accts/support/unlock/navbars', 'sidebar') ?>
 
 <link href="assets/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="assets/css/responsive.dataTables.min.css" rel="stylesheet">

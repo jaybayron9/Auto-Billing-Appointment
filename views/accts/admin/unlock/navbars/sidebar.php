@@ -5,9 +5,8 @@
                 <ul class="pb-2 space-y-2">
                     <li>
                         <a href="?vs=_admin/" class="<?= urlIs('vs=_admin/') ? 'bg-sky-300' : '' ?> flex items-center p-2 text-base text-gray-900 hover:bg-gray-100 rounded-lg group font-semibold">
-                            <svg class="w-6 h-6 <?= urlIs('vs=_admin/') ? 'text-gray-900' : 'text-gray-500' ?>   group-hover:text-gray-900" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                                <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
                             </svg>
                             <span class="ml-3">Dashboard</span>
                         </a>
@@ -35,11 +34,11 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="?vs=_admin/reports" class="<?= urlIs('vs=_admin/reports') ? 'bg-sky-300' : '' ?> flex items-center p-2 text-base text-gray-900 hover:bg-gray-100 rounded-lg group font-semibold">
+                        <a href="?vs=_admin/transact" class="<?= urlIs('vs=_admin/transact') ? 'bg-sky-300' : '' ?> flex items-center p-2 text-base text-gray-900 hover:bg-gray-100 rounded-lg group font-semibold">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                             </svg>
-                            <span class="ml-3">Reports</span>
+                            <span class="ml-3">Transactions</span>
                         </a>
                     </li>
                     <li>
@@ -57,15 +56,7 @@
                             </svg>
                             <span class="ml-3">Services</span>
                         </a>
-                    </li>
-                    <li>
-                        <a href="?vs=_admin/resigned" class="<?= urlIs('vs=_admin/resigned') ? 'bg-sky-300' : '' ?> flex items-center p-2 text-base text-gray-900 hover:bg-gray-100 rounded-lg group font-semibold">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6" />
-                            </svg>
-                            <span class="ml-3">Resigned Employee</span>
-                        </a>
-                    </li>
+                    </li> 
                     <li>
                         <a href="?vs=_admin/serv_his" class="<?= urlIs('vs=_admin/serv_his') ? 'bg-sky-300' : '' ?> flex items-center p-2 text-base text-gray-900 hover:bg-gray-100 rounded-lg group font-semibold">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

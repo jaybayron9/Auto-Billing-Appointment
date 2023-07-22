@@ -9,7 +9,7 @@
     <div class="px-4 h-full my-[80px]">
         <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
             <div class="overflow-x-auto overflow-y-auto" style=" max-height: 700px;">
-                <table id="table" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+                <table id="table" class="stripe hover w-full border border-slate-500">
                     <thead>
                         <tr>
                             <th class="whitespace-nowrap text-xs text-center uppercase py-2 text-white">Services</th>
@@ -18,14 +18,14 @@
                     </thead>
                     <tbody id="tbody">
                         <?php
-                        $query = "SELECT * FROM appointments ap JOIN cars cs ON ap.car_id = cs.id WHERE client_id = '{$_SESSION['user_id']}' AND (status = 'in progress' OR status = 'done')";
+                        $query = "SELECT * FROM appointments ap JOIN cars cs ON ap.car_id = cs.id WHERE client_id = '{$_SESSION['user_id']}' AND (status = 'Underway' OR status = 'Done')";
 
                         foreach ($conn::DBQuery($query) as $progress) {
                         ?>
-                            <tr>
-                                <td class="capitalize text-center text-sm"><?= $progress['repair'] ?></td>
+                            <tr class="border-b border-gray-300 hover:bg-blue-100">
+                                <td class="capitalize text-center text-sm py-2"><?= $progress['repair'] ?></td>
                                 <td class="capitalize text-center text-sm">
-                                    <span class="text-white rounded-md px-2 <?= $progress['status'] == 'in progress' ? 'bg-sky-500' : 'bg-green-500';  ?>">
+                                    <span class="text-white rounded-md px-2 <?= $progress['status'] == 'Underway' ? 'bg-sky-500' : 'bg-green-500';  ?>">
                                         <?= $progress['status'] ?>
                                     </span>
                                 </td>

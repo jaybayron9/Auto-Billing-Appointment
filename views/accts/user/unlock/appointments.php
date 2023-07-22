@@ -30,7 +30,7 @@
                     </thead>
                     <tbody id="tbody">
                         <?php
-                        $query = "SELECT ap.id as app_id, ap.*, cs.* FROM appointments ap JOIN cars cs ON ap.car_id = cs.id WHERE client_id = '{$_SESSION['user_id']}' AND (status = 'pending' OR status = 'cancelled' OR status = 'accepted')";
+                        $query = "SELECT ap.id as app_id, ap.*, cs.* FROM appointments ap JOIN cars cs ON ap.car_id = cs.id WHERE client_id = '{$_SESSION['user_id']}' AND (status = 'Pending' OR status = 'Cancelled' OR status = 'Confirmed')";
 
                         foreach ($conn::DBQuery($query) as $appointment) {
                         ?>
@@ -43,9 +43,11 @@
                                 <td class="text-sm status"><?= $appointment['status'] ?></td>
                                 <td class="text-sm"><?= date('F d, Y', strtotime($appointment['created_at'])) ?></td>
                                 <td class="flex gap-x-2 text-center text-sm"> 
+                                    <?php if ($appointment['status'] !== 'Cancelled') { ?>
                                     <button class="cancel-btn bg-red-500 hover:bg-red-700 text-white px-2 rounded shadow-md" data-row-data="<?= $appointment['app_id'] ?>">
                                         CANCEL
                                     </button> 
+                                    <?php } ?>
                                 </td>
                             </tr>
                         <?php } ?>
