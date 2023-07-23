@@ -26,26 +26,14 @@ CREATE TABLE `supports` (
     UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
 
-CREATE TABLE gas (
+CREATE TABLE estimator (
     id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    car_type VARCHAR(50),
     service VARCHAR(100),
     name VARCHAR(100),
     price VARCHAR(50),
     inclusions VARCHAR(100),
     img BLOB, 
     created_at timestamp NOT NULL DEFAULT current_timestamp(),
-    updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-);
-
-CREATE TABLE diesel (
-    id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    service VARCHAR(100),
-    name VARCHAR(100),
-    price VARCHAR(50),
-    inclusions VARCHAR(100),
-    img BLOB, 
-    created_at timestamp NOT NULL DEFAULT current_timestamp(),
-    updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-);
-
-
+    updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+); 

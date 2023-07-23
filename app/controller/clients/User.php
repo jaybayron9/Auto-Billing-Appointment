@@ -52,4 +52,30 @@ class User extends DBConn {
         }
         return parent::resp(400, 'Please fill out all the field with correct format.');
     }
+
+    public function show_mycar() {
+        return json_encode(parent::select('cars', '*', ['id' => $_POST['id']]));
+    }
+
+    public function update_mycar() {
+        extract($_POST);
+        if (preg_match("/^[A-Za-z]{3}[-\s]?\d{4}$/", $plateNumber)) { 
+            DBConn::update('cars', [ 
+                'car_brand' => $brand,
+                'car_model' => $carModel,
+                'car_type' => $carType,
+                'fuel_type' => $fuelType,
+                'color' => $carColor,
+                'trans_type' => $transType,
+            ], "id = $car_id");
+            return parent::resp(200, 'Car successfully update.');  
+        }
+        return parent::resp(400, 'Please fill out all the field with correct format.');
+    }
+
+    public function delete_mycar() {
+        $id = isset($_GET['car_id']) ? $_GET['car_id'] : '0';
+        parent::delete('cars', ['id' => $id], 1); 
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+    }
 }

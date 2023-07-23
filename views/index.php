@@ -5,12 +5,12 @@
 
 
 <main>
-    <section id="home">
+    <section id="home" class="bg-white dark:bg-gray-900">
         <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 sm:py-20 lg:grid-cols-12">
             <div class="mr-auto place-self-center lg:col-span-7">
                 <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl">CJCE Autoparts</h1>
                 <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl">Come and experience it for yourself!</p>
-                <a href="#" class="btn inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300">
+                <a href="?vs=login" class="btn inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300">
                     Book your car now!
                     <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -23,13 +23,13 @@
         </div>
     </section>
 
-    <section id="aboutus">
+    <section id="aboutus" class="bg-white dark:bg-gray-900">
         <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
             <img class="w-full" src="assets/storage/system/about.png" alt="About us">
             <div class="mt-4 md:mt-0">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900">What is CJCE Autoparts?</h2>
                 <p class="mb-6 font-light text-gray-700 md:text-lg">Our team of skilled technicians, coupled with state of the art equipment, allow us to fulfill this vision. This vision is what we now refer to as the CJCE Way, and it’s something that separates us from every other competitor out there. Curious about the #CJCEWay and what makes it so good? Come and experience it for yourself!</p>
-                <a href="#" class="inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                <a href="?vs=login" class="inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                     Book your car now!
                     <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -39,22 +39,182 @@
         </div>
     </section>
 
-    <section id="pms" class="flex flex-col justify-center items-center px-6 mx-auto h-screen xl:px-0">
-        <div class="text-center xl:max-w-4xl">
-            <h1 class="mb-3 text-2xl font-bold leading-tight text-gray-900 sm:text-4xl lg:text-5xl ">Preventive Repair Maintenance</h1>
+    <section id="pms" class="bg-white dark:bg-gray-900">
+        <div data-popover id="package" role="tooltip" class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-96 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
+            <div class="p-3">
+                <div class="relative overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-4 py-3 rounded-l-lg">
+                                    Product Summary
+                                </th>
+                                <th scope="col" class="px-4 py-3">
+                                    Unit Price
+                                </th>
+                                <th scope="col" class="px-4 py-3 rounded-r-lg">
+                                    SubTotal
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white dark:bg-gray-800">
+                                <th scope="row" class="px-4 py-4 font-medium text-gray-900 dark:text-white">
+                                    Air Cleaner Filter
+                                </th>
+                                <td class="px-4 py-4">
+                                    3
+                                </td>
+                                <td class="px-4 py-4">
+                                    1,200.00
+                                </td>
+                            </tr>
+                            <tr class="bg-white dark:bg-gray-800">
+                                <th scope="row" class="px-4 py-4 font-medium text-gray-900 dark:text-white">
+                                    Air Cleaner Filter
+                                </th>
+                                <td class="px-6 py-4">
+                                    3
+                                </td>
+                                <td class="px-6 py-4">
+                                    500.00
+                                </td>
+                            </tr>
+                            <tr class="bg-white dark:bg-gray-800">
+                                <th scope="row" class="px-4 py-4 font-medium text-gray-900 dark:text-white">
+                                    Engine Oil and Oil Filter
+                                </th>
+                                <td class="px-6 py-4">
+                                    3
+                                </td>
+                                <td class="px-6 py-4">
+                                    2200.00
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="font-semibold text-gray-900 dark:text-white">
+                                <th scope="row" class="px-6 py-3 text-base">Total</th>
+                                <td class="px-6 py-3"></td>
+                                <td class="px-6 py-3">3,900.00</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div data-popper-arrow></div>
+        </div>
+        <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-6">
+            <div class="mx-auto mb-8 max-w-screen-sm lg:mb-16">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Preventive Repair Maintenance</h2>
+                <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">Do we have the service that you're looking for?</p>
+            </div>
+            <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <?php
+                $pmsData = ['5KM', '10KM', '30KM', '40KM', '80KM', '90KM', '100KM', '120KM'];
+                for ($i = 0; $i < count($pmsData); $i++) {
+                ?>
+                    <div data-popover-target="package" data-popover-trigger="click" class="hover:cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-md shadow text-center text-gray-500 dark:text-gray-400 p-2">
+                        <img class="mx-auto mb-4 w-36 h-36 rounded-md" src="assets/storage/pms/tool-box.png" alt="pms">
+                        <h3 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            <?= $pmsData[$i] ?>
+                        </h3>
+                    </div>
+                <?php } ?>
+            </div>
         </div>
     </section>
 
-    <section id="repair" class="flex flex-col justify-center items-center px-6 mx-auto h-screen xl:px-0">
-        <div class="text-center xl:max-w-4xl">
-            <h1 class="mb-3 text-2xl font-bold leading-tight text-gray-900 sm:text-4xl lg:text-5xl ">Repair Services</h1>
+    <section id="repair" class="bg-white dark:bg-gray-900">
+        <div data-popover id="package" role="tooltip" class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-96 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
+            <div class="p-3">
+                <div class="relative overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-4 py-3 rounded-l-lg">
+                                    Item
+                                </th>
+                                <th scope="col" class="px-4 py-3">
+                                    Quantity
+                                </th>
+                                <th scope="col" class="px-4 py-3 rounded-r-lg">
+                                    Amount
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white dark:bg-gray-800">
+                                <th scope="row" class="px-4 py-4 font-medium text-gray-900 dark:text-white">
+                                    Oil Seal
+                                </th>
+                                <td class="px-4 py-4">
+                                    4
+                                </td>
+                                <td class="px-4 py-4">
+                                    2,600.0
+                                </td>
+                            </tr>
+                            <tr class="bg-white dark:bg-gray-800">
+                                <th scope="row" class="px-4 py-4 font-medium text-gray-900 dark:text-white">
+                                    Timing Belt
+                                </th>
+                                <td class="px-6 py-4">
+                                    1
+                                </td>
+                                <td class="px-6 py-4">
+                                    1,900.00
+                                </td>
+                            </tr>
+                            <tr class="bg-white dark:bg-gray-800">
+                                <th scope="row" class="px-4 py-4 font-medium text-gray-900 dark:text-white">
+                                    Balancer Belt
+                                </th>
+                                <td class="px-6 py-4">
+                                    1
+                                </td>
+                                <td class="px-6 py-4">
+                                    2,500.00
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="font-semibold text-gray-900 dark:text-white">
+                                <th scope="row" class="px-6 py-3 text-base">Total</th>
+                                <td class="px-6 py-3"></td>
+                                <td class="px-6 py-3">8,500.00</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div data-popper-arrow></div>
+        </div>
+        <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-6">
+            <div class="mx-auto mb-8 max-w-screen-sm lg:mb-16">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Repair Services</h2>
+                <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">Do we have the service that you're looking for?</p>
+            </div>
+            <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <?php
+                $pmsData = ['Timing Beld Replacement', 'Engine Repair', 'Wheel Alignment', 'Oxygen Sensor Replacement', 'Brake Work', 'Transmission Overhaul', 'Clutch Lining Replacement', 'Radiator Replacement '];
+                for ($i = 0; $i < count($pmsData); $i++) {
+                ?>
+                    <div data-popover-target="package" data-popover-trigger="click" class="hover:cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-md shadow text-center text-gray-500 dark:text-gray-400 p-2">
+                        <img class="mx-auto mb-4 w-36 h-36 rounded-md" src="assets/storage/pms/wrench.png" alt="pms">
+                        <h3 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            <?= $pmsData[$i] ?>
+                        </h3>
+                    </div>
+                <?php } ?>
+            </div>
         </div>
     </section>
 
-    <section id="contact" class="py-6 dark:bg-gray-800 dark:text-gray-50 h-screen">
+    <section id="contact" class="bg-white py-6 dark:bg-gray-800 dark:text-gray-50 h-screen">
         <div class="grid max-w-6xl grid-cols-1 px-6 mx-auto lg:px-8 md:grid-cols-2 md:divide-x mt-10">
             <div class="py-6 md:py-0 md:px-6">
-                <h1 class="text-4xl font-bold  mb-4">Get in touch</h1> 
+                <h1 class="text-4xl font-bold  mb-4">Get in touch</h1>
                 <div class="space-y-4 ">
                     <p class="flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-2 sm:mr-6">
@@ -188,10 +348,10 @@
 </main>
 
 <footer>
-    <div class="w-full"> 
+    <div class="w-full">
         <div class="px-4 py-6 bg-gray-50 text-center">
             <span class="text-sm text-gray-500 sm:text-center">© 2023 <a href="#home">CJCE™</a>. All Rights Reserved.
-            </span> 
+            </span>
         </div>
     </div>
 </footer>

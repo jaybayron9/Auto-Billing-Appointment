@@ -9,7 +9,7 @@
     <div class="px-4 h-full my-[80px]">
         <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
             <div class="overflow-x-auto overflow-y-auto" style=" max-height: 700px;">
-                <table id="table" class="stripe hover w-full border border-slate-500">
+                <table id="table" class="stripe hover w-full">
                     <thead>
                         <tr>
                             <th class="whitespace-nowrap text-xs text-center uppercase py-2 text-white">Services</th>

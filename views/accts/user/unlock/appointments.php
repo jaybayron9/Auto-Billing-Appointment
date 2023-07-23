@@ -44,7 +44,7 @@
                                 <td class="text-sm"><?= date('F d, Y', strtotime($appointment['created_at'])) ?></td>
                                 <td class="flex gap-x-2 text-center text-sm"> 
                                     <?php if ($appointment['status'] !== 'Cancelled') { ?>
-                                    <button class="cancel-btn bg-red-500 hover:bg-red-700 text-white px-2 rounded shadow-md" data-row-data="<?= $appointment['app_id'] ?>">
+                                    <button data-row-data="<?= $appointment['app_id'] ?>" class="cancel-btn bg-red-500 hover:bg-red-700 text-white px-2 rounded shadow-md">
                                         CANCEL
                                     </button> 
                                     <?php } ?>

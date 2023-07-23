@@ -1,0 +1,53 @@
+type: Diesel
+Services: PMS DIESEL REGULAR EXPRESS
+Products: PMS DIESEL REGULAR EXPRESS
+inclusions: 4L Oil, Oil Filter
+price: ₱ 2,350.00
+
+type: Diesel
+Services: PMS DIESEL REGULAR PLUS
+Products: PMS DIESEL REGULAR PLUS
+Inclusions: 4L Oil, Oil Filter, Spark Plugs, Tire Rotation
+price: ₱ 3,100.00
+
+type: Diesel
+Services: PMS DIESEL REGULAR PREMIUM
+Products: PMS DIESEL REGULAR PREMIUM
+Inclusions: 4L Oil, Oil Filter, Spark Plugs, Air Filter, Engine Flush
+price: ₱ 4,600.00
+
+type: Diesel
+Services: PMS DIESEL SEMI-SYNTHETIC EXPRESS
+Products: PMS DIESEL SEMI-SYNTHETIC EXPRESS
+Inclusions: 4L Oil, Oil Filter
+price: ₱ 3,450.00
+
+type: Diesel
+Services: PMS DIESEL SEMI-SYNTHETIC PLUS
+Products: PMS DIESEL SEMI-SYNTHETIC PLUS
+Inclusions: 4L Oil, Oil Filter, Spark Plugs, Air Filter, Engine Flush
+price: ₱ 4,200.00
+
+type: Diesel
+Services: PMS DIESEL SEMI-SYNTHETIC PREMIUM
+Products: PMS DIESEL SEMI-SYNTHETIC PREMIUM
+Inclusions: 4L Oil, Oil Filter, Spark Plugs, Air Filter, Engine Flush
+Price: ₱ 5,700.00
+
+type: Diesel
+Services: PMS DIESEL SYNTHETIC EXPRESS
+Products: PMS DIESEL SYNTHETIC EXPRESS
+Inclusions: 4L Oil, Oil Filter
+price: ₱ 4,750.00
+
+type: Diesel
+Services: PMS DIESEL SYNTHETIC PLUS
+Products: PMS DIESEL SYNTHETIC PLUS
+Inclusions:: 4L Oil, Oil Filter, Spark Plugs, Tire Rotation
+price: ₱ 5,500.00
+
+type: Diesel
+Services: PMS DIESEL SYNTHETIC PREMIUM
+Products: PMS DIESEL SYNTHETHIC PREMIUM
+inclusions: 4L Oil, Oil Filter, Spark Plugs, Air Filter,Engine Flush
+price: ₱ 7,000.00
