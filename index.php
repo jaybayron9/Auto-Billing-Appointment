@@ -6,25 +6,10 @@ session_start();
 require_once 'app/functions.php'; 
 require_once app('DBConn');
 
-// Utility Classes
-foreach (glob('app/utils/*.php') as $utils) {
-    require_once $utils;
-}
-
-// Clients account
-foreach (glob('app/controller/accts/*.php') as $acct) {
-    require_once $acct;
-}
-
-// Clients data
-foreach (glob('app/controller/clients/*.php') as $data) {
-    require_once $data;
-}
-
-// Http Routes
-foreach (glob('app/httproutes/*.php') as $route) {
-    require_once $route;
-}
+foreach (glob('app/utils/*.php') as $utils) { require_once $utils; }
+foreach (glob('app/controller/accts/*.php') as $acct) { require_once $acct; }
+foreach (glob('app/controller/clients/*.php') as $data) { require_once $data; }
+foreach (glob('app/httproutes/*.php') as $route) { require_once $route; }
 
 // Page Contents
 include_once(view('partials', 'header'));

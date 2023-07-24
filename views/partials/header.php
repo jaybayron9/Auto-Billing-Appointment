@@ -9,10 +9,10 @@
 
     <!-- System Logo -->
     <link rel="shortcut icon" href="assets/storage/system/home.png" type="image/x-icon">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="node_modules/animate/animate.css">
     <!-- Tailwind Stlying -->
     <link rel="stylesheet" href="assets/tailwind/output.css">
-    <!-- Animate CSS -->
-    <link rel="stylesheet" href="node_modules/animate.css/animate.min.css">
     <!-- JQuery -->
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <!-- Phone Country -->

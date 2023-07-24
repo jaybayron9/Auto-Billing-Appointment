@@ -127,8 +127,6 @@ $user_info = DBConn::select('users', '*', [
     </div>
 </nav>
 
-
-
 <div id="appointment-modal" hidden class="mt-10 md:mt-0">
     <div class="fixed inset-0 overflow-y-hidden px-4 py-6 sm:px-0 z-50 sm:max-w-2xl mx-auto">
         <div class="background fixed inset-0 transform transition-all">
@@ -164,8 +162,8 @@ $user_info = DBConn::select('users', '*', [
                         <label for="repair" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Service</label>
                         <select name="repair" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                             <option value="" selected hidden>-- Select Service --</option>
-                            <?php foreach (DBConn::select('repair') as $item) { ?>
-                                <option value="<?= $item['ps'] ?>"><?= $item['ps'] ?></option>
+                            <?php foreach (DBConn::select('services') as $item) { ?>
+                                <option value="<?= $item['service'] ?>"><?= $item['service'] ?></option>
                             <?php } ?>
                         </select>
                     </div>

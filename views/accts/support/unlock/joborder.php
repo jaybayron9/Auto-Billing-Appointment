@@ -29,9 +29,9 @@
                     </thead>
                     <tbody id="tbody">
                         <?php
-                        $query = "SELECT ap.id AS app_id, ap.*, cl.*, cs.*
+                        $query = "SELECT ap.id AS app_id, ap.*, us.id AS user_id, us.*, cs.id AS car_id, cs.*
                         FROM appointments ap
-                        JOIN users cl ON cl.id = ap.client_id
+                        JOIN users us ON us.id = ap.client_id
                         JOIN cars cs ON cs.id = ap.car_id
                         WHERE ap.status <> 'Done' AND ap.status <> 'Pending' AND ap.status <> 'Cancelled'";
 
@@ -45,8 +45,8 @@
                                         <td class="text-sm capitalize"><?= $app['name'] ?></td>
                                         <td class="text-sm"><?= $app['plate_no'] ?></td>
                                         <td class="whitespace-nowrap flex justify-center gap-x-3">
-                                            <select class="service-col" style="height: 33px; padding-top: 3px; padding-right: 35px;">
-                                                <option value="" selected hidden><?= $app['repair'] ?></option>
+                                            <select data-row-data="<?= "{$app['app_id']}~{$app['user_id']}~{$app['car_id']}" ?>" class="service-col" style="height: 33px; padding-top: 3px; padding-right: 35px;">
+                                                <option value="<?= $app['repair'] ?>" selected hidden><?= $app['repair'] ?></option>
                                                 <option value="Repair">Repair</option>
                                                 <option value="PMS">PMS</option>
                                                 <option value="Multi-inspection">Multi-inspection</option>
@@ -95,17 +95,36 @@
                 });
             });
 
-            $('.service-col').change(function() {
+            $('.service-col').dblclick(function() {
+                var val = $(this).val();
+                let ids = $(this).data('row-data');
+                let data = ids.split('~');
+                let app_id = data[0];
+                let user_id = data[1];
+                let car_id = data[2];
                 let serv = $(this).val();
+
+                window.location.replace(`?vs=_sup/service&serv=${val}&app_id=${app_id}&user_id=${user_id}&car_id=${car_id}`);
+            });
+
+            $('.service-col').change(function() {
+                let ids = $(this).data('row-data');
+                let data = ids.split('~');
+                let app_id = data[0];
+                let user_id = data[1];
+                let car_id = data[2];
+                let serv = $(this).val();
+
+                console.table(data);
                 switch (serv) {
                     case 'Repair':
-                        window.location.replace('?vs=_sup/service&serv=repair');
+                        window.location.replace(`?vs=_sup/service&serv=repair&app_id=${app_id}&user_id=${user_id}&car_id=${car_id}`);
                         break;
                     case 'PMS':
-                        window.location.replace('?vs=_sup/service&serv=pms');
+                        window.location.replace(`?vs=_sup/service&serv=pms&app_id=${app_id}&user_id=${user_id}&car_id=${car_id}`);
                         break;
                     case 'Multi-inspection':
-                        window.location.replace('?vs=_sup/service&serv=multi_inspect');
+                        window.location.replace(`?vs=_sup/service&serv=multi-inspection&app_id=${app_id}&user_id=${user_id}&car_id=${car_id}`);
                         break; 
                 } 
             });

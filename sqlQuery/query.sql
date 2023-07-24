@@ -37,3 +37,15 @@ CREATE TABLE estimator (
     created_at timestamp NOT NULL DEFAULT current_timestamp(),
     updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ); 
+
+CREATE TABLE booking_summary (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id VARCHAR(11),
+    car_id VARCHAR(11),
+    appointment_id VARCHAR(11),
+    products longtext,
+    quantity VARCHAR(11),
+    price VARCHAR(11),
+    created_at timestamp NOT NULL DEFAULT current_timestamp(),
+    updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+); 

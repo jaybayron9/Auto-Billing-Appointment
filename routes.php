@@ -53,4 +53,5 @@ return [
     'status'                   => view('accts/user/unlock/', 'status'),
     'history'                  => view('accts/user/unlock/', 'history'),
     'mycar'                    => view('accts/user/unlock/', 'mycar'),
+    'receipt'                  => view('', 'receipt'),
 ];
