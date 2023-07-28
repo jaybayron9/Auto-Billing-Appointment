@@ -137,7 +137,7 @@ INSERT INTO estimator VALUES ('6','1','1','PMS GAS SEMI-SYNTHETIC PREMIUM','4400
 INSERT INTO estimator VALUES ('7','1','1','PMS GAS SYNTHETIC EXPRESS','3250','4L Oil,Oil Filter','','2023-07-23 19:05:45','2023-07-23 19:09:14');
 INSERT INTO estimator VALUES ('8','1','1','PMS GAS SYNTHETIC PLUS','4200','4L Oil, Oil Filter, Spark Plugs, Tire Rotation','','2023-07-23 19:05:45','2023-07-23 19:09:14');
 INSERT INTO estimator VALUES ('9','1','1','PMS GAS SYNTHETIC PREMIUM','5400','4L Oil, Oil Filter, Spark Plugs, Air Filter, Engine Flush','','2023-07-23 19:05:45','2023-07-23 19:09:14');
-INSERT INTO estimator VALUES ('10','1','2','Multi-point Inspection','0','Rapide's famous FREE multi-point inspection includes physical observation of all core vehicle compon','','2023-07-23 19:15:52','2023-07-23 19:15:52');
+INSERT INTO estimator VALUES ('10','1','2','Multi-point Inspection','0','Rapide\'s famous FREE multi-point inspection includes physical observation of all core vehicle compon','','2023-07-23 19:15:52','2023-07-23 19:15:52');
 INSERT INTO estimator VALUES ('11','1','2','ATF Flushing','2850','','','2023-07-23 19:15:52','2023-07-23 19:15:52');
 INSERT INTO estimator VALUES ('12','1','2','Clutch Fluid Flushing','550','','','2023-07-23 19:15:52','2023-07-23 19:15:52');
 INSERT INTO estimator VALUES ('13','1','2','Bulb ( Signal Lights, Brake Lights)','250','','','2023-07-23 19:15:52','2023-07-24 15:42:12');

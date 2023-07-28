@@ -18,15 +18,22 @@
                     </thead>
                     <tbody id="tbody">
                         <?php
-                        $query = "SELECT * FROM appointments ap JOIN cars cs ON ap.car_id = cs.id WHERE client_id = '{$_SESSION['user_id']}' AND (status = 'Underway' OR status = 'Done')";
-
+                        $query = "SELECT ap.id AS app_id, ap.*, cl.*, cs.*, sv.*, bh.*
+                                FROM appointments ap
+                                JOIN users cl ON cl.id = ap.user_id
+                                JOIN cars cs ON cs.id = ap.car_id
+                                JOIN services sv ON sv.id = ap.service_type_id
+                                JOIN bussiness_hours bh ON bh.id = ap.service_time_id
+                            WHERE 
+                                ap.user_id = '{$_SESSION['user_id']}' AND 
+                                (ap.appointment_status = 'Underway')"; 
                         foreach ($conn::DBQuery($query) as $progress) {
                         ?>
                             <tr class="border-b border-gray-300 hover:bg-blue-100">
-                                <td class="capitalize text-center text-sm py-2"><?= $progress['repair'] ?></td>
+                                <td class="capitalize text-center text-sm py-2"><?= $progress['category'] ?></td>
                                 <td class="capitalize text-center text-sm">
-                                    <span class="text-white rounded-md px-2 <?= $progress['status'] == 'Underway' ? 'bg-sky-500' : 'bg-green-500';  ?>">
-                                        <?= $progress['status'] ?>
+                                    <span class="text-white rounded-md px-2 <?= $progress['appointment_status'] == 'Underway' ? 'bg-sky-500' : 'bg-green-500';  ?>">
+                                        <?= $progress['appointment_status'] ?>
                                     </span>
                                 </td>
                             </tr>

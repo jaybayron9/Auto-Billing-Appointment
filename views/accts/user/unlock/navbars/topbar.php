@@ -1,13 +1,11 @@
-<?php
-
-use DBConn\DBConn;
-
+<?php 
+use DBConn\DBConn; 
 $user_info = DBConn::select('users', '*', [
     'id' => $_SESSION['user_id']
 ], null, 1);
 ?>
 
-<div id="div-alert" hidden class="fixed z-40 top-3 right-4 bg-white border rounded py-2 px-5 shadow text-[14.5px]">
+<div id="div-alert" hidden class="fixed animate__animated z-40 top-3 right-4 bg-white border rounded py-2 px-5 shadow text-[14.5px]">
     <p id="alert-msg"></p>
 </div>
 
@@ -23,33 +21,13 @@ $user_info = DBConn::select('users', '*', [
                         <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                     </svg>
                 </button>
-                <a href="?vs=_/" class="flex ml-2 md:mr-24">
+                <a href="./" class="flex ml-2 md:mr-24">
                     <img src="assets/Storage/system/home.png" class="h-8 mr-3" alt="FlowBite Logo" />
-                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">CJCE</span>
-                </a>
-                <ul class="flex flex-row overflow-x-auto font-medium mt-0 gap-x-8 text-sm">
-                    <li>
-                        <a href="./#home" class="text-gray-900 hover:underline" aria-current="page">Home</a>
-                    </li>
-                    <li>
-                        <a href="./#aboutus" class="text-gray-900 hover:underline whitespace-nowrap">About Us</a>
-                    </li>
-                    <li>
-                        <a href="./#pms" class="text-gray-900 hover:underline">PMS</a>
-                    </li>
-                    <li>
-                        <a href="./#repair" class="text-gray-900 hover:underline">Repair</a>
-                    </li>
-                    <li>
-                        <a href="./#contact" class="text-gray-900 hover:underline">Contact</a>
-                    </li>
-                    <li>
-                        <a href="./#developers" class="text-gray-900 hover:underline">Developer</a>
-                    </li>
-                </ul>
+                    <span class="self-center text-xl font-bold sm:text-2xl whitespace-nowrap dark:text-white">CJCE</span>
+                </a> 
             </div>
             <div class="flex items-center">
-                <button id="create-appointment" class="btn inline-flex items-center mr-2 px-4 py-1 shadow bg-blue-600 border border-transparent rounded font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                <button data-modal-target="create-appointment" data-modal-toggle="create-appointment" class="btn inline-flex items-center mr-2 px-4 py-1 shadow-md bg-blue-600 border border-transparent rounded font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                     Book
                 </button>
                 <!-- Search mobile -->
@@ -71,7 +49,7 @@ $user_info = DBConn::select('users', '*', [
                     <div>
                         <a href="#" class="flex px-4 py-3 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
                             <div class="flex-shrink-0">
-                                <img class="rounded-full w-11 h-11" src="assets/storage/defaults/logo.ico" alt="example image">
+                                <img class="rounded-full w-11 h-11" src="assets/storage/system/home.png" alt="example image">
                                 <div class="absolute flex items-center justify-center w-5 h-5 ml-6 -mt-5 bg-gray-900 border border-white rounded-full dark:border-gray-700">
                                     <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path>
@@ -127,79 +105,83 @@ $user_info = DBConn::select('users', '*', [
     </div>
 </nav>
 
-<div id="appointment-modal" hidden class="mt-10 md:mt-0">
-    <div class="fixed inset-0 overflow-y-hidden px-4 py-6 sm:px-0 z-50 sm:max-w-2xl mx-auto">
-        <div class="background fixed inset-0 transform transition-all">
-            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-        </div>
-        <form id="appointment-form" class="mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto">
-            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
-            <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
-            <div class="px-6 py-4">
-                <div class="text-lg font-medium text-gray-900 mb-2">
-                    Create Appointment
-                </div>
-                <div class="grid gap-4 mb-4 sm:grid-cols-2">
-                    <div>
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your car(s)</label>
-                        <select name="car_id" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                            <option value="" selected hidden>-- Select Car --</option>
-                            <?php foreach (DBConn::select('cars', '*', ['user_id' => $_SESSION['user_id']]) as $item) { ?>
-                                <option value="<?= $item['id'] ?>"><?= $item['plate_no'] ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="pms" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PMS</label>
-                        <select name="pms" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                            <option value="" selected hidden>-- Select PMS --</option>
-                            <?php foreach (DBConn::select('pms', '*') as $item) { ?>
-                                <option value="<?= $item['ps'] ?>"><?= $item['ps'] ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="repair" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Service</label>
-                        <select name="repair" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                            <option value="" selected hidden>-- Select Service --</option>
-                            <?php foreach (DBConn::select('services') as $item) { ?>
-                                <option value="<?= $item['service'] ?>"><?= $item['service'] ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="schedule" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Schedule</label>
-                        <input type="datetime-local" name="schedule" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+<div id="create-appointment" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-2xl max-h-full">
+        <form id="appointment-form" class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Appointment Form
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="create-appointment">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div> 
+                <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
+                <div class="px-6 py-4">
+                    <div class="grid gap-4 mb-4 sm:grid-cols-2">
+                        <div>
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your car(s)</label>
+                            <select name="car_id" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                <option value="" hidden></option>
+                                <option value="" disabled>-- Select your car --</option>
+                                <?php foreach (DBConn::select('cars', '*', ['user_id' => $_SESSION['user_id']]) as $item) { ?>
+                                    <option value="<?= $item['id'] ?>"><?= $item['plate_no'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="service" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Service</label>
+                            <select name="service" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                <option value="" hidden></option>
+                                <option value="" disabled>-- Select a service --</option>
+                                <?php foreach (DBConn::select('services') as $item) { ?>
+                                    <option value="<?= $item['id'] ?>"><?= $item['category'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Schedule Date</label>
+                            <input type="date" name="schedule_date" id="date" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        </div>
+                        <div>
+                            <label for="service_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Service Time</label>
+                            <select name="time" id="time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                <option value="" hidden></option>
+                                <option value="" disabled>-- Select a time --</option>
+                                <?php
+                                foreach (DBConn::select('bussiness_hours') as $buss) {
+                                    echo "<option value='{$buss['id']}'>{$buss['available_time']}</option>";
+                                }
+                                ?>
+                            </select>
+                        </div> 
                     </div>
                 </div>
             </div>
-            <div class="md:mt-0 md:col-span-2">
-                <div class="flex flex-row justify-end px-6 py-4 bg-gray-100 text-right">
-                    <button type="button" class="cancel-appointment btn inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
-                        Cancel
-                    </button>
-                    <button type="submit" class="btn ml-3 rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-semibold uppercase text-white transition duration-150 ease-in-out hover:bg-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                        Save
-                    </button>
-                </div>
+            <!-- Modal footer -->
+            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <button data-modal-hide="create-appointment" type="button" class="btn ml-auto text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                <button type="submit" class="btn text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
             </div>
         </form>
     </div>
 </div>
 
-<script type="text/javascript">
+<script type="text/javascript"> 
     $('#appointment-form').submit(function(e) {
-        e.preventDefault();
-
+        e.preventDefault(); 
         $.ajax({
-            url: '?user_rq=user_add_appointment',
+            url: '?user_rq=book_appointment',
             type: "POST",
             data: $(this).serialize(),
             dataType: 'json',
-            success: function(data) {
-                setTimeout(() => {
-                    window.location.reload(true);
-                }, 200)
+            success: function(resp) {  
+                window.location.replace('?vs=appointments'); 
             }
         });
     });
@@ -209,10 +191,6 @@ $user_info = DBConn::select('users', '*', [
         echo "dialog('border-green-600 text-green-700', '" . $_SESSION['alert'] . "')";
     }
     ?>
-</script>
-
-<script type="text/javascript">
-    $('title').text('CJCE | <?= $user_info[0]['name'] ?>');
 
     $('#create-appointment').click(() => {
         $('#appointment-modal').show();
@@ -227,4 +205,7 @@ $user_info = DBConn::select('users', '*', [
     $('.background').click(() => {
         $('#appointment-modal').hide();
     });
+
+    var currentDate = new Date().toISOString().split('T')[0]; 
+    $('#date').attr('min', currentDate);
 </script>

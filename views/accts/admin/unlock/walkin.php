@@ -34,26 +34,32 @@
                             <th data-priority="7" class="whitespace-nowrap text-xs text-center uppercase text-white">ADDRESS</th>
                             <th data-priority="8" class="whitespace-nowrap text-xs text-center uppercase text-white">REPAIR</th>
                             <th data-priority="9" class="whitespace-nowrap text-xs text-center uppercase text-white">BRAND</th>
-                            <th data-priority="10" class="whitespace-nowrap text-xs text-center uppercas text-whitee">MODEL</th>
+                            <th data-priority="10" class="whitespace-nowrap text-xs text-center uppercas text-white">MODEL</th>
                             <th data-priority="3" class="whitespace-nowrap text-xs text-center uppercase text-white">SCHEDULE</th>
                             <th data-priority="4" class="whitespace-nowrap text-xs text-center uppercase text-white">TIME</th>
                             <th data-priority="2" data-orderable="false" class="whitespace-nowrap text-xs text-center uppercase text-white">Action</th>
                         </tr>
                     </thead>
                     <tbody id="tbody">
-                        <?php foreach ($conn::select('walkin') as $client) { ?>
+                        <?php 
+                        $query = "SELECT wk.*, sv.*, bh.*
+                                FROM walkin wk 
+                                JOIN services sv ON sv.id = wk.service_id
+                                JOIN bussiness_hours bh ON bh.id = wk.service_time_id";
+                        foreach ($conn::DBQuery($query) as $walkin) { 
+                        ?>
                             <tr>
-                                <td class="text-sm whitespace-nowrap"><?= $client['name'] ?></td>
-                                <td class="text-sm whitespace-nowrap"><?= $client['email'] ?></td>
-                                <td class="text-sm whitespace-nowrap"><?= $client['phone'] ?></td>
-                                <td class="text-sm whitespace-nowrap"><?= $client['address'] ?></td>
-                                <td class="text-sm whitespace-nowrap"><?= $client['repair'] ?></td>
-                                <td class="text-sm whitespace-nowrap"><?= $client['brand'] ?></td>
-                                <td class="text-sm whitespace-nowrap"><?= $client['model'] ?></td>
-                                <td class="text-sm whitespace-nowrap"><?= date('M d, Y', strtotime($client['schedule'])) ?></td>
-                                <td class="text-sm whitespace-nowrap"><?= date('h:i a', strtotime($client['schedule'])) ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= $walkin['name'] ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= $walkin['email'] ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= $walkin['phone'] ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= $walkin['address'] ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= $walkin['category'] ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= $walkin['brand'] ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= $walkin['model'] ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= date('M d, Y', strtotime($walkin['schedule'])) ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= date('h:i a', strtotime($walkin['schedule'])) ?></td>
                                 <td class="flex text-sm">
-                                    <button data-row-data="<?= $client['id'] ?>" class="cancel-btn bg-red-500 hover:bg-red-700 text-white px-2 rounded shadow-md">
+                                    <button data-row-data="<?= $walkin['id'] ?>" class="cancel-btn bg-red-500 hover:bg-red-700 text-white px-2 rounded shadow-md">
                                         CANCEL
                                     </button>
                                 </td>
@@ -107,10 +113,10 @@
                     <div class="flex flex-col">
                         <div>
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Service</label>
-                            <select name="repair" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                            <select name="services" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
                                 <option value="" selected hidden>-- Select --</option>
-                                <?php foreach ($conn::select('repair') as $item) { ?>
-                                    <option value="<?= $item['ps'] ?>"><?= $item['ps'] ?></option>
+                                <?php foreach ($conn::select('services') as $item) { ?>
+                                    <option value="<?= $item['id'] ?>"><?= $item['category'] ?></option>
                                 <?php } ?>
                             </select>
                         </div>

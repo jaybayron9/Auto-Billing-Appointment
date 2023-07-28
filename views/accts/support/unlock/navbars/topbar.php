@@ -1,3 +1,7 @@
+<div id="div-alert" hidden class="fixed animate__animated z-40 top-3 right-4 bg-white border rounded py-2 px-5 shadow text-[14.5px]">
+    <p id="alert-msg"></p>
+</div>
+
 <nav class="fixed z-30 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
@@ -95,5 +99,11 @@
 </nav>
 
 <script type="text/javascript">
-    $('title').text('PJMT | Support');
+    $('title').text('CJCE | Employee');
+
+    <?php
+        if (isset($_SESSION['alert'])) {
+            echo "dialog('border-green-600 text-green-700', '" . $_SESSION['alert'] . "')";
+        }
+    ?>
 </script>

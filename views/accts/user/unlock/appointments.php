@@ -5,11 +5,7 @@
 
 <link href="assets/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="assets/css/responsive.dataTables.min.css" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/table.css"> 
-
-<div id="div-alert" hidden class="fixed z-30 top-3 right-4 bg-white border rounded py-2 px-5 shadow text-[14.5px] animate__animated">
-    <p id="alert-msg"></p>
-</div>
+<link rel="stylesheet" href="assets/css/table.css">  
 
 <main id="main-content" class="relative h-full overflow-y-auto lg:ml-64 dark:bg-gray-900">
     <div class="px-4 h-full my-[80px]">
@@ -18,34 +14,46 @@
                 <table id="table" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                     <thead>
                         <tr>
-                            <th data-priority="1" class="whitespace-nowrap uppercase text-xs text-center text-white">Plate no.</th>
-                            <th data-priority="2" class="whitespace-nowrap uppercase text-xs text-center text-white">pms</th>
-                            <th data-priority="3" class="whitespace-nowrap uppercase text-xs text-center text-white">repair</th>
-                            <th data-priority="4" class="whitespace-nowrap uppercase text-xs text-center text-white">date</th>
-                            <th data-priority="5" class="whitespace-nowrap uppercase text-xs text-center text-white">Time</th>
-                            <th data-priority="6" class="whitespace-nowrap uppercase text-xs text-center text-white">status</th>
-                            <th data-priority="7" data-priority="1" class="whitespace-nowrap uppercase text-xs text-center text-white">date created</th>
-                            <th data-priority="2" data-orderable="false" class="whitespace-nowrap uppercase text-xs text-white text-center">Actions</th>
+                            <th data-priority="1" class="whitespace-nowrap uppercase text-xs text-center text-white">Plate no.</th> 
+                            <th data-priority="3" class="whitespace-nowrap uppercase text-xs text-center text-white">Service</th>
+                            <th data-priority="4" class="whitespace-nowrap uppercase text-xs text-center text-white">Date Scheduled</th>
+                            <th data-priority="5" class="whitespace-nowrap uppercase text-xs text-center text-white">Service Time</th>
+                            <th data-priority="6" class="whitespace-nowrap uppercase text-xs text-center text-white">Status</th>
+                            <th data-priority="7" data-priority="1" class="whitespace-nowrap uppercase text-xs text-center text-white">Date created</th>
+                            <th data-priority="2" class="whitespace-nowrap uppercase text-xs text-white text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="tbody">
                         <?php
-                        $query = "SELECT ap.id as app_id, ap.*, cs.* FROM appointments ap JOIN cars cs ON ap.car_id = cs.id WHERE client_id = '{$_SESSION['user_id']}' AND (status = 'Pending' OR status = 'Cancelled' OR status = 'Confirmed')";
+                        $query = "SELECT ap.id as app_id, ap.*, cs.*, sv.*, bh.*
+                                FROM appointments ap 
+                                    JOIN cars cs ON ap.car_id = cs.id
+                                    JOIN services sv ON sv.id = ap.service_type_id
+                                    JOIN bussiness_hours bh ON bh.id = ap.service_time_id
+                                WHERE 
+                                    ap.user_id = '{$_SESSION['user_id']}' AND 
+                                    (appointment_status = 'Pending' OR 
+                                    appointment_status = 'Cancelled' OR 
+                                    appointment_status = 'Confirmed')
+                                ORDER BY ap.created_at DESC";
 
                         foreach ($conn::DBQuery($query) as $appointment) {
                         ?>
                             <tr data-row-id="<?= $appointment['app_id'] ?>">
                                 <td class="text-sm"><?= $appointment['plate_no'] ?></td>
-                                <td class="text-sm"><?= $appointment['pms'] ?></td>
-                                <td class="text-sm"><?= $appointment['repair'] ?></td>
-                                <td class="text-sm"><?= date('F d, Y', strtotime($appointment['schedule'])) ?></td>
-                                <td class="text-sm"><?= date('h:i a', strtotime($appointment['schedule'])) ?></td>
-                                <td class="text-sm status"><?= $appointment['status'] ?></td>
+                                <td class="text-sm text-center"><?= $appointment['category'] ?></td>
+                                <td class="text-sm"><?= date('F d, Y', strtotime($appointment['schedule_date'])) ?></td>
+                                <td class="text-sm"><?= $appointment['available_time'] ?></td>
+                                <td class="text-sm status flex justify-center">
+                                    <span class="text-white rounded-md px-2 font-semibold <?= $appointment['appointment_status'] == 'Pending' || 'Confirmed' ? 'bg-green-500' : 'bg-red-500';  ?>">
+                                        <?= $appointment['appointment_status'] ?>
+                                    </span>
+                                </td>
                                 <td class="text-sm"><?= date('F d, Y', strtotime($appointment['created_at'])) ?></td>
-                                <td class="flex gap-x-2 text-center text-sm"> 
-                                    <?php if ($appointment['status'] !== 'Cancelled') { ?>
-                                    <button data-row-data="<?= $appointment['app_id'] ?>" class="cancel-btn bg-red-500 hover:bg-red-700 text-white px-2 rounded shadow-md">
-                                        CANCEL
+                                <td class="flex gap-x-2 justify-center text-sm"> 
+                                    <?php if ($appointment['appointment_status'] !== 'Cancelled') { ?>
+                                    <button data-row-data="<?= $appointment['app_id'] ?>" class="cancel-btn font-semibold bg-red-500 hover:bg-red-700 text-white px-2 rounded shadow-md">
+                                        Cancel
                                     </button> 
                                     <?php } ?>
                                 </td>
@@ -90,6 +98,7 @@
 <script src="assets/js/dataTables.responsive.min.js"></script>
 <script type="text/javascript">
     var table = $('#table').DataTable({
+        ordering: false,
         responsive: true,
         "lengthMenu": [10, 25, 50, 100, 1000], 
         "drawCallback": () => {
@@ -106,17 +115,10 @@
                         dataType: 'json',
                         success: function(resp) { 
                             var tableRow = $('tr[data-row-id="' + id + '"]'); 
-                            tableRow.find('.status').text('cancelled');
+                            tableRow.find('.status').html('<span class="text-white rounded-md px-2 bg-red-500 bg-red-500">Cancelled</span>');
                             tableRow.find('.cancel-btn').hide();
 
-                            $('#div-alert').show().addClass('border-green-600 text-green-700');
-                            $('#alert-msg').text('Appointment successfully cancelled.'); 
-                            setTimeout(() => {
-                                $('#div-alert').hide(); 
-                                $.ajax({
-                                    url: '?rq=unset_alert_session'
-                                });  
-                            }, 3000);   
+                            dialog('border-green-600 text-green-700', 'Appointment successfully cancelled.');
                         }
                     });
                 }

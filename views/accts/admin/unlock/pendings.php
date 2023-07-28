@@ -18,36 +18,39 @@
                 <table id="table" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                     <thead>
                         <tr>
-                            <th data-priority="1" class="whitespace-nowrap uppercase text-xs text-center text-white">Plate no.</th>
-                            <th data-priority="3" class="whitespace-nowrap uppercase text-xs text-center text-white">pms</th>
-                            <th data-priority="4" class="whitespace-nowrap uppercase text-xs text-center text-white">service</th>
-                            <th data-priority="5" class="whitespace-nowrap uppercase text-xs text-center text-white">Date</th>
-                            <th data-priority="6" class="whitespace-nowrap uppercase text-xs text-center text-white">Time</th>
-                            <th data-priority="7" class="whitespace-nowrap uppercase text-xs text-center text-white">date created</th>
+                            <th data-priority="1" class="whitespace-nowrap uppercase text-xs text-center text-white">Plate no.</th> 
+                            <th data-priority="4" class="whitespace-nowrap uppercase text-xs text-center text-white">Service</th>
+                            <th data-priority="5" class="whitespace-nowrap uppercase text-xs text-center text-white">Date Schedule</th>
+                            <th data-priority="6" class="whitespace-nowrap uppercase text-xs text-center text-white">Service Time</th>
+                            <th data-priority="7" class="whitespace-nowrap uppercase text-xs text-center text-white">Date created</th>
                             <th data-priority="3" data-orderable="false" class="whitespace-nowrap uppercase text-xs text-center text-white">Action</th>
                         </tr>
                     </thead>
                     <tbody id="tbody">
                         <?php
-                        $query = "SELECT ap.id as app_id, ap.*, cs.* FROM appointments ap JOIN cars cs ON ap.car_id = cs.id WHERE status = 'Pending'";
+                        $query = "SELECT ap.id as app_id, ap.*, cs.*, sv.*, bh.*
+                                FROM appointments ap 
+                                    JOIN cars cs ON ap.car_id = cs.id
+                                    JOIN services sv ON sv.id = ap.service_type_id
+                                    JOIN bussiness_hours bh ON bh.id = ap.service_time_id
+                                WHERE appointment_status = 'Pending'";
 
                         foreach ($conn::DBQuery($query) as $appointment) {
                         ?>
                             <tr data-row-id="<?= $support['id'] ?>">
                                 <td class="text-sm"><?= $appointment['plate_no'] ?></td>
-                                <td class="text-sm"><?= $appointment['pms'] ?></td>
-                                <td class="text-sm"><?= $appointment['repair'] ?></td>
-                                <td class="text-sm"><?= date('F d, Y', strtotime($appointment['schedule'])) ?></td>
-                                <td class="text-sm"><?= date('h:i a', strtotime($appointment['schedule'])) ?></td>
+                                <td class="text-sm"><?= $appointment['category'] ?></td> 
+                                <td class="text-sm"><?= date('F d, Y', strtotime($appointment['schedule_date'])) ?></td>
+                                <td class="text-sm"><?= $appointment['available_time'] ?></td>
                                 <td class="text-sm"><?= date('m/d/Y', strtotime($appointment['created_at'])) ?></td>
                                 <td class="flex text-sm justify-center items-center gap-x-3">
-                                    <button data-row-data="<?= $appointment['client_id'] ?>" data-modal-target="msg-modal" data-modal-toggle="msg-modal" class="msg-btn btn bg-white rounded-full p-1 shadow-md hover:shadow-none">
+                                    <button data-row-data="<?= $appointment['user_id'] ?>" data-modal-target="msg-modal" data-modal-toggle="msg-modal" class="msg-btn btn bg-white rounded-full p-1 shadow-md hover:shadow-none">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                                         </svg>
                                     </button>
                                     <select data-row-data="<?= $appointment['app_id'] ?>" class="status-col px-2">
-                                        <option value="Pending"><?= $appointment['status'] ?></option>
+                                        <option value="Pending"><?= $appointment['appointment_status'] ?></option>
                                         <option value="Confirmed">Confirmed</option>
                                         <option value="Decline">Decline</option>
                                     </select>

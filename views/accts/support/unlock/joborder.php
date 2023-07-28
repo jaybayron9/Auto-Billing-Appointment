@@ -20,23 +20,27 @@
                         <tr>
                             <th data-priority="1" class="whitespace-nowrap text-xs text-center uppercase text-white">Name</th>
                             <th data-priority="3" class="whitespace-nowrap text-xs text-center uppercase text-white">Plate no.</th>
-                            <th data-priority="4" class="whitespace-nowrap text-xs text-center uppercase text-white">Service</th>
-                            <th data-priority="5" class="whitespace-nowrap text-xs text-center uppercase text-white">Description</th>
-                            <th data-priority="6" class="whitespace-nowrap text-xs text-center uppercase text-white">Date</th>
-                            <th data-priority="7" class="whitespace-nowrap text-xs text-center uppercase text-white">Time</th>
+                            <th data-priority="4" class="whitespace-nowrap text-xs text-center uppercase text-white">Service</th> 
+                            <th data-priority="6" class="whitespace-nowrap text-xs text-center uppercase text-white">Date Scheduled</th>
+                            <th data-priority="7" class="whitespace-nowrap text-xs text-center uppercase text-white">Service Time</th> 
                             <th data-priority="2" class="whitespace-nowrap text-xs text-center uppercase text-white">Status (Action)</th>
                         </tr>
                     </thead>
                     <tbody id="tbody">
-                        <?php
-                        $query = "SELECT ap.id AS app_id, ap.*, us.id AS user_id, us.*, cs.id AS car_id, cs.*
-                        FROM appointments ap
-                        JOIN users us ON us.id = ap.client_id
-                        JOIN cars cs ON cs.id = ap.car_id
-                        WHERE ap.status <> 'Done' AND ap.status <> 'Pending' AND ap.status <> 'Cancelled'";
+                        <?php 
+                        $query = "SELECT ap.id as app_id, ap.*, cs.*, sv.*, bh.*, us.*
+                                    FROM appointments ap 
+                                    JOIN cars cs ON ap.car_id = cs.id
+                                    JOIN services sv ON sv.id = ap.service_type_id
+                                    JOIN bussiness_hours bh ON bh.id = ap.service_time_id
+                                    JOIN users us ON us.id = ap.user_id
+                                WHERE  
+                                    ap.appointment_status <> 'Done' AND 
+                                    ap.appointment_status <> 'Pending' AND 
+                                    ap.appointment_status <> 'Cancelled'";
 
                         foreach ($conn::DBQuery($query) as $app) {
-                            $emp = explode(', ', $app['emp_id']);
+                            $emp = explode(', ', $app['assigned_employee_id']);
 
                             for ($i = 0; $i < count($emp); $i++) {
                                 if ($emp[$i] == $_SESSION['support_id']) {
@@ -45,19 +49,18 @@
                                         <td class="text-sm capitalize"><?= $app['name'] ?></td>
                                         <td class="text-sm"><?= $app['plate_no'] ?></td>
                                         <td class="whitespace-nowrap flex justify-center gap-x-3">
-                                            <select data-row-data="<?= "{$app['app_id']}~{$app['user_id']}~{$app['car_id']}" ?>" class="service-col" style="height: 33px; padding-top: 3px; padding-right: 35px;">
-                                                <option value="<?= $app['repair'] ?>" selected hidden><?= $app['repair'] ?></option>
-                                                <option value="Repair">Repair</option>
-                                                <option value="PMS">PMS</option>
-                                                <option value="Multi-inspection">Multi-inspection</option>
+                                            <select data-row-data="<?= "{$app['app_id']}~{$app['user_id']}~{$app['car_id']}" ?>" class="service-col hover:cursor-pointer" style="height: 33px; padding-top: 3px; padding-right: 35px;">
+                                                <option value="<?= $app['category'] ?>" selected hidden><?= $app['category'] ?></option>
+                                                <?php foreach($conn::select("services") as $serv ) { ?>
+                                                <option value="<?= $serv['category'] ?>"><?= $serv['category'] ?></option>
+                                                <?php } ?> 
                                             </select>
-                                        </td>
-                                        <td class="text-sm capitalize"><?= $app['description'] ?></td>
-                                        <td class="text-sm"><?= date('F d, Y', strtotime($app['schedule'])) ?></td>
-                                        <td class="text-sm"><?= date('h:i a', strtotime($app['schedule'])) ?></td>
+                                        </td> 
+                                        <td class="text-sm"><?= date('F d, Y', strtotime($app['schedule_date'])) ?></td>
+                                        <td class="text-sm"><?= $app['available_time'] ?></td>
                                         <td class="whitespace-nowrap flex justify-center gap-x-3">
                                             <select data-row-data="<?= $app['app_id'] ?>" class="status-select" style="height: 33px; padding-top: 3px; padding-right: 35px;">
-                                                <option value="" selected hidden><?= $app['status'] ?></option>
+                                                <option value="" selected hidden><?= $app['appointment_status'] ?></option>
                                                 <option value="Underway">Underway</option>
                                                 <option value="Done">Done</option>
                                                 <option value="Cancelled">Cancel</option>
@@ -99,35 +102,15 @@
                 var val = $(this).val();
                 let ids = $(this).data('row-data');
                 let data = ids.split('~');
-                let app_id = data[0];
-                let user_id = data[1];
-                let car_id = data[2];
-                let serv = $(this).val();
-
-                window.location.replace(`?vs=_sup/service&serv=${val}&app_id=${app_id}&user_id=${user_id}&car_id=${car_id}`);
+                window.location.replace(`?vs=_sup/service&serv=${val.toLowerCase()}&app_id=${data[0]}&user_id=${data[1]}&car_id=${data[2]}`);
             });
 
             $('.service-col').change(function() {
+                var val = $(this).val();
                 let ids = $(this).data('row-data');
                 let data = ids.split('~');
-                let app_id = data[0];
-                let user_id = data[1];
-                let car_id = data[2];
-                let serv = $(this).val();
-
-                console.table(data);
-                switch (serv) {
-                    case 'Repair':
-                        window.location.replace(`?vs=_sup/service&serv=repair&app_id=${app_id}&user_id=${user_id}&car_id=${car_id}`);
-                        break;
-                    case 'PMS':
-                        window.location.replace(`?vs=_sup/service&serv=pms&app_id=${app_id}&user_id=${user_id}&car_id=${car_id}`);
-                        break;
-                    case 'Multi-inspection':
-                        window.location.replace(`?vs=_sup/service&serv=multi-inspection&app_id=${app_id}&user_id=${user_id}&car_id=${car_id}`);
-                        break; 
-                } 
-            });
+                window.location.replace(`?vs=_sup/service&serv=${val.toLowerCase()}&app_id=${data[0]}&user_id=${data[1]}&car_id=${data[2]}`);
+            }); 
         }
     }).columns.adjust().responsive.recalc();
 </script>

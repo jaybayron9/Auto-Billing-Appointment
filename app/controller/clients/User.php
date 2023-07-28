@@ -5,29 +5,44 @@ namespace userData;
 use DBConn\DBConn;
 
 class User extends DBConn {
-    public function user_add_appointment() {
-        extract($_POST);
-
+    public function book_appointment() { 
         DBConn::insert('appointments', [
-            'client_id' => $user_id,
-            'car_id' => $car_id,
-            'pms' => $pms,
-            'repair' => $repair,
-            'status' => 'Pending',
-            'schedule' => $schedule
+            'user_id' => $_POST['user_id'],
+            'car_id' => $_POST['car_id'], 
+            'service_type_id' => $_POST['service'],
+            'schedule_date' => $_POST['schedule_date'], 
+            'service_time_id' => $_POST['time'],   
+        ]); 
+
+        $app_id = DBConn::select('appointments', 'id', [
+            'user_id' => $_POST['user_id'],
+            'car_id' => $_POST['car_id'], 
+            'schedule_date' => $_POST['schedule_date'], 
+            'service_time_id' => $_POST['time'], 
+        ]); 
+
+        DBConn::insert('booking_summary', [
+            'user_id' => $_POST['user_id'],
+            'car_id' => $_POST['car_id'],
+            'appointment_id' =>  $app_id[0]['id']
+        ]); 
+
+        $summary = DBConn::select('booking_summary','id', [
+            'appointment_id' =>  $app_id[0]['id']
         ]);
+
+        DBConn::update('appointments', [
+            'book_summary_id' =>  $summary[0]['id']
+        ], "id = '{$app_id[0]['id']}'"); 
 
         $_SESSION['alert'] = 'Appointment created successfully.';
         return parent::resp();
     }
 
-    public function user_cancel_appointment() {
-        extract($_POST);
-
+    public function user_cancel_appointment() { 
         parent::update('appointments', [
-            'status' => 'Cancelled',
-        ], "id = $id"); 
-        
+            'appointment_status' => 'Cancelled',
+        ], "id = '{$_POST['id']}'"); 
         return parent::resp();
     }
 
@@ -46,11 +61,12 @@ class User extends DBConn {
                     'color' => $carColor,
                     'trans_type' => $transType,
                 ]);
+                $_SESSION['alert'] = 'Car successfully added.';
                 return parent::resp(200, 'Car added.');
             }
-            return parent::resp(400, 'You already registered this car.');
+            return parent::resp(400, 'You already register this car.');
         }
-        return parent::resp(400, 'Please fill out all the field with correct format.');
+        return parent::resp(400, 'Invalid plate number format.');
     }
 
     public function show_mycar() {
@@ -76,6 +92,7 @@ class User extends DBConn {
     public function delete_mycar() {
         $id = isset($_GET['car_id']) ? $_GET['car_id'] : '0';
         parent::delete('cars', ['id' => $id], 1); 
+        $_SESSION['alert'] = 'Car successfully removed.';
         header("Location: " . $_SERVER['HTTP_REFERER']);
     }
 }

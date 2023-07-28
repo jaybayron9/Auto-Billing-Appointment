@@ -2,7 +2,7 @@
 
 <?php include view('accts/user/unlock/navbars', 'topbar') ?>
 <?php include view('accts/user/unlock/navbars', 'sidebar') ?>
-<?php include view('accts/user/unlock/components', 'chat-support') ?>
+<?php //include view('accts/user/unlock/components', 'chat-support') ?>
 
 <main id="main-content" class="relative h-full overflow-y-auto lg:ml-64 dark:bg-gray-900">
     <div class="px-4 my-[80px]">

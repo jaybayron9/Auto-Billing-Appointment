@@ -36,8 +36,7 @@ return [
     '_sup/'                    => view('accts/support/unlock'),
     '_sup/profile'             => view('accts/support/unlock/settings', 'profile'),
     '_sup/job_order'             => view('accts/support/unlock', 'joborder'),
-    '_sup/serv_his'             => view('accts/support/unlock', 'servhis'),
-    '_sup/users'               => view('accts/support/unlock', 'users'),
+    '_sup/serv_his'             => view('accts/support/unlock', 'servhis'), 
     '_sup/inbox'               => view('accts/support/unlock', 'inbox'), 
     '_sup/service'               => view('accts/support/unlock', 'estimator'), 
 

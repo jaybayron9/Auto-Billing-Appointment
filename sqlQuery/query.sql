@@ -43,9 +43,55 @@ CREATE TABLE booking_summary (
     user_id VARCHAR(11),
     car_id VARCHAR(11),
     appointment_id VARCHAR(11),
-    products longtext,
+    products VARCHAR(1000),
     quantity VARCHAR(11),
-    price VARCHAR(11),
+    price VARCHAR(300),
+    total VARCHAR(250),
+    created_at timestamp NOT NULL DEFAULT current_timestamp(),
+    updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+);    
+
+CREATE TABLE bussiness_hours(
+    id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    available_time VARCHAR(100),
+    created_at timestamp NOT NULL DEFAULT current_timestamp(),
+    updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+); 
+
+CREATE TABLE `appointments` (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id varchar(11) DEFAULT NULL,
+    car_id VARCHAR(11) DEFAULT NULL,
+    book_summary_id VARCHAR(11) DEFAULT NULL,
+    assigned_employee_id VARCHAR(11) DEFAULT NULL,
+    service_type_id varchar(20) DEFAULT NULL,
+    note varchar(250) NOT NULL,
+    schedule_date varchar(30) DEFAULT NULL,
+    service_time_id varchar(30) DEFAULT NULL,
+    appointment_status varchar(20) DEFAULT 'Pending',
+    payment_status varchar(20) DEFAULT 'Pending',
+    created_at timestamp NOT NULL DEFAULT current_timestamp(),
+    updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+);    
+
+create table services (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    category VARCHAR(50) DEFAULT NULL, 
+    created_at timestamp NOT NULL DEFAULT current_timestamp(),
+    updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+);
+
+CREATE TABLE `walkin` (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name varchar(250) DEFAULT NULL,
+    email varchar(250) DEFAULT NULL,
+    phone varchar(250) DEFAULT NULL,
+    address varchar(250) DEFAULT NULL,
+    service_id varchar(250) DEFAULT NULL,
+    brand varchar(250) DEFAULT NULL,
+    model varchar(250) DEFAULT NULL,
+    schedule_date varchar(250) DEFAULT NULL,
+    service_time_id varchar(250) DEFAULT NULL,
     created_at timestamp NOT NULL DEFAULT current_timestamp(),
     updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ); 

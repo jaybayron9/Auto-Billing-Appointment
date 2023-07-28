@@ -18,27 +18,36 @@
                 <table id="table" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                     <thead>
                         <tr>
-                            <th class="whitespace-nowrap text-center text-xs uppercase text-white">Plate no.</th>
-                            <th class="whitespace-nowrap text-center text-xs uppercase text-white">repair</th>
-                            <th class="whitespace-nowrap text-center text-xs uppercase text-white">Description</th>
-                            <th class="whitespace-nowrap text-center text-xs uppercase text-white">SCHEDULE</th>
-                            <th class="whitespace-nowrap text-center text-xs uppercase text-white">Amount</th>
-                            <th data-orderable="false" class="whitespace-nowrap text-center text-xs uppercase text-white"></th>
+                            <th data-priority="1" class="whitespace-nowrap text-center text-xs uppercase text-white">Plate no.</th>
+                            <th data-priority="2" class="whitespace-nowrap text-center text-xs uppercase text-white">Service</th>
+                            <th data-priority="3" class="whitespace-nowrap text-center text-xs uppercase text-white">Date Scheduled</th>
+                            <th data-priority="4" class="whitespace-nowrap text-center text-xs uppercase text-white">Service Time</th>
+                            <th data-priority="6" class="whitespace-nowrap text-xs text-center uppercase text-white">Date Created</th> 
+                            <th data-priority="6" data-orderable="false" class="whitespace-nowrap text-center text-xs uppercase text-white"></th>
                         </tr>
                     </thead>
                     <tbody id="tbody">
                         <?php
-                        $query = "SELECT * FROM appointments ap JOIN cars cs ON ap.car_id = cs.id WHERE client_id = '{$_SESSION['user_id']}' AND status != 'Pending' AND status != 'Cancelled'";
+                        $query = "SELECT ap.id AS app_id, ap.*, cl.*, cs.*, sv.*, bh.*
+                                    FROM appointments ap
+                                    JOIN users cl ON cl.id = ap.user_id
+                                    JOIN cars cs ON cs.id = ap.car_id
+                                    JOIN services sv ON sv.id = ap.service_type_id
+                                    JOIN bussiness_hours bh ON bh.id = ap.service_time_id
+                                WHERE 
+                                    ap.user_id = '{$_SESSION['user_id']}' AND 
+                                    ap.appointment_status = 'Done' 
+                                    OR ap.appointment_status = 'Underway'";
                         foreach ($conn::DBQuery($query) as $appointment) {
                         ?>
                             <tr>
                                 <td class="text-sm"><?= $appointment['plate_no'] ?></td>
-                                <td class="text-sm"><?= $appointment['repair'] ?></td>
-                                <td class="text-sm"><?= $appointment['description'] ?></td>
-                                <td class="text-sm"><?= date('F d, Y h:i a', strtotime($appointment['schedule'])) ?></td>
-                                <td class="text-sm"><?= $appointment['price'] ?></td>
-                                <td class="text-sm">
-                                    <button data-modal-target="large-modal" data-modal-toggle="large-modal" class="">
+                                <td class="text-sm"><?= $appointment['service_type_id'] ?></td> 
+                                <td class="text-sm"><?= date('F d, Y', strtotime($appointment['schedule_date'])) ?></td>
+                                <td class="text-sm"><?= $appointment['available_time'] ?></td>
+                                <td class="text-sm"><?= date('F d, Y', strtotime($appointment['created_at'])) ?></td>
+                                <td class="flex justify-center">
+                                    <button data-row-data="<?= $appointment['app_id'] ?>" data-modal-target="large-modal" data-modal-toggle="large-modal" class="book-summary-btn shadow-inner shadow-zinc-400 rounded-full p-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -46,7 +55,7 @@
                                     </button>
                                 </td>
                             </tr>
-                        <?php } ?>
+                        <?php } ?> 
                     </tbody>
                 </table>
             </div>
@@ -85,17 +94,17 @@
                 </div>
                 <div class="grid grid-cols-3 border-b-2 border-gray-400 pb-2">
                     <div class="-mt-4 ml-6">
-                        <p class="whitespace-nowrap font-semibold">Name : <span class="font-normal">Sean Singco</span></p>
-                        <p class="whitespace-nowrap font-semibold">Email : <span class="font-normal">Singco.SeanBrad@gmail.com</span></p>
-                        <p class="whitespace-nowrap font-semibold">Contact : <span class="font-normal">0900 000 0000</span></p>
+                        <p class="whitespace-nowrap font-semibold">Name : <span class="font-normal" id="name"></span></p>
+                        <p class="whitespace-nowrap font-semibold">Email : <span class="font-normal" id="email"></span></p>
+                        <p class="whitespace-nowrap font-semibold">Contact : <span class="font-normal" id="contact-no"></span></p>
                     </div>
                     <div class="-mt-4 ml-6">
-                        <p class="whitespace-nowrap font-semibold">Brand : <span class="font-normal">Toyota</span></p>
-                        <p class="whitespace-nowrap font-semibold">Model : <span class="font-normal">Version 1</span></p>
-                        <p class="whitespace-nowrap font-semibold">PMS : <span class="font-normal">10,000KM</span></p>
+                        <p class="whitespace-nowrap font-semibold">Brand : <span class="font-normal" id="brand"></span></p>
+                        <p class="whitespace-nowrap font-semibold">Model : <span class="font-normal" id="model"></span></p> 
                     </div>
                     <div class="-mt-4 text-center">
-                        <p> November 6, 2022, 2:00pm</p>
+                        <p id="schedule-date"> November 6, 2022, 2:00pm</p>
+                        <p id="service-time"> November 6, 2022, 2:00pm</p>
                     </div>
                 </div>
                 <div class="flex flex-col px-20">
@@ -107,23 +116,12 @@
                                 <th class="text-xl font-semibold text-center">Price</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr class="border-b-2 border-gray-300">
-                                <td>Timing belt replacement</td>
-                                <td class="text-center">1</td>
-                                <td class="text-right">1,900</td>
-                            </tr>
-                            <tr class="border-b-2 border-gray-300">
-                                <td>Timing belt replacement</td>
-                                <td class="text-center">1</td>
-                                <td class="text-right">1,900</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="products"></tbody>
                         <tfoot>
                             <tr>
                                 <td>TOTAL</td>
                                 <td></td>
-                                <td class="text-center">Php 28,000</td>
+                                <td class="text-center" id="total">Php 28,000</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -136,35 +134,7 @@
             </div>
         </div>
     </div>
-</div>
-
-<div id="del-accts-modal" hidden class="mt-10 md:mt-0">
-    <div class="fixed inset-0 overflow-y-hidden px-4 py-6 sm:px-0 z-50 sm:max-w-2xl mx-auto">
-        <div class="background fixed inset-0 transform transition-all">
-            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-        </div>
-        <form id="deletes-form" class="mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto">
-            <div class="px-6 py-4">
-                <div class="text-lg font-medium text-gray-900">
-                    Delete Account
-                </div>
-                <div class="mt-4 text-sm text-gray-600">
-                    Are you sure you want to delete this account(s)? Once this account(s) is deleted, all of its resources and data will be permanently deleted. Please confirm you would like to permanently delete your account.
-                </div>
-            </div>
-            <div class="md:mt-0 md:col-span-2">
-                <div class="flex flex-row justify-end px-6 py-4 bg-gray-100 text-right">
-                    <button type="button" class="del-hide-modal btn inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
-                        Cancel
-                    </button>
-                    <button type="submit" class="btn ml-3 rounded-md border border-transparent bg-red-600 px-4 py-2 text-xs font-semibold uppercase text-white transition duration-150 ease-in-out hover:bg-red-500 focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
-                        Delete Account(s)
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
+</div> 
 
 <script src="assets/js/jquery.dataTables.min.js"></script>
 <script src="assets/js/dataTables.responsive.min.js"></script>
@@ -173,4 +143,36 @@
         responsive: true,
         "lengthMenu": [10, 25, 50, 100, 1000],
     }).columns.adjust().responsive.recalc();
+
+    $('.book-summary-btn').click(function() {
+        var appointment_id = $(this).data('row-data'); 
+        $.ajax({
+            type: "POST",
+            url: "?support_rq=show_book_summary",
+            data: {appointment_id: appointment_id},
+            dataType: "json",
+            success: function (resp) {
+                $('#name').text(resp[0].name)
+                $('#email').text(resp[0].email)
+                $('#contact-no').text(resp[0].phone)
+                $('#brand').text(resp[0].car_brand)
+                $('#model').text(resp[0].car_model)
+                $('#schedule-date').text(resp[0].schedule_date)
+                $('#service-time').text(resp[0].available_time)
+                $('#total').text(resp[0].total) 
+
+                var products = resp[0].products.split('~')
+                var price = resp[0].price.split('~')
+                $('#products').html('');
+                var html = '';
+                for (var i = 0; i < products.length - 1; i++) {
+                    html = `<tr class="border-b-2 border-gray-300">`
+                        html += `<td>${products[i]}</td>`
+                        html += `<td class="text-center">1</td>`
+                    html += `<td class="text-right">${price[i]}</td>`
+                    $('#products').append(html);  
+                }
+            }
+        });
+    })
 </script>

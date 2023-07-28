@@ -10,15 +10,16 @@ function appData($val) {
     $app_id = isset($_GET['app_id']) ? $_GET['app_id'] : '0';
     $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : '0';
     $car_id = isset($_GET['car_id']) ? $_GET['car_id'] : '0';
-    $qry = "SELECT ap.id AS app_id, ap.*, us.id AS user_id, us.*, cs.id AS car_id, cs.*
+    $qry = "SELECT ap.id AS app_id, ap.*, us.id AS user_id, us.*, cs.id AS car_id, cs.*, bh.*
             FROM appointments ap
-            JOIN users us ON us.id = ap.client_id
+            JOIN users us ON us.id = ap.user_id
             JOIN cars cs ON cs.id = ap.car_id
+            JOIN bussiness_hours bh ON bh.id = ap.service_time_id
             WHERE ap.id = '{$app_id}' AND us.id = '{$user_id}' AND cs.id = '{$car_id}'";
     foreach ($conn::DBQuery($qry) as $app) {
         return $app[$val];
     }
-}  
+}
 ?>
 
 <main class="relative h-screen overflow-y-auto lg:ml-64 dark:bg-gray-900">
@@ -233,7 +234,8 @@ function appData($val) {
                             <p class="whitespace-nowrap font-semibold">Model : <span class="font-normal"><?= appData('car_model') ?></span></p>
                         </div>
                         <div class="-mt-4 text-center">
-                            <p><?= date('F Y, d | H:i a', strtotime(appData('schedule'))) ?></p>
+                            <p><?= date('F Y, d', strtotime(appData('schedule_date'))) ?></p>
+                            <p><?= appData('available_time') ?></p>
                         </div>
                     </div>
                     <div class="flex flex-col px-20">
@@ -264,32 +266,36 @@ function appData($val) {
                     <input type="hidden" id="user_id" value="<?= appData('user_id') ?>">
                     <input type="hidden" id="car_id" value="<?= appData('car_id') ?>">
                     <button id="confirm-booking-btn" type="button" class="btn text-white font-semibold hover:text-yellow-300 bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 text-center">
-                        Confirm Booking
+                        Print
                     </button>
                 </div>
             </div>
         </div>
     </div>
 </main>
-<?php  ?>
+
 <script src="assets/js/estimator.js"></script>
 <script type="text/javascript">
-    $('#confirm-booking-btn').click(() => {
+    $('#confirm-booking-btn').click(function() {
         $('#checkout-summary').html('');
-        let app_id = $('#app_id').val();
-        let user_id = $('#user_id').val();
-        let car_id = $('#car_id').val();
-        var data = [];
-        $('tbody tr').each(function() {
-            var product = $(this).find('td:first-child').text();
-            var price = $(this).find('td:nth-child(2)').text();
-            data.push({
-                product: product,
-                price: price,
-            });
-        }); 
+        var data = tableData();
 
-        back_btn();
-        // $('#checkout-page').html('<object data="views/receipt.php" type="application/pdf" class="w-full h-screen">');
+        $.ajax({
+            url: "?support_rq=save_booking_summary",
+            type: "POST",
+            data: {
+                app_id: $('#app_id').val(),
+                user_id: $('#user_id').val(),
+                car_id: $('#car_id').val(),
+                data: data,
+                total_items: $('#total-items').text(),
+                total: $('#total-price').text(),
+            },
+            dataType: "json",
+            success: function(resp) {  
+                dialog('border-green-600 text-green-700', 'Booking summary saved.');
+                $('#checkout-page').html('<object data="?support_rq=receipt" type="application/pdf" async defer class="w-full h-screen">');
+            }
+        });
     });
 </script>

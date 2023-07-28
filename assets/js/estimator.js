@@ -71,7 +71,7 @@ function check_added_list() {
     return rowCount != 0 ? btn.removeClass('hidden') : btn.addClass('hidden');
 } check_added_list(); 
 
-$('#checkout-btn').click(() => { 
+function tableData() {
     var data = []; 
     $('tbody tr').each(function () {
         var product = $(this).find('td:first-child').text();
@@ -82,6 +82,11 @@ $('#checkout-btn').click(() => {
         });
     });   
 
+    return data;
+}
+
+$('#checkout-btn').click(() => {  
+    var data = tableData();
     data.forEach(value => {
         row = '<tr class="border-b-2 border-gray-300">';
             row += '<td>' + value.product + '</td>';

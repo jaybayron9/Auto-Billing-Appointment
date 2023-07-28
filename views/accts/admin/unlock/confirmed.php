@@ -19,36 +19,33 @@
                     <thead>
                         <tr>
                             <th data-priority="1" class="whitespace-nowrap uppercase text-xs text-center text-white">Plate no.</th>
-                            <th data-priority="3" class="whitespace-nowrap uppercase text-xs text-center text-white">pms</th>
-                            <th data-priority="4" class="whitespace-nowrap uppercase text-xs text-center text-white">repair</th>
-                            <th data-priority="5" class="whitespace-nowrap uppercase text-xs text-center text-white">Date</th>
-                            <th data-priority="6" class="whitespace-nowrap uppercase text-xs text-center text-white">Time</th>
-                            <th data-priority="7" class="whitespace-nowrap uppercase text-xs text-center text-white">Mechanic</th>
-                            <th data-priority="8" class="whitespace-nowrap uppercase text-xs text-center text-white">Electrician</th>
-                            <th data-priority="9" class="whitespace-nowrap uppercase text-xs text-center text-white">description</th>
-                            <th data-priority="10" class="whitespace-nowrap uppercase text-xs text-center text-white">date created</th>
-                            <th data-priority="2" data-orderable="false" class="whitespace-nowrap uppercase text-xs text-center text-white">Action</th>
+                            <th data-priority="3" class="whitespace-nowrap uppercase text-xs text-center text-white">Service</th> 
+                            <th data-priority="4" class="whitespace-nowrap uppercase text-xs text-center text-white">Date Scheduled</th>
+                            <th data-priority="5" class="whitespace-nowrap uppercase text-xs text-center text-white">Service Time</th>
+                            <th data-priority="6" class="whitespace-nowrap uppercase text-xs text-center text-white">Mechanic</th>
+                            <th data-priority="7" class="whitespace-nowrap uppercase text-xs text-center text-white">Electrician</th>
+                            <th data-priority="8" class="whitespace-nowrap uppercase text-xs text-center text-white">Date Created</th>
+                            <th data-priority="2" data-orderable="false" class="whitespace-nowrap uppercase text-xs text-center text-white">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="tbody">
                         <?php
-                        $query = "SELECT ap.id as app_id, ap.*, cl.*, cs.*
-                            FROM appointments ap
-                            JOIN users cl ON cl.id = ap.client_id
-                            JOIN cars cs ON cs.id = ap.car_id
-                            WHERE ap.status = 'Confirmed'";
-
+                        $query = "SELECT ap.id as app_id, ap.*, cs.*, sv.*, bh.*
+                                FROM appointments ap 
+                                    JOIN cars cs ON ap.car_id = cs.id
+                                    JOIN services sv ON sv.id = ap.service_type_id
+                                    JOIN bussiness_hours bh ON bh.id = ap.service_time_id
+                                WHERE ap.appointment_status = 'Confirmed'";  
                         foreach ($conn::DBQuery($query) as $appointment) {
                         ?>
                             <tr>
                                 <td class="text-sm"><?= $appointment['plate_no'] ?></td>
-                                <td class="text-sm"><?= $appointment['pms'] ?></td>
-                                <td class="text-sm"><?= $appointment['repair'] ?></td>
-                                <td class="whitespace-nowrap text-sm"><?= date('F d, Y', strtotime($appointment['schedule'])) ?></td>
-                                <td class="whitespace-nowrap text-sm"><?= date('h:i a', strtotime($appointment['schedule'])) ?></td>
+                                <td class="text-sm"><?= $appointment['category'] ?></td> 
+                                <td class="whitespace-nowrap text-sm"><?= date('F d, Y', strtotime($appointment['schedule_date'])) ?></td>
+                                <td class="whitespace-nowrap text-sm"><?=$appointment['available_time'] ?></td>
                                 <td class="text-sm">
                                     <?php
-                                    $emp = explode(', ', $appointment['emp_id']);
+                                    $emp = explode(', ', $appointment['assigned_employee_id']);
                                     foreach ($conn::select('supports', '*', ['position' => 'Mechanic']) as $mechanic) {
                                         for ($i = 0; $i < count($emp); $i++) {
                                             if ($emp[$i] == $mechanic['id']) {
@@ -68,8 +65,7 @@
                                         }
                                     }
                                     ?>
-                                </td>
-                                <td class="text-sm"><?= $appointment['description'] ?></td>
+                                </td> 
                                 <td class="text-sm"><?= date('m/d/Y', strtotime($appointment['created_at'])) ?></td>
                                 <td class="flex gap-x-2 text-sm">
                                     <button data-modal-target="assign-modal" data-modal-toggle="assign-modal" data-row-data="<?= $appointment['app_id'] ?>" data-toggle="modal" data-target="#assign" class="assign-btn bg-blue-500 hover:bg-blue-700 text-white px-2 rounded shadow-md">

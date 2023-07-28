@@ -6,7 +6,7 @@ use DBConn\DBConn;
 class Admin extends DBConn {
     public function appointment_status() { 
         parent::update('appointments',[
-            'status' => $_POST['status']
+            'appointment_status' => $_POST['status']
         ], "id = '{$_POST['id']}'");
 
         return parent::resp(200, ' ');
@@ -31,7 +31,7 @@ class Admin extends DBConn {
         extract($_POST);
 
         parent::update('appointments', [
-            'emp_id' => $mechanic . ', ' . $electrician
+            'assigned_employee_id' => $mechanic . ', ' . $electrician
         ], "id = $app_id");
 
         return parent::resp();
