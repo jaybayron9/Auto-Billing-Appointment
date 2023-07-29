@@ -1,15 +1,42 @@
-<?php include view('accts/user/unlock', 'head.auth') ?>
-
+<?php include view('accts/user/unlock', 'head.auth') ?> 
 <?php include view('accts/user/unlock/navbars', 'topbar') ?>
 <?php include view('accts/user/unlock/navbars', 'sidebar') ?>
-<?php //include view('accts/user/unlock/components', 'chat-support') ?>
 
-<main id="main-content" class="relative h-full overflow-y-auto lg:ml-64 dark:bg-gray-900">
+<script src='assets/js/fullcallendar.min.js'></script>
+<script type="text/javascript"> 
+    document.addEventListener('DOMContentLoaded', function() {
+        const calendarEl = document.getElementById('calendar');
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth', 
+            height: 'auto',  
+            eventOrder: 'start', 
+            eventSources: [
+                {
+                    url: '?user_rq=my_appointments',
+                    type: 'POST',
+                    data: { app_id: <?= $_SESSION['user_id'] ?> },
+                    success: function(resp) { 
+                        var events = [];
+                        for (var i = 0; i < resp.length; i++) {
+                            events.push({
+                                title: resp[i].category,
+                                start: resp[i].schedule_date, 
+                            });
+                        } 
+                        calendar.setOption('events', events); 
+                    }
+                },
+            ], 
+        });
+        calendar.render();
+    }); 
+</script>
+
+<main id="main-content" class="relative overflow-y-auto lg:ml-64 dark:bg-gray-900">
     <div class="px-4 my-[80px]">
-        <div class="flex justify-center align-center  h-screen">
-            <h1 class="mb-3 text-2xl font-bold leading-tight text-gray-900 sm:text-4xl lg:text-5xl dark:text-white">
-                Welcome CJCE <span class="text-rose-500"><?= $user_info[0]['name'] ?></span>
-            </h1>
+        <div class="p-5 mt-6 lg:mt-0 rounded shadow bg-white">
+            <h1 class="font-bold text-3xl font-sans mb-3 text-center">Welcome to CJCE Autoparts</h1>
+            <div id="calendar"></div>
         </div>
     </div>
-</main>
+</main> 

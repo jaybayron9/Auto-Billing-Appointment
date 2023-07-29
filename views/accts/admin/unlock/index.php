@@ -1,21 +1,46 @@
-<?php include view('accts/admin/unlock', 'head.auth') ?>
-
+<?php include view('accts/admin/unlock', 'head.auth') ?> 
 <?php include view('accts/admin/unlock/navbars', 'topbar') ?>
 <?php include view('accts/admin/unlock/navbars', 'sidebar') ?>
 
-<main id="main-content" class="relative h-full overflow-y-auto lg:ml-64 dark:bg-gray-900">
+<script src='assets/js/fullcallendar.min.js'></script>
+<script type="text/javascript"> 
+    document.addEventListener('DOMContentLoaded', function() {
+        const calendarEl = document.getElementById('calendar');
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'listYear',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'listYear,dayGridMonth',
+            },
+            height: 'auto',   
+            eventSources: [
+                {
+                    url: '?admin_rq=todays_appointments',
+                    type: 'POST',
+                    data: { app_id: <?= $_SESSION['user_id'] ?> },
+                    success: function(resp) { 
+                        var events = [];
+                        for (var i = 0; i < resp.length; i++) {
+                            events.push({
+                                title: resp[i].available_time,
+                                start: resp[i].schedule_date, 
+                            });
+                        } 
+                        calendar.setOption('events', events); 
+                    }
+                },
+            ], 
+        });
+        calendar.render(); 
+    }); 
+</script> 
+
+<main id="main-content" class="relative overflow-y-auto lg:ml-64 dark:bg-gray-900">
     <div class="px-4 my-[80px]">
-        <div class="grid gap-4 xl:grid-cols-2 2xl:grid-cols-3">
-            <div class="md:col-span-3 flex flex-col justify-center items-center px-6 mx-auto xl:px-0 dark:bg-gray-900">
-                <div class="block mb-5 md:max-w-md">
-                    <img src="assets/storage/svg/maintenance.svg" alt="maintenance image">
-                </div>
-                <div class="text-center xl:max-w-4xl">
-                    <h1 class="mb-3 text-2xl font-bold leading-tight text-gray-900 sm:text-4xl lg:text-5xl dark:text-white">
-                        Welcome Developer (<span class="text-rose-500">Admin</span>)
-                    </h1>                
-                </div>
-            </div>
+        <div class="p-5 mt-6 lg:mt-0 rounded shadow bg-white h-screen overflow-auto">
+            <h1 class="font-bold text-3xl font-sans mb-3 text-center">Welcome back!</h1>
+            <div id="calendar"></div>
         </div>
     </div>
-</main>
+</main> 

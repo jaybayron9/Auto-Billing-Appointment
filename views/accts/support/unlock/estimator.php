@@ -1,26 +1,6 @@
-<?php
-include view('accts/support/unlock', 'head.auth');
-include view('accts/support/unlock/navbars', 'topbar');
-include view('accts/support/unlock/navbars', 'sidebar');
-function selectTab($serv) {
-    return isset($_GET['serv']) && $_GET['serv'] == $serv ? 'true' : 'false';
-}
-function appData($val) {
-    global $conn;
-    $app_id = isset($_GET['app_id']) ? $_GET['app_id'] : '0';
-    $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : '0';
-    $car_id = isset($_GET['car_id']) ? $_GET['car_id'] : '0';
-    $qry = "SELECT ap.id AS app_id, ap.*, us.id AS user_id, us.*, cs.id AS car_id, cs.*, bh.*
-            FROM appointments ap
-            JOIN users us ON us.id = ap.user_id
-            JOIN cars cs ON cs.id = ap.car_id
-            JOIN bussiness_hours bh ON bh.id = ap.service_time_id
-            WHERE ap.id = '{$app_id}' AND us.id = '{$user_id}' AND cs.id = '{$car_id}'";
-    foreach ($conn::DBQuery($qry) as $app) {
-        return $app[$val];
-    }
-}
-?>
+<?php include view('accts/support/unlock', 'head.auth'); ?>
+<?php include view('accts/support/unlock/navbars', 'topbar'); ?>
+<?php include view('accts/support/unlock/navbars', 'sidebar'); ?> 
 
 <main class="relative h-screen overflow-y-auto lg:ml-64 dark:bg-gray-900">
     <div class="px-0 sm:px-4 my-[80px]">
@@ -187,7 +167,7 @@ function appData($val) {
                         </table>
                         <div class="flex justify-between mt-3">
                             <div class="font-semibold text-2xl text-slate-800 whitespace-nowrap">
-                                Subtotal ( <span id="total-items">0 Items</span> )
+                                Subtotal ( <span id="total-items">0 Item(s)</span> )
                             </div>
                             <div class="font-semibold text-2xl whitespace-nowrap text-slate-800">
                                 <span id="total-price">₱ 0.00</span>
@@ -290,7 +270,7 @@ function appData($val) {
                 data: data,
                 total_items: $('#total-items').text(),
                 total: $('#total-price').text(),
-            },
+            }, 
             dataType: "json",
             success: function(resp) {  
                 dialog('border-green-600 text-green-700', 'Booking summary saved.');

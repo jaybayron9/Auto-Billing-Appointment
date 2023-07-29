@@ -12,7 +12,7 @@
                 </div>
                 <div class="space-y-8 grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-5">  
                     <?php foreach ($conn::select('cars', '*', ['user_id' => $_SESSION['user_id']]) as $car) { ?>
-                        <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-md border border-gray-200 shadow-lg dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white mt-8">
+                        <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-md border border-gray-200 shadow-lg mt-8">
                             <div class="relative">
                                 <div data-row-data="<?= $car['id'] ?>" data-modal-target="editModal" data-modal-toggle="editModal" class="edit-modal absolute right-3 -top-4 text-green-500 hover:text-green-600 hover:cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -25,9 +25,9 @@
                                     </svg> 
                                 </a> 
                             </div>
-                            <h3 class="text-2xl font-semibold"><?= $car['car_brand'] ?></h3>
+                            <h3 class="text-2xl font-bold font-mono"><?= $car['car_brand'] ?></h3>
                             <div class="flex justify-center items-baseline mb-8 mt-5">
-                                <span class="mr-2 text-5xl font-extrabold"><?= $car['plate_no'] ?></span>
+                                <span class="mr-2 text-5xl font-extrabold font-mono uppercase"><?= $car['plate_no'] ?></span>
                             </div>
                             <!-- List -->
                             <ul role="list" class="space-y-1 text-left">
@@ -44,7 +44,7 @@
                                     <span class="text-gray-500">Color: <span class="font-semibold text-gray-900"><?= $car['color'] ?></span></span>
                                 </li>
                                 <li class="flex items-center space-x-3">
-                                    <span class="text-gray-500">Transmission: <span class="font-semibold text-gray-900"><?= $car['trans_type'] ?></span></span>
+                                    <span class="text-gray-500 whitespace-nowrap">Transmission: <span class="font-semibold text-gray-900"><?= $car['trans_type'] ?></span></span>
                                 </li>
                                 <li class="flex items-center space-x-3">
                                     <span class="text-gray-500">Created: <span class="font-semibold text-gray-900"><?= date('Y/m/d', strtotime($car['created_at'])) ?></span></span>
@@ -86,13 +86,13 @@
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                     <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
                     <div>
-                        <label for="plateNumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Plate Number</label>
+                        <label for="plateNumber" class="block mb-2 text-sm font-medium text-gray-900">Plate Number</label>
                         <input type="text" name="plateNumber" maxlength="8" placeholder="Plate Number" required class="plateNumber bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"> 
                         <span id="plate-no-alert" class="text-red-500 text-xs"></span>
                     </div>
 
                     <div>
-                        <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Brand</label>
+                        <label for="brand" class="block mb-2 text-sm font-medium text-gray-900">Brand</label>
                         <input type="text" name="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Enter Car Brand" required>
                     </div>
 
@@ -158,24 +158,24 @@
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                     <input type="hidden" name="car_id" id="car_id">
                     <input type="hidden" name="user_id" id="user-id" value="<?= $_SESSION['user_id'] ?>">
-                    <div class="mb-1">
-                        <label for="plateNumber"><span class="text-danger"></span></label>
-                        <input type="text" name="plateNumber" disabled id="plateNumber" maxlength="8" placeholder="Plate Number" class="hover:cursor-not-allowed plateNumber bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                        <span class="msgPlateNumber" style="color: red;"></span>
+                    <div class="">
+                        <label for="plateNumber" class="block mb-2 text-sm font-medium text-gray-900">Plate Number</label>
+                        <input type="text" name="plateNumber" id="plateNumber" maxlength="8" placeholder="Plate Number" class="hover:cursor-not-allowed plateNumber bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <span class="msgPlateNumber text-red-500 text-xs -mt-2">You can not change this field.</span>
                     </div>
 
                     <div class="mb-1">
-                        <label for="brand"><span class="text-danger"></span></label>
+                        <label for="brand" class="block mb-2 text-sm font-medium text-gray-900">Brand</label>
                         <input type="text" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter Car Brand" required>
                     </div>
 
                     <div class="mb-1">
-                        <label for="carmodel"><span class="text-danger"></span></label>
+                        <label for="Model" class="block mb-2 text-sm font-medium text-gray-900">Model</label>
                         <input type="text" name="carModel" id="carmodel" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter Car Model" required>
                     </div>
 
                     <div class="mb-1">
-                        <label for="cartype"><span class="text-danger"></span></label>
+                        <label for="Fuel Type" class="block mb-2 text-sm font-medium text-gray-900">Car Type</label>
                         <select type="text" name="carType" id="cartype" class="select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type of car" required>
                             <option value="" selected hidden>-- Select car type --</option>
                             <option value="Automatic">Automatic</option>
@@ -184,7 +184,7 @@
                     </div>
 
                     <div class="mb-1">
-                        <label for="fueltype"><span class="text-danger"></span></label>
+                        <label for="Fuel Type" class="block mb-2 text-sm font-medium text-gray-900">Fuel Type</label>
                         <select type="text" name="fuelType" id="fueltype" class="select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Fuel type" required>
                             <option value="" selected hidden>-- Select fuel type --</option>
                             <option value="Gas">Gas</option>
@@ -193,12 +193,12 @@
                     </div>
 
                     <div class="mb-1">
-                        <label for="carcolor"><span class="text-danger"></span></label>
+                        <label for="Color" class="block mb-2 text-sm font-medium text-gray-900">Color</label>
                         <input type="text" name="carColor" id="carcolor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Color of vehicle" required>
                     </div>
 
                     <div class="mb-4">
-                        <label for="transtype"><span class="text-danger"></span></label>
+                        <label for="Transmission" class="block mb-2 text-sm font-medium text-gray-900">Transmission Type</label>
                         <input type="text" name="transType" id="transtype" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Transmission Type" required>
                     </div>
                 </div>
@@ -255,16 +255,14 @@
     });
 
     $('#edit-car-form').submit(function(e) {
-        e.preventDefault();
-
+        e.preventDefault(); 
         $.ajax({
             url: '?user_rq=update_mycar',
             type: 'POST',
             data: $(this).serialize(),
             dataType: 'json',
-            success: function(resp) {
+            success: function(resp) { 
                 if (resp.status == 200) {
-                    alert(resp.msg);
                     window.location.reload(true);
                 } else {
                     alert(resp.msg);

@@ -4,6 +4,7 @@ $user_info = DBConn::select('users', '*', [
     'id' => $_SESSION['user_id']
 ], null, 1);
 ?>
+<?php include view('accts/user/unlock/components', 'chat-support') ?>
 
 <div id="div-alert" hidden class="fixed animate__animated z-40 top-3 right-4 bg-white border rounded py-2 px-5 shadow text-[14.5px]">
     <p id="alert-msg"></p>
@@ -23,11 +24,14 @@ $user_info = DBConn::select('users', '*', [
                 </button>
                 <a href="./" class="flex ml-2 md:mr-24">
                     <img src="assets/Storage/system/home.png" class="h-8 mr-3" alt="FlowBite Logo" />
-                    <span class="self-center text-xl font-bold sm:text-2xl whitespace-nowrap dark:text-white">CJCE</span>
-                </a> 
+                    <span class="self-center text-xl font-bold font-mono sm:text-2xl whitespace-nowrap dark:text-white">CJCE</span>
+                </a>
             </div>
             <div class="flex items-center">
-                <button data-modal-target="create-appointment" data-modal-toggle="create-appointment" class="btn inline-flex items-center mr-2 px-4 py-1 shadow-md bg-blue-600 border border-transparent rounded font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                <button data-modal-target="create-appointment" data-modal-toggle="create-appointment" class="btn inline-flex items-center px-3 py-[3px] mr-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                    </svg> 
                     Book
                 </button>
                 <!-- Search mobile -->
@@ -120,7 +124,7 @@ $user_info = DBConn::select('users', '*', [
                 </button>
             </div>
             <!-- Modal body -->
-            <div> 
+            <div>
                 <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
                 <div class="px-6 py-4">
                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
@@ -159,7 +163,7 @@ $user_info = DBConn::select('users', '*', [
                                 }
                                 ?>
                             </select>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -172,16 +176,16 @@ $user_info = DBConn::select('users', '*', [
     </div>
 </div>
 
-<script type="text/javascript"> 
+<script type="text/javascript">
     $('#appointment-form').submit(function(e) {
-        e.preventDefault(); 
+        e.preventDefault();
         $.ajax({
             url: '?user_rq=book_appointment',
             type: "POST",
             data: $(this).serialize(),
             dataType: 'json',
-            success: function(resp) {  
-                window.location.replace('?vs=appointments'); 
+            success: function(resp) {
+                window.location.replace('?vs=appointments');
             }
         });
     });
@@ -206,6 +210,6 @@ $user_info = DBConn::select('users', '*', [
         $('#appointment-modal').hide();
     });
 
-    var currentDate = new Date().toISOString().split('T')[0]; 
+    var currentDate = new Date().toISOString().split('T')[0];
     $('#date').attr('min', currentDate);
 </script>

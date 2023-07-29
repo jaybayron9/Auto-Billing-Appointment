@@ -42,13 +42,13 @@
                     </thead>
                     <tbody id="tbody">
                         <?php 
-                        $query = "SELECT wk.*, sv.*, bh.*
-                                FROM walkin wk 
-                                JOIN services sv ON sv.id = wk.service_id
-                                JOIN bussiness_hours bh ON bh.id = wk.service_time_id";
+                        $query = "SELECT wk.id as app_id, wk.*, sv.*, bh.*
+                                    FROM walkin wk 
+                                    JOIN services sv ON sv.id = wk.service_id
+                                    JOIN bussiness_hours bh ON bh.id = wk.service_time_id";
                         foreach ($conn::DBQuery($query) as $walkin) { 
                         ?>
-                            <tr>
+                            <tr data-row-id="<?= $walkin['app_id'] ?>">
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['name'] ?></td>
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['email'] ?></td>
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['phone'] ?></td>
@@ -56,10 +56,10 @@
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['category'] ?></td>
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['brand'] ?></td>
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['model'] ?></td>
-                                <td class="text-sm whitespace-nowrap"><?= date('M d, Y', strtotime($walkin['schedule'])) ?></td>
-                                <td class="text-sm whitespace-nowrap"><?= date('h:i a', strtotime($walkin['schedule'])) ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= date('M d, Y', strtotime($walkin['schedule_date'])) ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= $walkin['available_time'] ?></td>
                                 <td class="flex text-sm">
-                                    <button data-row-data="<?= $walkin['id'] ?>" class="cancel-btn bg-red-500 hover:bg-red-700 text-white px-2 rounded shadow-md">
+                                    <button data-row-data="<?= $walkin['app_id'] ?>" class="cancel-btn bg-red-500 hover:bg-red-700 text-white px-2 rounded shadow-md">
                                         CANCEL
                                     </button>
                                 </td>
@@ -91,51 +91,64 @@
             </div>
             <!-- Modal body -->
             <div class="p-6 space-y-6">
-                <div class="grid grid-cols-2 gap-x-5">
-                    <div class="flex flex-col">
-                        <div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-5">
+                    <div class="sm:cols-span-1 flex flex-col">
+                        <div class="mb-3">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
                             <input type="text" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                         </div>
-                        <div>
+                        <div class="mb-3">
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                             <input type="text" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                         </div>
-                        <div>
+                        <div class="mb-3">
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
                             <input type="text" name="phone" maxlength="11" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                         </div>
-                        <div>
+                        <div class="mb-2">
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
                             <input type="text" name="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
                         </div>
+                        <div class="mb-2">
+                            <label for="plate_no" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Plate Number</label>
+                            <input type="text" name="plate_no" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                        </div>
                     </div>
-                    <div class="flex flex-col">
-                        <div>
-                            <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Service</label>
-                            <select name="services" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
-                                <option value="" selected hidden>-- Select --</option>
+                    <div class="sm:cols-span-1 flex flex-col">
+                        <div class="mb-3">
+                            <label for="service" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Service</label>
+                            <select name="service" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                <option value="" hidden></option>
+                                <option value="" disabled>-- Select a service --</option>
                                 <?php foreach ($conn::select('services') as $item) { ?>
                                     <option value="<?= $item['id'] ?>"><?= $item['category'] ?></option>
                                 <?php } ?>
                             </select>
                         </div>
-                        <div>
+                        <div class="mb-3">
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Brand</label>
                             <input type="text" name="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
                         </div>
-                        <div>
+                        <div class="mb-3">
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Model</label>
                             <input type="text" name="model" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
                         </div>
-                        <div>
+                        <div class="mb-3">
                             <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Schedule</label>
                             <input type="date" name="schedule" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
                         </div>
-                        <div>
-                            <label for="time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Time</label>
-                            <input type="time" name="schedule" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
-                        </div>
+                        <div class="mb-3">
+                            <label for="service_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Service Time</label>
+                            <select name="time" id="time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                <option value="" hidden></option>
+                                <option value="" disabled>-- Select a time --</option>
+                                <?php
+                                foreach ($conn::select('bussiness_hours') as $buss) {
+                                    echo "<option value='{$buss['id']}'>{$buss['available_time']}</option>";
+                                }
+                                ?>
+                            </select>
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -157,15 +170,18 @@
         "drawCallback": () => {
             $('.cancel-btn').click(function() {
                 if (confirm("Are you sure you want to cancel this appointment?")) {
+                    var id = $(this).data('row-data');
                     $.ajax({
                         url: "?admin_rq=cancel_walkin",
                         type: "POST",
                         data: {
-                            id: $(this).data('row-data'),
+                            id: id,
                             status: "Cancelled"
                         },
                         success: function(resp) { 
-                            window.location.reload(true);
+                            var tableRow = $('tr[data-row-id="'+ id +'"]'); 
+                            table.row(tableRow).remove().draw();
+                            dialog('border-green-600 text-green-700', 'Appointment status successfully updated.');
                         }
                     });
                 }
@@ -174,14 +190,12 @@
     }).columns.adjust().responsive.recalc();
 
     $('#create-form').submit(function(e) {
-        e.preventDefault();
-
+        e.preventDefault(); 
         $.ajax({
             url: "?admin_rq=create_walkin",
             type: "POST",
             data: $(this).serialize(),
-            success: function(resp) {
-                alert(resp)
+            success: function(resp) { 
                 window.location.reload(true);
             }
         });

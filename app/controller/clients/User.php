@@ -39,6 +39,18 @@ class User extends DBConn {
         return parent::resp();
     }
 
+    public function my_appointments() {
+        $result = parent::DBQuery("SELECT ap.id as app_id, ap.*, cs.*, sv.*, bh.*
+                FROM appointments ap 
+                    JOIN cars cs ON ap.car_id = cs.id
+                    JOIN services sv ON sv.id = ap.service_type_id
+                    JOIN bussiness_hours bh ON bh.id = ap.service_time_id
+                WHERE 
+                    ap.user_id = '{$_SESSION['user_id']}'
+                ORDER BY ap.created_at DESC");
+        return json_encode($result);
+    }
+
     public function user_cancel_appointment() { 
         parent::update('appointments', [
             'appointment_status' => 'Cancelled',
@@ -84,7 +96,8 @@ class User extends DBConn {
                 'color' => $carColor,
                 'trans_type' => $transType,
             ], "id = $car_id");
-            return parent::resp(200, 'Car successfully update.');  
+            $_SESSION['alert'] = 'Car successfully updated.';
+            return parent::resp(200);  
         }
         return parent::resp(400, 'Please fill out all the field with correct format.');
     }

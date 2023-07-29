@@ -83,15 +83,16 @@ create table services (
 
 CREATE TABLE `walkin` (
     id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name varchar(250) DEFAULT NULL,
-    email varchar(250) DEFAULT NULL,
-    phone varchar(250) DEFAULT NULL,
-    address varchar(250) DEFAULT NULL,
-    service_id varchar(250) DEFAULT NULL,
-    brand varchar(250) DEFAULT NULL,
-    model varchar(250) DEFAULT NULL,
+    name varchar(50) DEFAULT NULL,
+    email varchar(50) DEFAULT NULL,
+    phone varchar(20) DEFAULT NULL,
+    address varchar(100) DEFAULT NULL,
+    plate_no VARCHAR(10)  DEFAULT NULL,
+    service_id varchar(11) DEFAULT NULL,
+    brand varchar(50) DEFAULT NULL,
+    model varchar(50) DEFAULT NULL,
     schedule_date varchar(250) DEFAULT NULL,
-    service_time_id varchar(250) DEFAULT NULL,
+    service_time_id varchar(11) DEFAULT NULL,
     created_at timestamp NOT NULL DEFAULT current_timestamp(),
     updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-); 
+);  

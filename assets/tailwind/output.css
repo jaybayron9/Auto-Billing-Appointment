@@ -1122,6 +1122,18 @@ input:checked + .toggle-bg {
   top: 0.75rem;
 }
 
+.-top-5 {
+  top: -1.25rem;
+}
+
+.-top-2 {
+  top: -0.5rem;
+}
+
+.-top-6 {
+  top: -1.5rem;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -1160,6 +1172,10 @@ input:checked + .toggle-bg {
 
 .col-span-6 {
   grid-column: span 6 / span 6;
+}
+
+.m-4 {
+  margin: 1rem;
 }
 
 .mx-0 {
@@ -1384,6 +1400,22 @@ input:checked + .toggle-bg {
   margin-top: 7px;
 }
 
+.mr-5 {
+  margin-right: 1.25rem;
+}
+
+.ml-5 {
+  margin-left: 1.25rem;
+}
+
+.-mt-2 {
+  margin-top: -0.5rem;
+}
+
+.ml-40 {
+  margin-left: 10rem;
+}
+
 .block {
   display: block;
 }
@@ -1488,6 +1520,14 @@ input:checked + .toggle-bg {
   height: 100vh;
 }
 
+.h-20 {
+  height: 5rem;
+}
+
+.h-10 {
+  height: 2.5rem;
+}
+
 .max-h-\[445px\] {
   max-height: 445px;
 }
@@ -1496,12 +1536,40 @@ input:checked + .toggle-bg {
   max-height: 100%;
 }
 
+.max-h-\[350px\] {
+  max-height: 350px;
+}
+
+.max-h-\[450px\] {
+  max-height: 450px;
+}
+
+.max-h-\[400px\] {
+  max-height: 400px;
+}
+
+.max-h-\[300px\] {
+  max-height: 300px;
+}
+
 .min-h-0 {
   min-height: 0px;
 }
 
 .min-h-\[450px\] {
   min-height: 450px;
+}
+
+.min-h-\[350px\] {
+  min-height: 350px;
+}
+
+.min-h-\[400px\] {
+  min-height: 400px;
+}
+
+.min-h-\[500px\] {
+  min-height: 500px;
 }
 
 .w-1\/2 {
@@ -1590,6 +1658,11 @@ input:checked + .toggle-bg {
 
 .min-w-\[49px\] {
   min-width: 49px;
+}
+
+.min-w-min {
+  min-width: -moz-min-content;
+  min-width: min-content;
 }
 
 .max-w-2xl {
@@ -1704,6 +1777,10 @@ input:checked + .toggle-bg {
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+}
+
+.resize-none {
+  resize: none;
 }
 
 .resize {
@@ -1844,6 +1921,15 @@ input:checked + .toggle-bg {
   row-gap: 0.5rem;
 }
 
+.gap-y-5 {
+  row-gap: 1.25rem;
+}
+
+.gap-x-6 {
+  -moz-column-gap: 1.5rem;
+       column-gap: 1.5rem;
+}
+
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
@@ -1914,6 +2000,10 @@ input:checked + .toggle-bg {
 
 .self-center {
   align-self: center;
+}
+
+.overflow-auto {
+  overflow: auto;
 }
 
 .overflow-hidden {
@@ -2446,6 +2536,22 @@ input:checked + .toggle-bg {
   padding-top: 1.25rem;
 }
 
+.pl-10 {
+  padding-left: 2.5rem;
+}
+
+.pr-4 {
+  padding-right: 1rem;
+}
+
+.pl-2 {
+  padding-left: 0.5rem;
+}
+
+.pr-2 {
+  padding-right: 0.5rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -2462,9 +2568,22 @@ input:checked + .toggle-bg {
   vertical-align: text-bottom;
 }
 
+.font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.font-sans {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 
 .text-4xl {
@@ -3488,6 +3607,10 @@ input:checked + .toggle-bg {
 
   .md\:grid-cols-5 {
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
   .md\:gap-5 {

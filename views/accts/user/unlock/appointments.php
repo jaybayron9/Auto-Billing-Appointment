@@ -45,7 +45,7 @@
                                 <td class="text-sm"><?= date('F d, Y', strtotime($appointment['schedule_date'])) ?></td>
                                 <td class="text-sm"><?= $appointment['available_time'] ?></td>
                                 <td class="text-sm status flex justify-center">
-                                    <span class="text-white rounded-md px-2 font-semibold <?= $appointment['appointment_status'] == 'Pending' || 'Confirmed' ? 'bg-green-500' : 'bg-red-500';  ?>">
+                                    <span class="text-white rounded-md px-2 font-semibold <?= $appointment['appointment_status'] == 'Pending' || $appointment['appointment_status'] == 'Confirmed' ? 'bg-green-500' : 'bg-red-500';  ?>">
                                         <?= $appointment['appointment_status'] ?>
                                     </span>
                                 </td>

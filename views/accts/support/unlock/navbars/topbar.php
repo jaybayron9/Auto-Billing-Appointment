@@ -16,7 +16,7 @@
                 </button>
                 <a href="?vs=_sup/" class="flex ml-2 md:mr-24">
                     <img src="assets/Storage/system/home.png" class="h-8 mr-3" alt="cjce logo" />
-                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">CJCE</span>
+                    <span class="self-center text-xl font-bold font-mono sm:text-2xl whitespace-nowrap dark:text-white">CJCE</span>
                 </a>
             </div>
             <div class="flex items-center"> 

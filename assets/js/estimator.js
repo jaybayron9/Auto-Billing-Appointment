@@ -53,7 +53,7 @@ $(document).on('click', '.remove-added', function() {
 });
 
 function total_items() {
-    $('#total-items').text(totalItems + ' Items');
+    $('#total-items').text(totalItems + ' Item(s)');
 }
 
 function total_price() {

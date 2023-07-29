@@ -1,3 +1,7 @@
+<div id="div-alert" hidden class="fixed animate__animated z-40 top-3 right-4 bg-white border rounded py-2 px-5 shadow text-[14.5px]">
+    <p id="alert-msg"></p>
+</div>
+
 <nav class="fixed z-30 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
@@ -35,7 +39,7 @@
                     <div> 
                         <a href="#" class="flex px-4 py-3 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
                             <div class="flex-shrink-0">
-                                <img class="rounded-full w-11 h-11" src="assets/storage/defaults/logo.ico" alt="example image">
+                                <img class="rounded-full w-11 h-11" src="assets/storage/system/home.png" alt="example image">
                                 <div class="absolute flex items-center justify-center w-5 h-5 ml-6 -mt-5 bg-gray-900 border border-white rounded-full dark:border-gray-700">
                                     <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path>
@@ -96,4 +100,8 @@
 
 <script type="text/javascript">
     $('title').text('CJCE | <?= $admin_info[0]['name'] ?>');
+
+    <?php if (isset($_SESSION['alert'])) {
+        echo "dialog('border-green-600 text-green-700', '" . $_SESSION['alert'] . "')";
+    } ?>
 </script>

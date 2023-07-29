@@ -3,6 +3,7 @@
 use Data\Admin\Admin;
 
 $admin_response = [
+    'todays_appointments' => ['obj'=> new Admin(), 'method' => 'todays_appointments'],
     'appointment_status' => ['obj'=> new Admin(), 'method' => 'appointment_status'],
     'send_msg' => ['obj'=> new Admin(), 'method' => 'send_msg'],
     'assign_employee' => ['obj'=> new Admin(), 'method' => 'assign_employee'], 

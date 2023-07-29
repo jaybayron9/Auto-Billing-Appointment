@@ -5,17 +5,16 @@ namespace supportData;
 use DBConn\DBConn; 
 
 class Support {
-    public static string $products;
+    public static string $products; 
     public static string $price;
     public function save_booking_summary() {  
         self::book_filter($_POST['data']); 
         DBConn::update('booking_summary', [  
             'products' => self::$products,
-            'quantity' => '1',
+            'quantity' => $_POST['total_items'],
             'price' => self::$price,
             'total' => str_replace([',', '₱'], '', $_POST['total'])
         ], "appointment_id = '{$_POST['app_id']}'");
-
         self::book_session($_POST['data'], $_POST['total_items'], $_POST['total']); 
         return DBConn::resp();
     }
@@ -30,9 +29,7 @@ class Support {
                 JOIN booking_summary bs ON bs.id = ap.book_summary_id
             WHERE 
                 ap.id = '{$_POST['appointment_id']}'
-        ");
-
-        // array_push();
+        "); 
         return json_encode($qry);
     }
 
@@ -48,14 +45,17 @@ class Support {
     }
 
     public static function book_session($data, $items, $total):void {
-        $book = DBConn::DBQuery("SELECT ap.id AS app_id, ap.*, us.id AS user_id, us.*, cs.id AS car_id, cs.*, bh.*, sv.*
-        FROM appointments ap
-        JOIN users us ON us.id = ap.user_id
-        JOIN cars cs ON cs.id = ap.car_id
-        JOIN services sv ON sv.id = ap.service_type_id
-        JOIN bussiness_hours bh ON bh.id = ap.service_time_id
-        WHERE ap.id = '{$_POST['app_id']}' AND us.id = '{$_POST['user_id']}' AND cs.id = '{$_POST['car_id']}'");
-
+        $book = DBConn::DBQuery("SELECT 
+                ap.id AS app_id, ap.*, us.id AS user_id, us.*, cs.id AS car_id, cs.*, bh.*, sv.*
+            FROM appointments ap
+                JOIN users us ON us.id = ap.user_id
+                JOIN cars cs ON cs.id = ap.car_id
+                JOIN services sv ON sv.id = ap.service_type_id
+                JOIN bussiness_hours bh ON bh.id = ap.service_time_id
+            WHERE 
+                ap.id = '{$_POST['app_id']}' AND 
+                us.id = '{$_POST['user_id']}' AND 
+                cs.id = '{$_POST['car_id']}'");
         $_SESSION['book_name'] = isset($book[0]['name']) != '' ? $book[0]['name'] : '-';
         $_SESSION['book_email'] = isset($book[0]['email']) != '' ? $book[0]['email'] : '-';
         $_SESSION['book_phone'] = isset($book[0]['phone']) != '' ? $book[0]['phone'] : '-';
@@ -68,4 +68,8 @@ class Support {
         $_SESSION['book_total_items'] = $items;
         $_SESSION['book_total'] = $total;
     } 
+
+    public function set_session_print() {
+        self::book_session($_POST['data'], $_POST['total_items'], $_POST['total']); 
+    }
 }

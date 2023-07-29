@@ -37,7 +37,7 @@
 
                         foreach ($conn::DBQuery($query) as $appointment) {
                         ?>
-                            <tr data-row-id="<?= $support['id'] ?>">
+                            <tr data-row-id="<?= $appointment['app_id'] ?>">
                                 <td class="text-sm"><?= $appointment['plate_no'] ?></td>
                                 <td class="text-sm"><?= $appointment['category'] ?></td> 
                                 <td class="text-sm"><?= date('F d, Y', strtotime($appointment['schedule_date'])) ?></td>
@@ -48,8 +48,8 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                                         </svg>
-                                    </button>
-                                    <select data-row-data="<?= $appointment['app_id'] ?>" class="status-col px-2">
+                                    </button> 
+                                    <select data-row-data="<?= $appointment['app_id'] ?>" class="status-col px-2" style="height: 33px; padding-top: 3px; padding-right: 35px;">
                                         <option value="Pending"><?= $appointment['appointment_status'] ?></option>
                                         <option value="Confirmed">Confirmed</option>
                                         <option value="Decline">Decline</option>
@@ -64,7 +64,6 @@
     </div>
 </main>
 
-<!-- Main modal -->
 <div id="msg-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-2xl max-h-full">
         <!-- Modal content -->
@@ -112,7 +111,11 @@
                         id: id,
                         status: status
                     },
-                    dataType: 'json'
+                    success: function(resp) {
+                        var tableRow = $('tr[data-row-id="'+ id +'"]'); 
+                        table.row(tableRow).remove().draw();
+                        dialog('border-green-600 text-green-700', 'Appointment status successfully updated.');
+                    }
                 });
             });
 
