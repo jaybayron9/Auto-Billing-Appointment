@@ -20,7 +20,7 @@
     <!-- Alert -->
     <script src="assets/js/alert.js"></script>
     <!-- Pace.js | Page Pre-loader -->
-    <link rel="stylesheet" href="assets/css/preloader.css"> 
+    <link rel="stylesheet" id="preloader" href="assets/css/preloader.css"> 
     <script src="assets/js/preloader.js"></script>
     <script type="text/javascript"> 
         $(document).ajaxStart(function() { 

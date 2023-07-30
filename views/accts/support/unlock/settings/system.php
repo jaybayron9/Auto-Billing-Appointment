@@ -1,10 +1,9 @@
-<?php include view('accts/admin/unlock', 'head.auth') ?>
-<?php include view('accts/admin/unlock/navbars', 'topbar') ?>
-<?php include view('accts/admin/unlock/navbars', 'sidebar') ?>
+<?php include view('accts/support/unlock', 'head.auth') ?>
+<?php include view('accts/support/unlock/navbars', 'topbar') ?>
+<?php include view('accts/support/unlock/navbars', 'sidebar') ?>
 
-<main id="main-content" class="relative h-full overflow-y-auto lg:ml-64">
-    <div class="px-4 my-[80px]">
-        <!-- Backup Database -->
+<main class="relative h-full overflow-y-auto lg:ml-64">
+    <div class="px-4 my-[80px]"> 
         <div class="mt-10 sm:mt-0">
             <div class="md:grid md:grid-cols-3 md:gap-6">
                 <div class="md:col-span-1 flex justify-between">

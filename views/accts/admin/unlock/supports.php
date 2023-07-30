@@ -1,15 +1,10 @@
-<?php include view('accts/admin/unlock', 'head.auth'); ?>
-
+<?php include view('accts/admin/unlock', 'head.auth'); ?> 
 <?php include view('accts/admin/unlock/navbars', 'topbar') ?>
 <?php include view('accts/admin/unlock/navbars', 'sidebar') ?>
 
 <link href="assets/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="assets/css/responsive.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/table.css">
-
-<div id="div-alert" hidden class="fixed z-30 top-3 right-4 bg-white border rounded py-2 px-5 shadow text-[14.5px] animate__animated">
-    <p id="alert-msg"></p>
-</div>
 
 <main id="main-content" class="relative h-full overflow-y-auto lg:ml-64 dark:bg-gray-900">
     <div class="px-4 h-full my-[80px]">
@@ -50,9 +45,9 @@
                                     <input type="checkbox" data-row-data="<?= $support['id'] ?>" id="" class="select rounded-md" value="<?= $support['id'] ?>">
                                 </td>
                                 <td class="text-sm text-center">
-                                    <button type="button" data-row-data="<?= $support['id'] ?>" title="Delete account" class="delete-btn text-red-500">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                                            <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z" clip-rule="evenodd" />
+                                    <button type="button" data-row-data="<?= $support['id'] ?>" title="Delete account" class="resign-btn btn text-red-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
                                         </svg>
                                     </button>
                                     <button type="button" data-row-data="<?= $support['id'] ?>" title="Edit account" class="edit-btn text-green-500">
@@ -236,19 +231,19 @@
     </div>
 </div>
 
-<div id="del-acct-modal" hidden class="mt-10 md:mt-0">
+<div id="resign-acct-modal" hidden class="mt-10 md:mt-0">
     <div class="fixed inset-0 overflow-y-hidden px-4 py-6 sm:px-0 z-50 sm:max-w-2xl mx-auto">
         <div class="background fixed inset-0 transform transition-all">
             <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
-        <form id="delete-form" class="mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto">
+        <form id="resign-form" class="mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto">
             <input type="hidden" name="id" id="acct-id">
             <div class="px-6 py-4">
                 <div class="text-lg font-medium text-gray-900">
                     Delete Account
                 </div>
                 <div class="mt-4 text-sm text-gray-600">
-                    Are you sure you want to delete this account? Once this account is deleted, all of its resources and data will be permanently deleted. Please confirm you would like to permanently delete your account.
+                    Are you sure you want to resign this employee?
                 </div>
             </div>
             <div class="md:mt-0 md:col-span-2">
@@ -257,7 +252,7 @@
                         Cancel
                     </button>
                     <button type="submit" class="btn ml-3 rounded-md border border-transparent bg-red-600 px-4 py-2 text-xs font-semibold uppercase text-white transition duration-150 ease-in-out hover:bg-red-500 focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
-                        Delete Account
+                        Resign Employee
                     </button>
                 </div>
             </div>
@@ -351,17 +346,17 @@
                 });
             });
 
-            $('.delete-btn').click(function() {
+            $('.resign-btn').click(function() {
                 var id = $(this).data('row-data');
-                $('#del-acct-modal').show();
+                $('#resign-acct-modal').show();
                 $('#acct-id').val(id);
             });
 
-            $('#delete-form').submit(function(e) {
+            $('#resign-form').submit(function(e) {
                 e.preventDefault();
 
                 $.ajax({
-                    url: '?rq=delete_support_acct',
+                    url: '?rq=resign_support_acct',
                     type: 'POST',
                     data: $(this).serialize(),
                     dataType: 'json',
@@ -372,7 +367,7 @@
                         }
 
                         setTimeout(() => {
-                            $('#del-acct-modal').hide();
+                            $('#resign-acct-modal').hide();
                             dialog('border-green-600 text-green-700', 'Employee Resigned');
                         }, 200);
                     }
@@ -403,7 +398,7 @@
 
     $('.del-hide-modal').click(() => {
         setTimeout(() => {
-            $('#del-acct-modal').hide();
+            $('#resign-acct-modal').hide();
             $('#edit-acct-modal').hide();
             $('#add-acct-modal').hide();
             $('#del-accts-modal').hide();
@@ -411,7 +406,7 @@
     });
 
     $('.background').on('keydown click', (e) => {
-        $('#del-acct-modal').hide();
+        $('#resign-acct-modal').hide();
         $('#edit-acct-modal').hide();
         $('#add-acct-modal').hide();
         $('#del-accts-modal').hide();

@@ -1,6 +1,7 @@
 <?php 
 
 namespace Data\Admin; 
+use Convo\Convo;
 use DBConn\DBConn;
 
 class Admin extends DBConn {
@@ -19,11 +20,21 @@ class Admin extends DBConn {
     }
 
     public function appointment_status() { 
-        parent::update('appointments',[
+        DBConn::update('appointments',[
             'appointment_status' => $_POST['status']
-        ], "id = '{$_POST['id']}'");
+        ], "id = '{$_POST['id']}'");  
 
-        return parent::resp(200, ' ');
+        $info = DBConn::select('appointments', '*', ['id' => $_POST['id']]); 
+        $schedule = date('F d, Y', strtotime($info[0]['schedule_date'])); 
+        $time = DBConn::select('bussiness_hours', '*', ['id' => $info[0]['service_time_id']]);
+        $message = "Your appointment for $schedule | {$time[0]['available_time']}  has been {$_POST['status']}.";
+
+        Convo::$from_id = "64";
+        Convo::$to_id = $info[0]['user_id'];
+        Convo::$msg = $message;
+        Convo::send();
+
+        return DBConn::resp();
     } 
 
     public function cancel_walkin() {
@@ -62,5 +73,39 @@ class Admin extends DBConn {
             'service_time_id' =>$_POST['time']
         ]); 
         $_SESSION['alert'] = 'Walk-in successfully added.'; 
+    }
+
+    public function customer_payment() {
+        extract($_POST); 
+        if ($type == 'user') {  
+            $data = explode('  |  ', $name);
+            $user = DBConn::select('users', '*', ['id' => $data[0]]);
+
+            foreach ($user as $users) {
+                DBConn::insert('payments', [
+                    'name' => $data[1],
+                    'email' => $users['email'],
+                    'phone' => $users['phone'],
+                    'description' => "(User) $description",
+                    'total_due' => $amount
+                ]);
+            }
+
+            DBConn::update('appointments', [
+                'payment_status' => 'Paid',
+            ], "id = {$data[0]}");
+
+            return DBConn::resp(); 
+        } else {
+            DBConn::insert('payments', [
+                'name' => $name,
+                'email' => $email,
+                'phone' => $phone,
+                'description' => "(Walkin) $description",
+                'total_due' => $amount
+            ]);
+        }
+
+        $_SESSION['alert'] = 'Payment successfully added.'; 
     }
 }

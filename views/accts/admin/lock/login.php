@@ -29,12 +29,12 @@ Auth::check_login_auth('admin_id', '_admin/');
                     <div class="mb-2">
                         <label for="password" class="text-[14.5px]">Password</label>
                     </div>
-                    <a href="?vs=_admin/forgot_password" class="hover:underline ml-auto text-[14.5px] text-violet-800">I forgot my password</a>
+                    <a href="?vs=_admin/forgot_password" class="hover:underline ml-auto text-[14.5px] text-blue-800">I forgot my password</a>
                 </div>
                 <input type="password" name="password" id="password" required maxlength="50" placeholder="Password" autocomplete="off"  class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
             </div>
             <div class="text-center my-2">
-                <button type="submit" class="flex items-center justify-center w-full bg-violet-700 text-base text-white hover:bg-blue-500 py-1 px-3 rounded transition duration-200">
+                <button type="submit" class="flex items-center justify-center w-full bg-blue-700 text-base text-white hover:bg-blue-500 py-1 px-3 rounded transition duration-200">
                     <span id="submit-txt">Sign in</span>
                     <svg id="spinner" hidden class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

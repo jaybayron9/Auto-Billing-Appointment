@@ -26,7 +26,7 @@ return [
     '_admin/pms'               => view('accts/admin/unlock', 'pms'), 
     '_admin/services'          => view('accts/admin/unlock', 'services'), 
     '_admin/resigned'          => view('accts/admin/unlock', 'resigned'), 
-    '_admin/serv_his'          => view('accts/admin/unlock', 'serv_his'), 
+    '_admin/serv_his'          => view('accts/admin/unlock', 'history'), 
 
     // Support Authorization
     '_sup'                     => view('accts/support/lock', 'login'),
@@ -35,6 +35,7 @@ return [
     //
     '_sup/'                    => view('accts/support/unlock'),
     '_sup/profile'             => view('accts/support/unlock/settings', 'profile'),
+    '_sup/system'            => view('accts/support/unlock/settings', 'system'),
     '_sup/job_order'             => view('accts/support/unlock', 'joborder'),
     '_sup/serv_his'             => view('accts/support/unlock', 'servhis'), 
     '_sup/inbox'               => view('accts/support/unlock', 'inbox'), 

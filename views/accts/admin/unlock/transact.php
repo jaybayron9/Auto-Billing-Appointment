@@ -1,10 +1,10 @@
-<?php include view('accts/admin/unlock', 'head.auth'); ?> 
+<?php include view('accts/admin/unlock', 'head.auth'); ?>
 <?php include view('accts/admin/unlock/navbars', 'topbar') ?>
 <?php include view('accts/admin/unlock/navbars', 'sidebar') ?>
 
 <link href="assets/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="assets/css/responsive.dataTables.min.css" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/table.css"> 
+<link rel="stylesheet" href="assets/css/table.css">
 
 <main id="main-content" class="relative h-full overflow-y-auto lg:ml-64 dark:bg-gray-900">
     <div class="px-4 h-full my-[80px]">
@@ -81,10 +81,8 @@
 
 <!-- Main modal -->
 <div id="payment-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <form id="payment-form" class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
+    <div class="relative w-full max-w-2xl max-h-full"> 
+        <form id="payment-form" class="relative bg-white rounded-lg shadow dark:bg-gray-700"> 
             <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                     Payment Slip
@@ -95,20 +93,36 @@
                     </svg>
                     <span class="sr-only">Close modal</span>
                 </button>
-            </div>
-            <!-- Modal body -->
+            </div> 
             <div class="px-6 pt-4 pb-6 space-y-3">
+                <div class="flex gap-x-5 w-full">
+                    <div class="hover:cursor-pointer w-full flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
+                        <input id="user" type="radio" value="user" name="type" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                        <label for="user" class="w-full py-4 ml-2 text-sm font-medium text-gray-900">User</label>
+                    </div>
+                    <div class="hover:cursor-pointer w-full flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
+                        <input checked id="walkin" type="radio" value="walkin" name="type" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                        <label for="walkin" class="w-full py-4 ml-2 text-sm font-medium text-gray-900">Walkin</label>
+                    </div>
+                </div> 
                 <div>
-                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your car(s)</label>
-                    <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Customer Name</label>
+                    <input type="text" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" list="customerlist">
+                    <datalist id="customerlist">
+                        <?php
+                        $query = "";
+                        foreach ($conn::select('users') as $cust) { ?>
+                            <option value="<?= "{$cust['id']}  |  {$cust['name']}" ?>">
+                            <?php } ?>
+                    </datalist>
                 </div>
                 <div>
-                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your car(s)</label>
-                    <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                    <label for="amount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label>
+                    <input type="text" name="amount" class="number bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                 </div>
                 <div>
-                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your car(s)</label>
-                    <textarea type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"></textarea>
+                    <label for="note" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                    <textarea type="text" name="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"></textarea>
                 </div>
             </div>
             <!-- Modal footer -->
@@ -127,49 +141,8 @@
     var table = $('#table').DataTable({
         responsive: true,
         "lengthMenu": [10, 25, 50, 100, 1000],
-        columns: [{
-                title: 'transact id'
-            },
-            {
-                title: 'NAME'
-            },
-            {
-                title: 'EMAIL'
-            },
-            {
-                title: 'PHONE'
-            },
-            {
-                title: 'Note'
-            },
-            {
-                title: 'TOTAL DUE'
-            },
-            {
-                title: 'DATE CREATED'
-            },
-        ],
         "drawCallback": () => {
-            $('.edit-btn').click(function() {
-                $('#edit-acct-modal').show();
-                var id = $(this).data('row-data')
-                $('#support-id').val(id);
-                $.ajax({
-                    url: '?rq=show_user',
-                    type: 'POST',
-                    data: {
-                        id: id
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-                        $('#name').val(data.name);
-                        $('#phone').val(data.phone);
-                        $('#email').val(data.email);
-                        $('#created').val(data.created);
-                        $('#access').val(data.access);
-                    }
-                })
-            });
+
         }
     }).columns.adjust().responsive.recalc();
 
@@ -205,23 +178,16 @@
         table.draw();
     });
 
-    $('.del-hide-modal').click(() => {
-        setTimeout(() => {
-            $('#del-acct-modal').hide();
-            $('#edit-acct-modal').hide();
-            $('#add-acct-modal').hide();
-            $('#del-accts-modal').hide();
-        }, 200)
-    });
+    $('#payment-form').submit(function(e) {
+        e.preventDefault();
 
-    $('.background').on('keydown click', (e) => {
-        $('#del-acct-modal').hide();
-        $('#edit-acct-modal').hide();
-        $('#add-acct-modal').hide();
-        $('#del-accts-modal').hide();
-    });
-</script>
-
-<script>
-
+        $.ajax({
+            type: "POST",
+            url: "?admin_rq=customer_payment",
+            data: $(this).serialize(), 
+            success: function (resp) {
+                window.location.reload(true);
+            }
+        });
+    })
 </script>

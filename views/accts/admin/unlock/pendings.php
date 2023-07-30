@@ -7,10 +7,6 @@
 <link href="assets/css/responsive.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/table.css">
 
-<div id="div-alert" hidden class="fixed z-30 top-3 right-4 bg-white border rounded py-2 px-5 shadow text-[14.5px] animate animate__animated">
-    <p id="alert-msg"></p>
-</div>
-
 <main id="main-content" class="relative h-full overflow-y-auto lg:ml-64 dark:bg-gray-900">
     <div class="px-4 h-full my-[80px]">
         <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
@@ -49,8 +45,8 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                                         </svg>
                                     </button> 
-                                    <select data-row-data="<?= $appointment['app_id'] ?>" class="status-col px-2" style="height: 33px; padding-top: 3px; padding-right: 35px;">
-                                        <option value="Pending"><?= $appointment['appointment_status'] ?></option>
+                                    <select data-row-data="<?= $appointment['app_id'] ?>" class="status-col px-2 hover:cursor-pointer" style="height: 33px; padding-top: 3px; padding-right: 35px;">
+                                        <option value="Pending" hidden selected><?= $appointment['appointment_status'] ?></option>
                                         <option value="Confirmed">Confirmed</option>
                                         <option value="Decline">Decline</option>
                                     </select>

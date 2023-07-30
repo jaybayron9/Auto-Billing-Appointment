@@ -41,7 +41,7 @@ class Data extends DBConn {
         // return self::show_support();
     }
 
-    public function delete_support() {
+    public function resign_support() {
         parent::update('supports', [
             'status' => 'Resigned'
         ], "id = '{$_POST['id']}'");

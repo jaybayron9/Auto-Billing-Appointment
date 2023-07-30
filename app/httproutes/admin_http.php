@@ -9,6 +9,7 @@ $admin_response = [
     'assign_employee' => ['obj'=> new Admin(), 'method' => 'assign_employee'], 
     'create_walkin' => ['obj'=> new Admin(), 'method' => 'create_walkin'],  
     'cancel_walkin' => ['obj'=> new Admin(), 'method' => 'cancel_walkin'],  
+    'customer_payment' => ['obj'=> new Admin(), 'method' => 'customer_payment'],  
 ]; 
 
 HTTPR(strtolower($_GET['admin_rq'] ?? ''), $admin_response);

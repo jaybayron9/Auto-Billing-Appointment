@@ -29,9 +29,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
-                            foreach (DBConn::select('payments') as $data) {
-                            ?>
+                            <?php foreach (DBConn::select('payments') as $data) { ?>
                             <tr>
                                 <td class="text-sm"><?= $data['name'] ?></td>
                                 <td class="text-sm"><?= $data['email'] ?></td>

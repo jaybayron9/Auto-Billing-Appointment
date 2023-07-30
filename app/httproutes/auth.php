@@ -19,7 +19,7 @@ $auth_response = [
     // Control Supports
     'show_support'             => ['obj' => new Data(), 'method' => 'show_support'],
     'update_support'           => ['obj' => new Data(), 'method' => 'update_support'],
-    'delete_support_acct'      => ['obj' => new Data(), 'method' => 'delete_support'],
+    'resign_support_acct'      => ['obj' => new Data(), 'method' => 'resign_support'],
     'add_support'              => ['obj' => new Data(), 'method' => 'add_support'],
     'delete_supports'          => ['obj' => new Data(), 'method' => 'delete_supports'],
     // Control Users
