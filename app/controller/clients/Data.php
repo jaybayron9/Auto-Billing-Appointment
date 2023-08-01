@@ -43,7 +43,8 @@ class Data extends DBConn {
 
     public function resign_support() {
         parent::update('supports', [
-            'status' => 'Resigned'
+            'status' => 'Resigned',
+            'lastday' => date("F j, Y")
         ], "id = '{$_POST['id']}'");
 
         return json_encode([

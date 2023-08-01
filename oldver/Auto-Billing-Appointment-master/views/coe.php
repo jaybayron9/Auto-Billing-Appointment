@@ -19,7 +19,7 @@
             This is to certify that was an employee of CJCE Auto parts from up to as.
         </center>
     </p>
-    <p>
+    <p> 
         <center>
             This certification is being issued by Mr./Ms. <?= $_GET['emp'] ?> for whatever legal purpose it may serve.
         </center>

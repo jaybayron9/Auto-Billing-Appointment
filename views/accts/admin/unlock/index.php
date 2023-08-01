@@ -23,7 +23,7 @@
                         var events = [];
                         for (var i = 0; i < resp.length; i++) {
                             events.push({
-                                title: resp[i].available_time,
+                                title: `${resp[i].available_time} | ${resp[i].plate_no}`,
                                 start: resp[i].schedule_date, 
                             });
                         } 

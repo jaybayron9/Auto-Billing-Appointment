@@ -1,5 +1,4 @@
-<?php include view('accts/user/unlock', 'head.auth'); ?>
-
+<?php include view('accts/user/unlock', 'head.auth'); ?> 
 <?php include view('accts/user/unlock/navbars', 'topbar') ?>
 <?php include view('accts/user/unlock/navbars', 'sidebar') ?>
 
@@ -102,11 +101,17 @@
         responsive: true,
         "lengthMenu": [10, 25, 50, 100, 1000], 
         "drawCallback": () => {
-            $('.cancel-btn').click(function() {
+            $('.cancel-btn').click(function() { 
                 var id = $(this).data('row-data');
-
-                if (confirm('Are you sure you want to cancel?')) {
-                    $.ajax({
+                swal({
+                    text: "Are you sure you want to cancel this appointment?",
+                    icon: "warning",
+                    buttons: ["No", "Yes"],
+                    dangerMode: true,
+                })
+                .then((cancel) => {
+                    if (cancel) {
+                        $.ajax({
                         url: '?user_rq=user_cancel_appointment',
                         type: 'POST',
                         data: {
@@ -121,8 +126,27 @@
                             dialog('border-green-600 text-green-700', 'Appointment successfully cancelled.');
                         }
                     });
-                }
+                    }
+                }) 
+
+                // if (confirm('Are you sure you want to cancel?')) {
+                //     $.ajax({
+                //         url: '?user_rq=user_cancel_appointment',
+                //         type: 'POST',
+                //         data: {
+                //             id: id
+                //         },
+                //         dataType: 'json',
+                //         success: function(resp) { 
+                //             var tableRow = $('tr[data-row-id="' + id + '"]'); 
+                //             tableRow.find('.status').html('<span class="text-white rounded-md px-2 bg-red-500 bg-red-500">Cancelled</span>');
+                //             tableRow.find('.cancel-btn').hide();
+
+                //             dialog('border-green-600 text-green-700', 'Appointment successfully cancelled.');
+                //         }
+                //     });
+                // }
             }); 
         }
-    }).columns.adjust().responsive.recalc(); 
+    }).columns.adjust().responsive.recalc();  
 </script>

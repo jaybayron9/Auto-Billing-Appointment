@@ -43,9 +43,7 @@
                                     $emp = explode(', ', $appointment['assigned_employee_id']);
                                     foreach ($conn::select('supports', '*', ['position' => 'Mechanic']) as $mechanic) {
                                         for ($i = 0; $i < count($emp); $i++) {
-                                            if ($emp[$i] == $mechanic['id']) {
-                                                echo $mechanic['name'];
-                                            }
+                                            echo $emp[$i] == $mechanic['id'] ? $mechanic['name'] :''; 
                                         }
                                     }
                                     ?>
@@ -54,9 +52,7 @@
                                     <?php
                                     foreach ($conn::select('supports', '*', ['position' => 'Electrician']) as $electrician) {
                                         for ($i = 0; $i < count($emp); $i++) {
-                                            if ($emp[$i] == $electrician['id']) {
-                                                echo $electrician['name'];
-                                            }
+                                            echo $emp[$i] == $electrician['id'] ? $electrician['name'] :''; 
                                         }
                                     }
                                     ?>
@@ -78,8 +74,7 @@
         </div>
     </div>
 </main>
-
-<!-- assign modal -->
+ 
 <div id="assign-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-2xl max-h-full"> 
         <form id="assign-form" class="relative bg-white rounded-lg shadow dark:bg-gray-700"> 
@@ -100,7 +95,7 @@
                     <label for="mechanic" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mechanic</label>
                     <select name="mechanic" id="mechanic" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                         <option value="" selected hidden>-- SELECT --</option>
-                        <?php foreach ($conn::select('supports', '*', ['position' => 'Mechanic']) as $mechanic) { ?>
+                        <?php foreach ($conn::select('supports', '*', ['position' => 'Mechanic', 'status' => 'Employed']) as $mechanic) { ?>
                             <option value="<?= $mechanic['id'] ?>"><?= $mechanic['name'] ?></option>
                         <?php } ?>
                     </select>
@@ -131,23 +126,29 @@
         "lengthMenu": [10, 25, 50, 100, 1000],
         "drawCallback": () => {  
             $('.cancel-btn').click(function() { 
-                if (confirm("Are you sure you want to cancel this appointment?")) {
-                    var id = $(this).data('row-data');
-                    $.ajax({
-                        url: "?admin_rq=appointment_status",
-                        type: "POST",
-                        data: {
-                            id: id,
-                            status: "Cancelled"
-                        }, 
-                        success: function(resp) {
-                            var tableRow = $('tr[data-row-id="'+ id +'"]'); 
-                            table.row(tableRow).remove().draw(); 
-                            dialog('border-green-600 text-green-700', 'Appointment successfully cancelled.');
-
-                        }
-                    }); 
-                }
+                var id = $(this).data('row-data');
+                swal({
+                    text: "Are you sure you want to cancel this appointment?",
+                    icon: "warning",
+                    buttons: ["No", "Yes"],
+                    dangerMode: true,
+                }).then((cancel) => {
+                    if (cancel) {
+                        $.ajax({
+                            url: "?admin_rq=appointment_status",
+                            type: "POST",
+                            data: {
+                                id: id,
+                                status: "Cancelled"
+                            }, 
+                            success: function(resp) {
+                                var tableRow = $('tr[data-row-id="'+ id +'"]'); 
+                                table.row(tableRow).remove().draw(); 
+                                dialog('border-green-600 text-green-700', 'Appointment successfully cancelled.');
+                            }
+                        }); 
+                    }
+                });
             });
 
             $('.assign-btn').click(function() {

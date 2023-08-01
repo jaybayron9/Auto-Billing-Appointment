@@ -1,15 +1,10 @@
 <?php include view('accts/admin/unlock', 'head.auth'); ?>
-
 <?php include view('accts/admin/unlock/navbars', 'topbar') ?>
 <?php include view('accts/admin/unlock/navbars', 'sidebar') ?>
 
 <link href="assets/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="assets/css/responsive.dataTables.min.css" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/table.css">
-
-<div id="div-alert" hidden class="fixed z-30 top-3 right-4 bg-white border rounded py-2 px-5 shadow text-[14.5px] animate animate__animated">
-    <p id="alert-msg"></p>
-</div>
+<link rel="stylesheet" href="assets/css/table.css"> 
 
 <main id="main-content" class="relative h-full overflow-y-auto lg:ml-64 dark:bg-gray-900">
     <div class="px-4 h-full my-[80px]">
@@ -71,13 +66,10 @@
         </div>
     </div>
 </main>
-
-<!-- Main modal -->
+ 
 <div id="create-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <form id="create-form" class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
+    <div class="relative w-full max-w-2xl max-h-full"> 
+        <form id="create-form" class="relative bg-white rounded-lg shadow dark:bg-gray-700"> 
             <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                     Add Walk-in
@@ -88,8 +80,7 @@
                     </svg>
                     <span class="sr-only">Close modal</span>
                 </button>
-            </div>
-            <!-- Modal body -->
+            </div> 
             <div class="p-6 space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-5">
                     <div class="sm:cols-span-1 flex flex-col">
@@ -151,8 +142,7 @@
                         </div> 
                     </div>
                 </div>
-            </div>
-            <!-- Modal footer -->
+            </div> 
             <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                 <button data-modal-hide="create-modal" type="button" class="ml-auto text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                 <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create</button>
@@ -169,22 +159,29 @@
         "lengthMenu": [10, 25, 50, 100, 1000],
         "drawCallback": () => {
             $('.cancel-btn').click(function() {
-                if (confirm("Are you sure you want to cancel this appointment?")) {
-                    var id = $(this).data('row-data');
-                    $.ajax({
-                        url: "?admin_rq=cancel_walkin",
-                        type: "POST",
-                        data: {
-                            id: id,
-                            status: "Cancelled"
-                        },
-                        success: function(resp) { 
-                            var tableRow = $('tr[data-row-id="'+ id +'"]'); 
-                            table.row(tableRow).remove().draw();
-                            dialog('border-green-600 text-green-700', 'Appointment status successfully updated.');
-                        }
-                    });
-                }
+                var id = $(this).data('row-data');
+                swal({
+                    text: "Are you sure you want to cancel this appointment?",
+                    icon: "warning",
+                    buttons: ["No", "Yes"],
+                    dangerMode: true,
+                }) .then((cancel) => {
+                    if (cancel) {
+                        $.ajax({
+                            url: "?admin_rq=cancel_walkin",
+                            type: "POST",
+                            data: {
+                                id: id,
+                                status: "Cancelled"
+                            },
+                            success: function(resp) { 
+                                var tableRow = $('tr[data-row-id="'+ id +'"]'); 
+                                table.row(tableRow).remove().draw();
+                                dialog('border-green-600 text-green-700', 'Appointment status successfully updated.');
+                            }
+                        });
+                    }
+                }) 
             });
         }
     }).columns.adjust().responsive.recalc();

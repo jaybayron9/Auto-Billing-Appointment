@@ -26,32 +26,40 @@
                 <table id="table" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                     <thead>
                         <tr>
-                            <th data-priority="1" class="text-xs uppercase whitespace-nowrap text-white">Name</th>
-                            <th data-priority="3" class="text-xs uppercase whitespace-nowrap text-white">Mobile no.</th>
-                            <th data-priority="4" class="text-xs uppercase whitespace-nowrap text-white">Email</th>
-                            <th data-priority="5" class="text-xs uppercase whitespace-nowrap text-white">Created At</th>
-                            <th data-priority="1" data-orderable="false" class="text-xs uppercase whitespace-nowrap text-white"></th>
-                            <th data-priority="2" data-orderable="false" class="text-xs uppercase whitespace-nowrap text-white">Actions</th>
+                            <th data-priority="1" class="whitespace-nowrap uppercase text-xs text-center text-white">EMPLOYEE ID</th>
+                            <th data-priority="3" class="whitespace-nowrap uppercase text-xs text-center text-white">FULLNAME</th>
+                            <th data-priority="4" class="whitespace-nowrap uppercase text-xs text-center text-white">EMAIL</th>
+                            <th data-priority="5" class="whitespace-nowrap uppercase text-xs text-center text-white">MOBILE NO.</th>
+                            <th data-priority="6" class="whitespace-nowrap uppercase text-xs text-center text-white">GENDER</th>
+                            <th data-priority="7" class="whitespace-nowrap uppercase text-xs text-center text-white">DOB</th>
+                            <th data-priority="8" class="whitespace-nowrap uppercase text-xs text-center text-white">AGE</th>
+                            <th data-priority="9" class="whitespace-nowrap uppercase text-xs text-center text-white">POB</th>
+                            <th data-priority="10" class="whitespace-nowrap uppercase text-xs text-center text-white">DATE STARTED</th>
+                            <th data-priority="11" class="whitespace-nowrap uppercase text-xs text-center text-white">POSITION</th>
+                            <th data-priority="2" data-orderable="false" class="whitespace-nowrap uppercase text-xs text-center text-white">ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody id="tbody">
-                        <?php foreach ($conn::DBQuery("SELECT * FROM supports WHERE status != 'Resigned'") as $support) { ?>
-                            <tr data-row-id="<?= $support['id'] ?>">
-                                <td class="text-sm capitalize name"><?= $support['name'] ?></td>
-                                <td class="text-sm phone"><?= $support['mobile_no'] ?></td>
-                                <td class="text-sm email"><?= $support['email'] ?></td>
-                                <td class="text-sm date"><?= date('Y-m-d', strtotime($support['created_at'])) ?></td>
-                                <td class="text-sm capitalize text-center">
-                                    <input type="checkbox" data-row-data="<?= $support['id'] ?>" id="" class="select rounded-md" value="<?= $support['id'] ?>">
-                                </td>
+                        <?php foreach ($conn::select('supports', '*', ['status' => 'Employed']) as $support) { ?>
+                            <tr data-row-id="<?= $support['id'] ?>"> 
+                                <td class="text-sm">EMP0<?= $support['id'] ?></td>
+                                <td class="text-sm"><?= $support['name'] ?></td>
+                                <td class="text-sm"><?= $support['email'] ?></td>
+                                <td class="text-sm"><?= $support['mobile_no'] ?></td>
+                                <td class="text-sm"><?= $support['gender'] ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= date('M d Y', strtotime($support['dateofbirth'])) ?></td>
+                                <td class="text-sm"><?= $support['age'] ?></td>
+                                <td class="text-sm"><?= $support['placeofbirth'] ?></td>
+                                <td class="text-sm"><?= $support['datestarted'] ?></td>
+                                <td class="text-sm"><?= $support['position'] ?></td>
                                 <td class="text-sm text-center">
-                                    <button type="button" data-row-data="<?= $support['id'] ?>" title="Delete account" class="resign-btn btn text-red-500">
+                                    <button type="button" data-row-data="<?= $support['id'] ?>" title="Resign Employee" class="resign-btn btn text-red-500 border border-gray-300 rounded p-1 shadow-md">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                             <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
                                         </svg>
                                     </button>
-                                    <button type="button" data-row-data="<?= $support['id'] ?>" title="Edit account" class="edit-btn text-green-500">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                    <button type="button" data-row-data="<?= $support['id'] ?>" title="Edit account" class="edit-btn btn text-green-500 border border-gray-300 rounded p-1 shadow-md">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                                             <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z" />
                                             <path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
                                         </svg>
@@ -240,7 +248,7 @@
             <input type="hidden" name="id" id="acct-id">
             <div class="px-6 py-4">
                 <div class="text-lg font-medium text-gray-900">
-                    Delete Account
+                    Resign Employee
                 </div>
                 <div class="mt-4 text-sm text-gray-600">
                     Are you sure you want to resign this employee?
@@ -332,16 +340,6 @@
                     dataType: 'json',
                     success: function(resp) {
                         window.location.reload(true)
-                        // var tableRow = $('tr[data-row-id="' + resp.id + '"]');
-
-                        // tableRow.find('.name').text(resp.name);
-                        // tableRow.find('.phone').text(resp.phone);
-                        // tableRow.find('.email').text(resp.email);
-
-                        // setTimeout(() => {
-                        //     $('#edit-acct-modal').hide();
-                        //     dialog('border-green-600 text-green-700', 'Updated Successfully');
-                        // }, 200);
                     }
                 });
             });

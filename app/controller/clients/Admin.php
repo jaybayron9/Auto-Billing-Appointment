@@ -6,17 +6,32 @@ use DBConn\DBConn;
 
 class Admin extends DBConn {
     public function todays_appointments() {
-        $result = parent::DBQuery("SELECT ap.id as app_id, ap.*, cs.*, sv.*, bh.*
-                FROM appointments ap 
-                    JOIN cars cs ON ap.car_id = cs.id
-                    JOIN services sv ON sv.id = ap.service_type_id
-                    JOIN bussiness_hours bh ON bh.id = ap.service_time_id
-                WHERE 
-                    ap.schedule_date >= CURRENT_DATE AND
-                    (ap.appointment_status != 'Cancelled' OR
-                    ap.appointment_status != 'Done')
-                ORDER BY schedule_date asc");
-        return json_encode($result);
+        $result = parent::DBQuery("SELECT
+                ap.schedule_date,
+                ap.appointment_status,
+                bh.available_time,
+                cs.plate_no
+            FROM
+                appointments ap
+            JOIN cars cs ON ap.car_id = cs.id
+            JOIN bussiness_hours bh ON bh.id = ap.service_time_id
+            WHERE
+                ap.schedule_date >= CURRENT_DATE
+                AND ap.appointment_status = 'Confirmed'
+            UNION
+            SELECT
+                app.schedule_date,
+                app.appointment_status,
+                bhh.available_time,
+                app.plate_no
+            FROM
+                walkin app
+            JOIN bussiness_hours bhh ON bhh.id = app.service_time_id
+            WHERE
+                app.schedule_date >= CURRENT_DATE
+                AND app.appointment_status = 'Confirmed'
+            ORDER BY schedule_date ASC");
+        return json_encode($result); 
     }
 
     public function appointment_status() { 
@@ -44,11 +59,12 @@ class Admin extends DBConn {
 
     public function send_msg() {
         parent::insert('convo', [
-            'from_user' => '1',
+            'from_user' => $_SESSION['admin_id'],
             'send_to' => $_POST['user_id'],
             'message' => $_POST['message']
         ]);
 
+        $_SESSION['alert'] = 'Message sent.'; 
         return parent::resp();
     }
 
@@ -77,15 +93,17 @@ class Admin extends DBConn {
 
     public function customer_payment() {
         extract($_POST); 
-        if ($type == 'user') {  
-            $data = explode('  |  ', $name);
-            $user = DBConn::select('users', '*', ['id' => $data[0]]);
+        $data = explode(' | ', $name);
+        $_SESSION['alert'] = 'Payment successfully added.'; 
+        $id = count($data) == 2 ? true : false; 
 
-            foreach ($user as $users) {
+        if ($id && $type == 'user') {   
+            $users = DBConn::select('users', '*', ['id' => $data[0]]);
+            foreach ($users as $user) {
                 DBConn::insert('payments', [
-                    'name' => $data[1],
-                    'email' => $users['email'],
-                    'phone' => $users['phone'],
+                    'name' => $user['name'],
+                    'email' => $user['email'],
+                    'phone' => $user['phone'],
                     'description' => "(User) $description",
                     'total_due' => $amount
                 ]);
@@ -93,19 +111,50 @@ class Admin extends DBConn {
 
             DBConn::update('appointments', [
                 'payment_status' => 'Paid',
-            ], "id = {$data[0]}");
+            ], "id = {$data[0]}"); 
+        } 
 
-            return DBConn::resp(); 
-        } else {
+        if ($id && $type == 'walkin') {
+            $walkin = DBConn::select('walkin', '*', ['id' => $data[0]]);
+            if ($walkin) {
+                DBConn::insert('payments', [
+                    'name' => $walkin[0]['name'],
+                    'email' => $walkin[0]['email'],
+                    'phone' => $walkin[0]['phone'],
+                    'description' => "(Walkin) $description",
+                    'total_due' => $amount
+                ]); 
+            } else {
+                $id = false;
+            }
+        } 
+        
+        if (!$id) {
             DBConn::insert('payments', [
-                'name' => $name,
-                'email' => $email,
-                'phone' => $phone,
+                'name' => $data[0], 
                 'description' => "(Walkin) $description",
                 'total_due' => $amount
             ]);
         }
 
-        $_SESSION['alert'] = 'Payment successfully added.'; 
+        return DBConn::resp(); 
+    }
+
+    public function set_employee_coe() {
+        $emp = DBConn::select('supports', 
+            'name, datestarted, lastday, position ',
+        ['id' => $_POST['id']]);
+
+        $_SESSION['name'] = $emp[0]['name'];
+        $_SESSION['datestarted'] = $emp[0]['datestarted'];
+        $_SESSION['lastday'] = $emp[0]['lastday'];
+        $_SESSION['position'] = $emp[0]['position'];
+    }
+
+    public function user_type() {
+        if ($_POST['type'] == 'user') {
+            return json_encode(DBConn::select('users')); 
+        }
+        return json_encode(DBConn::select('walkin')); 
     }
 }

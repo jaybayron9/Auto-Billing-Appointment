@@ -93,6 +93,8 @@ CREATE TABLE `walkin` (
     model varchar(50) DEFAULT NULL,
     schedule_date varchar(250) DEFAULT NULL,
     service_time_id varchar(11) DEFAULT NULL,
+    appointment_status VARCHAR(20) DEFAULT 'Confirmed',
     created_at timestamp NOT NULL DEFAULT current_timestamp(),
     updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 );  
+ 

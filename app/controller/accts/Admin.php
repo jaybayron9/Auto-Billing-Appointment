@@ -62,14 +62,11 @@ class Admin extends DBConn {
                 $mailer = new EMailer();
                 $send = $mailer->send($_POST['email'], 'Admin Password Reset Link', $mailer->forgot_temp($url));
 
-                if ($send) {
-                    return parent::resp(200, 'We have emailed your password reset link!');
-                }
+                return $send == true ? parent::resp(200, 'We have emailed your password reset link!') : ''; 
             }
-            return parent::resp(200, 'We can\'t find a user with that email address.');
-        } 
-
-        return parent::resp(200, 'The Email field is required.');
+            return parent::resp(400, 'We can\'t find a user with that email address.');
+        }  
+        return parent::resp(400, 'The Email field is required.');
     }
 
     public function reset_pass() {

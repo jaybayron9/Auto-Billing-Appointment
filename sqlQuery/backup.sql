@@ -121,14 +121,13 @@ CREATE TABLE `estimator` (
   `car_type` varchar(50) DEFAULT NULL,
   `service` varchar(100) DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
-  `price` int(11) DEFAULT NULL,
+  `price` varchar(50) DEFAULT NULL,
   `inclusions` varchar(100) DEFAULT NULL,
   `img` blob DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
-
 INSERT INTO estimator VALUES ('1','1','1','PMS GAS REGULAR EXPRESS','1500','4L Oil, Oil Filter','','2023-07-23 19:02:14','2023-07-23 19:09:14');
 INSERT INTO estimator VALUES ('2','1','1','PMS GAS REGULAR PLUS','2450','4L Oil, Oil Filter, Spark Plugs, tire Rotation','','2023-07-23 19:02:23','2023-07-23 19:09:14');
 INSERT INTO estimator VALUES ('3','1','1','PMS GAS REGULAR PREMIUM','3650','4L Oil,Oil Filter, Spark Plugs,Engine Flush, Air Filter','','2023-07-23 19:02:23','2023-07-23 19:09:14');

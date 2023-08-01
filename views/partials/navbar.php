@@ -2,7 +2,7 @@
     <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
         <a href="./" class="flex items-center">
             <img src="assets/storage/system/home.png" class="h-8 mr-3" alt="Flowbite Logo" />
-            <span class="self-center text-2xl font-semibold whitespace-nowrap">CJCE Autoparts</span>
+            <span class="self-center text-2xl font-semibold whitespace-nowrap font-mono">CJCE Autoparts</span>
         </a>
         <div class="flex items-center">
             <a href="tel:5541251234" class="mr-6 text-sm  text-gray-500 hover:underline">(63) 932-747-1796</a>

@@ -28,8 +28,7 @@
                             <h3 class="text-2xl font-bold font-mono"><?= $car['car_brand'] ?></h3>
                             <div class="flex justify-center items-baseline mb-8 mt-5">
                                 <span class="mr-2 text-5xl font-extrabold font-mono uppercase"><?= $car['plate_no'] ?></span>
-                            </div>
-                            <!-- List -->
+                            </div> 
                             <ul role="list" class="space-y-1 text-left">
                                 <li class="flex items-center space-x-3">
                                     <span class="text-gray-500">Model: <span class="font-semibold text-gray-900"><?= $car['car_model'] ?></span></span>
@@ -44,7 +43,7 @@
                                     <span class="text-gray-500">Color: <span class="font-semibold text-gray-900"><?= $car['color'] ?></span></span>
                                 </li>
                                 <li class="flex items-center space-x-3">
-                                    <span class="text-gray-500 whitespace-nowrap">Transmission: <span class="font-semibold text-gray-900"><?= $car['trans_type'] ?></span></span>
+                                    <span class="text-gray-500">Transmission: <span class="font-semibold text-gray-900"><?= $car['trans_type'] ?></span></span>
                                 </li>
                                 <li class="flex items-center space-x-3">
                                     <span class="text-gray-500">Created: <span class="font-semibold text-gray-900"><?= date('Y/m/d', strtotime($car['created_at'])) ?></span></span>
@@ -52,13 +51,13 @@
                             </ul>
                         </div>
                     <?php } ?>
-                    <button id="add-car-btn" data-modal-target="add-car-modal" data-modal-toggle="add-car-modal" class="rounded-md shadow-3xl hover:shadow-none border border-gray-200">
-                        <div class="flex justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="">
+                    <button id="add-car-btn" data-modal-target="add-car-modal" data-modal-toggle="add-car-modal" class="flex flex-col p-6 max-w-xs text-center text-gray-900 bg-white rounded-md border border-gray-200 shadow-lg mt-8">
+                        <div class="flex justify-center items-center mt-20">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-44 w-44">
                                 <path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clip-rule="evenodd" />
                             </svg>
                         </div>
-                    </button> 
+                    </button>
                 </div>
             </div>
         </section>

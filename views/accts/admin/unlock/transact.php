@@ -77,12 +77,11 @@
             </div>
         </div>
     </div>
-</main>
+</main> 
 
-<!-- Main modal -->
 <div id="payment-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative w-full max-w-2xl max-h-full"> 
-        <form id="payment-form" class="relative bg-white rounded-lg shadow dark:bg-gray-700"> 
+    <div class="relative w-full max-w-2xl max-h-full">
+        <form id="payment-form" class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                     Payment Slip
@@ -93,39 +92,45 @@
                     </svg>
                     <span class="sr-only">Close modal</span>
                 </button>
-            </div> 
+            </div>
             <div class="px-6 pt-4 pb-6 space-y-3">
                 <div class="flex gap-x-5 w-full">
-                    <div class="hover:cursor-pointer w-full flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
-                        <input id="user" type="radio" value="user" name="type" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                    <div class="w-full flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
+                        <input id="user" checked type="radio" value="user" name="type" class="user-type w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
                         <label for="user" class="w-full py-4 ml-2 text-sm font-medium text-gray-900">User</label>
                     </div>
-                    <div class="hover:cursor-pointer w-full flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
-                        <input checked id="walkin" type="radio" value="walkin" name="type" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                    <div class="w-full flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
+                        <input id="walkin" type="radio" value="walkin" name="type" class="user-type w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
                         <label for="walkin" class="w-full py-4 ml-2 text-sm font-medium text-gray-900">Walkin</label>
                     </div>
-                </div> 
+                </div>
                 <div>
                     <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Customer Name</label>
-                    <input type="text" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" list="customerlist">
-                    <datalist id="customerlist">
-                        <?php
-                        $query = "";
-                        foreach ($conn::select('users') as $cust) { ?>
-                            <option value="<?= "{$cust['id']}  |  {$cust['name']}" ?>">
-                            <?php } ?>
-                    </datalist>
+                    <div class="relative mb-6">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <input type="text" name="name" required placeholder="Search" autocomplete="off" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" list="customerlist">
+                        <datalist id="customerlist">
+                            <?php
+                            $query = "";
+                            foreach ($conn::select('users') as $cust) { ?>
+                                <option value="<?= "{$cust['id']} | {$cust['name']}" ?>">
+                                <?php } ?>
+                        </datalist>
+                    </div>
                 </div>
                 <div>
                     <label for="amount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label>
-                    <input type="text" name="amount" class="number bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                    <input type="text" name="amount" required class="number bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                 </div>
                 <div>
                     <label for="note" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
                     <textarea type="text" name="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"></textarea>
                 </div>
-            </div>
-            <!-- Modal footer -->
+            </div> 
             <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                 <button data-modal-hide="payment-modal" type="button" class="ml-auto text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                 <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
@@ -140,10 +145,7 @@
 <script type="text/javascript">
     var table = $('#table').DataTable({
         responsive: true,
-        "lengthMenu": [10, 25, 50, 100, 1000],
-        "drawCallback": () => {
-
-        }
+        "lengthMenu": [10, 25, 50, 100, 1000]
     }).columns.adjust().responsive.recalc();
 
     $.fn.dataTable.ext.search.push(
@@ -151,19 +153,13 @@
             var minDate = $('#start').val();
             var maxDate = $('#end').val();
             var date = data[6];
-            if (minDate === '' || maxDate === '') {
-                return true;
-            }
-            if (date >= minDate && date <= maxDate) {
-                return true;
-            }
+            if (minDate === '' || maxDate === '') { return true; }
+            if (date >= minDate && date <= maxDate) { return true; }
             return false;
         }
     );
 
-    $('#start, #end').on('change', () => {
-        table.draw();
-    });
+    $('#start, #end').on('change', () => { table.draw(); });
 
     var today = new Date().toISOString().substr(0, 10);
     $('#today').click(() => {
@@ -179,15 +175,31 @@
     });
 
     $('#payment-form').submit(function(e) {
-        e.preventDefault();
-
+        e.preventDefault(); 
         $.ajax({
             type: "POST",
             url: "?admin_rq=customer_payment",
-            data: $(this).serialize(), 
-            success: function (resp) {
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(resp) { 
                 window.location.reload(true);
             }
         });
     })
+
+    $('.user-type').click(function() {
+        var type = $(this).val(); 
+        $.ajax({
+            type: "POST",
+            url: "?admin_rq=user_type",
+            data: {type: type}, 
+            dataType: 'json', 
+            success: function (resp) {
+                $('#customerlist').html('');
+                for (let i = 0; i < resp.length; i++) {  
+                    $('#customerlist').append(`<option>${resp[i].id} | ${resp[i].name}</option>`)
+                }
+            }
+        });
+    });
 </script>
