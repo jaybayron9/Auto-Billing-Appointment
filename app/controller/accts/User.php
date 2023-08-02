@@ -52,36 +52,58 @@ class User extends DBConn {
         $config = require('config.php');
         extract($config['recaptchav3']);
 
-        $error[] = Auth::check_csrf($_POST['csrf_token']) ? 'Invalid email address.' : '';
         $error[] = Auth::reCaptchaV3($_POST['recaptcha'], $SECRET_KEY) ? 'You are a robot.' : '';
-        $error[] = Auth::check_empty($_POST) ? 'Please fill out the required fields' : '';
+        $error[] = Auth::check_csrf($_POST['csrf_token']) ? 'Invalid email address.' : '';
+        $error[] = Auth::empty($_POST['name']) ? 'Name field is required' : '';
+        $error[] = Auth::empty($_POST['email']) ? 'Email field is required' : '';
         $error[] = Auth::check_email($_POST) ? 'Invalid email address.' : '';
         $error[] = Auth::check_similar_email('users', $_POST['email']) ? 'The email has already been taken.' : '';
-        $error[] = Auth::confirm_password($_POST['password'], $_POST['password_confirmation']) ? 'Password do not match.' : '';
+        $error[] = Auth::empty($_POST['phone']) ? 'Phone number field is required' : '';
+        $error[] = Valid::has_exact_no($_POST['phone']) ? 'Phone number is atleast 11 characters' : '';
+        $error[] = Auth::empty($_POST['password']) ? 'Password field is required' : '';
         $error[] = Valid::has_min_lenght($_POST['password']) ? '8 Characters' : '';
         $error[] = Valid::has_small_letters($_POST['password']) ? 'Small Letter' : '';
         $error[] = Valid::has_big_letters($_POST['password']) ? 'Big Letter' : '';
         $error[] = Valid::has_numbers($_POST['password']) ? 'Number' : '';
         $error[] = Valid::has_special_characters($_POST['password']) ? 'Special Character' : '';
-        $error[] = Valid::is_plate_num($_POST['platenumber']) ? 'Invalid format' : '';
-        $error[] = Auth::is_plate_exist($_POST['platenumber']) ? 'Plate number already exist' : '';
-        $error[] = Valid::has_exact_no($_POST['phone']) ? 'Phone number is atleast 11 characters' : '';
+        $error[] = Auth::confirm_password($_POST['password'], $_POST['password_confirmation']) ? 'Password do not match.' : '';
+        $error[] = Auth::empty($_POST['platenumber']) ? 'Plate number field is required.' : '';
+        $error[] = Valid::is_plate_num($_POST['platenumber']) ? 'Invalid plate number format.' : '';
+        $error[] = Auth::is_plate_exist($_POST['platenumber']) ? 'Plate number is already exist.' : '';
+        $error[] = Auth::empty($_POST['brand']) ? 'Brand field is required' : '';
+        $error[] = Auth::empty($_POST['model']) ? 'Model field is required' : '';
+        $error[] = Auth::empty($_POST['cartype']) ? 'Car type field is required' : ''; 
+        $error[] = Auth::empty($_POST['fueltype']) ? 'Fuel type field is required' : '';
+        $error[] = Auth::empty($_POST['transmission']) ? 'Transmission field is required' : '';
+        $error[] = Auth::empty($_POST['color']) ? 'Color field is required' : '';
 
         if (!empty(array_filter($error))) {
             return json_encode([
-                'status' => 'error',
-                'msg' => $error[2],
-                'email_format' => $error[3], 
-                'similar_email' => $error[4],
-                'pass_confirm' => $error[5], 
-                'lenght' => $error[6],
-                'small' => $error[7],
-                'big' =>  $error[8],
-                'number' => $error[9], 
-                'symbol' => $error[10], 
-                'plateno' => $error[11], 
-                'plate_exist' => $error[12],
-                'phone' => $error[13]
+                'status' => 400,
+                'recaptcha' => $error[0],
+                'csrf'=> $error[1],
+                'name' => $error[2],
+                'email' => $error[3],
+                'invalid_email' => $error[4],
+                'similar_email' => $error[5],
+                'phone' => $error[6],
+                'char_phone' => $error[7],
+                'password' => $error[8],
+                'pass_lenght' => $error[9],
+                'pass_small' => $error[10],
+                'pass_big' =>  $error[11],
+                'pass_number' => $error[12], 
+                'pass_symbol' => $error[13], 
+                'confirm_password' => $error[14], 
+                'plate_no' => $error[15],
+                'plate_no_format' => $error[16],
+                'similar_plate_no' => $error[17],
+                'brand' => $error[18],
+                'model' => $error[19],
+                'cartype' => $error[20],
+                'fueltype' => $error[21],
+                'transmission' => $error[22],
+                'color' => $error[23]
             ]);
         }
 
@@ -265,6 +287,7 @@ class User extends DBConn {
         unset($_SESSION['user_id']); 
         session_write_close();
 
+        $_SESSION['alert'] = 'Account successfully deleted.';
         return parent::resp();
     }
 

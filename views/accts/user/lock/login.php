@@ -6,7 +6,7 @@ Auth::check_login_auth('user_id', '_/');
 <!-- Google Recaptcha -->
 <script src="https://www.google.com/recaptcha/api.js?render=6LdIqu0mAAAAAHKhiSg-EnuA7O3-9EuayBVbUxMv"></script>
 
-<div id="div-alert" hidden class="fixed z-100 top-3 right-4 bg-white border rounded py-2 px-5 shadow text-[14.5px] animate__animated">
+<div id="div-alert" hidden class="animate__animated fixed z-100 top-3 right-4 bg-white border rounded py-2 px-5 shadow text-[14.5px]">
     <p id="alert-msg"></p>
 </div> 
 
@@ -105,6 +105,10 @@ Auth::check_login_auth('user_id', '_/');
     <?php
         if (isset($_SESSION['access_denied'])) {
             echo "dialog('border-red-600 text-red-700', 'Your account has been banned. Please contact support for further assistance.', 10000)";
-        }
+        } 
     ?>
+
+    <?php if (isset($_SESSION['alert'])) {
+        echo "dialog('border-green-600 text-green-700', '" . $_SESSION['alert'] . "')";
+    } ?>
 </script>

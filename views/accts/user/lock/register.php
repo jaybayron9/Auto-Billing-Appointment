@@ -19,36 +19,31 @@
                             <label for="name" class="text-[14.5px]">Full Name</label>
                         </div>
                         <input type="text" name="name" id="name" maxlength="50" placeholder="Example Name" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
-                        <span id="name-msg" class="text-sm text-red-700"></span>
+                        <span id="name-msg" class="text-xs text-red-700"></span>
                     </div>
                     <div class="mb-4">
                         <div class="mb-2">
                             <label for="email" class="text-[14.5px]">Email Address</label>
                         </div>
                         <input type="text" name="email" id="email" maxlength="50" placeholder="user123@example.com" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
-                        <span id="email-msg" class="text-sm text-red-700"></span>
-                    </div>
-                    <script type="text/javascript">
-                        $('#email').keyup(function() {
-                            $.ajax({
-                                url: '?rq=similar_email',
-
-                            })
-                        });
-                    </script>
+                        <span id="email-msg" class="block text-xs text-red-700"></span>
+                        <span id="invalid-email-msg" class="block text-xs text-red-700"></span>
+                        <span id="similar-email-msg" class="block text-xs text-red-700"></span>
+                    </div> 
                     <div class="mb-4">
                         <div class="mb-2">
                             <label for="phone" class="text-[14.5px]">Phone Number</label>
                         </div>
                         <input type="text" name="phone" id="phone" maxlength="11" placeholder="09504568090" class="number block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
-                        <span id="phone-msg" class="text-sm text-red-700"></span>
+                        <span id="phone-msg" class="block text-xs text-red-700"></span>
+                        <span id="char-phone-msg" class="block text-xs text-red-700"></span>
                     </div>
                     <div class="mb-4">
                         <div class="mb-2">
                             <label for="password" class="text-[14.5px]">Password</label>
                         </div>
                         <input type="password" name="password" id="password" maxlength="50" placeholder="Your password" autocomplete="off" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
-                        <span id="pass-msg" class="text-sm text-red-700"></span>
+                        <span id="pass-msg" class="text-xs text-red-700"></span>
                         <ul id="password-format" class="list-disc grid grid-cols-2 ml-4 mt-1">
                             <li id="min" class="text-xs text-red-600">8 Characters</li>
                             <li id="small_letters" class="text-xs text-red-600">Small Letter</li>
@@ -66,6 +61,7 @@
                                 $('#password_msg').hide();
                                 $('#password-format').show();
                                 $('#password').keyup(function() {
+                                    $('#preloader').remove();
                                     $.ajax({
                                         type: "POST",
                                         url: "?rq=password_validation",
@@ -73,12 +69,12 @@
                                             password: $(this).val()
                                         },
                                         dataType: "json",
-                                        success: function(response) {
-                                            response.lenght == '' ? $('#min').hide() : $('#min').show();
-                                            response.small == '' ? $('#small_letters').hide() : $('#small_letters').show();
-                                            response.number == '' ? $('#_number').hide() : $('#_number').show();
-                                            response.big == '' ? $('#big_letters').hide() : $('#big_letters').show();
-                                            response.symbol == '' ? $('#special_char').hide() : $('#special_char').show();
+                                        success: function(resp) {
+                                            resp.lenght == '' ? $('#min').hide() : $('#min').show();
+                                            resp.small == '' ? $('#small_letters').hide() : $('#small_letters').show();
+                                            resp.number == '' ? $('#_number').hide() : $('#_number').show();
+                                            resp.big == '' ? $('#big_letters').hide() : $('#big_letters').show();
+                                            resp.symbol == '' ? $('#special_char').hide() : $('#special_char').show();
                                         }
                                     });
                                 })
@@ -90,7 +86,7 @@
                             <label for="pasword-confirmation" class="text-[14.5px]">Confirm Password</label>
                         </div>
                         <input type="password" name="password_confirmation" id="password-confirmation" maxlength="50" placeholder="Confirm your password" autocomplete="off" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
-                        <span id="confirm-pass-msg" class="text-sm text-red-700"></span>
+                        <span id="confirm-pass-msg" class="text-xs text-red-700"></span>
                     </div>
                 </div>
                 <div class="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-x-5 md:mb-20">
@@ -98,22 +94,25 @@
                         <div class="mb-2">
                             <label for="platenumber" class="text-[14.5px]">Plate number</label>
                         </div>
-                        <input type="text" name="platenumber" id="platenumber" maxlength="8" placeholder="asd 1234" class="plate_no block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
-                        <span id="msgPlateNumber" class="text-sm text-red-700"></span> 
+                        <input type="text" name="platenumber" id="platenumber" maxlength="8" placeholder="asd 1234" class="plate_no block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300 mb-1">
+                        <span id="plateno-msg" class="block text-xs text-red-700"></span> 
+                        <span id="format-plateno-msg" class="block text-xs text-red-700"></span> 
+                        <span id="similar-plateno-msg" class="block text-xs text-red-700"></span> 
                     </div>
                     <div class="mb-4">
                         <div class="mb-2">
                             <label for="brand" class="text-[14.5px]">Car Brand</label>
                         </div>
-                        <input type="text" name="brand" id="brand" maxlength="50" placeholder="Ford" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
-                        <span id="brand-msg" class="text-sm text-red-700"></span>
+                        <input type="text" name="brand" id="brand" maxlength="50" placeholder="Ford" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300 mb-1">
+                        <span id="brand-msg" class="block text-xs text-red-700"></span>
                     </div>
                     <div class="mb-4">
                         <div class="mb-2">
                             <label for="model" class="text-[14.5px]">Model</label>
                         </div>
-                        <input type="text" name="model" id="model" maxlength="50" placeholder="1908" autocomplete="off" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
-                        <span id="model-msg" class="text-sm text-red-700"></span>
+                        <input type="text" name="model" id="model" maxlength="50" list="modellist" placeholder="1908" autocomplete="off" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
+                        <datalist id="modellist"></datalist>
+                        <span id="model-msg" class="text-xs text-red-700"></span>
                     </div>
                     <div class="mb-3">
                         <div class="mb-2">
@@ -121,9 +120,10 @@
                         </div>
                         <select name="cartype" id="cartype" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
                             <option value="" selected hidden>Select car type</option>
-                            <option value="manual">Manual</option>
-                            <option value="automatic">Automatic</option>
+                            <option value="Automatic">Automatic</option>
+                            <option value="Manual">Manual</option>
                         </select>
+                        <span id="cartype-msg" class="text-xs text-red-700"></span>
                     </div>
                     <div class="mb-3">
                         <div class="mb-2">
@@ -131,29 +131,31 @@
                         </div>
                         <select name="fueltype" id="fueltype" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
                             <option value="" selected hidden>Select fuel type</option>
-                            <option value="fuel">Fuel</option>
-                            <option value="gas">Gas</option>
+                            <option value="Gas">Gas</option>
+                            <option value="Diesel">Diesel</option>
                         </select>
+                        <span id="fueltype-msg" class="text-xs text-red-700"></span>
                     </div>
                     <div class="mb-4">
                         <div class="mb-2">
                             <label for="color" class="text-[14.5px]">Color</label>
                         </div>
                         <input type="text" name="color" id="color" maxlength="50" placeholder="Red" autocomplete="off" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
-                        <span id="color-msg" class="text-sm text-red-700"></span>
+                        <span id="color-msg" class="text-xs text-red-700"></span>
                     </div>
                     <div class="mb-4">
                         <div class="mb-2">
                             <label for="transmission" class="text-[14.5px]">Transmission Type</label>
                         </div>
-                        <input type="text" name="transmission" id="transmission" maxlength="50" placeholder="..." autocomplete="off" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
-                        <span id="transmission-msg" class="text-sm text-red-700"></span>
+                        <input type="text" name="transmission" id="transmission" list="translist" maxlength="50" placeholder="..." autocomplete="off" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
+                        <datalist id="translist"></datalist> 
+                        <span id="transmission-msg" class="text-xs text-red-700"></span>
                     </div>
                 </div>
             </div>
             <div class="md:flex gap-5">
                 <div class="ml-auto flex items-center">
-                    <input id="agree" type="checkbox" name="agree" class="w-4 h-4">
+                    <input id="agree" type="checkbox" name="agree" required class="w-4 h-4">
                     <label for="agree" class="ml-2 text-sm text-gray-900 select-none">I've read and agree to the <a href="" class="text-blue-700">terms and service.</a></label>
                 </div>
                 <div class="text-center my-2">
@@ -185,21 +187,6 @@
         separateDialCode: true,
     });
     iti.setNumber("+63");
-
-    $('#email').on('input', function() {
-        var email = $(this).val();
-
-        $.ajax({
-            url: '?rq=user_similar_email',
-            type: 'POST',
-            data: {
-                email: email
-            },
-            success: function(resp) {
-                $('#email-msg').text(resp);
-            }
-        });
-    })
 
     $('#register-form').submit(function(e) {
         e.preventDefault();
@@ -233,35 +220,31 @@
                     dataType: 'json',
                     success: function(resp) { 
                         if (resp.status == 200) { 
+                            console.log('working')
                             window.location.href = '?vs=_/';
                         } else {
-                            if (resp.msg !== '') {
-                                $('#alert').removeAttr('hidden');
-                                $('#msg').html(resp.msg);
-                            } else {
-                                $('#alert').attr('hidden', '');
-                            }
-
-                            if (resp.plate_exist != '') {
-                                $('#msgPlateNumber').text(resp.plate_exist);
-                            }
-
-                            if (resp.plateno != '') {
-                                $('#msgPlateNumber').ext(resp.plateno);
-                            }
-
-                            if (resp.phone != '') {
-                                $("#phone-msg").text(resp.phone);
-                            }
-
-                            if (resp.email_format !== '') {
-                                $('#email-msg').text(resp.email_format);
-                            } else {
-                                $('#email-msg').text(resp.similar_email);
-                            }
-
-                            $('#pass-msg').text(resp.password_length);
-                            $('#confirm-pass-msg').text(resp.pass_confirm);
+                            resp.name ? $('#name-msg').text(`*${resp.name}`) : $('#name-msg').text('');   
+                            resp.email ? $('#email-msg').text(`*${resp.email}`) : $('#email-msg').text('');    
+                            resp.invalid_email && !resp.email ? $('#invalid-email-msg').text(`*${resp.invalid_email}`) : $('#invalid-email-msg').text('');  
+                            resp.similar_email && !resp.email && !resp.invalid_email ? $('#similar-email-msg').text(`*${resp.similar_email}`) : $('#similar-email-msg').text('');  
+                            resp.phone ? $('#phone-msg').text(`*${resp.phone}`) : $('#phone-msg').text('');
+                            resp.char_phone && !resp.phone ? $('#char-phone-msg').text(`*${resp.char_phone}`) : $('#char-phone-msg').text('');
+                            resp.password ? $('#pass-msg').text(`*${resp.password}`) : $('#pass-msg').text('');
+                            resp.pass_lenght ? $('#password-format').show() : '';
+                            resp.pass_small ? $('#password-format').show() : '';
+                            resp.pass_big ? $('#password-format').show() : '';
+                            resp.pass_number ? $('#password-format').show() : '';
+                            resp.pass_symbol ? $('#password-format').show() : '';
+                            resp.confirm_password ? $('#confirm-pass-msg').text(resp.confirm_password) : $('#confirm-pass-msg').text('');
+                            resp.plate_no ? $('#plateno-msg').text(`*${resp.plate_no}`) : $('#plateno-msg').text('');
+                            resp.plate_no_format && !resp.plate_no ? $('#format-plateno-msg').text(`*${resp.plate_no_format}`) : $('#format-plateno-msg').text('');
+                            resp.similar_plate_no && !resp.plate_no && !resp.plate_no_format ? $('#similar-plateno-msg').text(`*${resp.similar_plate_no}`) : $('#similar-plateno-msg').text('');
+                            resp.brand ? $('#brand-msg').text(resp.brand) : $('#brand-msg').text('');
+                            resp.model ? $('#model-msg').text(resp.model) : $('#model-msg').text('');
+                            resp.cartype ? $('#cartype-msg').text(resp.cartype) : $('#cartype-msg').text('');
+                            resp.fueltype ? $('#fueltype-msg').text(resp.fueltype) : $('#fueltype-msg').text('');
+                            resp.transmission ? $('#transmission-msg').text(resp.transmission) : $('#transmission-msg').text('');
+                            resp.color ? $('#color-msg').text(resp.color) : $('#color-msg').text(''); 
                         }
 
                         $('#submit-txt').removeAttr('hidden');
@@ -271,4 +254,27 @@
             });
         });
     });
+
+    // $('#brand').on('input', function() {
+    //     var model = $(this).val(); 
+    //     $.ajax({
+    //         method: 'GET',
+    //         url: 'https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?limit=100&make=' + model,
+    //         headers: {
+    //             'X-RapidAPI-Key': '37633832b2msh57b474baeab9e69p1b44bbjsn38f6726378d6',
+    //             'X-RapidAPI-Host': 'cars-by-api-ninjas.p.rapidapi.com'
+    //         },
+    //         contentType: 'application/json',
+    //         success: function(resp) { 
+    //             var list = '';
+    //             resp.forEach(element => {
+    //                 list += '<option>'+ element.model +'</option>';
+    //             });
+    //             $('#modellist').append(list);
+    //         },
+    //         error: function ajaxError(jqXHR) {
+    //             console.error('Error: ', jqXHR.responseText);
+    //         }
+    //     });
+    // }) 
 </script>

@@ -1,15 +1,10 @@
 <?php include view('accts/user/unlock', 'head.auth'); ?>
-
 <?php include view('accts/user/unlock/navbars', 'topbar') ?>
 <?php include view('accts/user/unlock/navbars', 'sidebar') ?>
 
 <link href="assets/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="assets/css/responsive.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/table.css">
-
-<div id="div-alert" hidden class="fixed z-30 top-3 right-4 bg-white border rounded py-2 px-5 shadow text-[14.5px] animate__animated">
-    <p id="alert-msg"></p>
-</div>
 
 <main id="main-content" class="relative h-full overflow-y-auto lg:ml-64 dark:bg-gray-900">
     <div class="px-4 h-full my-[80px]">

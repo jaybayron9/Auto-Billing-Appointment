@@ -128,24 +128,6 @@
                     });
                     }
                 }) 
-
-                // if (confirm('Are you sure you want to cancel?')) {
-                //     $.ajax({
-                //         url: '?user_rq=user_cancel_appointment',
-                //         type: 'POST',
-                //         data: {
-                //             id: id
-                //         },
-                //         dataType: 'json',
-                //         success: function(resp) { 
-                //             var tableRow = $('tr[data-row-id="' + id + '"]'); 
-                //             tableRow.find('.status').html('<span class="text-white rounded-md px-2 bg-red-500 bg-red-500">Cancelled</span>');
-                //             tableRow.find('.cancel-btn').hide();
-
-                //             dialog('border-green-600 text-green-700', 'Appointment successfully cancelled.');
-                //         }
-                //     });
-                // }
             }); 
         }
     }).columns.adjust().responsive.recalc();  

@@ -46,7 +46,7 @@
                                 <input type="file" name="image" id="image"  class="mt-1 block w-full border border-gray-300 focus:outline-none focus:ring-2 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                                 <span id="image-err" class="text-sm text-red-500"></span>
                                 <div class="flex justify-center items-center mt-5">
-                                    <img loading="lazy" src="assets/storage/<?= $user_info[0]['profile_photo_path'] ?>" alt="Profile picture" class=" h-32 w-32 rounded-full bg-black">
+                                    <img loading="lazy" src="assets/storage/<?= $user_info[0]['profile_photo_path'] ?? 'uploads/default.png' ?>" alt="Profile picture" class=" h-32 w-32 rounded-full bg-black">
                                 </div>
                             </div>
                         </div>
@@ -266,7 +266,6 @@
                 dataType: 'json',
                 success: function(resp) {
                     if (resp.status == 200) {
-                        alert('Your account has been deleted');
                         window.location.reload();
                     } else if (resp.status == 400) {
                         $('#del-msg').text(resp.msg);

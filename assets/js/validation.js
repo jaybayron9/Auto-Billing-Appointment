@@ -17,10 +17,10 @@ $(function() {
     $('.plate_no').on('input', function() {
         var inputValue = $(this).val();
         var pattern = /^[A-Za-z]{3}[-\s]?\d{4}$/;
-        var msg = $('#msgPlateNumber');
+        var msg = $('#plateno-msg');
 
         if (!pattern.test(inputValue)) {
-            msg.text('Invalid format');
+            msg.text('Invalid plate number format.');
         } else {
             msg.text('');
         }

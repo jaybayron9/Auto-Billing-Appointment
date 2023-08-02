@@ -97,6 +97,6 @@ class Valid {
     } 
 
     public static function has_exact_no($value):bool {
-        return $value == 11 ? true : false;
+        return strlen($value) === 11 ? false : true;
     } 
 }
