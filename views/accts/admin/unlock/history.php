@@ -14,11 +14,12 @@
                 <table id="table" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                     <thead>
                         <tr>
-                            <th data-priority="1" class="whitespace-nowrap text-xs text-center uppercase text-white">Name</th>
-                            <th data-priority="3" class="whitespace-nowrap text-xs text-center uppercase text-white">Plate no.</th>
-                            <th data-priority="4" class="whitespace-nowrap text-xs text-center uppercase text-white">Service</th> 
-                            <th data-priority="5" class="whitespace-nowrap text-xs text-center uppercase text-white">Scheduled Date</th>
-                            <th data-priority="6" class="whitespace-nowrap text-xs text-center uppercase text-white">Time</th>
+                            <th data-priority="1" class="whitespace-nowrap text-center text-xs uppercase text-white">Plate no.</th>
+                            <th data-priority="3" class="whitespace-nowrap text-center text-xs uppercase text-white">Service</th>
+                            <th data-priority="4" class="whitespace-nowrap text-center text-xs uppercase text-white">Date Scheduled</th>
+                            <th data-priority="5" class="whitespace-nowrap text-center text-xs uppercase text-white">Service Time</th>
+                            <th data-priority="6" class="whitespace-nowrap text-center text-xs uppercase text-white">Payment Status</th>
+                            <th data-priority="7" class="whitespace-nowrap text-xs text-center uppercase text-white">Date Created</th>
                             <th data-priority="2" data-orderable="false" class="whitespace-nowrap text-xs text-center uppercase text-white"></th>
                         </tr>
                     </thead>
@@ -39,11 +40,16 @@
                                 if ($emp[$i] == $_SESSION['support_id']) {
                         ?>
                                     <tr>
-                                        <td class="text-sm capitalize"><?= $app['name'] ?></td>
                                         <td class="text-sm"><?= $app['plate_no'] ?></td>
-                                        <td class="text-sm capitalize"><?= $app['category'] ?></td> 
+                                        <td class="text-sm"><?= $app['category'] ?></td> 
                                         <td class="text-sm"><?= date('F d, Y', strtotime($app['schedule_date'])) ?></td>
                                         <td class="text-sm"><?= $app['available_time'] ?></td>
+                                        <td class="text-sm text-center">
+                                            <span class="text-white rounded-md px-2 <?= $app['payment_status'] == 'Unpaid' ? 'bg-gray-500' : 'bg-green-500';  ?>">
+                                                <?= $app['payment_status'] ?>
+                                            </span> 
+                                        </td>
+                                        <td class="text-sm"><?= date('F d, Y', strtotime($app['schedule_date'])) ?></td>
                                         <td class="flex justify-center">
                                             <button data-row-data="<?= $app['app_id'] ?>" data-modal-target="view-summary" data-modal-toggle="view-summary" class="book-summary-btn btn shadow-inner shadow-zinc-400 rounded-full p-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -51,7 +57,7 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                 </svg>
                                             </button>
-                                        </td>
+                                        </td> 
                                     </tr>
                         <?php }
                             }

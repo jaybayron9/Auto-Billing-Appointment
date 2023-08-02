@@ -95,7 +95,7 @@ class Admin extends DBConn {
         extract($_POST); 
         $data = explode(' | ', $name);
         $_SESSION['alert'] = 'Payment successfully added.'; 
-        $id = count($data) == 2 ? true : false; 
+        $id = count($data) == 3 ? true : false; 
 
         if ($id && $type == 'user') {   
             $users = DBConn::select('users', '*', ['id' => $data[0]]);
@@ -111,7 +111,7 @@ class Admin extends DBConn {
 
             DBConn::update('appointments', [
                 'payment_status' => 'Paid',
-            ], "id = {$data[0]}"); 
+            ], "id = {$data[1]}"); 
         } 
 
         if ($id && $type == 'walkin') {
@@ -124,6 +124,10 @@ class Admin extends DBConn {
                     'description' => "(Walkin) $description",
                     'total_due' => $amount
                 ]); 
+
+                DBConn::update('walkin', [
+                    'payment_status' => 'Paid',
+                ], "id = {$data[0]}"); 
             } else {
                 $id = false;
             }
@@ -153,8 +157,43 @@ class Admin extends DBConn {
 
     public function user_type() {
         if ($_POST['type'] == 'user') {
-            return json_encode(DBConn::select('users')); 
+            $qry = "SELECT ap.id as app_id, us.id as user_id, us.name
+                    FROM
+                        appointments ap
+                    JOIN cars cs ON ap.car_id = cs.id
+                    JOIN users us ON us.id = ap.user_id
+                    WHERE
+                        ap.payment_status = 'Unpaid'";
+            return json_encode(DBConn::DBQuery($qry)); 
         }
-        return json_encode(DBConn::select('walkin')); 
+        $qry = "SELECT id as app_id, id as user_id, name from walkin";
+        return json_encode(DBConn::DBQuery($qry)); 
+    }
+
+    public function total_sale() {
+        $start = $_POST['start_date'];
+        $end = $_POST['end_date'];
+
+        if (!empty($start) || !empty($end)) {
+            $result = DBConn::DBQuery("
+                SELECT SUM(total_due) AS total_sale 
+                FROM payments
+                WHERE  
+                    created_at BETWEEN '{$start} 00:00:00' AND '{$end} 23:59:59'
+            ");
+            
+            foreach($result as $row){
+                return floatval($row['total_sale']);
+            }
+        }
+
+        $result = parent::$conn->query("
+            SELECT SUM(total_due) AS total_sale 
+            FROM payments  
+        ");
+
+        foreach($result as $row){
+            return floatval($row['total_sale']);
+        }
     }
 }

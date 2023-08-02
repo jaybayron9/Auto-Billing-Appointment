@@ -50,7 +50,6 @@ class Emailer {
     public function forgot_temp($url = '') {
         return '
             <div style="max-width: 700px; margin: 20px auto; padding: 20px;">
-                <img src="https://th.bing.com/th/id/OIG.FKx9Y_XzH._nfCa38tBz?pid=ImgGn" alt="Logo" style="display: block; max-width: 100px; height: auto; margin-bottom: 20px;">
                 <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #f7f7f7; border: 1px solid #ddd; border-radius: 5px;">
                     <h1 style="font-family: Arial, sans-serif; font-size: 24px; margin-top: 0;">Hi,</h1>
                     <p style="font-family: Arial, sans-serif; line-height: 1.5; margin-bottom: 20px;">
@@ -79,7 +78,6 @@ class Emailer {
     public function email_ver_temp($url = '') {
         return '
             <div style="max-width: 700px; margin: 20px auto; padding: 20px;">
-                <img src="https://th.bing.com/th/id/OIG.FKx9Y_XzH._nfCa38tBz?pid=ImgGn" alt="Logo" style="display: block; max-width: 100px; height: auto; margin-bottom: 20px;">
                 <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #f7f7f7; border: 1px solid #ddd; border-radius: 5px;">
                     <h1 style="font-family: Arial, sans-serif; font-size: 24px; margin-top: 0;">Hi,</h1>
                     <p style="font-family: Arial, sans-serif; line-height: 1.5; margin-bottom: 20px;">

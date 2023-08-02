@@ -1,29 +1,29 @@
-CREATE TABLE `supports` (
-    `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `name` varchar(255) DEFAULT NULL,
-    `phone` varchar(100) DEFAULT NULL,
-    `email` varchar(255) DEFAULT NULL,
-    `address` varchar(250) DEFAULT NULL,
-    `mobile_no` varchar(250) DEFAULT NULL,
-    `nationality` varchar(250) DEFAULT NULL,
-    `gender` varchar(250) DEFAULT NULL,
-    `position` varchar(250) DEFAULT NULL,
-    `age` varchar(250) DEFAULT NULL,
-    `dateofbirth` varchar(250) DEFAULT NULL,
-    `placeofbirth` varchar(250) DEFAULT NULL,
-    `datestarted` varchar(250) DEFAULT NULL,
-    `status` varchar(250) DEFAULT 'employed',
-    `lastday` varchar(250) DEFAULT NULL, 
-    `email_verify_token` varchar(100) DEFAULT NULL,
-    `email_verified_at` datetime DEFAULT NULL,
-    `password` varchar(255) NOT NULL,
-    `password_reset_token` varchar(100) DEFAULT NULL,
-    `profile_photo_path` varchar(1000) DEFAULT NULL,
-    `access_enabled` tinyint(1) DEFAULT 1,
-    `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-    `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `email` (`email`)
+CREATE TABLE supports (
+    id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    name varchar(255) DEFAULT NULL,
+    phone varchar(100) DEFAULT NULL,
+    email varchar(255) DEFAULT NULL,
+    address varchar(250) DEFAULT NULL,
+    mobile_no varchar(250) DEFAULT NULL,
+    nationality varchar(250) DEFAULT NULL,
+    gender varchar(250) DEFAULT NULL,
+    position varchar(250) DEFAULT NULL,
+    age varchar(250) DEFAULT NULL,
+    dateofbirth varchar(250) DEFAULT NULL,
+    placeofbirth varchar(250) DEFAULT NULL,
+    datestarted varchar(250) DEFAULT NULL,
+    status varchar(250) DEFAULT 'employed',
+    lastday varchar(250) DEFAULT NULL, 
+    email_verify_token varchar(100) DEFAULT NULL,
+    email_verified_at datetime DEFAULT NULL,
+    password varchar(255) NOT NULL,
+    password_reset_token varchar(100) DEFAULT NULL,
+    profile_photo_path varchar(1000) DEFAULT NULL,
+    access_enabled tinyint(1) DEFAULT 1,
+    created_at timestamp NOT NULL DEFAULT current_timestamp(),
+    updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+    PRIMARY KEY (id),
+    UNIQUE KEY email (email)
 ) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
 
 CREATE TABLE estimator (
@@ -49,7 +49,7 @@ CREATE TABLE booking_summary (
     total VARCHAR(250),
     created_at timestamp NOT NULL DEFAULT current_timestamp(),
     updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-);    
+);     
 
 CREATE TABLE bussiness_hours(
     id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -58,7 +58,7 @@ CREATE TABLE bussiness_hours(
     updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ); 
 
-CREATE TABLE `appointments` (
+CREATE TABLE appointments (
     id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_id varchar(11) DEFAULT NULL,
     car_id VARCHAR(11) DEFAULT NULL,
@@ -69,10 +69,11 @@ CREATE TABLE `appointments` (
     schedule_date varchar(30) DEFAULT NULL,
     service_time_id varchar(30) DEFAULT NULL,
     appointment_status varchar(20) DEFAULT 'Pending',
-    payment_status varchar(20) DEFAULT 'Pending',
+    payment_status varchar(20) DEFAULT 'Unpaid',
     created_at timestamp NOT NULL DEFAULT current_timestamp(),
     updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 );    
+
 
 create table services (
     id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -81,7 +82,7 @@ create table services (
     updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 );
 
-CREATE TABLE `walkin` (
+CREATE TABLE walkin (
     id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name varchar(50) DEFAULT NULL,
     email varchar(50) DEFAULT NULL,
@@ -94,7 +95,17 @@ CREATE TABLE `walkin` (
     schedule_date varchar(250) DEFAULT NULL,
     service_time_id varchar(11) DEFAULT NULL,
     appointment_status VARCHAR(20) DEFAULT 'Confirmed',
+    payment_status varchar(20) DEFAULT 'Unpaid',
     created_at timestamp NOT NULL DEFAULT current_timestamp(),
     updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-);  
- 
+);   
+
+
+CREATE TABLE convo (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    from_user varchar(255) DEFAULT NULL,
+    send_to varchar(255) DEFAULT NULL,
+    message longtext DEFAULT NULL,
+    created_at timestamp NOT NULL DEFAULT current_timestamp(),
+    updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+);

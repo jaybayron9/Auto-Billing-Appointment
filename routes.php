@@ -22,7 +22,7 @@ return [
     '_admin/pendings'          => view('accts/admin/unlock', 'pendings'), 
     '_admin/confirmed'         => view('accts/admin/unlock', 'confirmed'), 
     '_admin/walkin'            => view('accts/admin/unlock', 'walkin'), 
-    '_admin/transact'           => view('accts/admin/unlock', 'transact'), 
+    '_admin/transact'          => view('accts/admin/unlock', 'transact'), 
     '_admin/pms'               => view('accts/admin/unlock', 'pms'), 
     '_admin/services'          => view('accts/admin/unlock', 'services'), 
     '_admin/resigned'          => view('accts/admin/unlock', 'resigned'), 
@@ -35,11 +35,11 @@ return [
     //
     '_sup/'                    => view('accts/support/unlock'),
     '_sup/profile'             => view('accts/support/unlock/settings', 'profile'),
-    '_sup/system'            => view('accts/support/unlock/settings', 'system'),
-    '_sup/job_order'             => view('accts/support/unlock', 'joborder'),
-    '_sup/serv_his'             => view('accts/support/unlock', 'servhis'), 
+    '_sup/system'              => view('accts/support/unlock/settings', 'system'),
+    '_sup/job_order'           => view('accts/support/unlock', 'joborder'),
+    '_sup/serv_his'            => view('accts/support/unlock', 'servhis'), 
     '_sup/inbox'               => view('accts/support/unlock', 'inbox'), 
-    '_sup/service'               => view('accts/support/unlock', 'estimator'), 
+    '_sup/service'             => view('accts/support/unlock', 'estimator'), 
 
     // Users Authorization
     'login'                    => view('accts/user/lock', 'login'),

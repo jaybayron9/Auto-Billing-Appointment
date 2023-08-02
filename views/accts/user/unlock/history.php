@@ -14,11 +14,12 @@
                     <thead>
                         <tr>
                             <th data-priority="1" class="whitespace-nowrap text-center text-xs uppercase text-white">Plate no.</th>
-                            <th data-priority="2" class="whitespace-nowrap text-center text-xs uppercase text-white">Service</th>
-                            <th data-priority="3" class="whitespace-nowrap text-center text-xs uppercase text-white">Date Scheduled</th>
-                            <th data-priority="4" class="whitespace-nowrap text-center text-xs uppercase text-white">Service Time</th>
-                            <th data-priority="6" class="whitespace-nowrap text-xs text-center uppercase text-white">Date Created</th> 
-                            <th data-priority="6" data-orderable="false" class="whitespace-nowrap text-center text-xs uppercase text-white"></th>
+                            <th data-priority="3" class="whitespace-nowrap text-center text-xs uppercase text-white">Service</th>
+                            <th data-priority="4" class="whitespace-nowrap text-center text-xs uppercase text-white">Date Scheduled</th>
+                            <th data-priority="5" class="whitespace-nowrap text-center text-xs uppercase text-white">Service Time</th>
+                            <th data-priority="6" class="whitespace-nowrap text-center text-xs uppercase text-white">Payment Status</th>
+                            <th data-priority="7" class="whitespace-nowrap text-xs text-center uppercase text-white">Date Created</th> 
+                            <th data-priority="2" class="whitespace-nowrap text-center text-xs uppercase text-white"></th>
                         </tr>
                     </thead>
                     <tbody id="tbody">
@@ -40,6 +41,11 @@
                                 <td class="text-sm"><?= $appointment['category'] ?></td> 
                                 <td class="text-sm"><?= date('F d, Y', strtotime($appointment['schedule_date'])) ?></td>
                                 <td class="text-sm"><?= $appointment['available_time'] ?></td>
+                                <td class="text-sm text-center">
+                                    <span class="text-white rounded-md px-2 <?= $appointment['payment_status'] == 'Unpaid' ? 'bg-gray-500' : 'bg-green-500';  ?>">
+                                        <?= $appointment['payment_status'] ?>
+                                    </span> 
+                                </td>
                                 <td class="text-sm"><?= date('F d, Y', strtotime($appointment['created_at'])) ?></td>
                                 <td class="flex justify-center">
                                     <button data-row-data="<?= $appointment['app_id'] ?>" data-modal-target="view-summary" data-modal-toggle="view-summary" class="book-summary-btn btn shadow-inner shadow-zinc-400 rounded-full p-1">

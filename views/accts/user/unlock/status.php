@@ -1,5 +1,4 @@
-<?php include view('accts/user/unlock', 'head.auth'); ?>
-
+<?php include view('accts/user/unlock', 'head.auth'); ?> 
 <?php include view('accts/user/unlock/navbars', 'topbar') ?>
 <?php include view('accts/user/unlock/navbars', 'sidebar') ?>
 

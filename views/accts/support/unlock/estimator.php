@@ -26,8 +26,9 @@
                 </div>
                 <div id="myTabContent">
                     <div id="pms" role="tabpanel" aria-labelledby="pms-tab" class="hidden">
-                        <?php
-                        $car_type = appData('fuel_type') !== "Gas" ? 2 : 1;
+                        <?php 
+                        $car_type = appData('fuel_type') !== "Gas" ? 2 : 1; 
+                        if (isset($_GET['type']) && $_GET['type'] == 'Diesel') { $car_type = 2; } else if (isset($_GET['type']) && $_GET['type'] == 'Gas') { $car_type = 1; }
                         foreach ($conn::select('estimator', '*', ['car_type' => $car_type, 'service' => 1]) as $serv) { ?>
                             <div class="shadow bg-white rounded-md p-3 mb-3">
                                 <div class="grid grid-cols-3 justify-between">
@@ -154,9 +155,17 @@
                             </p>
                         </div>
                         <div class="mt-1">
-                            <button type="button" onclick="window.location.replace('?vs=_sup/job_order')" class="font-ligt text-red-600 hover:scale-125 ease-in-out duration-150">
-                                BACK
-                            </button>
+                            <?php  if (isset($_GET['serv'])) { ?>
+                                <button type="button" onclick="window.location.replace('?vs=_sup/job_order')" class="font-light text-red-600 hover:scale-125 ease-in-out duration-150">
+                                    BACK
+                                </button>
+                            <?php } else { ?>
+                                <select name="" id="fuel-type" class="border-none font-light text-red-600 hover:scale-125 ease-in-out duration-150 hover:cursor-pointer">
+                                    <option value="" selected disabled>CHOOSE</option>
+                                    <option value="Diesel" <?= isset($_GET['type']) && $_GET['type'] == 'Diesel' ? "Selected" : '' ?> >DIESEL</option>
+                                    <option value="Gas" <?= isset($_GET['type']) && $_GET['type'] == 'Gas' ? "Selected" : '' ?> >GAS</option>
+                                </select>
+                            <?php } ?>
                         </div>
                     </div>
                     <div class="bg-white shadow-lg px-3 py-2">
@@ -277,5 +286,14 @@
                 $('#checkout-page').html('<object data="?support_rq=receipt" type="application/pdf" async defer class="w-full h-screen">');
             }
         });
+    });
+
+    $('#fuel-type').change(function() {
+        var type = $(this).val();
+        if (type == 'Diesel') {
+            window.location.href = "?vs=_sup/service&type=Diesel";
+        } else if (type == 'Gas') {
+            window.location.href = "?vs=_sup/service&type=Gas";
+        }
     });
 </script>

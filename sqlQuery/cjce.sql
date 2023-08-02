@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2023 at 08:52 PM
+-- Generation Time: Aug 02, 2023 at 05:20 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -47,7 +47,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `phone`, `email`, `email_verify_token`, `email_verified_at`, `password`, `password_reset_token`, `profile_photo_path`, `access_enabled`, `created_at`, `updated_at`) VALUES
-(64, 'Admin', '0918239128', 'admin@gmail.com', NULL, NULL, '$2y$10$BLZUczW.KvfKH48mrus/vuaRMAVCaQJ42y77TUQtLgqSBjMP7bulW', 'd010e9f9028d03e6cebf567d0dee4465c52ecf2d0010714ee0d7972dbfe2661d', 'uploads/64c5401920931.png', 1, '2023-07-28 12:37:39', '2023-08-01 18:50:15');
+(64, 'Admin', '0918239128', 'admin@gmail.com', NULL, NULL, '$2y$10$BLZUczW.KvfKH48mrus/vuaRMAVCaQJ42y77TUQtLgqSBjMP7bulW', 'd010e9f9028d03e6cebf567d0dee4465c52ecf2d0010714ee0d7972dbfe2661d', 'uploads/64ca39500c997.png', 1, '2023-07-28 12:37:39', '2023-08-02 11:09:04');
 
 -- --------------------------------------------------------
 
@@ -66,7 +66,7 @@ CREATE TABLE `appointments` (
   `schedule_date` varchar(30) DEFAULT NULL,
   `service_time_id` varchar(30) DEFAULT NULL,
   `appointment_status` varchar(20) DEFAULT 'Pending',
-  `payment_status` varchar(20) DEFAULT 'Pending',
+  `payment_status` varchar(20) DEFAULT 'Unpaid',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -131,13 +131,6 @@ CREATE TABLE `cars` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `cars`
---
-
-INSERT INTO `cars` (`id`, `user_id`, `plate_no`, `car_brand`, `car_model`, `car_type`, `fuel_type`, `color`, `trans_type`, `created_at`, `updated_at`) VALUES
-(36, '89', 'QWE 1234', 'Ford', 'F-150 Lightning', 'Automatic', 'Gas', 'Red', 'Automatic transmissions.', '2023-07-31 10:06:46', '2023-07-31 10:06:46');
-
 -- --------------------------------------------------------
 
 --
@@ -145,7 +138,7 @@ INSERT INTO `cars` (`id`, `user_id`, `plate_no`, `car_brand`, `car_model`, `car_
 --
 
 CREATE TABLE `convo` (
-  `id` int(10) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `from_user` varchar(255) DEFAULT NULL,
   `send_to` varchar(255) DEFAULT NULL,
   `message` longtext DEFAULT NULL,
@@ -229,15 +222,6 @@ CREATE TABLE `payments` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `payments`
---
-
-INSERT INTO `payments` (`id`, `name`, `email`, `phone`, `description`, `total_due`, `created_at`, `updated_at`) VALUES
-(24, 'User One', 'jaybayron400@gmail.com', '09123812938', '(User) ', '123', '2023-08-01 17:14:16', '2023-08-01 17:14:16'),
-(28, 'fujixucy@mailinator.com', 'niqavegy@mailinator.com', 'kefybo@mailinator.co', '(Walkin) ', '123', '2023-08-01 17:20:08', '2023-08-01 17:20:08'),
-(29, 'blank ', NULL, NULL, '(Walkin) ', '213', '2023-08-01 17:20:39', '2023-08-01 17:20:39');
-
 -- --------------------------------------------------------
 
 --
@@ -297,8 +281,8 @@ CREATE TABLE `supports` (
 --
 
 INSERT INTO `supports` (`id`, `name`, `phone`, `email`, `address`, `mobile_no`, `nationality`, `gender`, `position`, `age`, `dateofbirth`, `placeofbirth`, `datestarted`, `status`, `lastday`, `email_verify_token`, `email_verified_at`, `password`, `password_reset_token`, `profile_photo_path`, `access_enabled`, `created_at`, `updated_at`) VALUES
-(67, 'Electrician One', '091029301293', 'electrician@gmail.com', 'Antipolo City', '091283912312', 'Filipino', 'Male', 'Electrician', '21', '2008-08-13', '06-Jun-2022', '2022-09-10', 'Employed', 'July 31, 2023', NULL, NULL, '$2y$10$OutD4a0jY01ph7NHcYpRh.tJF.BwjKoYL7e9To3/quo8kh629cfh6', NULL, 'uploads/64c54005581e4.png', 1, '2023-07-21 07:54:52', '2023-08-01 14:45:23'),
-(76, 'Mechanic One', '091029301293', 'Mechanic@gmail.com', 'Antipolo City', '+1 (343) 396-4006', 'Filipino', 'Male', 'Mechanic', '22', '2008-08-13', '06-Jun-2022', '2022-09-10', 'Employed', 'August 1, 2023', NULL, NULL, '$2y$10$OutD4a0jY01ph7NHcYpRh.tJF.BwjKoYL7e9To3/quo8kh629cfh6', NULL, 'uploads/64c54005581e4.png', 1, '2023-07-21 17:23:22', '2023-08-01 18:46:40');
+(67, 'Electrician One', '091029301293', 'electrician@gmail.com', 'Antipolo City', '091283912312', 'Filipino', 'Male', 'Electrician', '21', '2008-08-13', '06-Jun-2022', '2022-09-10', 'Resigned', 'August 2, 2023', NULL, NULL, '$2y$10$OutD4a0jY01ph7NHcYpRh.tJF.BwjKoYL7e9To3/quo8kh629cfh6', NULL, 'uploads/64ca65f79d6dc.png', 1, '2023-07-21 07:54:52', '2023-08-02 14:19:35'),
+(76, 'Mechanic One', '091029301293', 'mechanic@gmail.com', 'Antipolo City', '+1 (343) 396-4006', 'Filipino', 'Male', 'Mechanic', '22', '2008-08-13', '06-Jun-2022', '2022-09-10', 'Employed', 'August 1, 2023', NULL, NULL, '$2y$10$OutD4a0jY01ph7NHcYpRh.tJF.BwjKoYL7e9To3/quo8kh629cfh6', NULL, 'uploads/64c54005581e4.png', 1, '2023-07-21 17:23:22', '2023-08-02 15:20:14');
 
 -- --------------------------------------------------------
 
@@ -340,6 +324,7 @@ CREATE TABLE `walkin` (
   `schedule_date` varchar(250) DEFAULT NULL,
   `service_time_id` varchar(11) DEFAULT NULL,
   `appointment_status` varchar(20) DEFAULT 'Confirmed',
+  `payment_status` varchar(20) DEFAULT 'Unpaid',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -437,13 +422,13 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `booking_summary`
 --
 ALTER TABLE `booking_summary`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `bussiness_hours`
@@ -455,13 +440,13 @@ ALTER TABLE `bussiness_hours`
 -- AUTO_INCREMENT for table `cars`
 --
 ALTER TABLE `cars`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `convo`
 --
 ALTER TABLE `convo`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `estimator`
@@ -473,7 +458,7 @@ ALTER TABLE `estimator`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `services`
@@ -491,13 +476,13 @@ ALTER TABLE `supports`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT for table `walkin`
 --
 ALTER TABLE `walkin`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

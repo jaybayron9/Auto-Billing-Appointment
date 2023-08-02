@@ -14,6 +14,7 @@ $admin_response = [
     'customer_payment' => ['obj'=> new Admin(), 'method' => 'customer_payment'],  
     'set_employee_coe' => ['obj'=> new Admin(), 'method' => 'set_employee_coe'],  
     'coe' => ['obj'=> new PDF(), 'method' => 'coe'],  
+    'total_sale' => ['obj'=> new Admin(), 'method' => 'total_sale'], 
 ]; 
 
 HTTPR(strtolower($_GET['admin_rq'] ?? ''), $admin_response);

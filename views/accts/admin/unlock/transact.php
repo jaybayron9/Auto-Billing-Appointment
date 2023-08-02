@@ -32,6 +32,11 @@
                                 Clear
                             </button>
                         </div>
+                        <div>
+                            <p class="mt-1">
+                                Total Sale:  &#8369; <span id="total-sale"></span>
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div class="col-span-2 mx-0 md:ml-auto flex mt-3 sm:mt-0">
@@ -115,9 +120,15 @@
                         <input type="text" name="name" required placeholder="Search" autocomplete="off" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" list="customerlist">
                         <datalist id="customerlist">
                             <?php
-                            $query = "";
-                            foreach ($conn::select('users') as $cust) { ?>
-                                <option value="<?= "{$cust['id']} | {$cust['name']}" ?>">
+                            $qry = "SELECT ap.id as app_id, us.id as user_id, us.name
+                            FROM
+                                appointments ap
+                            JOIN cars cs ON ap.car_id = cs.id
+                            JOIN users us ON us.id = ap.user_id
+                            WHERE
+                                ap.payment_status = 'Unpaid'";
+                            foreach ($conn::DBQuery($qry) as $cust) { ?>
+                                <option value="<?= "{$cust['user_id']} | {$cust['app_id']} | {$cust['name']}" ?>">
                                 <?php } ?>
                         </datalist>
                     </div>
@@ -197,9 +208,29 @@
             success: function (resp) {
                 $('#customerlist').html('');
                 for (let i = 0; i < resp.length; i++) {  
-                    $('#customerlist').append(`<option>${resp[i].id} | ${resp[i].name}</option>`)
+                    $('#customerlist').append(`<option>${resp[i].user_id} | ${resp[i].app_id} | ${resp[i].name}</option>`)
                 }
             }
         });
     });
+
+    $('#start, #end').change(function() {
+        setSale();
+    })
+
+    function setSale() {
+        var startDate = $('#start').val();
+        var endDate = $('#end').val();
+        $.ajax({
+            url: '?admin_rq=total_sale',
+            method: 'POST',
+            data: {
+                start_date: startDate,
+                end_date: endDate
+            },
+            success: function(resp) {
+                $('#total-sale').text(resp);
+            }
+        });
+    } setSale(); 
 </script>

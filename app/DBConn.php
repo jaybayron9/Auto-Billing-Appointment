@@ -3,6 +3,7 @@
 namespace DBConn;
 
 use PDO;
+use ZipArchive;
 use PDOException;
 
 class DBConn {
@@ -30,9 +31,8 @@ class DBConn {
     }
 
     public function backupDatabase() {
-        $backupFilename = 'backup.sql';
-    
-        $backupFile = fopen($backupFilename, 'w');
+        $sqlBackupFilename = 'backup.sql';
+        $sqlBackupFile = fopen($sqlBackupFilename, 'w');
     
         $tables = array();
         $result = self::$conn->query("SHOW TABLES");
@@ -43,21 +43,44 @@ class DBConn {
         foreach ($tables as $table) {
             $result = self::$conn->query("SHOW CREATE TABLE $table");
             $row = $result->fetch(PDO::FETCH_NUM);
-            fwrite($backupFile, $row[1] . ";\n");
+            fwrite($sqlBackupFile, $row[1] . ";\n");
     
             $result = self::$conn->query("SELECT * FROM $table");
             while ($row = $result->fetch(PDO::FETCH_NUM)) {
                 $rowData = implode("','", $row);
-                fwrite($backupFile, "INSERT INTO $table VALUES ('$rowData');\n");
+                fwrite($sqlBackupFile, "INSERT INTO $table VALUES ('$rowData');\n");
             }
         }
     
-        fclose($backupFile);
-
+        fclose($sqlBackupFile);
+    
+        $csvBackupFilename = 'backup.csv';
+        $csvBackupFile = fopen($csvBackupFilename, 'w');
+    
+        foreach ($tables as $table) {
+            $result = self::$conn->query("SELECT * FROM $table");
+            while ($row = $result->fetch(PDO::FETCH_NUM)) {
+                fputcsv($csvBackupFile, $row);
+            }
+        }
+    
+        fclose($csvBackupFile);
+    
+        $zipFilename = 'backup.zip';
+        $zip = new ZipArchive;
+        $zip->open($zipFilename, ZipArchive::CREATE);
+        $zip->addFile($sqlBackupFilename, basename($sqlBackupFilename));
+        $zip->addFile($csvBackupFilename, basename($csvBackupFilename));
+        $zip->close();
+    
         header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="' . basename($backupFilename) . '"');
-        header('Content-Length: ' . filesize($backupFilename));
-        readfile($backupFilename);
+        header('Content-Disposition: attachment; filename="' . basename($zipFilename) . '"');
+        header('Content-Length: ' . filesize($zipFilename));
+        readfile($zipFilename);
+    
+        unlink($sqlBackupFilename);
+        unlink($csvBackupFilename);
+        unlink($zipFilename);
     }
     
     public static function insert($table, $data) {

@@ -24,14 +24,15 @@
                     <thead>
                         <tr>
                             <th data-priority="1" class="whitespace-nowrap text-xs text-center uppercase text-white">NAME</th>
-                            <th data-priority="5" class="whitespace-nowrap text-xs text-center uppercase text-white">EMAIL</th>
-                            <th data-priority="6" class="whitespace-nowrap text-xs text-center uppercase text-white">PHONE</th>
-                            <th data-priority="7" class="whitespace-nowrap text-xs text-center uppercase text-white">ADDRESS</th>
-                            <th data-priority="8" class="whitespace-nowrap text-xs text-center uppercase text-white">REPAIR</th>
-                            <th data-priority="9" class="whitespace-nowrap text-xs text-center uppercase text-white">BRAND</th>
-                            <th data-priority="10" class="whitespace-nowrap text-xs text-center uppercas text-white">MODEL</th>
-                            <th data-priority="3" class="whitespace-nowrap text-xs text-center uppercase text-white">SCHEDULE</th>
-                            <th data-priority="4" class="whitespace-nowrap text-xs text-center uppercase text-white">TIME</th>
+                            <th data-priority="3" class="whitespace-nowrap text-xs text-center uppercase text-white">EMAIL</th>
+                            <th data-priority="4" class="whitespace-nowrap text-xs text-center uppercase text-white">PHONE</th>
+                            <th data-priority="5" class="whitespace-nowrap text-xs text-center uppercase text-white">ADDRESS</th>
+                            <th data-priority="6" class="whitespace-nowrap text-xs text-center uppercase text-white">REPAIR</th>
+                            <th data-priority="7" class="whitespace-nowrap text-xs text-center uppercase text-white">BRAND</th>
+                            <th data-priority="8" class="whitespace-nowrap text-xs text-center uppercas text-white">MODEL</th>
+                            <th data-priority="9" class="whitespace-nowrap text-xs text-center uppercase text-white">SCHEDULE</th>
+                            <th data-priority="10" class="whitespace-nowrap text-xs text-center uppercase text-white">TIME</th>
+                            <th data-priority="11" class="whitespace-nowrap text-xs text-center uppercase text-white">Payment Status</th>
                             <th data-priority="2" data-orderable="false" class="whitespace-nowrap text-xs text-center uppercase text-white">Action</th>
                         </tr>
                     </thead>
@@ -53,6 +54,11 @@
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['model'] ?></td>
                                 <td class="text-sm whitespace-nowrap"><?= date('M d, Y', strtotime($walkin['schedule_date'])) ?></td>
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['available_time'] ?></td>
+                                <td class="text-sm text-center">
+                                    <span class="text-white rounded-md px-2 <?= $walkin['payment_status'] == 'Unpaid' ? 'bg-gray-500' : 'bg-green-500';  ?>">
+                                        <?= $walkin['payment_status'] ?>
+                                    </span> 
+                                </td>
                                 <td class="flex text-sm">
                                     <button data-row-data="<?= $walkin['app_id'] ?>" class="cancel-btn bg-red-500 hover:bg-red-700 text-white px-2 rounded shadow-md">
                                         CANCEL

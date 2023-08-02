@@ -3,9 +3,11 @@
 
 <div class="flex justify-center items-center mt-[40px]">
     <div class="w-5/6">
-        <div class="flex justify-center items-center mb-5 gap-x-3">
-            <img src="assets/storage/system/home.png" alt="logo" class="h-14 w-14">
-            <a href="./" class="font-bold text-1xl mt-1 capitalize">Register</a>
+        <div class="flex justify-center items-center mb-5">
+            <a href="./" class="flex justify-center items-center  gap-x-3">
+                <img src="assets/storage/system/home.png" alt="logo" class="h-14 w-14">
+                <p class="font-bold text-2xl mt-1 capitalize font-mono">CJCE</p>
+            </a>
         </div>
         <form id="register-form" class=" rounded border border-gray-300 bg-white p-10">
             <div id="alert" hidden class="py-3">
