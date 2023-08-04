@@ -1,7 +1,6 @@
 {
   "scripts": {
-    "tailwind": "npx tailwindcss -i ./assets/tailwind/input.css -o ./assets/tailwind/output.css --watch",
-    "start": "node server.js"
+    "tailwind": "npx tailwindcss -i ./assets/tailwind/input.css -o ./assets/tailwind/output.css --watch"
   },
   "devDependencies": {
     "tailwindcss": "^3.3.3"
@@ -12,23 +11,5 @@
     "jquery": "^3.7.0",
     "smooth-scroll": "^16.1.3",
     "sweetalert": "^2.1.2"
-  },
-  "name": "autobillingappointmentsystem",
-  "description": "```npm run tailwind```",
-  "version": "1.0.0",
-  "main": "server.js",
-  "directories": {
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jaybayron9/Auto-Billing-Appointment.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jaybayron9/Auto-Billing-Appointment/issues"
-  },
-  "homepage": "https://github.com/jaybayron9/Auto-Billing-Appointment#readme"
+  }
 }
