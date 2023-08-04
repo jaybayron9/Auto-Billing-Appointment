@@ -13,8 +13,6 @@ Note: Dont forget to add your Domains when you are in localhosl add localhost an
 Tutorial how to get your phpmailer credetials [https://www.youtube.com/watch?v=1YXVdyVuFGA]
 # Sending email go-to [https://myaccount.google.com/u/2/security?hl=en] and get your username and password of phpmailer after copy it and paste on config.php smtp
 
-# If your encounter in the reset password link an error go-to config.php and replate the links = base_url base on your file directory or domain name
-
 Employee Account Default Password: Pa$$w0rd
 Admin Account Default Password: Pa$$w0rd
 
