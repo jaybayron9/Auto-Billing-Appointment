@@ -1,10 +1,9 @@
 <?php 
 use Auth\Auth; 
 Auth::check_login_auth('user_id', '_/');
+Auth::check_login_auth('admin_id', '_admin/'); 
+Auth::check_login_auth('support_id', '_sup/'); 
 ?>
-
-<!-- Google Recaptcha -->
-<script src="https://www.google.com/recaptcha/api.js?render=6LdIqu0mAAAAAHKhiSg-EnuA7O3-9EuayBVbUxMv"></script>
 
 <div class="flex justify-center items-center mt-20">
     <div class="md:w-2/6 w-96">
@@ -15,7 +14,6 @@ Auth::check_login_auth('user_id', '_/');
             </a>
         </div>
         <form id="form" class="rounded border border-gray-300 bg-white p-10 ">
-            <input type="hidden" name="csrf_token" id="csrf-token" value="<?= $_SESSION['csrf_token'] ?>">
             <h1 class="text-center text-[17px] mb-7 font-normal text-gray-900">Reset your password</h1>
             <div id="alert" hidden class="py-3">
                 <p id="msg" class="border-y border-r border-l-red-600 border-l-4 rounded py-3 px-5 shadow text-red-700 text-[14.5px]"></p>
@@ -25,7 +23,7 @@ Auth::check_login_auth('user_id', '_/');
                 <div class="mb-2">
                     <label for="email" class="text-[14.5px]">Email Address</label>
                 </div>
-                <input type="email" name="email" id="email" maxlength="50" required placeholder="user123@example.com" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
+                <input type="email" name="email" id="email" maxlength="50" placeholder="user123@example.com" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
             </div>
             <div class="text-center my-2">
                 <button type="submit" class="flex items-center justify-center w-full bg-blue-600 text-base text-white hover:bg-blue-500 py-1 px-3 rounded transition duration-200">
@@ -44,42 +42,30 @@ Auth::check_login_auth('user_id', '_/');
 </div>
 
 <script type="text/javascript">
-    $(function() {
-        $('#form').submit(function(e) {
-            e.preventDefault();
-            $('#submit-txt').attr('hidden', '');
-            $('#spinner').show();
+    $('#form').submit(function(e) {
+        e.preventDefault();
+        $('#submit-txt').attr('hidden', '');
+        $('#spinner').show();
 
-            grecaptcha.ready(function() {
-                grecaptcha.execute('6LdIqu0mAAAAAHKhiSg-EnuA7O3-9EuayBVbUxMv', {
-                    action: 'submit'
-                }).then(function(token) { 
-                    $.ajax({
-                        url: '?rq=user_send_passreq',
-                        type: 'POST',
-                        data: {
-                            recaptcha: token,
-                            csrf_token: $('#csrf-token').val(),
-                            email: $('#email').val(),
-                        },
-                        dataType: 'json',
-                        success: function(resp) {
-                            if (resp.status == 200) {
-                                $('#alert').removeAttr('hidden');
-                                $('#msg').removeClass('border-l-red-600 text-red-700');
-                                $('#msg').addClass('border-l-green-500 text-green-600')
-                            } else {
-                                $('#alert').removeAttr('hidden');
-                                $('#email').val('');
-                            }
+        $.ajax({
+            url: '?rq=user_send_passreq',
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(resp) { 
+                if (resp.status == 200) {
+                    $('#alert').removeAttr('hidden');
+                    $('#msg').removeClass('border-l-red-600 text-red-700');
+                    $('#msg').addClass('border-l-green-500 text-green-600')
+                } else {
+                    $('#alert').removeAttr('hidden');
+                    $('#email').val('');
+                }
 
-                            $('#msg').html(resp.msg);
-                            $('#submit-txt').removeAttr('hidden');
-                            $('#spinner').hide();
-                        }
-                    }); 
-                });
-            }); 
-        });
+                $('#msg').html(resp.msg);
+                $('#submit-txt').removeAttr('hidden');
+                $('#spinner').hide();
+            }
+        });  
     });
 </script>

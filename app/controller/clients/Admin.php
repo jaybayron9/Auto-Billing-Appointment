@@ -44,7 +44,7 @@ class Admin extends DBConn {
         $time = DBConn::select('bussiness_hours', '*', ['id' => $info[0]['service_time_id']]);
         $message = "Your appointment for $schedule | {$time[0]['available_time']}  has been {$_POST['status']}.";
 
-        Convo::$from_id = "64";
+        Convo::$from_id = "Admin";
         Convo::$to_id = $info[0]['user_id'];
         Convo::$msg = $message;
         Convo::send();
@@ -59,7 +59,7 @@ class Admin extends DBConn {
 
     public function send_msg() {
         parent::insert('convo', [
-            'from_user' => $_SESSION['admin_id'],
+            'from_user' => 'Admin',
             'send_to' => $_POST['user_id'],
             'message' => $_POST['message']
         ]);
@@ -195,5 +195,36 @@ class Admin extends DBConn {
         foreach($result as $row){
             return floatval($row['total_sale']);
         }
+    }
+
+    public function add_product() {
+        DBConn::insert('estimator', [
+            'car_type' => $_POST['type'],
+            'service' => $_POST['category'],
+            'name' => $_POST['name'],
+            'price' => $_POST['price'],
+            'inclusions' => $_POST['description'],
+        ]);
+
+        $_SESSION['alert'] = 'Product successfully added.';
+    }
+
+    public function remove_product() {
+        DBConn::delete('estimator', ['id' => $_POST['id']], 1);
+    }
+
+    public function get_product() {
+        return json_encode(DBConn::select('estimator', '*', ['id' => $_POST['id']]));
+    }
+
+    public function update_product() {
+        extract($_POST);
+        DBConn::update('estimator', [
+            'name' => $name,
+            'price' => $price,
+            'inclusions' => $description
+        ], "id = $product_id");
+
+        $_SESSION['alert'] = 'Product successfully updated.';
     }
 }

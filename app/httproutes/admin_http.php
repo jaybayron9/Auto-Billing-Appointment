@@ -14,7 +14,11 @@ $admin_response = [
     'customer_payment' => ['obj'=> new Admin(), 'method' => 'customer_payment'],  
     'set_employee_coe' => ['obj'=> new Admin(), 'method' => 'set_employee_coe'],  
     'coe' => ['obj'=> new PDF(), 'method' => 'coe'],  
-    'total_sale' => ['obj'=> new Admin(), 'method' => 'total_sale'], 
+    'total_sale' => ['obj'=> new Admin(), 'method' => 'total_sale'],  
+    'add_product' => ['obj'=> new Admin(), 'method' => 'add_product'],  
+    'remove_product' => ['obj' => new Admin(), 'method' => 'remove_product'],
+    'get_product' => ['obj' => new Admin(), 'method' => 'get_product'],
+    'update_product' => ['obj' => new Admin(), 'method' => 'update_product'],
 ]; 
 
 HTTPR(strtolower($_GET['admin_rq'] ?? ''), $admin_response);

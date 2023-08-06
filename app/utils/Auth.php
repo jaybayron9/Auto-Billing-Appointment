@@ -76,14 +76,16 @@ class Auth {
     }
 
     // Check if the user password reset token is matching the reset token from the database
-    public static function check_pass_reset_token($tb) {
+    public static function check_pass_reset_token() { 
         $t = isset($_GET['token']) ? $_GET['token'] : '';
 
-        $c = DBConn::select($tb, '*', ['password_reset_token' => $t], null, 1);
+        $user = DBConn::select('users', '*', ['password_reset_token' => $t], null, 1);
+        $support = DBConn::select('supports', '*', ['password_reset_token' => $t], null, 1);
+        $admin = DBConn::select('admins', '*', ['password_reset_token' => $t], null, 1);
 
-        if (count($c) > 0) {
-            return $c;
-        }
+        if (count($user) > 0) { return $user; } 
+        if (count($support) > 0) { return $support; } 
+        if (count($admin) > 0) { return $admin; }
             
         http_response_code(403);
         include view('errors', '403');
@@ -94,9 +96,7 @@ class Auth {
         session_unset();
         session_destroy();
 
-        if (isset($_SERVER['HTTP_REFERER'])) { 
-            header("Location: {$_SERVER['HTTP_REFERER']}");
-        }
+        header("Location: ?vs=login");
         exit;
     }    
 

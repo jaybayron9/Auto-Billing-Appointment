@@ -73,7 +73,7 @@
                                 <td class="text-sm"><?= $data['email'] ?></td>
                                 <td class="text-sm"><?= $data['phone'] ?></td>
                                 <td class="text-sm"><?= $data['description'] ?></td>
-                                <td class="text-sm"><?= $data['total_due'] ?></td>
+                                <td class="text-sm">&#8369; <?= number_format($data['total_due'],2) ?></td>
                                 <td class="text-sm"><?= date('Y-m-d', strtotime($data['created_at'])) ?></td>
                             </tr>
                         <?php } ?>

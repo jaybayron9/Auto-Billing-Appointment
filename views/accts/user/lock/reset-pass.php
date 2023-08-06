@@ -1,7 +1,9 @@
 <?php 
 use Auth\Auth; 
 Auth::check_login_auth('user_id', '_/');
-Auth::check_pass_reset_token('users'); 
+Auth::check_login_auth('admin_id', '_admin/'); 
+Auth::check_login_auth('support_id', '_sup/'); 
+Auth::check_pass_reset_token(); 
 ?>
 
 <div class="flex justify-center items-center mt-16 mb-10">
@@ -29,9 +31,10 @@ Auth::check_pass_reset_token('users');
                 </div>
                 <div class="mb-3">
                     <div class="mb-2">
-                        <label for="new-password" class="text-[14.5px]">New Password</label>
+                        <label for="password" class="text-[14.5px]">New Password</label>
                     </div>
-                    <input type="password" name="password" id="new-password" maxlength="50" required autocomplete="off" placeholder="Your password" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
+                    <input type="password" name="password" id="password" maxlength="50" required autocomplete="off" placeholder="Your password" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
+                    <?php include view('templates', 'password_validator') ?>
                 </div>
                 <div class="mb-5">
                     <div class="mb-2">
@@ -75,6 +78,11 @@ Auth::check_pass_reset_token('users');
                         $('#msg').addClass('border-l-green-500 text-green-600');
                         $('#success').attr('hidden', true);
                     } else {
+                        resp.pass_lenght ? $('#password-format').show() : '';
+                        resp.pass_small ? $('#password-format').show() : '';
+                        resp.pass_big ? $('#password-format').show() : '';
+                        resp.pass_number ? $('#password-format').show() : '';
+                        resp.pass_symbol ? $('#password-format').show() : '';
                         $('#alert').removeAttr('hidden');
                     }
 

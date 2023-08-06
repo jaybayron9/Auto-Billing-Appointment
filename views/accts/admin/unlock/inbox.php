@@ -1,5 +1,4 @@
-<?php include view('accts/admin/unlock', 'head.auth'); ?>
-
+<?php include view('accts/admin/unlock', 'head.auth'); ?> 
 <?php include view('accts/admin/unlock/navbars', 'topbar') ?>
 <?php include view('accts/admin/unlock/navbars', 'sidebar') ?>
 
@@ -58,7 +57,7 @@
                 ?>
                 </div>
                 <form id="sm-form" class="flex gap-x-1">  
-                    <input type="hidden" name="from_id" id="from_id" value="<?= $admin_info[0]['id'] ?>">
+                    <input type="hidden" name="from_id" id="from_id" value="<?= $admin_info[0]['account_role'] ?>">
                     <input type="hidden" name="to_id" id="to_id" value="<?= $uid ?>">
                     <textarea id="message" name="message" rows="1" placeholder="Aa" required class="w-full resize-none max-h-40 p-2 rounded-xl overflow-auto"></textarea> 
                     <div class="">

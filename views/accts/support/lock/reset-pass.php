@@ -1,7 +1,7 @@
 <?php 
 use Auth\Auth; 
 Auth::check_login_auth('support_id', '_sup/');
-Auth::check_pass_reset_token('supports'); 
+Auth::check_pass_reset_token(); 
 ?>
 
 <div class="flex justify-center items-center mt-16 mb-10">

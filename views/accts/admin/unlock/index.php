@@ -18,9 +18,8 @@
                 {
                     url: '?admin_rq=todays_appointments',
                     type: 'POST',
-                    data: { app_id: <?= $_SESSION['user_id'] ?> },
                     success: function(resp) { 
-                        var events = [];
+                        var events = []; 
                         for (var i = 0; i < resp.length; i++) {
                             events.push({
                                 title: `${resp[i].available_time} | ${resp[i].plate_no}`,

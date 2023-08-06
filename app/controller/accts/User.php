@@ -27,16 +27,37 @@ class User extends DBConn {
             ]);
         }
 
-        $userTbl = parent::select('users','id, email, password', ['email' => $_POST['email']], null, 1);
+        $userTbl = parent::select('users','id, email, password, account_role', ['email' => $_POST['email']], null, 1);
+        $supportTbl = parent::select('supports','id, email, password, account_role', ['email' => $_POST['email']], null, 1);
+        $adminTbl = parent::select('admins','id, email, password, account_role', ['email' => $_POST['email']], null, 1);
 
         foreach ($userTbl as $v) { 
             if ($_POST['email'] === $v['email'] && password_verify($_POST['password'], $v['password'])) {
-                isset($_POST['remember']) ?? setcookie('user_id', $v['id'], time() + 30 * 24 * 60 * 60);
+                isset($_POST['remember']) ?? setcookie('admin_id', $v['id'], time() + 30 * 24 * 60 * 60);
                 
                 $_SESSION['user_id'] = $v['id'];
-                return parent::resp();
+                return parent::resp(200, 'User');
             }
         }
+
+        foreach ($supportTbl as $v) { 
+            if ($_POST['email'] === $v['email'] && password_verify($_POST['password'], $v['password'])) {
+                isset($_POST['remember']) ?? setcookie('support_id', $v['id'], time() + 30 * 24 * 60 * 60);
+                
+                $_SESSION['support_id'] = $v['id'];
+                return parent::resp(200, 'Support');
+            }
+        }
+
+        foreach ($adminTbl as $v) { 
+            if ($_POST['email'] === $v['email'] && password_verify($_POST['password'], $v['password'])) {
+                isset($_POST['remember']) ?? setcookie('admin_id', $v['id'], time() + 30 * 24 * 60 * 60);
+                
+                $_SESSION['admin_id'] = $v['id'];
+                return parent::resp(200, 'Admin');
+            }
+        }
+
         return parent::resp(400, $msg);
     }
 
@@ -159,59 +180,83 @@ class User extends DBConn {
     }
 
     public function pass_request() { 
-        $config = require('config.php');
-        extract($config['recaptchav3']);
-
-        Auth::check_csrf($_POST['csrf_token']); 
-        if (Auth::reCaptchaV3($_POST['recaptcha'], $SECRET_KEY)) {
-            return parent::resp(400, 'You are a robot.');
-        } 
-
         if (!Auth::check_empty($_POST)) {
-            $email = parent::select('users', '*', ['email' => $_POST['email']], null, 1);
-            if (count($email) > 0) {
-                $token = bin2hex(random_bytes(32));
+            $user = parent::select('users', '*', ['email' => $_POST['email']], null, 1);
+            $support = parent::select('supports', '*', ['email' => $_POST['email']], null, 1);
+            $admin = parent::select('admins', '*', ['email' => $_POST['email']], null, 1);
 
+            $send = function($token, $user = '') {
+                $config = require('config.php'); 
+                extract($config['links']); 
+                $url = $base_url . '/?vs=reset_password&token=' . $token; 
+                $mailer = new EMailer();
+                $send = $mailer->send($_POST['email'], "$user Password Reset Link", $mailer->forgot_temp($url));
+                if ($send) {
+                    return parent::resp(200, 'We have emailed your password reset link!'); 
+                }
+            };
+
+            $token = bin2hex(random_bytes(32));
+
+            if (count($user) > 0) { 
                 parent::update('users', [
                     'password_reset_token' => $token,
                 ], "email = '{$_POST['email']}'");
+                return $send($token, 'Customer');
+            }
 
-                $config = require('config.php'); 
-                extract($config['links']);
+            if (count($support) > 0) { 
+                parent::update('supports', [
+                    'password_reset_token' => $token,
+                ], "email = '{$_POST['email']}'");
+                return $send($token, 'Employee'); 
+            }
 
-                $url = $base_url . '/?vs=reset_password&token=' . $token;
-
-                $mailer = new EMailer();
-                $send = $mailer->send($_POST['email'], 'Password Reset Link', $mailer->forgot_temp($url));
-
-                if ($send) {
-                    return parent::resp(200, 'We have emailed your password reset link!');
-                }
+            if (count($admin) > 0) { 
+                parent::update('admins', [
+                    'password_reset_token' => $token,
+                ], "email = '{$_POST['email']}'");
+                return $send($token, 'Admin');
             }
             return parent::resp(400, 'We can\'t find a user with that email address.');
-        } 
-
+        }  
         return parent::resp(400, 'The Email field is required.');
     }
 
     public function reset_password() {
-        Auth::check_csrf($_POST['csrf_token']);
-
+        Auth::check_csrf($_POST['csrf_token']); 
+        
         if (!Auth::check_empty($_POST)) {
-            $validate = parent::select('users', 'id', [
+            $validate = function($arr, $table) { 
+                if ($_POST['password'] === $_POST['password_confirmation']) {
+                    parent::update($table, [
+                        'password' => password_hash($_POST['password'], PASSWORD_BCRYPT),
+                    ], "id = '{$arr[0]['id']}'");
+                    return parent::resp(200, 'Your password has been changed.');
+                }
+                return parent::resp(400, 'Password does not match.'); 
+            };
+
+            $account = function($table) {
+                return parent::select($table, 'id', [
                     'email' => $_POST['email'], 
                     'password_reset_token' => $_POST['token'],
                 ], null, 1);
+            }; 
 
-            if (count($validate) > 0) {
-                if ($_POST['password'] === $_POST['password_confirmation']) {
-                    parent::update('users', [
-                        'password' => password_hash($_POST['password'], PASSWORD_BCRYPT),
-                    ], "id = '{$validate[0]['id']}'");
-                    return parent::resp(200, 'Your password has been changed.');
-                }
-                return parent::resp(400, 'Password does not match.');
+            $pass_validator = new \Password\Password;
+            $pass_validator->set_error();
+            if (!empty(array_filter($pass_validator->err))) {
+                return $pass_validator->get_error();
             }
+
+            $user = $account('users'); 
+            $support = $account('supports'); 
+            $admin = $account('admins');
+
+            if (count($user) > 0) { return $validate($user, 'users'); }
+            if (count($support) > 0) { return $validate($support, 'supports'); }
+            if (count($admin) > 0) { return $validate($admin, 'admins'); }
             return parent::resp(400, 'Email address does not match.');
         }
         return parent::resp(400, 'Please fill out the required fields.');

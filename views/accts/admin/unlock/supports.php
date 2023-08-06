@@ -139,7 +139,8 @@
                         </div>
                         <div>
                             <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                            <input type="password" name="password" id="new-password" placeholder="Enter password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                            <input type="password" name="password" id="password" placeholder="Enter password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                            <?php include view('templates', 'password_validator') ?>
                         </div>
                     </div>
                 </div>
@@ -386,10 +387,19 @@
             type: 'POST',
             data: $(this).serialize(),
             dataType: 'json',
-            success: function(data) {
-                setTimeout(() => {
-                    window.location.reload(true);
-                }, 200)
+            success: function(resp) {
+                if (resp.status === 400) {
+                    const error = $('#password-format');
+                    resp.pass_lenght ? error.show() : '';
+                    resp.pass_small ? error.show() : '';
+                    resp.pass_big ? error.show() : '';
+                    resp.pass_number ? error.show() : '';
+                    resp.pass_symbol ? error.show() : '';
+                } else {
+                    setTimeout(() => {
+                        window.location.reload(true);
+                    }, 200)
+                }
             }
         });
     });

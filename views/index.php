@@ -349,12 +349,9 @@
 <footer>
     <div class="w-full">
         <div class="px-4 py-6 bg-gray-50 text-center">
-            <span class="text-sm text-gray-500 sm:text-center">© 2023 <a href="#home">CJCE™</a>. All Rights Reserved.
+            <span class="text-sm text-gray-500 sm:text-center">
+                © 2023 <a href="#home">CJCE™</a>. All Rights Reserved.
             </span>
-            <div class="block">
-                <a href="?vs=_admin" class="text-sm text-blue-700 underline underline-offset-1 mr-5">Admin</a>
-                <a href="?vs=_sup" class="text-sm text-blue-700 underline underline-offset-1">Employee</a>
-            </div>
         </div>
     </div>
 </footer>

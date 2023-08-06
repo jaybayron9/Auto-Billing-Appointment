@@ -1,5 +1,4 @@
-<?php include view('accts/support/unlock', 'head.auth'); ?>
-
+<?php include view('accts/support/unlock', 'head.auth'); ?> 
 <?php include view('accts/support/unlock/navbars', 'topbar') ?>
 <?php include view('accts/support/unlock/navbars', 'sidebar') ?>
 
@@ -91,8 +90,9 @@
                         status: status
                     },
                     success: function(resp) {
-                        if (status == "Done") {
-                            var tableRow = $('tr[data-row-id="'+ id +'"]'); 
+                        var tableRow = $('tr[data-row-id="'+ id +'"]');  
+                        
+                        if (status == "Done" || "Cancelled") {
                             table.row(tableRow).remove().draw();
                         }
                         

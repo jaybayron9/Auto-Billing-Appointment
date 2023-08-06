@@ -56,6 +56,12 @@ class Data extends DBConn {
     public function add_support() { 
         extract($_POST); 
 
+        $pass_validator = new \Password\Password;
+        $pass_validator->set_error();
+        if (!empty(array_filter($pass_validator->err))) {
+            return $pass_validator->get_error();
+        }
+
         parent::insert('supports', [
             'name' => $name,
             'gender' => $gender,

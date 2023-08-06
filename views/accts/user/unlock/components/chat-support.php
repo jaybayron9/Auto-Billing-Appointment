@@ -1,5 +1,4 @@
 <div data-dial-init class="fixed right-6 bottom-6 group z-40 w-96">
-
     <div id="chat" class="hidden bg-gray-50 mb-10 rounded-md border border-gray-200 shadow-md h-96 overflow-hidden"> 
         <div id="chatDisplay" class="p-4 overflow-y-auto h-80"></div> 
         <form id="sm-form" class="flex bg-gray-50 border-t-2 border-gray-300 ">
@@ -38,7 +37,7 @@
             url: "?convo_rq=send_message",
             data: {
                 from_id: $('#from_id').val(),
-                to_id: "64",
+                to_id: "Admin",
                 msg: $('#message').val(),
             }, success: function(resp) {
                 $('#message').val('');
@@ -53,7 +52,7 @@
             type: 'POST',
             data: {
                 from_id: $('#from_id').val(),
-                to_id: "64",
+                to_id: "Admin",
             },
             success: function(resp) {
                 $("#chatDisplay").html(resp);

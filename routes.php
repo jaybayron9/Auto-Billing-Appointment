@@ -9,9 +9,9 @@ return [
     ''      => view(), 
 
     // Admin Authorization
-    '_admin'                   => view('accts/admin/lock', 'login'),
-    '_admin/forgot_password'   => view('accts/admin/lock', 'forgot-pass'),
-    '_admin/reset_password'    => view('accts/admin/lock', 'reset-pass'),
+    // '_admin'                   => view('accts/admin/lock', 'login'),
+    // '_admin/forgot_password'   => view('accts/admin/lock', 'forgot-pass'),
+    // '_admin/reset_password'    => view('accts/admin/lock', 'reset-pass'),
     // 
     '_admin/'                  => view('accts/admin/unlock'),
     '_admin/profile'           => view('accts/admin/unlock/settings', 'profile'),
@@ -27,11 +27,16 @@ return [
     '_admin/services'          => view('accts/admin/unlock', 'services'), 
     '_admin/resigned'          => view('accts/admin/unlock', 'resigned'), 
     '_admin/serv_his'          => view('accts/admin/unlock', 'history'), 
+    '_admin/pro1diesel'        => view('accts/admin/unlock', 'pro1diesel'),
+    '_admin/pro1gas'           => view('accts/admin/unlock', 'pro1gas'),
+    '_admin/pro2'              => view('accts/admin/unlock', 'pro2'),
+    '_admin/pro3'              => view('accts/admin/unlock', 'pro3'),
+    '_admin/pro4'              => view('accts/admin/unlock', 'pro4'),
 
     // Support Authorization
     '_sup'                     => view('accts/support/lock', 'login'),
-    '_sup/forgot_password'     => view('accts/support/lock', 'forgot-pass'),
-    '_sup/reset_password'      => view('accts/support/lock', 'reset-pass'),
+    // '_sup/forgot_password'     => view('accts/support/lock', 'forgot-pass'),
+    // '_sup/reset_password'      => view('accts/support/lock', 'reset-pass'),
     //
     '_sup/'                    => view('accts/support/unlock'),
     '_sup/profile'             => view('accts/support/unlock/settings', 'profile'),

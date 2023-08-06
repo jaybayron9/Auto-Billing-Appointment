@@ -1,6 +1,8 @@
 <?php 
 use Auth\Auth; 
-Auth::check_login_auth('user_id', '_/');
+Auth::check_login_auth('user_id', '_/'); 
+Auth::check_login_auth('admin_id', '_admin/'); 
+Auth::check_login_auth('support_id', '_sup/'); 
 ?>
 
 <!-- Google Recaptcha -->
@@ -83,8 +85,20 @@ Auth::check_login_auth('user_id', '_/');
                     dataType: 'json',
                     success: function(resp) {
                         if (resp.status == 200) {
-                            window.location.href = '?vs=_/'
-                        } else {
+                            switch (resp.msg) {
+                                case 'User':
+                                    window.location.href = '?vs=_/'
+                                    break;
+                                case 'Support':
+                                    window.location.href = '?vs=_sup/'
+                                    break;
+                                case 'Admin':
+                                    window.location.href = '?vs=_admin/'
+                                    break;
+                            }
+                        } 
+                        
+                        if (resp.status == 400) {
                             $('#alert').removeAttr('hidden');
                             if (resp.msg == '') {
                                 $('#msg').html(resp.empty);

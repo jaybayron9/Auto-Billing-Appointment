@@ -1,8 +1,24 @@
-CREATE TABLE supports (
-    id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE admins (
+    id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name varchar(255) DEFAULT NULL,
     phone varchar(100) DEFAULT NULL,
-    email varchar(255) DEFAULT NULL,
+    email varchar(255) DEFAULT NULL UNIQUE,
+    email_verify_token varchar(100) DEFAULT NULL,
+    email_verified_at datetime DEFAULT NULL,
+    password varchar(255) NOT NULL,
+    password_reset_token varchar(100) DEFAULT NULL,
+    profile_photo_path varchar(1000) DEFAULT NULL,
+    account_role VARCHAR(20) DEFAULT 'Admin',
+    access_enabled tinyint(1) DEFAULT 1,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()
+);
+
+CREATE TABLE supports (
+    id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name varchar(255) DEFAULT NULL,
+    phone varchar(100) DEFAULT NULL,
+    email varchar(255) DEFAULT NULL UNIQUE,
     address varchar(250) DEFAULT NULL,
     mobile_no varchar(250) DEFAULT NULL,
     nationality varchar(250) DEFAULT NULL,
@@ -19,12 +35,31 @@ CREATE TABLE supports (
     password varchar(255) NOT NULL,
     password_reset_token varchar(100) DEFAULT NULL,
     profile_photo_path varchar(1000) DEFAULT NULL,
+    account_role VARCHAR(20) DEFAULT 'Employee',
     access_enabled tinyint(1) DEFAULT 1,
     created_at timestamp NOT NULL DEFAULT current_timestamp(),
-    updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-    PRIMARY KEY (id),
-    UNIQUE KEY email (email)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()
+);
+
+CREATE TABLE users (
+    id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name varchar(255) DEFAULT NULL,
+    phone varchar(100) DEFAULT NULL,
+    email varchar(255) DEFAULT NULL UNIQUE,
+    email_verify_token varchar(100) DEFAULT NULL,
+    email_verified_at datetime DEFAULT NULL,
+    password varchar(255) NOT NULL,
+    password_reset_token varchar(100) DEFAULT NULL,
+    profile_photo_path varchar(1000) DEFAULT NULL,
+    account_role VARCHAR(20) DEFAULT 'Customer',
+    access_enabled tinyint(1) DEFAULT 1,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()
+);
+
+drop table users;
+drop table supports;
+drop table admins;
 
 CREATE TABLE estimator (
     id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -34,8 +69,8 @@ CREATE TABLE estimator (
     price VARCHAR(50),
     inclusions VARCHAR(100),
     img BLOB, 
-    created_at timestamp NOT NULL DEFAULT current_timestamp(),
-    updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()
 ); 
 
 CREATE TABLE booking_summary (
@@ -47,8 +82,8 @@ CREATE TABLE booking_summary (
     quantity VARCHAR(11),
     price VARCHAR(300),
     total VARCHAR(250),
-    created_at timestamp NOT NULL DEFAULT current_timestamp(),
-    updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()
 );     
 
 CREATE TABLE bussiness_hours(

@@ -3,7 +3,7 @@ use DBConn\DBConn;
 use Auth\Auth;
 
 Auth::check_user_auth(
-    'support_id', '_sup'
+    'support_id', 'login'
 );  
 if (Auth::check_user_access(
     'supports', $_SESSION['support_id']
