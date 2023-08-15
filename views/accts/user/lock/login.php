@@ -5,9 +5,6 @@ Auth::check_login_auth('admin_id', '_admin/');
 Auth::check_login_auth('support_id', '_sup/'); 
 ?>
 
-<!-- Google Recaptcha -->
-<script src="https://www.google.com/recaptcha/api.js?render=6LdIqu0mAAAAAHKhiSg-EnuA7O3-9EuayBVbUxMv"></script>
-
 <div id="div-alert" hidden class="animate__animated fixed z-100 top-3 right-4 bg-white border rounded py-2 px-5 shadow text-[14.5px]">
     <p id="alert-msg"></p>
 </div> 
@@ -68,52 +65,45 @@ Auth::check_login_auth('support_id', '_sup/');
         $('#submit-txt').attr('hidden', '');
         $('#spinner').show();
 
-        grecaptcha.ready(function() {
-            grecaptcha.execute('6LdIqu0mAAAAAHKhiSg-EnuA7O3-9EuayBVbUxMv', {
-                action: 'submit'
-            }).then(function(token) {
-                $.ajax({
-                    url: '?rq=user_sign_in',
-                    type: 'POST',
-                    data: {
-                        recaptcha: token,
-                        csrf_token: $('#csrf-token').val(),
-                        email: $('#email').val(),
-                        password: $('#password').val(),
-                        remember: $('#remember').val(),
-                    },
-                    dataType: 'json',
-                    success: function(resp) {
-                        if (resp.status == 200) {
-                            switch (resp.msg) {
-                                case 'User':
-                                    window.location.href = '?vs=_/'
-                                    break;
-                                case 'Support':
-                                    window.location.href = '?vs=_sup/'
-                                    break;
-                                case 'Admin':
-                                    window.location.href = '?vs=_admin/'
-                                    break;
-                            }
-                        } 
-                        
-                        if (resp.status == 400) {
-                            $('#alert').removeAttr('hidden');
-                            if (resp.msg == '') {
-                                $('#msg').html(resp.empty);
-                            } else {
-                                $('#msg').html(resp.msg);
-                            }
-                        }
-
-                        $('#email, #password').val('');
-                        $('#submit-txt').removeAttr('hidden');
-                        $('#spinner').hide();
+        $.ajax({
+            url: '?rq=user_sign_in',
+            type: 'POST',
+            data: { 
+                csrf_token: $('#csrf-token').val(),
+                email: $('#email').val(),
+                password: $('#password').val(),
+                remember: $('#remember').val(),
+            },
+            dataType: 'json',
+            success: function(resp) {
+                if (resp.status == 200) {
+                    switch (resp.msg) {
+                        case 'User':
+                            window.location.href = '?vs=_/'
+                            break;
+                        case 'Support':
+                            window.location.href = '?vs=_sup/'
+                            break;
+                        case 'Admin':
+                            window.location.href = '?vs=_admin/'
+                            break;
                     }
-                })
-            });
-        });
+                } 
+                
+                if (resp.status == 400) {
+                    $('#alert').removeAttr('hidden');
+                    if (resp.msg == '') {
+                        $('#msg').html(resp.empty);
+                    } else {
+                        $('#msg').html(resp.msg);
+                    }
+                }
+
+                $('#email, #password').val('');
+                $('#submit-txt').removeAttr('hidden');
+                $('#spinner').hide();
+            }
+        }) 
     }); 
 
     <?php

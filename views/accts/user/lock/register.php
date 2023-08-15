@@ -1,5 +1,3 @@
-<!-- Google Recaptcha -->
-<script src="https://www.google.com/recaptcha/api.js?render=6LdIqu0mAAAAAHKhiSg-EnuA7O3-9EuayBVbUxMv"></script>
 
 <div class="flex justify-center items-center mt-[40px]">
     <div class="w-5/6">
@@ -158,89 +156,58 @@
         e.preventDefault();
         $('#submit-txt').attr('hidden', '');
         $('#spinner').show();
+ 
+        $.ajax({
+            url: '?rq=user_register',
+            type: 'POST',
+            data: { 
+                csrf_token: $('#csrf-token').val(),
+                name: $('#name').val(),
+                email: $('#email').val(),
+                phone: $('#phone').val(),
+                password: $('#password').val(),
+                password_confirmation: $('#password-confirmation').val(),
+                platenumber: $('#platenumber').val(),
+                brand: $('#brand').val(),
+                model: $('#model').val(),
+                cartype: $('#cartype').val(),
+                fueltype: $('#fueltype').val(),
+                color: $('#color').val(),
+                transmission: $('#transmission').val(),
+            },
+            dataType: 'json',
+            success: function(resp) { 
+                if (resp.status == 200) { 
+                    console.log('working')
+                    window.location.href = '?vs=_/';
+                } else {
+                    resp.name ? $('#name-msg').text(`*${resp.name}`) : $('#name-msg').text('');   
+                    resp.email ? $('#email-msg').text(`*${resp.email}`) : $('#email-msg').text('');    
+                    resp.invalid_email && !resp.email ? $('#invalid-email-msg').text(`*${resp.invalid_email}`) : $('#invalid-email-msg').text('');  
+                    resp.similar_email && !resp.email && !resp.invalid_email ? $('#similar-email-msg').text(`*${resp.similar_email}`) : $('#similar-email-msg').text('');  
+                    resp.phone ? $('#phone-msg').text(`*${resp.phone}`) : $('#phone-msg').text('');
+                    resp.char_phone && !resp.phone ? $('#char-phone-msg').text(`*${resp.char_phone}`) : $('#char-phone-msg').text('');
+                    resp.password ? $('#pass-msg').text(`*${resp.password}`) : $('#pass-msg').text('');
+                    resp.pass_lenght ? $('#password-format').show() : '';
+                    resp.pass_small ? $('#password-format').show() : '';
+                    resp.pass_big ? $('#password-format').show() : '';
+                    resp.pass_number ? $('#password-format').show() : '';
+                    resp.pass_symbol ? $('#password-format').show() : '';
+                    resp.confirm_password ? $('#confirm-pass-msg').text(resp.confirm_password) : $('#confirm-pass-msg').text('');
+                    resp.plate_no ? $('#plateno-msg').text(`*${resp.plate_no}`) : $('#plateno-msg').text('');
+                    resp.plate_no_format && !resp.plate_no ? $('#format-plateno-msg').text(`*${resp.plate_no_format}`) : $('#format-plateno-msg').text('');
+                    resp.similar_plate_no && !resp.plate_no && !resp.plate_no_format ? $('#similar-plateno-msg').text(`*${resp.similar_plate_no}`) : $('#similar-plateno-msg').text('');
+                    resp.brand ? $('#brand-msg').text(resp.brand) : $('#brand-msg').text('');
+                    resp.model ? $('#model-msg').text(resp.model) : $('#model-msg').text('');
+                    resp.cartype ? $('#cartype-msg').text(resp.cartype) : $('#cartype-msg').text('');
+                    resp.fueltype ? $('#fueltype-msg').text(resp.fueltype) : $('#fueltype-msg').text('');
+                    resp.transmission ? $('#transmission-msg').text(resp.transmission) : $('#transmission-msg').text('');
+                    resp.color ? $('#color-msg').text(resp.color) : $('#color-msg').text(''); 
+                }
 
-        grecaptcha.ready(function() {
-            grecaptcha.execute('6LdIqu0mAAAAAHKhiSg-EnuA7O3-9EuayBVbUxMv', {
-                action: 'submit'
-            }).then(function(token) {
-                var tok = token;
-                $.ajax({
-                    url: '?rq=user_register',
-                    type: 'POST',
-                    data: {
-                        recaptcha: token,
-                        csrf_token: $('#csrf-token').val(),
-                        name: $('#name').val(),
-                        email: $('#email').val(),
-                        phone: $('#phone').val(),
-                        password: $('#password').val(),
-                        password_confirmation: $('#password-confirmation').val(),
-                        platenumber: $('#platenumber').val(),
-                        brand: $('#brand').val(),
-                        model: $('#model').val(),
-                        cartype: $('#cartype').val(),
-                        fueltype: $('#fueltype').val(),
-                        color: $('#color').val(),
-                        transmission: $('#transmission').val(),
-                    },
-                    dataType: 'json',
-                    success: function(resp) { 
-                        if (resp.status == 200) { 
-                            console.log('working')
-                            window.location.href = '?vs=_/';
-                        } else {
-                            resp.name ? $('#name-msg').text(`*${resp.name}`) : $('#name-msg').text('');   
-                            resp.email ? $('#email-msg').text(`*${resp.email}`) : $('#email-msg').text('');    
-                            resp.invalid_email && !resp.email ? $('#invalid-email-msg').text(`*${resp.invalid_email}`) : $('#invalid-email-msg').text('');  
-                            resp.similar_email && !resp.email && !resp.invalid_email ? $('#similar-email-msg').text(`*${resp.similar_email}`) : $('#similar-email-msg').text('');  
-                            resp.phone ? $('#phone-msg').text(`*${resp.phone}`) : $('#phone-msg').text('');
-                            resp.char_phone && !resp.phone ? $('#char-phone-msg').text(`*${resp.char_phone}`) : $('#char-phone-msg').text('');
-                            resp.password ? $('#pass-msg').text(`*${resp.password}`) : $('#pass-msg').text('');
-                            resp.pass_lenght ? $('#password-format').show() : '';
-                            resp.pass_small ? $('#password-format').show() : '';
-                            resp.pass_big ? $('#password-format').show() : '';
-                            resp.pass_number ? $('#password-format').show() : '';
-                            resp.pass_symbol ? $('#password-format').show() : '';
-                            resp.confirm_password ? $('#confirm-pass-msg').text(resp.confirm_password) : $('#confirm-pass-msg').text('');
-                            resp.plate_no ? $('#plateno-msg').text(`*${resp.plate_no}`) : $('#plateno-msg').text('');
-                            resp.plate_no_format && !resp.plate_no ? $('#format-plateno-msg').text(`*${resp.plate_no_format}`) : $('#format-plateno-msg').text('');
-                            resp.similar_plate_no && !resp.plate_no && !resp.plate_no_format ? $('#similar-plateno-msg').text(`*${resp.similar_plate_no}`) : $('#similar-plateno-msg').text('');
-                            resp.brand ? $('#brand-msg').text(resp.brand) : $('#brand-msg').text('');
-                            resp.model ? $('#model-msg').text(resp.model) : $('#model-msg').text('');
-                            resp.cartype ? $('#cartype-msg').text(resp.cartype) : $('#cartype-msg').text('');
-                            resp.fueltype ? $('#fueltype-msg').text(resp.fueltype) : $('#fueltype-msg').text('');
-                            resp.transmission ? $('#transmission-msg').text(resp.transmission) : $('#transmission-msg').text('');
-                            resp.color ? $('#color-msg').text(resp.color) : $('#color-msg').text(''); 
-                        }
-
-                        $('#submit-txt').removeAttr('hidden');
-                        $('#spinner').hide();
-                    }
-                })
-            });
-        });
-    });
-
-    // $('#brand').on('input', function() {
-    //     var model = $(this).val(); 
-    //     $.ajax({
-    //         method: 'GET',
-    //         url: 'https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?limit=100&make=' + model,
-    //         headers: {
-    //             'X-RapidAPI-Key': '37633832b2msh57b474baeab9e69p1b44bbjsn38f6726378d6',
-    //             'X-RapidAPI-Host': 'cars-by-api-ninjas.p.rapidapi.com'
-    //         },
-    //         contentType: 'application/json',
-    //         success: function(resp) { 
-    //             var list = '';
-    //             resp.forEach(element => {
-    //                 list += '<option>'+ element.model +'</option>';
-    //             });
-    //             $('#modellist').append(list);
-    //         },
-    //         error: function ajaxError(jqXHR) {
-    //             console.error('Error: ', jqXHR.responseText);
-    //         }
-    //     });
-    // }) 
+                $('#submit-txt').removeAttr('hidden');
+                $('#spinner').hide();
+            }
+        }) 
+    }); 
 </script>

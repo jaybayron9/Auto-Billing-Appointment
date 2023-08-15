@@ -8,22 +8,16 @@ use Validation\Valid;
 use FHandler\FHandler;
 
 class User extends DBConn {
-    public function sign_in() { 
-        $config = require('config.php'); 
-        extract($config['recaptchav3']);
-
-        $msg = 'Incorrect email or password';
-
-        $error[] = Auth::check_csrf($_POST['csrf_token']) ? $msg : ''; 
-        $error[] = Auth::reCaptchaV3($_POST['recaptcha'], $SECRET_KEY) ? 'You are a robot.' : '';
+    public function sign_in() {   
+        $msg = 'Incorrect email or password'; 
+        $error[] = Auth::check_csrf($_POST['csrf_token']) ? $msg : '';  
         $error[] = Auth::check_empty($_POST) ? 'Please fill out the required fields' : '';
 
         if (!empty(array_filter($error))) {
             return json_encode([
                 'status' => 'error',
-                'msg' => $error[0],
-                'robot' => $error[1], 
-                'empty' => $error[2]
+                'msg' => $error[0], 
+                'empty' => $error[1]
             ]);
         }
 
@@ -69,11 +63,7 @@ class User extends DBConn {
         Auth::sign_out();
     }
 
-    public function sign_up() { 
-        $config = require('config.php');
-        extract($config['recaptchav3']);
-
-        $error[] = Auth::reCaptchaV3($_POST['recaptcha'], $SECRET_KEY) ? 'You are a robot.' : '';
+    public function sign_up() {   
         $error[] = Auth::check_csrf($_POST['csrf_token']) ? 'Invalid email address.' : '';
         $error[] = Auth::empty($_POST['name']) ? 'Name field is required' : '';
         $error[] = Auth::empty($_POST['email']) ? 'Email field is required' : '';
@@ -100,31 +90,30 @@ class User extends DBConn {
 
         if (!empty(array_filter($error))) {
             return json_encode([
-                'status' => 400,
-                'recaptcha' => $error[0],
-                'csrf'=> $error[1],
-                'name' => $error[2],
-                'email' => $error[3],
-                'invalid_email' => $error[4],
-                'similar_email' => $error[5],
-                'phone' => $error[6],
-                'char_phone' => $error[7],
-                'password' => $error[8],
-                'pass_lenght' => $error[9],
-                'pass_small' => $error[10],
-                'pass_big' =>  $error[11],
-                'pass_number' => $error[12], 
-                'pass_symbol' => $error[13], 
-                'confirm_password' => $error[14], 
-                'plate_no' => $error[15],
-                'plate_no_format' => $error[16],
-                'similar_plate_no' => $error[17],
-                'brand' => $error[18],
-                'model' => $error[19],
-                'cartype' => $error[20],
-                'fueltype' => $error[21],
-                'transmission' => $error[22],
-                'color' => $error[23]
+                'status' => 400, 
+                'csrf'=> $error[0],
+                'name' => $error[1],
+                'email' => $error[2],
+                'invalid_email' => $error[3],
+                'similar_email' => $error[4],
+                'phone' => $error[5],
+                'char_phone' => $error[6],
+                'password' => $error[7],
+                'pass_lenght' => $error[8],
+                'pass_small' => $error[9],
+                'pass_big' =>  $error[10],
+                'pass_number' => $error[11], 
+                'pass_symbol' => $error[12], 
+                'confirm_password' => $error[13], 
+                'plate_no' => $error[14],
+                'plate_no_format' => $error[15],
+                'similar_plate_no' => $error[16],
+                'brand' => $error[17],
+                'model' => $error[18],
+                'cartype' => $error[19],
+                'fueltype' => $error[20],
+                'transmission' => $error[21],
+                'color' => $error[22]
             ]);
         }
 

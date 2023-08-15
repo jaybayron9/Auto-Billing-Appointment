@@ -28,10 +28,7 @@
                     <a href="#aboutus" class="text-gray-900 hover:underline whitespace-nowrap">About Us</a>
                 </li>
                 <li>
-                    <a href="#pms" class="text-gray-900 hover:underline">PMS</a>
-                </li>
-                <li>
-                    <a href="#repair" class="text-gray-900 hover:underline">Repair</a>
+                    <a href="#services" class="text-gray-900 hover:underline">Services</a>
                 </li>
                 <li>
                     <a href="#contact" class="text-gray-900 hover:underline">Contact</a>

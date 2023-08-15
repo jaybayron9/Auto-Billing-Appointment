@@ -21,24 +21,24 @@ return [
         'database' => '',
     ],
     'smtp' => [
-        'from_name' => 'Administrator', 
-        'username' => 'tweb65776@gmail.com',
-        'password' => 'bgpekesrwlvgrljx',
+        'from_name' => 'Admin', 
+        'username' => '',
+        'password' => '',
     ],
     'sms' => [
-        'API_KEY' => 'as9w12nj213jas98h8c6x67m21n',
-        'sender' => 'Administrator',
-        'number' => '+639123456780',
+        'API_KEY' => '',
+        'sender' => '',
+        'number' => '',
     ],
     'links' => [
         'base_url' => 'http://localhost/GitHub/AutoBillingAppointmentSystem'
     ],
     'recaptchav3' => [
-        'SITE_KEY' => '6LdIqu0mAAAAAHKhiSg-EnuA7O3-9EuayBVbUxMv',
-        'SECRET_KEY' => '6LdIqu0mAAAAAEZ9DKBe01pPpWivJQ-TLBcW0lBa',
+        'SITE_KEY' => '',
+        'SECRET_KEY' => '',
     ],
     'recaptchav2' => [
-        'SITE_KEY' => '6LdX7-0mAAAAAE8rkS_NAzlHC-yUKQqTL4B0Cl46',
-        'SECRET_KEY' => '6LdX7-0mAAAAAAAlCy5HbqQgj6Sz7Tgz3jjtRlqY',
+        'SITE_KEY' => '',
+        'SECRET_KEY' => '',
     ],  
 ];
