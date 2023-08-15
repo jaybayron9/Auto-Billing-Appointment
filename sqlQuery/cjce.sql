@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 15, 2023 at 09:20 AM
+-- Generation Time: Aug 15, 2023 at 09:26 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -72,13 +72,6 @@ CREATE TABLE `appointments` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dumping data for table `appointments`
---
-
-INSERT INTO `appointments` (`id`, `user_id`, `car_id`, `book_summary_id`, `assigned_employee_id`, `service_type_id`, `note`, `schedule_date`, `service_time_id`, `appointment_status`, `payment_status`, `created_at`, `updated_at`) VALUES
-(3, '1', '50', '3', ', 1', '1', '', '2023-08-07', '1', 'Done', 'Unpaid', '2023-08-05 08:57:07', '2023-08-06 12:36:23');
-
 -- --------------------------------------------------------
 
 --
@@ -97,13 +90,6 @@ CREATE TABLE `booking_summary` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `booking_summary`
---
-
-INSERT INTO `booking_summary` (`id`, `user_id`, `car_id`, `appointment_id`, `products`, `quantity`, `price`, `total`, `created_at`, `updated_at`) VALUES
-(3, '1', '50', '3', NULL, NULL, NULL, NULL, '2023-08-05 08:57:07', '2023-08-05 08:57:07');
 
 -- --------------------------------------------------------
 
@@ -320,13 +306,6 @@ CREATE TABLE `users` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `name`, `phone`, `email`, `email_verify_token`, `email_verified_at`, `password`, `password_reset_token`, `profile_photo_path`, `account_role`, `access_enabled`, `created_at`, `updated_at`) VALUES
-(1, 'jay bayron', '10298312989', 'tweb65776@gmail.com', NULL, NULL, '$2y$10$SodAtZudssZT3tr9oCrHVOVd0xbEgpGsJHGPMl.sObmr4.bqquvJ6', 'e201c2fd195df23d952dba5d727c1b719d00d5948ee840f9cf40c83a5c7a23af', NULL, 'Customer', 1, '2023-08-05 08:45:28', '2023-08-05 15:23:33');
 
 -- --------------------------------------------------------
 
