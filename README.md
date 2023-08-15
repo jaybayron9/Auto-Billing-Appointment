@@ -15,7 +15,6 @@ Tutorial how to get your phpmailer credetials [https://www.youtube.com/watch?v=1
 
 # If your encounter in the reset password link an error go-to config.php and replate the links = base_url base on your file directory or domain name
 
-Employee Account Default Password: Pa$$w0rd
 Admin Account Default Password: Pa$$w0rd
 
 - Jay Bayron
