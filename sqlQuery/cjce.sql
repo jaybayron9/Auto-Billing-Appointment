@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2023 at 05:20 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.0.19
+-- Generation Time: Aug 15, 2023 at 09:20 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,17 +37,18 @@ CREATE TABLE `admins` (
   `password` varchar(255) NOT NULL,
   `password_reset_token` varchar(100) DEFAULT NULL,
   `profile_photo_path` varchar(1000) DEFAULT NULL,
+  `account_role` varchar(20) DEFAULT 'Admin',
   `access_enabled` tinyint(1) DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `admins`
 --
 
-INSERT INTO `admins` (`id`, `name`, `phone`, `email`, `email_verify_token`, `email_verified_at`, `password`, `password_reset_token`, `profile_photo_path`, `access_enabled`, `created_at`, `updated_at`) VALUES
-(64, 'Admin', '0918239128', 'admin@gmail.com', NULL, NULL, '$2y$10$BLZUczW.KvfKH48mrus/vuaRMAVCaQJ42y77TUQtLgqSBjMP7bulW', 'd010e9f9028d03e6cebf567d0dee4465c52ecf2d0010714ee0d7972dbfe2661d', 'uploads/64ca39500c997.png', 1, '2023-07-28 12:37:39', '2023-08-02 11:09:04');
+INSERT INTO `admins` (`id`, `name`, `phone`, `email`, `email_verify_token`, `email_verified_at`, `password`, `password_reset_token`, `profile_photo_path`, `account_role`, `access_enabled`, `created_at`, `updated_at`) VALUES
+(1, 'Admin', '03129392819', 'admin@gmail.com', NULL, NULL, '$2y$10$AdOXp83Tgd8ljgbtR3QOzO0dcUGjCeclY46JLDH0b5cuIjgKMWD7S', '535fa43481bab823f2d8c25ce5eda7a2e700ae897c8ccc5fcbacf942f5ab091f', NULL, 'Admin', 1, '2023-08-05 08:47:51', '2023-08-15 07:15:21');
 
 -- --------------------------------------------------------
 
@@ -69,7 +70,14 @@ CREATE TABLE `appointments` (
   `payment_status` varchar(20) DEFAULT 'Unpaid',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `appointments`
+--
+
+INSERT INTO `appointments` (`id`, `user_id`, `car_id`, `book_summary_id`, `assigned_employee_id`, `service_type_id`, `note`, `schedule_date`, `service_time_id`, `appointment_status`, `payment_status`, `created_at`, `updated_at`) VALUES
+(3, '1', '50', '3', ', 1', '1', '', '2023-08-07', '1', 'Done', 'Unpaid', '2023-08-05 08:57:07', '2023-08-06 12:36:23');
 
 -- --------------------------------------------------------
 
@@ -88,7 +96,14 @@ CREATE TABLE `booking_summary` (
   `total` varchar(250) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `booking_summary`
+--
+
+INSERT INTO `booking_summary` (`id`, `user_id`, `car_id`, `appointment_id`, `products`, `quantity`, `price`, `total`, `created_at`, `updated_at`) VALUES
+(3, '1', '50', '3', NULL, NULL, NULL, NULL, '2023-08-05 08:57:07', '2023-08-05 08:57:07');
 
 -- --------------------------------------------------------
 
@@ -101,7 +116,7 @@ CREATE TABLE `bussiness_hours` (
   `available_time` varchar(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `bussiness_hours`
@@ -129,7 +144,14 @@ CREATE TABLE `cars` (
   `trans_type` varchar(250) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `cars`
+--
+
+INSERT INTO `cars` (`id`, `user_id`, `plate_no`, `car_brand`, `car_model`, `car_type`, `fuel_type`, `color`, `trans_type`, `created_at`, `updated_at`) VALUES
+(50, '1', 'asd 1234', 'ford', '2000', 'Automatic', 'Gas', 'red', 'Automatic', '2023-08-05 08:45:28', '2023-08-05 08:45:28');
 
 -- --------------------------------------------------------
 
@@ -144,7 +166,7 @@ CREATE TABLE `convo` (
   `message` longtext DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -162,7 +184,7 @@ CREATE TABLE `estimator` (
   `img` blob DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `estimator`
@@ -220,7 +242,7 @@ CREATE TABLE `payments` (
   `total_due` varchar(250) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -233,7 +255,7 @@ CREATE TABLE `services` (
   `category` varchar(50) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `services`
@@ -271,18 +293,11 @@ CREATE TABLE `supports` (
   `password` varchar(255) NOT NULL,
   `password_reset_token` varchar(100) DEFAULT NULL,
   `profile_photo_path` varchar(1000) DEFAULT NULL,
+  `account_role` varchar(20) DEFAULT 'Employee',
   `access_enabled` tinyint(1) DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `supports`
---
-
-INSERT INTO `supports` (`id`, `name`, `phone`, `email`, `address`, `mobile_no`, `nationality`, `gender`, `position`, `age`, `dateofbirth`, `placeofbirth`, `datestarted`, `status`, `lastday`, `email_verify_token`, `email_verified_at`, `password`, `password_reset_token`, `profile_photo_path`, `access_enabled`, `created_at`, `updated_at`) VALUES
-(67, 'Electrician One', '091029301293', 'electrician@gmail.com', 'Antipolo City', '091283912312', 'Filipino', 'Male', 'Electrician', '21', '2008-08-13', '06-Jun-2022', '2022-09-10', 'Resigned', 'August 2, 2023', NULL, NULL, '$2y$10$OutD4a0jY01ph7NHcYpRh.tJF.BwjKoYL7e9To3/quo8kh629cfh6', NULL, 'uploads/64ca65f79d6dc.png', 1, '2023-07-21 07:54:52', '2023-08-02 14:19:35'),
-(76, 'Mechanic One', '091029301293', 'mechanic@gmail.com', 'Antipolo City', '+1 (343) 396-4006', 'Filipino', 'Male', 'Mechanic', '22', '2008-08-13', '06-Jun-2022', '2022-09-10', 'Employed', 'August 1, 2023', NULL, NULL, '$2y$10$OutD4a0jY01ph7NHcYpRh.tJF.BwjKoYL7e9To3/quo8kh629cfh6', NULL, 'uploads/64c54005581e4.png', 1, '2023-07-21 17:23:22', '2023-08-02 15:20:14');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -300,10 +315,18 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `password_reset_token` varchar(100) DEFAULT NULL,
   `profile_photo_path` varchar(1000) DEFAULT NULL,
+  `account_role` varchar(20) DEFAULT 'Customer',
   `access_enabled` tinyint(1) DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `phone`, `email`, `email_verify_token`, `email_verified_at`, `password`, `password_reset_token`, `profile_photo_path`, `account_role`, `access_enabled`, `created_at`, `updated_at`) VALUES
+(1, 'jay bayron', '10298312989', 'tweb65776@gmail.com', NULL, NULL, '$2y$10$SodAtZudssZT3tr9oCrHVOVd0xbEgpGsJHGPMl.sObmr4.bqquvJ6', 'e201c2fd195df23d952dba5d727c1b719d00d5948ee840f9cf40c83a5c7a23af', NULL, 'Customer', 1, '2023-08-05 08:45:28', '2023-08-05 15:23:33');
 
 -- --------------------------------------------------------
 
@@ -327,7 +350,14 @@ CREATE TABLE `walkin` (
   `payment_status` varchar(20) DEFAULT 'Unpaid',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `walkin`
+--
+
+INSERT INTO `walkin` (`id`, `name`, `email`, `phone`, `address`, `plate_no`, `service_id`, `brand`, `model`, `schedule_date`, `service_time_id`, `appointment_status`, `payment_status`, `created_at`, `updated_at`) VALUES
+(1, 'zumubeb@mailinator.com', 'zuvidi@mailinator.com', 'byguto@mailinator.co', 'begypap@mailinator.com', 'zohozor@ma', '3', 'bymijabyc@mailinator.com', 'perofylok@mailinator.com', '2008-09-13', '2', 'Confirmed', 'Paid', '2023-08-04 13:42:47', '2023-08-04 13:44:40');
 
 --
 -- Indexes for dumped tables
@@ -416,19 +446,19 @@ ALTER TABLE `walkin`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `booking_summary`
 --
 ALTER TABLE `booking_summary`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `bussiness_hours`
@@ -440,25 +470,25 @@ ALTER TABLE `bussiness_hours`
 -- AUTO_INCREMENT for table `cars`
 --
 ALTER TABLE `cars`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `convo`
 --
 ALTER TABLE `convo`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `estimator`
 --
 ALTER TABLE `estimator`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `services`
@@ -470,19 +500,19 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT for table `supports`
 --
 ALTER TABLE `supports`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `walkin`
 --
 ALTER TABLE `walkin`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
