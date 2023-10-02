@@ -69,8 +69,8 @@ class User extends DBConn {
         $error[] = Auth::empty($_POST['email']) ? 'Email field is required' : '';
         $error[] = Auth::check_email($_POST) ? 'Invalid email address.' : '';
         $error[] = Auth::check_similar_email('users', $_POST['email']) ? 'The email has already been taken.' : '';
-        $error[] = Auth::empty($_POST['phone']) ? 'Phone number field is required' : '';
-        $error[] = Valid::has_exact_no($_POST['phone']) ? 'Phone number is atleast 11 characters' : '';
+        $error[] = Auth::empty($_POST['phone']) ? 'Phone number field is required' : ''; 
+        $error[] = strlen($_POST['phone']) === 13 ? '' : 'Phone number is atleast 11 characters';
         $error[] = Auth::empty($_POST['password']) ? 'Password field is required' : '';
         $error[] = Valid::has_min_lenght($_POST['password']) ? '8 Characters' : '';
         $error[] = Valid::has_small_letters($_POST['password']) ? 'Small Letter' : '';

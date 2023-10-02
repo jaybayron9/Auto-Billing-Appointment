@@ -108,15 +108,15 @@
                             <input type="text" name="placebirth" maxlength="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
                         </div>
                         <div>
-                            <label for="nationality" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Place of Birth</label>
+                            <label for="nationality" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nationality</label>
                             <input type="text" name="nationality" maxlength="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
                         </div>
-                    </div>
-                    <div class="flex flex-col space-y-3">
                         <div>
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Home Address</label>
                             <input type="text" name="address" maxlength="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
                         </div>
+                    </div>
+                    <div class="flex flex-col space-y-3"> 
                         <div>
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Position</label>
                             <select name="position" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required style="color: black!important;">
@@ -131,7 +131,7 @@
                         </div>
                         <div>
                             <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
-                            <input type="text" name="mobile_no" id="new-phone" placeholder="Phone number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                            <input type="text" name="mobile_no" id="new-phone" placeholder="Phone number" maxlength="11" class="number bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                         </div>
                         <div>
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>

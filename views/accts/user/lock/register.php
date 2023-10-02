@@ -1,4 +1,3 @@
-
 <div class="flex justify-center items-center mt-[40px]">
     <div class="w-5/6">
         <div class="flex justify-center items-center mb-5">
@@ -34,7 +33,7 @@
                         <div class="mb-2">
                             <label for="phone" class="text-[14.5px]">Phone Number</label>
                         </div>
-                        <input type="text" name="phone" id="phone" maxlength="11" placeholder="09504568090" class="number block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
+                        <input type="text" name="phone" id="phone" maxlength="12" placeholder="912-345-6781" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
                         <span id="phone-msg" class="block text-xs text-red-700"></span>
                         <span id="char-phone-msg" class="block text-xs text-red-700"></span>
                     </div>
@@ -150,13 +149,41 @@
         initialCountry: "ph",
         separateDialCode: true,
     });
-    iti.setNumber("+63");
+    iti.setNumber("+63"); 
+
+    var phoneInput = $("#phone");
+    function formatPhoneNumber() {
+        var inputVal = phoneInput.val().replace(/\D/g, "");
+        var formattedNumber = "";
+
+        for (var i = 0; i < inputVal.length; i++) {
+            if (i === 3 || i === 6) {
+            formattedNumber += "-";
+            }
+            formattedNumber += inputVal.charAt(i);
+        } 
+        phoneInput.val(formattedNumber);
+    } 
+    phoneInput.on("input", formatPhoneNumber);
+
+    $('#phone').on('keydown keyup', function(event) {
+    var input = $(this);
+    var value = input.val();
+    var msgphone = $('.msgphone'); 
+    value = value.replace(/[^\d-]/g, ''); 
+    value = value.replace(/-{2,}/g, '-'); 
+    value = value.replace(/^-+|-+$/g, '');
+
+    input.val(value);
+});
 
     $('#register-form').submit(function(e) {
         e.preventDefault();
         $('#submit-txt').attr('hidden', '');
         $('#spinner').show();
- 
+
+        var phoneNumber = iti.getNumber(); 
+
         $.ajax({
             url: '?rq=user_register',
             type: 'POST',
@@ -164,7 +191,7 @@
                 csrf_token: $('#csrf-token').val(),
                 name: $('#name').val(),
                 email: $('#email').val(),
-                phone: $('#phone').val(),
+                phone: phoneNumber,
                 password: $('#password').val(),
                 password_confirmation: $('#password-confirmation').val(),
                 platenumber: $('#platenumber').val(),
@@ -208,6 +235,6 @@
                 $('#submit-txt').removeAttr('hidden');
                 $('#spinner').hide();
             }
-        }) 
+        })  
     }); 
 </script>
