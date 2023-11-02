@@ -255,7 +255,9 @@ class User extends DBConn {
         $error[] = Auth::check_csrf($_POST['csrf_token']) ? '403 (Forbidden)' : '';
         $error[] = Auth::empty($_POST['email']) ? 'The email field is required.' : '';
         $error[] = Auth::empty($_POST['name']) ? 'The name field is required.' : '';
-        $error[] = Auth::empty($_POST['phone']) ? 'The phone field is required.' : ''; 
+        $error[] = Auth::empty($_POST['phone']) ? 'The phone field is required.' : '';
+        $error[] = Auth::check_email($_POST) ? 'Invalid email address.' : ''; 
+        $error[] = Auth::pass_length($_POST['phone'], 10) ? 'Phone number is atleast 11 characters' : '';
 
         if (!empty(array_filter($error))) {
             return json_encode([
@@ -263,6 +265,8 @@ class User extends DBConn {
                 'email' => $error[1],
                 'name' => $error[2],
                 'phone' => $error[3],
+                'email_format' => $error[4],
+                'phone_no_lenght' => $error[5]
             ]);
         } 
 
@@ -271,7 +275,7 @@ class User extends DBConn {
             'email' => $_POST['email'],
         ], "id = '{$_POST['id']}'");
 
-        if (!Auth::valImage()) { 
+        if (Auth::valImage()) { 
             $del = DBConn::select('users', '*', ['id' => $_POST['id']], null, 1);
             FHandler::delete_image($del[0]['profile_photo_path']);
             DBConn::update('users', [

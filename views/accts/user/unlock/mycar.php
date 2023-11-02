@@ -51,8 +51,8 @@
                             </ul>
                         </div>
                     <?php } ?>
-                    <button id="add-car-btn" data-modal-target="add-car-modal" data-modal-toggle="add-car-modal" class="flex flex-col p-6 max-w-xs text-center text-gray-900 bg-white rounded-md border border-gray-200 shadow-lg mt-8">
-                        <div class="flex justify-center items-center mt-20">
+                    <button id="add-car-btn" data-modal-target="add-car-modal" data-modal-toggle="add-car-modal" class="flex justify-center items-center flex-col p-6 max-w-xs text-center text-gray-900 bg-white rounded-md border border-gray-200 shadow-lg mt-8">
+                        <div class="flex justify-center items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-44 w-44">
                                 <path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clip-rule="evenodd" />
                             </svg>
@@ -103,10 +103,23 @@
                         <label for="cartype" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Car Type</label>
                         <select type="text" name="carType" class="select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Type of car" required>
                             <option value="" selected disabled>-- Select car type --</option>
+                            <option value="SUV">SUV</option>
+                            <option value="Sports car">Sports car</option>
+                            <option value="Van">Van</option>
+                            <option value="Hatchback">Hatchback</option>
+                            <option value="Hybrid car">Hybrid car</option>
+                            <option value="Coupe">Coupe</option>
+                            <option value="Sedan etc.">Sedan etc.</option>
+                        </select>
+                    </div> 
+                    <!-- <div>
+                        <label for="cartype" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Car Type</label>
+                        <select type="text" name="carType" class="select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Type of car" required>
+                            <option value="" selected disabled>-- Select car type --</option>
                             <option value="Automatic">Automatic</option>
                             <option value="Manual">Manual</option>
                         </select>
-                    </div> 
+                    </div>  -->
                     <div>
                         <label for="fueltype" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fuel Type</label>
                         <select type="text" name="fuelType" class="select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Fuel type" required>
@@ -119,11 +132,14 @@
                     <div>
                         <label for="carcolor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Color</label>
                         <input type="text" name="carColor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Color of vehicle" required>
-                    </div>
-
+                    </div> 
                     <div>
                         <label for="transtype" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Transmission Type</label>
-                        <input type="text" name="transType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Transmission Type" required>
+                        <select type="text" name="transType" class="select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Type of car" required>
+                            <option value="" selected disabled>-- Select transmission type --</option>
+                            <option value="Automatic">Automatic</option>
+                            <option value="Manual">Manual</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -209,8 +225,7 @@
             </div>
         </form>
     </div>
-</div>
-
+</div> 
 
 <script type="text/javascript">
     $('#add-car-form').submit(function(e) {

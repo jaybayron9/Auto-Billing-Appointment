@@ -24,7 +24,7 @@
                     <thead>
                         <tr>
                             <th data-priority="1" class="whitespace-nowrap text-xs text-center uppercase text-white">NAME</th>
-                            <th data-priority="3" class="whitespace-nowrap text-xs text-center uppercase text-white">EMAIL</th>
+                            <!-- <th data-priority="3" class="whitespace-nowrap text-xs text-center uppercase text-white">EMAIL</th> -->
                             <th data-priority="4" class="whitespace-nowrap text-xs text-center uppercase text-white">PHONE</th>
                             <th data-priority="5" class="whitespace-nowrap text-xs text-center uppercase text-white">ADDRESS</th>
                             <th data-priority="6" class="whitespace-nowrap text-xs text-center uppercase text-white">REPAIR</th>
@@ -46,7 +46,7 @@
                         ?>
                             <tr data-row-id="<?= $walkin['app_id'] ?>">
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['name'] ?></td>
-                                <td class="text-sm whitespace-nowrap"><?= $walkin['email'] ?></td>
+                                <!-- <td class="text-sm whitespace-nowrap"><?= $walkin['email'] ?></td> -->
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['phone'] ?></td>
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['address'] ?></td>
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['category'] ?></td>
@@ -94,10 +94,10 @@
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
                             <input type="text" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                             <input type="text" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                        </div>
+                        </div> -->
                         <div class="mb-3">
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
                             <input type="text" name="phone" maxlength="11" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">

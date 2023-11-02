@@ -1107,6 +1107,10 @@ input:checked + .toggle-bg {
   right: 0px;
 }
 
+.right-2 {
+  right: 0.5rem;
+}
+
 .right-3 {
   right: 0.75rem;
 }
@@ -1125,6 +1129,10 @@ input:checked + .toggle-bg {
 
 .top-14 {
   top: 3.5rem;
+}
+
+.top-2 {
+  top: 0.5rem;
 }
 
 .top-3 {
@@ -2712,6 +2720,10 @@ input:checked + .toggle-bg {
   color: rgb(142 75 16 / var(--tw-text-opacity));
 }
 
+.line-through {
+  text-decoration-line: line-through;
+}
+
 .opacity-0 {
   opacity: 0;
 }
@@ -2969,6 +2981,11 @@ input:checked + .toggle-bg {
 .hover\:text-sky-500:hover {
   --tw-text-opacity: 1;
   color: rgb(14 165 233 / var(--tw-text-opacity));
+}
+
+.hover\:text-white:hover {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .hover\:text-yellow-300:hover {
@@ -3353,12 +3370,12 @@ input:checked + .toggle-bg {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .sm\:grid-cols-6 {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
-
   .sm\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sm\:grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
   .sm\:gap-6 {

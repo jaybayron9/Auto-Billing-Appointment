@@ -36,7 +36,10 @@ Auth::check_login_auth('support_id', '_sup/');
                     </div>
                     <a href="?vs=forgot_password" class="hover:underline ml-auto text-[14.5px] text-blue-600">I forgot my password</a>
                 </div>
-                <input type="password" name="password" id="password" maxlength="50" placeholder="Password" autocomplete="off" required class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
+                <div class="flex relative">
+                    <input type="password" name="password" id="password" maxlength="50" placeholder="Password" autocomplete="off" required class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
+                    <button type="button" id="show-password" class="text-sm absolute right-2 top-2 line-through text-blue-500">Show</button>
+                </div>
             </div>
             <div class="flex items-center mb-5">
                 <input id="remember" type="checkbox" name="remember" class="w-4 h-4">
@@ -60,6 +63,17 @@ Auth::check_login_auth('support_id', '_sup/');
 </div>
 
 <script type="text/javascript">
+    $('#show-password').click(function() { 
+        $(this).toggleClass('line-through');
+
+        var fieldType = $('#password').attr('type'); 
+        if (fieldType === 'password') {
+            $('#password').attr('type', 'text');
+        } else {
+            $('#password').attr('type', 'password');
+        }
+    });
+
     $('#login-form').submit(function(e) {
         e.preventDefault();
         $('#submit-txt').attr('hidden', '');

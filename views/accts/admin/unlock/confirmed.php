@@ -59,9 +59,19 @@
                                 </td> 
                                 <td class="text-sm"><?= date('m/d/Y', strtotime($appointment['created_at'])) ?></td>
                                 <td class="flex gap-x-2 text-sm">
-                                    <button data-modal-target="assign-modal" data-modal-toggle="assign-modal" data-row-data="<?= $appointment['app_id'] ?>" data-toggle="modal" data-target="#assign" class="assign-btn bg-blue-500 hover:bg-blue-700 text-white px-2 rounded shadow-md font-semibold">
-                                        Assign
-                                    </button>
+                                    <?php 
+                                    $scheduleDate = strtotime(date('F d, Y', strtotime($appointment['schedule_date'])));
+                                    $currentDate = time();
+                                    $timeDifference = $scheduleDate - $currentDate; 
+                                    $daysDifference = $timeDifference / (60 * 60 * 24);
+                                    
+                                    if ($daysDifference <= 1) {
+                                        ?> 
+                                        <button data-modal-target="assign-modal" data-modal-toggle="assign-modal" data-row-data="<?= $appointment['app_id'] ?>" data-toggle="modal" data-target="#assign" class="assign-btn bg-blue-500 hover:bg-blue-700 text-white px-2 rounded shadow-md font-semibold">
+                                            Assign
+                                        </button>
+                                        <?php
+                                    } ?>  
                                     <button data-row-data="<?= $appointment['app_id'] ?>" class="cancel-btn bg-red-500 hover:bg-red-700 text-white px-2 rounded shadow-md font-semibold">
                                         Cancel
                                     </button>

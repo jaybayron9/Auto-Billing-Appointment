@@ -144,3 +144,17 @@ CREATE TABLE convo (
     created_at timestamp NOT NULL DEFAULT current_timestamp(),
     updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 );
+
+CREATE TABLE `payments` (
+    id int(10) NOT NULL,
+    appointment_id varchar(11) DEFAULT NULL,
+    name varchar(250) DEFAULT NULL,
+    email varchar(250) DEFAULT NULL,
+    phone varchar(250) DEFAULT NULL,
+    description longtext DEFAULT NULL,
+    total_due varchar(250) DEFAULT NULL,
+    created_at timestamp NOT NULL DEFAULT current_timestamp(),
+    updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+);
+
+drop table payments;

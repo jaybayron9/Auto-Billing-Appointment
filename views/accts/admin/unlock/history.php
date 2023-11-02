@@ -18,7 +18,7 @@
                             <th data-priority="3" class="whitespace-nowrap text-center text-xs uppercase text-white">Service</th>
                             <th data-priority="4" class="whitespace-nowrap text-center text-xs uppercase text-white">Date Scheduled</th>
                             <th data-priority="5" class="whitespace-nowrap text-center text-xs uppercase text-white">Service Time</th>
-                            <th data-priority="6" class="whitespace-nowrap text-center text-xs uppercase text-white">Payment Status</th>
+                            <!-- <th data-priority="6" class="whitespace-nowrap text-center text-xs uppercase text-white">Payment Status</th> -->
                             <th data-priority="7" class="whitespace-nowrap text-xs text-center uppercase text-white">Date Created</th>
                             <th data-priority="2" data-orderable="false" class="whitespace-nowrap text-xs text-center uppercase text-white"></th>
                         </tr>
@@ -44,11 +44,11 @@
                                         <td class="text-sm"><?= $app['category'] ?></td> 
                                         <td class="text-sm"><?= date('F d, Y', strtotime($app['schedule_date'])) ?></td>
                                         <td class="text-sm"><?= $app['available_time'] ?></td>
-                                        <td class="text-sm text-center">
+                                        <!-- <td class="text-sm text-center">
                                             <span class="text-white rounded-md px-2 <?= $app['payment_status'] == 'Unpaid' ? 'bg-gray-500' : 'bg-green-500';  ?>">
                                                 <?= $app['payment_status'] ?>
                                             </span> 
-                                        </td>
+                                        </td> -->
                                         <td class="text-sm"><?= date('F d, Y', strtotime($app['schedule_date'])) ?></td>
                                         <td class="flex justify-center">
                                             <button data-row-data="<?= $app['app_id'] ?>" data-modal-target="view-summary" data-modal-toggle="view-summary" class="book-summary-btn btn shadow-inner shadow-zinc-400 rounded-full p-1">
@@ -75,7 +75,7 @@
             <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
                 <div>
                     <h3 class="text-2xl font-bold text-gray-900 dark:text-white italic">
-                        Booking summary
+                        Payment Slip
                     </h3>
                     <div class="text-center">
                         <span class="text-sm font-base">Customer Details</span>
@@ -116,7 +116,7 @@
                             <tr>
                                 <th class="text-xl font-semibold text-left">Service/s</th>
                                 <th class="text-xl font-semibold text-center">Quantity</th>
-                                <th class="text-xl font-semibold text-center">Price</th>
+                                <th class="text-xl font-semibold text-right">Price</th>
                             </tr>
                         </thead>
                         <tbody id="products"></tbody>
@@ -124,7 +124,7 @@
                             <tr>
                                 <td>TOTAL</td>
                                 <td  class="text-center" id="quantity"></td>
-                                <td class="text-center" id="total"></td>
+                                <td class="text-right" id="total"></td>
                             </tr>
                         </tfoot>
                     </table>

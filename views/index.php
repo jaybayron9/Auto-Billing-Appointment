@@ -3,10 +3,6 @@ include(view('partials', 'navbar'));
 use DBConn\DBConn;
 ?>
 
-
-<!-- Google Recaptcha -->
-<script src="https://www.google.com/recaptcha/api.js?render=6LdIqu0mAAAAAHKhiSg-EnuA7O3-9EuayBVbUxMv"></script>
-
 <main>
     <section id="home" class="bg-white dark:bg-gray-900">
         <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 sm:py-20 lg:grid-cols-12">
@@ -48,14 +44,44 @@ use DBConn\DBConn;
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Services</h2>
                 <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">Do we have the service that you're looking for?</p>
             </div>
+            <div class="mx-auto mb-8 max-w-screen-md lg:mb-16"> 
+                <button data-target="all" class="filter-btn border border-gray-200 rounded-md px-6 py-2 hover:bg-blue-500 hover:text-white bg-blue-500 text-white">All</button>
+                <button data-target="pms" class="filter-btn border border-gray-200 rounded-md px-6 py-2 hover:bg-blue-500 hover:text-white">PMS</button>
+                <button data-target="ps" class="filter-btn border border-gray-200 rounded-md px-6 py-2 hover:bg-blue-500 hover:text-white">Periodic</button>
+                <button data-target="ac" class="filter-btn border border-gray-200 rounded-md px-6 py-2 hover:bg-blue-500 hover:text-white">AC Services & Repair</button>
+                <button data-target="twc" class="filter-btn border border-gray-200 rounded-md px-6 py-2 hover:bg-blue-500 hover:text-white">Tires & Wheels care</button>
+            </div>
             <div class="grid gap-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6">
                 <?php foreach(DBConn::select('estimator') as $item) {  ?>
-                    <div class="hover:cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-md shadow text-center text-gray-500 dark:text-gray-400 p-2">
-                        <img class="mx-auto mb-4 w-20 h-20 rounded-md" src="assets/storage/uploads/default.png" alt="pms">
-                        <h3 class="mb-1 text-base font-bold tracking-tight text-gray-900 dark:text-white">
-                            <?= $item['name'] ?>
-                        </h3>
-                    </div>
+                    <?php if ($item['service'] == '1') { ?>
+                        <div class="pms filter-element hover:cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-md shadow text-center text-gray-500 dark:text-gray-400 p-2">
+                            <img class="mx-auto mb-4 w-20 h-20 rounded-md" src="assets/storage/pms/Oil-change.png" alt="pms">
+                            <h3 class="mb-1 text-base font-bold tracking-tight text-gray-900 dark:text-white">
+                                <?= $item['name'] ?>
+                            </h3>
+                        </div>
+                    <?php } else if ($item['service'] == '2') { ?>
+                        <div class="ps filter-element hover:cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-md shadow text-center text-gray-500 dark:text-gray-400 p-2">
+                            <img class="mx-auto mb-4 w-20 h-20 rounded-md" src="assets/storage/pms/Oil-change.png" alt="pms">
+                            <h3 class="mb-1 text-base font-bold tracking-tight text-gray-900 dark:text-white">
+                                <?= $item['name'] ?>
+                            </h3>
+                        </div>
+                    <?php } else if ($item['service'] == '3') { ?> 
+                        <div class="ac filter-element hover:cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-md shadow text-center text-gray-500 dark:text-gray-400 p-2">
+                            <img class="mx-auto mb-4 w-20 h-20 rounded-md" src="assets/storage/pms/Oil-change.png" alt="pms">
+                            <h3 class="mb-1 text-base font-bold tracking-tight text-gray-900 dark:text-white">
+                                <?= $item['name'] ?>
+                            </h3>
+                        </div>
+                        <?php } else if ($item['service'] == '4') { ?> 
+                        <div class="twc filter-element hover:cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-md shadow text-center text-gray-500 dark:text-gray-400 p-2">
+                            <img class="mx-auto mb-4 w-20 h-20 rounded-md" src="assets/storage/pms/Oil-change.png" alt="pms">
+                            <h3 class="mb-1 text-base font-bold tracking-tight text-gray-900 dark:text-white">
+                                <?= $item['name'] ?>
+                            </h3>
+                        </div>
+                    <?php } ?> 
                 <?php } ?>
             </div>
         </div>
@@ -205,4 +231,19 @@ use DBConn\DBConn;
             </span>
         </div>
     </div>
-</footer>
+</footer> 
+
+<script type="text/javascript">
+    $('.filter-btn').click(function() {
+        const target = $(this).data('target');
+        if (target === 'all') {
+            $('.filter-element').show();
+        } else {
+            $('.filter-element').hide();
+            $(`.${target}`).show();
+        }
+
+        $('.filter-btn').removeClass('bg-blue-500 text-white'); 
+        $(this).addClass('bg-blue-500 text-white');
+    });
+</script>

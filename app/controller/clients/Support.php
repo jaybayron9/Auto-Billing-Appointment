@@ -9,12 +9,18 @@ class Support {
     public static string $price;
     public function save_booking_summary() {  
         self::book_filter($_POST['data']); 
+
         DBConn::update('booking_summary', [  
             'products' => self::$products,
             'quantity' => $_POST['total_items'],
             'price' => self::$price,
             'total' => str_replace([',', '₱'], '', $_POST['total'])
+        ], "appointment_id = '{$_POST['app_id']}'"); 
+
+        DBConn::update('payments', [
+            'total_due' => str_replace([',', '₱'], '', $_POST['total'])
         ], "appointment_id = '{$_POST['app_id']}'");
+
         self::book_session($_POST['data'], $_POST['total_items'], $_POST['total']); 
         return DBConn::resp();
     }

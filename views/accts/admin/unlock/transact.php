@@ -33,13 +33,13 @@
                             </button>
                         </div>
                         <div>
-                            <p class="mt-1">
+                            <p hidden class="mt-1">
                                 Total Sale:  &#8369; <span id="total-sale"></span>
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-span-2 mx-0 md:ml-auto flex mt-3 sm:mt-0">
+                <!-- <div class="col-span-2 mx-0 md:ml-auto flex mt-3 sm:mt-0">
                     <div>
                         <button type="button" data-modal-target="payment-modal" data-modal-toggle="payment-modal" class="btn inline-flex items-center px-3 py-[3px] mr-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -48,7 +48,7 @@
                             <span class="ml-2">Add</span>
                         </button>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="overflow-x-auto overflow-y-auto p-1" style=" max-height: 700px;">
                 <table id="table" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
@@ -61,21 +61,53 @@
                             <th data-priority="5" class="whitespace-nowrap text-xs uppercase text-center text-white">Note</th>
                             <th data-priority="6" class="whitespace-nowrap text-xs uppercase text-center text-white">TOTAL DUE</th>
                             <th data-priority="7" class="whitespace-nowrap text-xs uppercase text-center text-white">DATE CREATED</th>
+                            <th data-priority="7" class="whitespace-nowrap text-xs uppercase text-center text-white">STATUS</th>
                         </tr>
                     </thead>
                     <tbody id="tbody">
                         <?php
-                        foreach ($conn::select('payments') as $data) {
+                            $query = "SELECT
+                                    c.plate_no,
+                                    u.name,
+                                    u.email,
+                                    u.phone,
+                                    a.id,
+                                    a.note,
+                                    p.total_due,
+                                    p.created_at,
+                                    a.payment_status
+                                FROM
+                                    cars c
+                                LEFT JOIN
+                                    appointments a ON c.id = a.car_id
+                                LEFT JOIN
+                                    users u ON a.user_id = u.id
+                                LEFT JOIN
+                                    payments p ON a.id = p.appointment_id
+                                LEFT JOIN
+                                    booking_summary b ON b.appointment_id = p.appointment_id
+                                WHERE p.appointment_id IS NOT NULL AND b.total IS NOT NULL AND a.payment_status = 'Unpaid'
+                                ORDER BY a.created_at DESC";
+
+                        foreach ($conn::DBQuery($query) as $data) {
                         ?>
-                            <tr>
-                                <td class="text-sm">TRA0<?= $data['id'] ?></td>
+                            <tr data-row-id="<?= $data['id'] ?>">
+                                <td class="text-sm"><?= $data['plate_no'] ?></td>
                                 <td class="text-sm"><?= $data['name'] ?></td>
                                 <td class="text-sm"><?= $data['email'] ?></td>
                                 <td class="text-sm"><?= $data['phone'] ?></td>
                                 <td class="text-sm"><?= $data['description'] ?></td>
                                 <td class="text-sm">&#8369; <?= number_format($data['total_due'],2) ?></td>
-                                <td class="text-sm"><?= date('Y-m-d', strtotime($data['created_at'])) ?></td>
-                            </tr>
+                                <td class="text-sm"><?= date('Y-m-d', strtotime($data['created_at'])) ?></td> 
+                                <td class="text-sm">
+                                    <span hidden><?= $data['id'] ?></span>
+                                    <select data-row-data="<?= $data['id'] ?>" class="payment-stats">
+                                        <option value="" selected hidden><?= $data['payment_status'] ?></option>
+                                        <option value="Paid">Paid</option>
+                                        <option value="Unpaid">Unpaid</option>
+                                    </select>
+                                </td>
+                            </tr> 
                         <?php } ?>
                     </tbody>
                 </table>
@@ -84,7 +116,7 @@
     </div>
 </main> 
 
-<div id="payment-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+<!-- <div id="payment-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-2xl max-h-full">
         <form id="payment-form" class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
@@ -148,15 +180,16 @@
             </div>
         </form>
     </div>
-</div>
-
+</div> --> 
 
 <script src="assets/js/jquery.dataTables.min.js"></script>
 <script src="assets/js/dataTables.responsive.min.js"></script>
 <script type="text/javascript">
     var table = $('#table').DataTable({
         responsive: true,
-        "lengthMenu": [10, 25, 50, 100, 1000]
+        "lengthMenu": [10, 25, 50, 100, 1000],
+        ordering: false
+        // "order": [[7, "desc"]]
     }).columns.adjust().responsive.recalc();
 
     $.fn.dataTable.ext.search.push(
@@ -233,4 +266,26 @@
             }
         });
     } setSale(); 
+
+    $('.payment-stats').change(function() {
+        var id = $(this).data('row-data');
+        var status = $(this).val();
+
+        $.ajax({
+            url: '?admin_rq=payment_status',
+            method: 'POST',
+            data: {
+                id: id,
+                status: status
+            },
+            dataType: 'json',
+            success: (res) => {
+                if (status === 'Paid') {
+                    var tableRow = $('tr[data-row-id="' + id + '"]');
+                    table.row(tableRow).remove().draw();
+                }
+                dialog('border-green-600 text-green-700', res.msg); 
+            }
+        });
+    });
 </script>

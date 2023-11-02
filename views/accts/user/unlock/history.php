@@ -70,7 +70,7 @@
             <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
                 <div>
                     <h3 class="text-2xl font-bold text-gray-900 dark:text-white italic">
-                        Booking summary
+                        Payment Slip
                     </h3>
                     <div class="text-center">
                         <span class="text-sm font-base">Customer Details</span>
@@ -111,7 +111,7 @@
                             <tr>
                                 <th class="text-xl font-semibold text-left">Service/s</th>
                                 <th class="text-xl font-semibold text-center">Quantity</th>
-                                <th class="text-xl font-semibold text-center">Price</th>
+                                <th class="text-xl font-semibold text-right">Price</th>
                             </tr>
                         </thead>
                         <tbody id="products"></tbody>
@@ -119,7 +119,7 @@
                             <tr>
                                 <td>TOTAL</td>
                                 <td  class="text-center" id="quantity"></td>
-                                <td class="text-center" id="total"></td>
+                                <td class="text-right" id="total"></td>
                             </tr>
                         </tfoot>
                     </table>

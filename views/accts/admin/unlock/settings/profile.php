@@ -29,14 +29,16 @@
                             <!-- Email -->
                             <div class="col-span-6 sm:col-span-4">
                                 <label class="block font-medium text-sm text-gray-700">Email</label>
-                                <input type="text" name="email" id="email" value="<?= $admin_info[0]['email'] ?>" class="mt-1 p-2 block w-full border border-gray-300 focus:outline-none focus:ring-2 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                                <span id="email-err" class="text-sm text-red-500"></span>
+                                <input type="email" name="email" id="email" value="<?= $admin_info[0]['email'] ?>" class="mt-1 p-2 block w-full border border-gray-300 focus:outline-none focus:ring-2 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                                <span id="email-err" class="text-sm text-red-500 block"></span>
+                                <span id="email-format" class="text-sm text-red-500"></span>
                             </div>
                             <!-- Phone -->
                             <div class="col-span-6 sm:col-span-4">
                                 <label class="block font-medium text-sm text-gray-700">Phone number</label>
-                                <input type="text" name="phone" id="phone" value="<?= $admin_info[0]['phone'] ?>" class="mt-1 p-2 block w-full border border-gray-300 focus:outline-none focus:ring-2 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                                <span id="phone-err" class="text-sm text-red-500"></span>
+                                <input type="text" name="phone" id="phone" maxlength="11" value="<?= $admin_info[0]['phone'] ?>" class="number mt-1 p-2 block w-full border border-gray-300 focus:outline-none focus:ring-2 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                                <span id="phone-err" class="text-sm text-red-500 block"></span>
+                                <span id="phone-length" class="text-sm text-red-500 block"></span>
                             </div>
                             <!-- Photo -->
                             <div class="col-span-6 sm:col-span-4">
@@ -135,7 +137,13 @@
                 contentType: false,
                 processData: false,
                 dataType: 'json',
-                success: function(resp) { 
+                success: function(resp) {  
+                    $('#email-err').show().text(resp.email ?? '')
+                    $('#email-format').text(resp.email_format && !resp.email ? resp.email_format : '');
+                    $('#name-err').show().text(resp.name ?? '')
+                    $('#phone-err').show().text(resp.phone ?? '')
+                    $('#phone-length').text(resp.phone_no_lenght && !resp.phone ? resp.phone_no_lenght : '');
+                    console.log(resp)
                     if (resp.status == 200) {
                         var msg = $('#saved-info');
                         msg.show();
@@ -144,11 +152,7 @@
                         }, 2000)  
                     } else if (resp.status == 1) {
                         window.location.reload(true);
-                    } else if (resp.status == 400) {
-                        $('#name-err').show().text(resp.name)
-                        $('#email-err').show().text(resp.email)
-                        $('#phone-err').show().text(resp.phone)
-                    }
+                    } 
                 }
             });
         });

@@ -37,7 +37,13 @@ class Admin extends DBConn {
     public function appointment_status() { 
         DBConn::update('appointments',[
             'appointment_status' => $_POST['status']
-        ], "id = '{$_POST['id']}'");  
+        ], "id = '{$_POST['id']}'"); 
+
+        if ($_POST['status'] === 'Underway') {
+            DBConn::insert('payments', [
+                'appointment_id' => $_POST['id']
+            ]); 
+        }
 
         $info = DBConn::select('appointments', '*', ['id' => $_POST['id']]); 
         $schedule = date('F d, Y', strtotime($info[0]['schedule_date'])); 
@@ -78,7 +84,7 @@ class Admin extends DBConn {
     public function create_walkin() { 
         parent::insert('walkin', [
             'name' => $_POST['name'],
-            'email' => $_POST['email'], 
+            // 'email' => $_POST['email'], 
             'phone' => $_POST['phone'],
             'address' => $_POST['address'],
             'plate_no' => $_POST['plate_no'],
@@ -226,5 +232,13 @@ class Admin extends DBConn {
         ], "id = $product_id");
 
         $_SESSION['alert'] = 'Product successfully updated.';
+    }
+
+    public function update_payment_status() {  
+        DBConn::update('appointments',[
+            'payment_status' => $_POST['status']
+        ], "id = '{$_POST['id']}'");  
+
+        return json_encode(['msg' => 'Payment status updated.']);
     }
 }

@@ -19,6 +19,7 @@ $admin_response = [
     'remove_product' => ['obj' => new Admin(), 'method' => 'remove_product'],
     'get_product' => ['obj' => new Admin(), 'method' => 'get_product'],
     'update_product' => ['obj' => new Admin(), 'method' => 'update_product'],
+    'payment_status' => ['obj' => new Admin(), 'method' => 'update_payment_status']
 ]; 
 
 HTTPR(strtolower($_GET['admin_rq'] ?? ''), $admin_response);

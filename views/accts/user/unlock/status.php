@@ -11,6 +11,8 @@
                 <table id="table" class="stripe hover w-full">
                     <thead>
                         <tr>
+                            <th class="whitespace-nowrap text-xs text-center uppercase py-2 text-white">Name</th>
+                            <th class="whitespace-nowrap text-xs text-center uppercase py-2 text-white">Plate No.</th>
                             <th class="whitespace-nowrap text-xs text-center uppercase py-2 text-white">Services</th>
                             <th class="whitespace-nowrap text-xs text-center uppercase py-2 text-white">Status</th>
                         </tr>
@@ -29,6 +31,8 @@
                         foreach ($conn::DBQuery($query) as $progress) {
                         ?>
                             <tr class="border-b border-gray-300 hover:bg-blue-100">
+                                <td class="capitalize text-center text-sm py-2"><?= $progress['name'] ?></td>
+                                <td class="capitalize text-center text-sm py-2"><?= $progress['plate_no'] ?></td>
                                 <td class="capitalize text-center text-sm py-2"><?= $progress['category'] ?></td>
                                 <td class="capitalize text-center text-sm">
                                     <span class="text-white rounded-md px-2 <?= $progress['appointment_status'] == 'Underway' ? 'bg-sky-500' : 'bg-green-500';  ?>">

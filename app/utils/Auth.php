@@ -184,7 +184,7 @@ class Auth {
             } 
             return false;
         }  
-        return true;
+        return false;
     } 
 
     public static function is_plate_exist($value):bool {
