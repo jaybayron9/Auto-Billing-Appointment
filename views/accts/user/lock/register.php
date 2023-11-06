@@ -80,11 +80,16 @@
                     <div class="mb-3">
                         <div class="mb-2">
                             <label for="car type" class="text-[14.5px]">Car Type</label>
-                        </div>
+                        </div> 
                         <select name="cartype" id="cartype" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
-                            <option value="" selected hidden>Select car type</option>
-                            <option value="Automatic">Automatic</option>
-                            <option value="Manual">Manual</option>
+                            <option value="" selected disabled>-- Select car type --</option>
+                            <option value="SUV">SUV</option>
+                            <option value="Sports car">Sports car</option>
+                            <option value="Van">Van</option>
+                            <option value="Hatchback">Hatchback</option>
+                            <option value="Hybrid car">Hybrid car</option>
+                            <option value="Coupe">Coupe</option>
+                            <option value="Sedan etc.">Sedan etc.</option>
                         </select>
                         <span id="cartype-msg" class="text-xs text-red-700"></span>
                     </div>
@@ -110,8 +115,11 @@
                         <div class="mb-2">
                             <label for="transmission" class="text-[14.5px]">Transmission Type</label>
                         </div>
-                        <input type="text" name="transmission" id="transmission" list="translist" maxlength="50" placeholder="..." autocomplete="off" class="block w-full border border-gray-300 bg-gray-50 text-sm p-2 rounded outline-none focus:border-gray-400 focus:ring-4 focus:ring-blue-200 focus:transition focus:duration-300">
-                        <datalist id="translist"></datalist> 
+                        <select name="transmission" id="transmission" list="translist" class="select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Type of car" required>
+                            <option value="" selected disabled>-- Select transmission type --</option>
+                            <option value="Automatic">Automatic</option>
+                            <option value="Manual">Manual</option>
+                        </select> 
                         <span id="transmission-msg" class="text-xs text-red-700"></span>
                     </div>
                 </div>
