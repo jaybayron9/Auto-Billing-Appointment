@@ -28,11 +28,12 @@
                             <th data-priority="4" class="whitespace-nowrap text-xs text-center uppercase text-white">PHONE</th>
                             <th data-priority="5" class="whitespace-nowrap text-xs text-center uppercase text-white">ADDRESS</th>
                             <th data-priority="6" class="whitespace-nowrap text-xs text-center uppercase text-white">REPAIR</th>
+                            <th data-priority="6" class="whitespace-nowrap text-xs text-center uppercase text-white">PLATE NO.</th>
                             <th data-priority="7" class="whitespace-nowrap text-xs text-center uppercase text-white">BRAND</th>
                             <th data-priority="8" class="whitespace-nowrap text-xs text-center uppercas text-white">MODEL</th>
                             <th data-priority="9" class="whitespace-nowrap text-xs text-center uppercase text-white">SCHEDULE</th>
                             <th data-priority="10" class="whitespace-nowrap text-xs text-center uppercase text-white">TIME</th>
-                            <th data-priority="11" class="whitespace-nowrap text-xs text-center uppercase text-white">Payment Status</th>
+                            <!-- <th data-priority="11" class="whitespace-nowrap text-xs text-center uppercase text-white">Payment Status</th> -->
                             <th data-priority="2" data-orderable="false" class="whitespace-nowrap text-xs text-center uppercase text-white">Action</th>
                         </tr>
                     </thead>
@@ -50,15 +51,16 @@
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['phone'] ?></td>
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['address'] ?></td>
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['category'] ?></td>
+                                <td class="text-sm whitespace-nowrap"><?= $walkin['plate_no'] ?></td>
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['brand'] ?></td>
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['model'] ?></td>
                                 <td class="text-sm whitespace-nowrap"><?= date('M d, Y', strtotime($walkin['schedule_date'])) ?></td>
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['available_time'] ?></td>
-                                <td class="text-sm text-center">
+                                <!-- <td class="text-sm text-center">
                                     <span class="text-white rounded-md px-2 <?= $walkin['payment_status'] == 'Unpaid' ? 'bg-gray-500' : 'bg-green-500';  ?>">
                                         <?= $walkin['payment_status'] ?>
                                     </span> 
-                                </td>
+                                </td> -->
                                 <td class="flex text-sm">
                                     <button data-row-data="<?= $walkin['app_id'] ?>" class="cancel-btn bg-red-500 hover:bg-red-700 text-white px-2 rounded shadow-md">
                                         CANCEL
@@ -92,7 +94,7 @@
                     <div class="sm:cols-span-1 flex flex-col">
                         <div class="mb-3">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                            <input type="text" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                            <input type="text" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
                         </div>
                         <!-- <div class="mb-3">
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
@@ -100,7 +102,7 @@
                         </div> -->
                         <div class="mb-3">
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
-                            <input type="text" name="phone" maxlength="11" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                            <input type="text" name="phone" maxlength="11" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
                         </div>
                         <div class="mb-2">
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
@@ -108,7 +110,7 @@
                         </div>
                         <div class="mb-2">
                             <label for="plate_no" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Plate Number</label>
-                            <input type="text" name="plate_no" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                            <input type="text" name="plate_no" maxlength="8" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
                         </div>
                     </div>
                     <div class="sm:cols-span-1 flex flex-col">
