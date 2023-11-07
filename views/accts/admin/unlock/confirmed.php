@@ -78,6 +78,54 @@
                                 </td>
                             </tr>
                         <?php } ?>
+                        <!-- <?php 
+                        foreach ($conn::select('walkin') as $walkin) {
+                        ?>
+                        <tr data-row-id="<?= $walkin['app_id'] ?>">
+                            <td class="text-sm"><?= $walkin['plate_no'] ?></td>
+                            <td class="text-sm"><?= $walkin['category'] ?></td> 
+                            <td class="whitespace-nowrap text-sm"><?= date('F d, Y', strtotime($walkin['schedule_date'])) ?></td>
+                            <td class="whitespace-nowrap text-sm"><?=$walkin['available_time'] ?></td>
+                            <td class="text-sm">
+                                <?php
+                                $emp = explode(', ', $walkin['assigned_employee_id']);
+                                foreach ($conn::select('supports', '*', ['position' => 'Mechanic']) as $mechanic) {
+                                    for ($i = 0; $i < count($emp); $i++) {
+                                        echo $emp[$i] == $mechanic['id'] ? $mechanic['name'] :''; 
+                                    }
+                                }
+                                ?>
+                            </td>
+                            <td class="text-sm">
+                                <?php
+                                foreach ($conn::select('supports', '*', ['position' => 'Electrician']) as $electrician) {
+                                    for ($i = 0; $i < count($emp); $i++) {
+                                        echo $emp[$i] == $electrician['id'] ? $electrician['name'] :''; 
+                                    }
+                                }
+                                ?>
+                            </td> 
+                            <td class="text-sm"><?= date('m/d/Y', strtotime($walkin['created_at'])) ?></td>
+                            <td class="flex gap-x-2 text-sm">
+                                <?php 
+                                $scheduleDate = strtotime(date('F d, Y', strtotime($walkin['schedule_date'])));
+                                $currentDate = time();
+                                $timeDifference = $scheduleDate - $currentDate; 
+                                $daysDifference = $timeDifference / (60 * 60 * 24);
+                                
+                                if ($daysDifference <= 1) {
+                                    ?> 
+                                    <button data-modal-target="assign-modal" data-modal-toggle="assign-modal" data-row-data="<?= $walkin['app_id'] ?>" data-toggle="modal" data-target="#assign" class="assign-btn bg-blue-500 hover:bg-blue-700 text-white px-2 rounded shadow-md font-semibold">
+                                        Assign
+                                    </button>
+                                    <?php
+                                } ?>  
+                                <button data-row-data="<?= $walkin['app_id'] ?>" class="cancel-btn bg-red-500 hover:bg-red-700 text-white px-2 rounded shadow-md font-semibold">
+                                    Cancel
+                                </button>
+                            </td>
+                        </tr>
+                        <?php } ?> -->
                     </tbody>
                 </table>
             </div>
