@@ -9,7 +9,13 @@
 <main id="main-content" class="relative h-full overflow-y-auto lg:ml-64 dark:bg-gray-900">
     <div class="px-4 h-full my-[80px]">
         <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
-            <div class="col-span-2 mx-0 md:ml-auto flex mt-3 sm:mt-0 mb-2">
+            <div class="col-span-2 mx-0 md:ml-auto flex mt-3 sm:mt-0 mb-2"> 
+                <button type="button" data-modal-target="payment-modal" data-modal-toggle="payment-modal" class="btn inline-flex items-center px-3 py-[3px] mr-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span class="ml-2">Add</span>
+                </button> 
                 <div class="ml-auto">
                     <button type="button" data-modal-target="create-modal" data-modal-toggle="create-modal" class="btn inline-flex items-center px-3 py-[6px] mr-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
@@ -33,7 +39,7 @@
                             <th data-priority="8" class="whitespace-nowrap text-xs text-center uppercas text-white">MODEL</th>
                             <th data-priority="9" class="whitespace-nowrap text-xs text-center uppercase text-white">SCHEDULE</th>
                             <th data-priority="10" class="whitespace-nowrap text-xs text-center uppercase text-white">TIME</th>
-                            <!-- <th data-priority="11" class="whitespace-nowrap text-xs text-center uppercase text-white">Payment Status</th> -->
+                            <th data-priority="11" class="whitespace-nowrap text-xs text-center uppercase text-white">Payment Status</th>
                             <th data-priority="2" data-orderable="false" class="whitespace-nowrap text-xs text-center uppercase text-white">Action</th>
                         </tr>
                     </thead>
@@ -56,11 +62,11 @@
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['model'] ?></td>
                                 <td class="text-sm whitespace-nowrap"><?= date('M d, Y', strtotime($walkin['schedule_date'])) ?></td>
                                 <td class="text-sm whitespace-nowrap"><?= $walkin['available_time'] ?></td>
-                                <!-- <td class="text-sm text-center">
+                                <td class="text-sm text-center">
                                     <span class="text-white rounded-md px-2 <?= $walkin['payment_status'] == 'Unpaid' ? 'bg-gray-500' : 'bg-green-500';  ?>">
                                         <?= $walkin['payment_status'] ?>
                                     </span> 
-                                </td> -->
+                                </td>
                                 <td class="flex text-sm">
                                     <button data-row-data="<?= $walkin['app_id'] ?>" class="cancel-btn bg-red-500 hover:bg-red-700 text-white px-2 rounded shadow-md">
                                         CANCEL
@@ -74,6 +80,68 @@
         </div>
     </div>
 </main>
+
+<div id="payment-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-2xl max-h-full">
+        <form id="payment-form" class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Payment Slip
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="payment-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <div class="px-6 pt-4 pb-6 space-y-3">
+                <div class="flex gap-x-5 w-full"> 
+                    <div class="w-full flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
+                        <input id="walkin" type="radio" value="walkin" name="type" checked class="user-type w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                        <label for="walkin" class="w-full py-4 ml-2 text-sm font-medium text-gray-900">Walkin</label>
+                    </div>
+                </div>
+                <div>
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Customer Name</label>
+                    <div class="relative mb-6">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <input type="text" name="name" required placeholder="Search" autocomplete="off" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" list="customerlist">
+                        <datalist id="customerlist">
+                        <?php
+                            $qry = "SELECT ap.id as app_id, us.id as user_id, us.name
+                            FROM
+                                appointments ap
+                            JOIN cars cs ON ap.car_id = cs.id
+                            JOIN users us ON us.id = ap.user_id
+                            WHERE
+                                ap.payment_status = 'Unpaid'";
+                            foreach ($conn::DBQuery($qry) as $cust) { ?>
+                                <option value="<?= "{$cust['user_id']} | {$cust['app_id']} | {$cust['name']}" ?>">
+                                <?php } ?>
+                        </datalist>
+                    </div>
+                </div>
+                <div>
+                    <label for="amount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label>
+                    <input type="text" name="amount" required class="number bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                </div>
+                <div>
+                    <label for="note" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                    <textarea type="text" name="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"></textarea>
+                </div>
+            </div> 
+            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <button data-modal-hide="payment-modal" type="button" class="ml-auto text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+            </div>
+        </form>
+    </div>
+</div> 
  
 <div id="create-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-2xl max-h-full"> 
@@ -205,4 +273,33 @@
             }
         });
     })
+
+    $('#payment-form').submit(function(e) {
+        e.preventDefault(); 
+        $.ajax({
+            type: "POST",
+            url: "?admin_rq=customer_payment",
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(resp) { 
+                window.location.reload(true);
+            }
+        });
+    })
+
+    $('.user-type').click(function() {
+        var type = $(this).val(); 
+        $.ajax({
+            type: "POST",
+            url: "?admin_rq=user_type",
+            data: {type: type}, 
+            dataType: 'json', 
+            success: function (resp) {
+                $('#customerlist').html('');
+                for (let i = 0; i < resp.length; i++) {  
+                    $('#customerlist').append(`<option>${resp[i].user_id} | ${resp[i].app_id} | ${resp[i].name}</option>`)
+                }
+            }
+        });
+    });
 </script>

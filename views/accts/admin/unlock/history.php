@@ -34,34 +34,28 @@
                         WHERE ap.appointment_status = 'Done' OR ap.appointment_status = 'Underway'";
 
                         foreach ($conn::DBQuery($query) as $app) {
-                            $emp = explode(', ', $app['assigned_employee_id']);
-
-                            for ($i = 0; $i < count($emp); $i++) {
-                                if ($emp[$i] == $_SESSION['support_id']) {
                         ?>
-                                    <tr>
-                                        <td class="text-sm"><?= $app['plate_no'] ?></td>
-                                        <td class="text-sm"><?= $app['category'] ?></td> 
-                                        <td class="text-sm"><?= date('F d, Y', strtotime($app['schedule_date'])) ?></td>
-                                        <td class="text-sm"><?= $app['available_time'] ?></td>
-                                        <!-- <td class="text-sm text-center">
-                                            <span class="text-white rounded-md px-2 <?= $app['payment_status'] == 'Unpaid' ? 'bg-gray-500' : 'bg-green-500';  ?>">
-                                                <?= $app['payment_status'] ?>
-                                            </span> 
-                                        </td> -->
-                                        <td class="text-sm"><?= date('F d, Y', strtotime($app['schedule_date'])) ?></td>
-                                        <td class="flex justify-center">
-                                            <button data-row-data="<?= $app['app_id'] ?>" data-modal-target="view-summary" data-modal-toggle="view-summary" class="book-summary-btn btn shadow-inner shadow-zinc-400 rounded-full p-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                </svg>
-                                            </button>
-                                        </td> 
-                                    </tr>
-                        <?php }
-                            }
-                        } ?>
+                            <tr>
+                                <td class="text-sm"><?= $app['plate_no'] ?></td>
+                                <td class="text-sm"><?= $app['category'] ?></td> 
+                                <td class="text-sm"><?= date('F d, Y', strtotime($app['schedule_date'])) ?></td>
+                                <td class="text-sm"><?= $app['available_time'] ?></td>
+                                <!-- <td class="text-sm text-center">
+                                    <span class="text-white rounded-md px-2 <?= $app['payment_status'] == 'Unpaid' ? 'bg-gray-500' : 'bg-green-500';  ?>">
+                                        <?= $app['payment_status'] ?>
+                                    </span> 
+                                </td> -->
+                                <td class="text-sm"><?= date('F d, Y', strtotime($app['schedule_date'])) ?></td>
+                                <td class="flex justify-center">
+                                    <button data-row-data="<?= $app['app_id'] ?>" data-modal-target="view-summary" data-modal-toggle="view-summary" class="book-summary-btn btn shadow-inner shadow-zinc-400 rounded-full p-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </button>
+                                </td> 
+                            </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
