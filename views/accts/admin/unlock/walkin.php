@@ -98,7 +98,7 @@
             <div class="px-6 pt-4 pb-6 space-y-3">
                 <div class="flex gap-x-5 w-full"> 
                     <div class="w-full flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
-                        <input id="walkin" type="radio" value="walkin" name="type" checked class="user-type w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                        <input id="walkin" type="radio" value="walkin" name="type" checked class=" w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
                         <label for="walkin" class="w-full py-4 ml-2 text-sm font-medium text-gray-900">Walkin</label>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                                 <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
                             </svg>
                         </div>
-                        <input type="text" name="name" required placeholder="Search" autocomplete="off" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" list="customerlist">
+                        <input type="text" name="name" required placeholder="Search" autocomplete="off" class="user-type bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" list="customerlist">
                         <datalist id="customerlist">
                         <?php
                             $qry = "SELECT ap.id as app_id, us.id as user_id, us.name

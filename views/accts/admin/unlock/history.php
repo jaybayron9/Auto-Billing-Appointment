@@ -56,6 +56,31 @@
                                 </td> 
                             </tr>
                         <?php } ?>
+                        <?php
+                        $query = "SELECT wk.id as app_id, wk.*, sv.*, bh.*
+                        FROM walkin wk 
+                        JOIN services sv ON sv.id = wk.service_id
+                        JOIN bussiness_hours bh ON bh.id = wk.service_time_id
+                        WHERE payment_status = 'Paid'";
+
+                        foreach ($conn::DBQuery($query) as $app) {
+                        ?>
+                            <tr>
+                                <td class="text-sm"><?= $app['plate_no'] ?></td>
+                                <td class="text-sm"><?= $app['category'] ?></td> 
+                                <td class="text-sm"><?= date('F d, Y', strtotime($app['schedule_date'])) ?></td>
+                                <td class="text-sm"><?= $app['available_time'] ?></td>
+                                <!-- <td class="text-sm text-center">
+                                    <span class="text-white rounded-md px-2 <?= $app['payment_status'] == 'Unpaid' ? 'bg-gray-500' : 'bg-green-500';  ?>">
+                                        <?= $app['payment_status'] ?>
+                                    </span> 
+                                </td> -->
+                                <td class="text-sm"><?= date('F d, Y', strtotime($app['schedule_date'])) ?></td>
+                                <td class="flex justify-center">
+                                    
+                                </td> 
+                            </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
