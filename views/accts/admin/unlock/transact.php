@@ -51,28 +51,22 @@
                     </thead>
                     <tbody id="tbody">
                         <?php
-                            $query = "SELECT
-                                    c.plate_no,
-                                    u.name,
-                                    u.email,
-                                    u.phone,
-                                    a.id,
-                                    a.note,
-                                    p.total_due,
-                                    p.created_at,
-                                    a.payment_status
-                                FROM
-                                    cars c
-                                LEFT JOIN
-                                    appointments a ON c.id = a.car_id
-                                LEFT JOIN
-                                    users u ON a.user_id = u.id
-                                LEFT JOIN
-                                    payments p ON a.id = p.appointment_id
-                                LEFT JOIN
-                                    booking_summary b ON b.appointment_id = p.appointment_id
-                                WHERE p.appointment_id IS NOT NULL AND b.total IS NOT NULL AND a.payment_status = 'Unpaid'
-                                ORDER BY a.created_at DESC";
+                            $query = "SELECT 
+                                        c.plate_no,
+                                        u.name,
+                                        u.email,
+                                        u.phone,
+                                        a.id,
+                                        a.note,
+                                        b.total as total_due,
+                                        a.created_at,
+                                        a.payment_status
+                                    FROM booking_summary b
+                                    LEFT JOIN cars c ON b.car_id = c.id
+                                    LEFT JOIN appointments a ON b.appointment_id = a.id
+                                    LEFT JOIN users u ON c.user_id = u.id
+                                    WHERE a.payment_status = 'Unpaid'
+                                    ORDER BY a.created_at DESC";
 
                         foreach ($conn::DBQuery($query) as $data) {
                         ?>
