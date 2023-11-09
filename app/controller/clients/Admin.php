@@ -177,9 +177,13 @@ class Admin extends DBConn {
     }
 
     public function total_sale() {
-        $total = DBConn::select('payments', 'SUM(total_due) as total');
+        $payments = DBConn::select('payments', 'SUM(total_due) as total');
+        $payment_slip = DBConn::DBQuery("
+        SELECT SUM(sl.total) as total FROM `booking_summary` sl LEFT JOIN `appointments` ap ON sl.id = `appointment_id` WHERE `payment_status` = 'Paid'
+        "); 
+        $total = $payments[0]['total'] + $payment_slip[0]['total'];
         header("Content-Type: application/json");
-        return json_encode($total);
+        return json_encode(['total' => $total]);
     }
 
     public function add_product() {

@@ -229,9 +229,8 @@
     $.ajax({
         url: '?admin_rq=total_sale',
         method: 'GET', 
-        success: function(res) { 
-            console.log(res[0])
-            $('#total-sale').text(res[0].total);
+        success: function(res) {  
+            $('#total-sale').text(res.total);
         }
     }); 
 </script>
