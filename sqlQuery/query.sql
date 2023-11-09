@@ -162,3 +162,18 @@ CREATE TABLE payments (
 );
 
 drop table payments;
+
+CREATE TABLE cars (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id varchar(250) DEFAULT NULL,
+    plate_no varchar(250) DEFAULT NULL,
+    car_brand varchar(250) DEFAULT NULL,
+    car_model varchar(250) DEFAULT NULL,
+    car_type varchar(250) DEFAULT NULL,
+    fuel_type varchar(250) DEFAULT NULL,
+    color varchar(250) DEFAULT NULL,
+    trans_type varchar(250) DEFAULT NULL,
+    created_at timestamp NOT NULL DEFAULT current_timestamp(),
+    updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+);  
+drop table cars;

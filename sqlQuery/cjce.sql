@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2023 at 04:03 PM
+-- Generation Time: Nov 09, 2023 at 04:08 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -126,7 +126,7 @@ INSERT INTO `bussiness_hours` (`id`, `available_time`, `created_at`, `updated_at
 --
 
 CREATE TABLE `cars` (
-  `id` int(10) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `user_id` varchar(250) DEFAULT NULL,
   `plate_no` varchar(250) DEFAULT NULL,
   `car_brand` varchar(250) DEFAULT NULL,
@@ -138,14 +138,6 @@ CREATE TABLE `cars` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `cars`
---
-
-INSERT INTO `cars` (`id`, `user_id`, `plate_no`, `car_brand`, `car_model`, `car_type`, `fuel_type`, `color`, `trans_type`, `created_at`, `updated_at`) VALUES
-(66, '16', 'asd 2123', 'Deleniti nulla sunt natus eaque omnis molestiae eu', 'Sit placeat quae fugiat sunt', 'Coupe', 'Gas', 'Autem temporibus recusandae Quia corrupti et', 'Manual', '2023-11-06 15:13:06', '2023-11-06 15:13:06'),
-(67, '17', 'asd 1232', 'asdasd', 'wqe', 'Sports car', 'Diesel', 'red', 'Manual', '2023-11-07 15:47:41', '2023-11-07 15:47:41');
 
 -- --------------------------------------------------------
 
@@ -451,7 +443,7 @@ ALTER TABLE `bussiness_hours`
 -- AUTO_INCREMENT for table `cars`
 --
 ALTER TABLE `cars`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `convo`
