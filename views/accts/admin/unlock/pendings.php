@@ -23,7 +23,7 @@
                     </thead>
                     <tbody id="tbody">
                         <?php
-                        $query = "SELECT ap.id as app_id, ap.*, cs.*, sv.*, bh.*
+                        $query = "SELECT ap.id as app_id, ap.created_at as appointment_created_at, ap.*, cs.*, sv.*, bh.*
                                 FROM appointments ap 
                                     JOIN cars cs ON ap.car_id = cs.id
                                     JOIN services sv ON sv.id = ap.service_type_id
@@ -37,7 +37,7 @@
                                 <td class="text-sm"><?= $appointment['category'] ?></td> 
                                 <td class="text-sm"><?= date('F d, Y', strtotime($appointment['schedule_date'])) ?></td>
                                 <td class="text-sm"><?= $appointment['available_time'] ?></td>
-                                <td class="text-sm"><?= date('m/d/Y', strtotime($appointment['created_at'])) ?></td>
+                                <td class="text-sm"><?= date('m/d/Y', strtotime($appointment['appointment_created_at'])) ?></td>
                                 <td class="flex text-sm justify-center items-center gap-x-3">
                                     <button data-row-data="<?= $appointment['user_id'] ?>" data-modal-target="msg-modal" data-modal-toggle="msg-modal" class="msg-btn btn bg-white rounded-full p-1 shadow-md hover:shadow-none">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

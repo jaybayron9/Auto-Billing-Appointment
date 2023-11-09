@@ -25,7 +25,7 @@
                     </thead>
                     <tbody id="tbody">
                         <?php
-                        $query = "SELECT ap.id as app_id, ap.*, cs.*, sv.*, bh.*
+                        $query = "SELECT ap.id as app_id, ap.created_at as appointment_created_at, ap.*, cs.*, sv.*, bh.*
                                 FROM appointments ap 
                                     JOIN cars cs ON ap.car_id = cs.id
                                     JOIN services sv ON sv.id = ap.service_type_id
@@ -57,7 +57,7 @@
                                     }
                                     ?>
                                 </td> 
-                                <td class="text-sm"><?= date('m/d/Y', strtotime($appointment['created_at'])) ?></td>
+                                <td class="text-sm"><?= date('m/d/Y', strtotime($appointment['appointment_created_at'])) ?></td>
                                 <td class="flex gap-x-2 text-sm">
                                     <?php 
                                     $scheduleDate = strtotime(date('F d, Y', strtotime($appointment['schedule_date'])));

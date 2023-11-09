@@ -9,7 +9,12 @@
 
 <main id="main-content" class="relative h-full overflow-y-auto lg:ml-64 dark:bg-gray-900">
     <div class="px-4 h-full my-[80px]">
-        <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
+        <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white"> 
+            <div>
+                <p class="mt-1">
+                    Total Sale:  &#8369; <span id="total-sale"></span>
+                </p>
+            </div>
             <div class="overflow-x-auto overflow-y-auto p-1" style=" max-height: 700px;">
                 <table id="table" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                     <thead>
@@ -25,7 +30,7 @@
                     </thead>
                     <tbody id="tbody">
                         <?php
-                        $query = "SELECT ap.id AS app_id, ap.*, cl.*, cs.*, sv.*, bh.*
+                        $query = "SELECT ap.id AS app_id, ap.created_at as appointment_created_at, ap.*, cl.*, cs.*, sv.*, bh.*
                         FROM appointments ap
                         JOIN users cl ON cl.id = ap.user_id
                         JOIN cars cs ON cs.id = ap.car_id
@@ -45,7 +50,7 @@
                                         <?= $app['payment_status'] ?>
                                     </span> 
                                 </td> -->
-                                <td class="text-sm"><?= date('F d, Y', strtotime($app['schedule_date'])) ?></td>
+                                <td class="text-sm"><?= date('F d, Y', strtotime($app['appointment_created_at'])) ?></td>
                                 <td class="flex justify-center">
                                     <button data-row-data="<?= $app['app_id'] ?>" data-modal-target="view-summary" data-modal-toggle="view-summary" class="book-summary-btn btn shadow-inner shadow-zinc-400 rounded-full p-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -57,7 +62,7 @@
                             </tr>
                         <?php } ?>
                         <?php
-                        $query = "SELECT wk.id as app_id, wk.*, sv.*, bh.*
+                        $query = "SELECT wk.id as app_id, wk.created_at as walkin_created_at, wk.*, sv.*, bh.*
                         FROM walkin wk 
                         JOIN services sv ON sv.id = wk.service_id
                         JOIN bussiness_hours bh ON bh.id = wk.service_time_id
@@ -75,7 +80,7 @@
                                         <?= $app['payment_status'] ?>
                                     </span> 
                                 </td> -->
-                                <td class="text-sm"><?= date('F d, Y', strtotime($app['schedule_date'])) ?></td>
+                                <td class="text-sm"><?= date('F d, Y', strtotime($app['walkin_created_at'])) ?></td>
                                 <td class="flex justify-center">
                                     
                                 </td> 
@@ -219,5 +224,14 @@
                 $('#book-summary').hide();
             });
         }
-    }).columns.adjust().responsive.recalc();
+    }).columns.adjust().responsive.recalc(); 
+
+    $.ajax({
+        url: '?admin_rq=total_sale',
+        method: 'GET', 
+        success: function(res) { 
+            console.log(res[0])
+            $('#total-sale').text(res[0].total);
+        }
+    }); 
 </script>

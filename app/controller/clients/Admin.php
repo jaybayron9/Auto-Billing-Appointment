@@ -177,30 +177,9 @@ class Admin extends DBConn {
     }
 
     public function total_sale() {
-        $start = $_POST['start_date'];
-        $end = $_POST['end_date'];
-
-        if (!empty($start) || !empty($end)) {
-            $result = DBConn::DBQuery("
-                SELECT SUM(total_due) AS total_sale 
-                FROM payments
-                WHERE  
-                    created_at BETWEEN '{$start} 00:00:00' AND '{$end} 23:59:59'
-            ");
-            
-            foreach($result as $row){
-                return floatval($row['total_sale']);
-            }
-        }
-
-        $result = parent::$conn->query("
-            SELECT SUM(total_due) AS total_sale 
-            FROM payments  
-        ");
-
-        foreach($result as $row){
-            return floatval($row['total_sale']);
-        }
+        $total = DBConn::select('payments', 'SUM(total_due) as total');
+        header("Content-Type: application/json");
+        return json_encode($total);
     }
 
     public function add_product() {

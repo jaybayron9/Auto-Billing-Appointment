@@ -32,11 +32,6 @@
                                 Clear
                             </button>
                         </div>
-                        <div>
-                            <p hidden class="mt-1">
-                                Total Sale:  &#8369; <span id="total-sale"></span>
-                            </p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -142,26 +137,6 @@
         $('#end').val('');
         table.draw();
     }); 
- 
-    $('#start, #end').change(function() {
-        setSale();
-    })
-
-    function setSale() {
-        var startDate = $('#start').val();
-        var endDate = $('#end').val();
-        $.ajax({
-            url: '?admin_rq=total_sale',
-            method: 'POST',
-            data: {
-                start_date: startDate,
-                end_date: endDate
-            },
-            success: function(resp) {
-                $('#total-sale').text(resp);
-            }
-        });
-    } setSale(); 
 
     $('.payment-stats').change(function() {
         var id = $(this).data('row-data');

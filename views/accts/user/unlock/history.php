@@ -24,7 +24,7 @@
                     </thead>
                     <tbody id="tbody">
                         <?php
-                        $query = "SELECT ap.id AS app_id, ap.*, cl.*, cs.*, sv.*, bh.*
+                        $query = "SELECT ap.id AS app_id, ap.created_at as appointment_created_at, ap.*, cl.*, cs.*, sv.*, bh.*
                                     FROM appointments ap
                                     JOIN users cl ON cl.id = ap.user_id
                                     JOIN cars cs ON cs.id = ap.car_id
@@ -46,7 +46,7 @@
                                         <?= $appointment['payment_status'] ?>
                                     </span> 
                                 </td>
-                                <td class="text-sm"><?= date('F d, Y', strtotime($appointment['created_at'])) ?></td>
+                                <td class="text-sm"><?= date('F d, Y', strtotime($appointment['appointment_created_at'])) ?></td>
                                 <td class="flex justify-center">
                                     <button data-row-data="<?= $appointment['app_id'] ?>" data-modal-target="view-summary" data-modal-toggle="view-summary" class="book-summary-btn btn shadow-inner shadow-zinc-400 rounded-full p-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

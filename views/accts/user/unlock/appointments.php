@@ -24,7 +24,7 @@
                     </thead>
                     <tbody id="tbody">
                         <?php
-                        $query = "SELECT ap.id as app_id, ap.*, cs.*, sv.*, bh.*
+                        $query = "SELECT ap.id as app_id, ap.created_at as appointment_created_at, ap.*, cs.*, sv.*, bh.*
                                 FROM appointments ap 
                                     JOIN cars cs ON ap.car_id = cs.id
                                     JOIN services sv ON sv.id = ap.service_type_id
@@ -48,7 +48,7 @@
                                         <?= $appointment['appointment_status'] ?>
                                     </span>
                                 </td>
-                                <td class="text-sm"><?= date('F d, Y', strtotime($appointment['created_at'])) ?></td>
+                                <td class="text-sm"><?= date('F d, Y', strtotime($appointment['appointment_created_at'])) ?></td>
                                 <td class="flex gap-x-2 justify-center text-sm"> 
                                     <?php if ($appointment['appointment_status'] !== 'Cancelled') { ?>
                                     <button data-row-data="<?= $appointment['app_id'] ?>" class="cancel-btn font-semibold bg-red-500 hover:bg-red-700 text-white px-2 rounded shadow-md">
