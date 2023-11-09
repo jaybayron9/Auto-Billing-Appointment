@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2023 at 09:27 AM
+-- Generation Time: Nov 09, 2023 at 04:03 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -72,13 +72,6 @@ CREATE TABLE `appointments` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dumping data for table `appointments`
---
-
-INSERT INTO `appointments` (`id`, `user_id`, `car_id`, `book_summary_id`, `assigned_employee_id`, `service_type_id`, `note`, `schedule_date`, `service_time_id`, `appointment_status`, `payment_status`, `created_at`, `updated_at`) VALUES
-(14, '15', '64', '14', '9, ', '2', '', '2023-11-03', '2', 'Confirmed', 'Paid', '2023-10-27 17:08:29', '2023-11-02 08:01:45');
-
 -- --------------------------------------------------------
 
 --
@@ -145,6 +138,14 @@ CREATE TABLE `cars` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `cars`
+--
+
+INSERT INTO `cars` (`id`, `user_id`, `plate_no`, `car_brand`, `car_model`, `car_type`, `fuel_type`, `color`, `trans_type`, `created_at`, `updated_at`) VALUES
+(66, '16', 'asd 2123', 'Deleniti nulla sunt natus eaque omnis molestiae eu', 'Sit placeat quae fugiat sunt', 'Coupe', 'Gas', 'Autem temporibus recusandae Quia corrupti et', 'Manual', '2023-11-06 15:13:06', '2023-11-06 15:13:06'),
+(67, '17', 'asd 1232', 'asdasd', 'wqe', 'Sports car', 'Diesel', 'red', 'Manual', '2023-11-07 15:47:41', '2023-11-07 15:47:41');
 
 -- --------------------------------------------------------
 
@@ -227,7 +228,7 @@ INSERT INTO `estimator` (`id`, `car_type`, `service`, `name`, `price`, `inclusio
 --
 
 CREATE TABLE `payments` (
-  `id` int(10) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `appointment_id` varchar(11) DEFAULT NULL,
   `name` varchar(250) DEFAULT NULL,
   `email` varchar(250) DEFAULT NULL,
@@ -387,6 +388,12 @@ ALTER TABLE `estimator`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `services`
 --
 ALTER TABLE `services`
@@ -426,13 +433,13 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `booking_summary`
 --
 ALTER TABLE `booking_summary`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `bussiness_hours`
@@ -444,19 +451,25 @@ ALTER TABLE `bussiness_hours`
 -- AUTO_INCREMENT for table `cars`
 --
 ALTER TABLE `cars`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `convo`
 --
 ALTER TABLE `convo`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1084;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `estimator`
 --
 ALTER TABLE `estimator`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
+-- AUTO_INCREMENT for table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `services`
@@ -468,19 +481,19 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT for table `supports`
 --
 ALTER TABLE `supports`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `walkin`
 --
 ALTER TABLE `walkin`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

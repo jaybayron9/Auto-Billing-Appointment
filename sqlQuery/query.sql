@@ -85,6 +85,7 @@ CREATE TABLE booking_summary (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()
 );     
+drop table `booking_summary`;
 
 CREATE TABLE bussiness_hours(
     id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -108,6 +109,7 @@ CREATE TABLE appointments (
     created_at timestamp NOT NULL DEFAULT current_timestamp(),
     updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 );    
+drop table `appointments`;
 
 
 create table services (
@@ -134,6 +136,7 @@ CREATE TABLE walkin (
     created_at timestamp NOT NULL DEFAULT current_timestamp(),
     updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 );   
+drop table `walkin`;
 
 
 CREATE TABLE convo (
@@ -144,9 +147,10 @@ CREATE TABLE convo (
     created_at timestamp NOT NULL DEFAULT current_timestamp(),
     updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 );
+drop table convo;
 
-CREATE TABLE `payments` (
-    id int(10) NOT NULL,
+CREATE TABLE payments (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
     appointment_id varchar(11) DEFAULT NULL,
     name varchar(250) DEFAULT NULL,
     email varchar(250) DEFAULT NULL,
