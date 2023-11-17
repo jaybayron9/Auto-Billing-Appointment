@@ -10,10 +10,20 @@
 <main id="main-content" class="relative h-full overflow-y-auto lg:ml-64 dark:bg-gray-900">
     <div class="px-4 h-full my-[80px]">
         <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white"> 
-            <div>
+            <div class="flex gap-4 mb-4"> 
+                <div class="flex items-center -ml-2 sm:ml-0">
+                    <span class="mx-1 text-gray-500">From</span>
+                    <div class="relative">
+                        <input name="start" type="date" id="start" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" placeholder="Select date start">
+                    </div>
+                    <span class="mx-1 text-gray-500">To</span>
+                    <div class="relative">
+                        <input name="end" type="date" id="end" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" placeholder="Select date end">
+                    </div>
+                </div>
                 <p class="mt-1">
-                    Total Sale:  &#8369; <span id="total-sale"></span>
-                </p>
+                    Total Sales:  &#8369; <span id="total-sale"></span>
+                </p> 
             </div>
             <div class="overflow-x-auto overflow-y-auto p-1" style=" max-height: 700px;">
                 <table id="table" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
@@ -23,7 +33,6 @@
                             <th data-priority="3" class="whitespace-nowrap text-center text-xs uppercase text-white">Service</th>
                             <th data-priority="4" class="whitespace-nowrap text-center text-xs uppercase text-white">Date Scheduled</th>
                             <th data-priority="5" class="whitespace-nowrap text-center text-xs uppercase text-white">Service Time</th>
-                            <!-- <th data-priority="6" class="whitespace-nowrap text-center text-xs uppercase text-white">Payment Status</th> -->
                             <th data-priority="7" class="whitespace-nowrap text-xs text-center uppercase text-white">Date Created</th>
                             <th data-priority="2" data-orderable="false" class="whitespace-nowrap text-xs text-center uppercase text-white"></th>
                         </tr>
@@ -44,12 +53,7 @@
                                 <td class="text-sm"><?= $app['plate_no'] ?></td>
                                 <td class="text-sm"><?= $app['category'] ?></td> 
                                 <td class="text-sm"><?= date('F d, Y', strtotime($app['schedule_date'])) ?></td>
-                                <td class="text-sm"><?= $app['available_time'] ?></td>
-                                <!-- <td class="text-sm text-center">
-                                    <span class="text-white rounded-md px-2 <?= $app['payment_status'] == 'Unpaid' ? 'bg-gray-500' : 'bg-green-500';  ?>">
-                                        <?= $app['payment_status'] ?>
-                                    </span> 
-                                </td> -->
+                                <td class="text-sm"><?= $app['available_time'] ?></td> 
                                 <td class="text-sm"><?= date('F d, Y', strtotime($app['appointment_created_at'])) ?></td>
                                 <td class="flex justify-center">
                                     <button data-row-data="<?= $app['app_id'] ?>" data-modal-target="view-summary" data-modal-toggle="view-summary" class="book-summary-btn btn shadow-inner shadow-zinc-400 rounded-full p-1">
@@ -74,12 +78,7 @@
                                 <td class="text-sm"><?= $app['plate_no'] ?></td>
                                 <td class="text-sm"><?= $app['category'] ?></td> 
                                 <td class="text-sm"><?= date('F d, Y', strtotime($app['schedule_date'])) ?></td>
-                                <td class="text-sm"><?= $app['available_time'] ?></td>
-                                <!-- <td class="text-sm text-center">
-                                    <span class="text-white rounded-md px-2 <?= $app['payment_status'] == 'Unpaid' ? 'bg-gray-500' : 'bg-green-500';  ?>">
-                                        <?= $app['payment_status'] ?>
-                                    </span> 
-                                </td> -->
+                                <td class="text-sm"><?= $app['available_time'] ?></td> 
                                 <td class="text-sm"><?= date('F d, Y', strtotime($app['walkin_created_at'])) ?></td>
                                 <td class="flex justify-center">
                                     
@@ -224,13 +223,29 @@
                 $('#book-summary').hide();
             });
         }
-    }).columns.adjust().responsive.recalc(); 
+    }).columns.adjust().responsive.recalc();  
 
     $.ajax({
         url: '?admin_rq=total_sale',
         method: 'GET', 
         success: function(res) {  
-            $('#total-sale').text(res.total);
+            $('#total-sale').html(res.total);
         }
     }); 
+
+    $('#start, #end').on('change', function(){ 
+        $.ajax({
+            type: "POST",
+            url: "?admin_rq=range_total_sale",
+            data: {
+                start_date: $('#start').val(),
+                end_date: $('#end').val()
+            },
+            dataType: "json",
+            success: (res) => {
+                console.log(res)
+                $('#total-sale').html(res.total);
+            }
+        });
+    });
 </script>

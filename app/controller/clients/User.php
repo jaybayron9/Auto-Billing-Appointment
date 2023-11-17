@@ -5,13 +5,14 @@ namespace userData;
 use DBConn\DBConn;
 
 class User extends DBConn {
-    public function book_appointment() { 
+    public function book_appointment() {
         DBConn::insert('appointments', [
             'user_id' => $_POST['user_id'],
             'car_id' => $_POST['car_id'], 
             'service_type_id' => $_POST['service'],
             'schedule_date' => $_POST['schedule_date'], 
-            'service_time_id' => $_POST['time'],   
+            'service_time_id' => $_POST['time']
+            // 'pms_package' => isset($_POST['pms']) ? implode(', ', $_POST['pms']) : 0
         ]); 
 
         $app_id = DBConn::select('appointments', 'id', [
@@ -107,5 +108,30 @@ class User extends DBConn {
         parent::delete('cars', ['id' => $id], 1); 
         $_SESSION['alert'] = 'Car successfully removed.';
         header("Location: " . $_SERVER['HTTP_REFERER']);
+    }
+
+    public function show_service_package() {
+        header('Content-Type: application/json');
+        $id = $_GET['id'];
+
+        $estimator = DBConn::select('estimator', '*', ['id' => $id]);
+        $inclusions = array_filter(explode(',', $estimator[0]['inclusions']));
+
+        return json_encode([ 
+            'estimator' => $estimator, 
+            'inclusions' => $inclusions
+        ]);
+    }
+
+    public function show_pms_package() { 
+        $cars = DBConn::select('cars', '*', ['id' => $_POST['car_id']]);   
+
+        $package = ($cars[0]['fuel_type'] == 'Diesel') 
+            ? DBConn::select('estimator', 'name, price, mileage', ['car_type' => 2, 'service' => 1])
+            : DBConn::select('estimator', 'name, price, mileage', ['car_type' => 1, 'service' => 1]); 
+        
+        return json_encode([
+            'package' => $package
+        ]);
     }
 }

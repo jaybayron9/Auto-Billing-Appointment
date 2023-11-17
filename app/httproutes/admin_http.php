@@ -15,6 +15,7 @@ $admin_response = [
     'set_employee_coe' => ['obj'=> new Admin(), 'method' => 'set_employee_coe'],  
     'coe' => ['obj'=> new PDF(), 'method' => 'coe'],  
     'total_sale' => ['obj'=> new Admin(), 'method' => 'total_sale'],  
+    'range_total_sale' => ['obj'=> new Admin(), 'method' => 'range_total_sale'],  
     'add_product' => ['obj'=> new Admin(), 'method' => 'add_product'],  
     'remove_product' => ['obj' => new Admin(), 'method' => 'remove_product'],
     'get_product' => ['obj' => new Admin(), 'method' => 'get_product'],

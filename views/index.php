@@ -54,33 +54,33 @@ use DBConn\DBConn;
             <div class="grid gap-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6">
                 <?php foreach(DBConn::select('estimator') as $item) {  ?>
                     <?php if ($item['service'] == '1') { ?>
-                        <div class="pms filter-element hover:cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-md shadow text-center text-gray-500 dark:text-gray-400 p-2">
+                        <button type="button" data-row-data="<?= $item['id'] ?>" data-modal-target="package-form" data-modal-toggle="package-form" class="pms filter-element service-btn hover:bg-gray-200 border border-gray-300 rounded-md shadow text-center text-gray-500 dark:text-gray-400 p-2">
                             <img class="mx-auto mb-4 w-20 h-20 rounded-md" src="assets/storage/pms/Oil-change.png" alt="pms">
                             <h3 class="mb-1 text-base font-bold tracking-tight text-gray-900 dark:text-white">
                                 <?= $item['name'] ?>
                             </h3>
-                        </div>
+                        </button>
                     <?php } else if ($item['service'] == '2') { ?>
-                        <div class="ps filter-element hover:cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-md shadow text-center text-gray-500 dark:text-gray-400 p-2">
+                        <button type="button" data-row-data="<?= $item['id'] ?>" data-modal-target="package-form" data-modal-toggle="package-form" class="ps filter-element service-btn hover:bg-gray-200 border border-gray-300 rounded-md shadow text-center text-gray-500 dark:text-gray-400 p-2">
                             <img class="mx-auto mb-4 w-20 h-20 rounded-md" src="assets/storage/pms/Oil-change.png" alt="pms">
                             <h3 class="mb-1 text-base font-bold tracking-tight text-gray-900 dark:text-white">
                                 <?= $item['name'] ?>
                             </h3>
-                        </div>
+                        </button>
                     <?php } else if ($item['service'] == '3') { ?> 
-                        <div class="ac filter-element hover:cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-md shadow text-center text-gray-500 dark:text-gray-400 p-2">
+                        <button type="button" data-row-data="<?= $item['id'] ?>" data-modal-target="package-form" data-modal-toggle="package-form" class="ac filter-element service-btn hover:bg-gray-200 border border-gray-300 rounded-md shadow text-center text-gray-500 dark:text-gray-400 p-2">
                             <img class="mx-auto mb-4 w-20 h-20 rounded-md" src="assets/storage/pms/Oil-change.png" alt="pms">
                             <h3 class="mb-1 text-base font-bold tracking-tight text-gray-900 dark:text-white">
                                 <?= $item['name'] ?>
                             </h3>
-                        </div>
+                        </button>
                         <?php } else if ($item['service'] == '4') { ?> 
-                        <div class="twc filter-element hover:cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-md shadow text-center text-gray-500 dark:text-gray-400 p-2">
+                        <button type="button" data-row-data="<?= $item['id'] ?>" data-modal-target="package-form" data-modal-toggle="package-form" class="twc filter-element service-btn hover:bg-gray-200 border border-gray-300 rounded-md shadow text-center text-gray-500 dark:text-gray-400 p-2">
                             <img class="mx-auto mb-4 w-20 h-20 rounded-md" src="assets/storage/pms/Oil-change.png" alt="pms">
                             <h3 class="mb-1 text-base font-bold tracking-tight text-gray-900 dark:text-white">
                                 <?= $item['name'] ?>
                             </h3>
-                        </div>
+                        </button>
                     <?php } ?> 
                 <?php } ?>
             </div>
@@ -220,7 +220,7 @@ use DBConn\DBConn;
                 </div>
             </div>
         </div>
-    </section>
+    </section> 
 </main>
 
 <footer>
@@ -233,6 +233,33 @@ use DBConn\DBConn;
     </div>
 </footer> 
 
+<div id="package-form" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full"> 
+        <div class="relative bg-white rounded-lg shadow"> 
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                <h3 class="text-xl font-semibold text-gray-900">
+                    Package
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="package-form">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div> 
+            <div class="p-4 md:p-5 space-y-4"> 
+                <div id="inclusions-container" class="grid grid-cols-3 gap-y-2 mb-4">  
+                </div> 
+                <div class="flex gap-5">
+                    <p>Price: ₱<span id="price" class="font-semibold"></span></p>
+                    <p>Quantity: <span id="quantity" class="font-semibold"></span></p>
+                    <p>Recommended: <span id="mileage" class="font-semibold"></span></p>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div> 
+
 <script type="text/javascript">
     $('.filter-btn').click(function() {
         const target = $(this).data('target');
@@ -241,9 +268,31 @@ use DBConn\DBConn;
         } else {
             $('.filter-element').hide();
             $(`.${target}`).show();
-        }
+        }  
 
         $('.filter-btn').removeClass('bg-blue-500 text-white'); 
         $(this).addClass('bg-blue-500 text-white');
+    });
+
+    $('.service-btn').click(function() {
+        const id = $(this).data('row-data');
+        $.get(`?user_rq=show_service_package&id=${id}`, (res) => {
+            console.log(res);
+            const container =  $('#inclusions-container');
+            container.empty();
+            for (let i = 0; i < res.inclusions.length; i++) {
+                const package = res.inclusions[i]; 
+                const packages = $('<p>').html(`
+                        <span class="bg-green-100 rounded-full text-sm px-[0.5px] py-[1px]">✔</span>
+                        <label class="text-sm">${package}</label>
+                    `);
+
+                    container.append(packages);
+            }
+
+            $('#price').text(res.estimator[0].price);
+            $('#quantity').text(res.estimator[0].quantity)
+            $('#mileage').text(res.estimator[0].mileage)
+        });
     });
 </script>

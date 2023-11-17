@@ -10,6 +10,8 @@ $user_response = [
     'show_mycar' => ['obj' => new User(), 'method' => 'show_mycar'], 
     'update_mycar' => ['obj' => new User(), 'method' => 'update_mycar'], 
     'delete_mycar' => ['obj' => new User(), 'method' => 'delete_mycar'],
+    'show_service_package' => ['obj' => new User(), 'method' => 'show_service_package'],
+    'show_pms_package' => ['obj' => new User(), 'method' => 'show_pms_package']
 ]; 
 
 HTTPR(strtolower($_GET['user_rq'] ?? ''), $user_response);

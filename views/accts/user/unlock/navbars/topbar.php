@@ -90,7 +90,7 @@ $user_info = DBConn::select('users', '*', [
                     <div class="grid gap-4 mb-4">
                         <div>
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your car(s)</label>
-                            <select name="car_id" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                            <select name="car_id" id="car-id" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                                 <?php foreach (DBConn::select('cars', '*', ['user_id' => $_SESSION['user_id']]) as $item) { ?>
                                     <option value="<?= $item['id'] ?>"><?= $item['plate_no'] ?></option>
                                 <?php } ?>
@@ -98,13 +98,20 @@ $user_info = DBConn::select('users', '*', [
                         </div>
                         <div>
                             <label for="service" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Service</label>
-                            <select name="service" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                                <option value="" hidden></option>
-                                <option value="" disabled>-- Select a service --</option>
+                            <select name="service" id="service-select" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                <option value="" selected disabled>Select service</option>
                                 <?php foreach (DBConn::select('services') as $item) { ?>
                                     <option value="<?= $item['id'] ?>"><?= $item['category'] ?></option>
                                 <?php } ?>
                             </select>
+                        </div>
+                        <div id="pms-container" class="hidden">
+                            <div class="flex justify-between">
+                                <label for="service" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PMS Package</label>
+                                <button type="button" id="hide-pmslist" class="px-4 bg-gray-200 border border-gray-300 rounded-md text-sm">Hide</button>
+                            </div>
+                            <div id="pms-list">
+                            </div>
                         </div>
                         <div>
                             <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Schedule Date</label>
@@ -113,8 +120,7 @@ $user_info = DBConn::select('users', '*', [
                         <div>
                             <label for="service_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Service Time</label>
                             <select name="time" id="time" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                                <option value="" hidden></option>
-                                <option value="" disabled>-- Select a time --</option>
+                                <option value="" selected disabled>Select time</option>
                                 <?php
                                 foreach (DBConn::select('bussiness_hours') as $buss) {
                                     echo "<option value='{$buss['id']}'>{$buss['available_time']}</option>";
@@ -141,11 +147,51 @@ $user_info = DBConn::select('users', '*', [
             type: "POST",
             data: $(this).serialize(),
             dataType: 'json',
-            success: function(resp) {
+            success: function(res) { 
                 window.location.replace('?vs=appointments');
             }
         });
-    }); 
+    });
+
+    function show_pms_package() {
+        $.post("?user_rq=show_pms_package", {
+            car_id: $('#car-id').val()
+        }, (res) => {
+            console.log(res)
+            let html = '';
+            for (let i = 0; i < res.package.length; i++) { 
+                html += `<div class="flex items-center mb-4">`
+                html +=    `<label class="ms-2 text-xs text-gray-900 capitalize">${res.package[i].name}mileage · <spa class="font-semibold">${res.package[i].mileage}</spa></label>`
+                html += `</div>`
+    
+                $('#pms-list').html(html);
+            } 
+        }, "json");
+    } show_pms_package();
+
+    $('#car-id').change(function() {
+        $('#pms-list').empty()
+        show_pms_package();
+    });
+
+    $('#hide-pmslist').click(function() {
+        $('#pms-list').toggle();
+
+        if ($(this).text() == 'Hide') {
+            $(this).text('Show')
+        } else {
+            $(this).text('Hide')
+        }
+    })
+
+    $('#service-select').change(function() {
+        const service = $(this).val(); 
+        if (service == 2) {
+            $('#pms-container').removeClass("hidden");
+        } else {
+            $('#pms-container').addClass("hidden")
+        }
+    });
 
     $('#create-appointment').click(() => {
         $('#appointment-modal').show();

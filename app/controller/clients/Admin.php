@@ -179,10 +179,38 @@ class Admin extends DBConn {
     public function total_sale() {
         $payments = DBConn::select('payments', 'SUM(total_due) as total');
         $payment_slip = DBConn::DBQuery("
-        SELECT SUM(sl.total) as total FROM `booking_summary` sl LEFT JOIN `appointments` ap ON sl.id = `appointment_id` WHERE `payment_status` = 'Paid'
-        "); 
-        $total = $payments[0]['total'] + $payment_slip[0]['total'];
+            SELECT SUM(sl.total) as total 
+            FROM `booking_summary` sl 
+            LEFT JOIN `appointments` ap ON sl.id = `appointment_id` 
+            WHERE `payment_status` = 'Paid'
+        ");
+
+        $total = (int)$payments[0]['total'] + (int)$payment_slip[0]['total'];
         header("Content-Type: application/json");
+        return json_encode(['total' => $total]);
+    }
+
+    public function range_total_sale() { 
+        $start_date = $_POST['start_date'];
+        $end_date = $_POST['end_date'];
+
+        $payments = DBConn::DBQuery("
+            SELECT SUM(total_due) as total
+            FROM payments
+            WHERE DATE(created_at)
+            BETWEEN '{$start_date}' AND '{$end_date}'
+        ");
+
+        $booking_summary = DBConn::DBQuery("
+            SELECT SUM(sl.total) as total 
+            FROM `booking_summary` sl 
+            LEFT JOIN `appointments` ap ON sl.id = `appointment_id` 
+            WHERE DATE(sl.created_at) BETWEEN '{$start_date}' AND '{$end_date}' AND
+                `payment_status` = 'Paid'
+        ");
+
+        $total = (int)$payments[0]['total'] + (int)$booking_summary[0]['total'];
+
         return json_encode(['total' => $total]);
     }
 

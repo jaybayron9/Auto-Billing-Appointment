@@ -1,3 +1,4 @@
+-- Active: 1666468590274@@127.0.0.1@3306@cjce
 CREATE TABLE admins (
     id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name varchar(255) DEFAULT NULL,
@@ -63,15 +64,19 @@ drop table admins;
 
 CREATE TABLE estimator (
     id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    car_type VARCHAR(50),
-    service VARCHAR(100),
-    name VARCHAR(100),
-    price VARCHAR(50),
-    inclusions VARCHAR(100),
-    img BLOB, 
+    car_type VARCHAR(50) DEFAULT NULL,
+    service VARCHAR(100) DEFAULT NULL,
+    name VARCHAR(100) DEFAULT NULL,
+    mileage VARCHAR(100) DEFAULT NULL,
+    price VARCHAR(50) DEFAULT NULL,
+    quantity VARCHAR(50) DEFAULT NULL,
+    inclusions VARCHAR(100) DEFAULT NULL,
+    img BLOB DEFAULT NULL, 
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()
 ); 
+
+drop table `estimator`;
 
 CREATE TABLE booking_summary (
     id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -101,7 +106,8 @@ CREATE TABLE appointments (
     book_summary_id VARCHAR(11) DEFAULT NULL,
     assigned_employee_id VARCHAR(11) DEFAULT NULL,
     service_type_id varchar(20) DEFAULT NULL,
-    note varchar(250) NOT NULL,
+    note varchar(250) DEFAULT NULL,
+    pms_package VARCHAR(250) DEFAULT NULL,
     schedule_date varchar(30) DEFAULT NULL,
     service_time_id varchar(30) DEFAULT NULL,
     appointment_status varchar(20) DEFAULT 'Pending',
